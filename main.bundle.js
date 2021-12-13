@@ -227,7 +227,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"Espace personnel MAIF","version":"1.31.20","name_prefix":"","slug":"maif","registry_namespace":"maif","icon":"icon-banks.svg","description":"The banking application for Cozy","category":"cozy","licence":"AGPL-3.0","source":"git://github.com/cozy/cozy-banks.git","type":"webapp","developer":{"name":"Cozy Cloud","url":"https://cozy.io"},"default_locale":"en","locales":{"en":{"short_description":"Cozy Banks is the personal financial management application available on Cozy.","long_description":"Cozy Banks is the all-in-one personal data banking application to manage and control your money\nAll Cozy Banks is free\n- Automatic categorisation of your transactions\n- Simple graph to balances follow-up (New)\n- Smart notifications (New)\n- Multi-bank synchronisation\n- Personal Financial Management\n- Unlimited historic\n- Privacy by design application: 100% control of your personal finances\n\nMAIN FEATURES FOR MORE CONTROL AND SERVICES\n- Detailed overview of your finances\nYour transactions are automatically categorised and even more as you can re-categorise if need be. In-depth understand of your finances with smart graphs\n- All your bank accounts in one place - even different banks\nUnlimited history for all your transactions.\nReal difference with your actuel bank application.\n\nCheck out the list of 25+ banks and account types available in your Cozy:\nAxa Banque, Banque Populaire, BforBank, BNP Paribas, Boursorama, Bred, Carrefour Banque, Caisse d’Epargne, Casden, CIC, Crédit Agricole, Crédit Coopératif, Crédit Maritime, Crédit Mutuel, Crédit du Nord & banques du groupe, Crédit Mutuel, Fortuneo, HelloBank!, HSBC, ING Direct, LCL, Monabanq, La Banque Postale, Société Générale, Société Marseillaise de Crédit\n- One-click follow up of your health expenses\nCheck out directly in one place all your health expenses and be notified in real-time once reimbursed\n- Smart notifications\nCozy Banks warns you when something important occurs on your bank accounts\n- Magic link between your bills and expenses\nCozy Banks imports and associates automatically your bills to your expenses.\nAWARDS\n- Award-Winning Innovation Grand Prix - Ville de Paris 2018\n- Best Secure Data Service - Disruptive Night - 2018\n- Finance Innovation Label - 2018\nSAFE AND SECURE\n- Encrypted storage, connections and credentials\n- Two-factor authentication\n- Hosting in France \n- User is king\n- Using technology of our provider Budget Insight\n- Open source\n- Decentralized model in opposition to the current GAFA model\n- Cozy Cloud is a French company\nMore information available on https://help.cozy.io/article/268-all-my-data-in-a-secure-place","changes":""},"fr":{"short_description":"Cozy Banks est l’application gratuite et sécurisée pour gérer votre argent et tous vos comptes bancaires.","long_description":"Avec Cozy Banks, vous pouvez facilement :\n- Regrouper tous vos comptes même issus de banques différentes\n- Catégoriser automatiquement vos dépenses : revenus, loisirs, santé, logement... avec la possibilité de re-catégoriser si nécessaire\n- Suivre l’évolution des soldes de vos différents comptes bancaires (Nouveauté)\n- Paramétrer vos alertes en temps réel en cas de risque de solde négatif ou entrée d’argent importante\n- Accéder à une vision d’ensemble de toutes vos dépenses\n- Accéder directement aux factures des services que vous avez payés grâce à l’importation automatique des données par les connecteurs\n- Suivre vos dépenses et remboursements de santé entre vos différents services et pour tous les membres de la famille\n\nNOS RÉCOMPENSES & PRIX\n- Lauréat Grand Prix de l’Innovation - Catégorie Moonshot 2040 - Ville de Paris - 2018\n- Lauréat d’Or “Sécurité des données” - Disruptive Night - 2018\n- Label Finance Innovation - 2018\n\nNOS ENGAGEMENTS & GARANTIES DE SÉCURITÉ\n- Chiffrement des données stockées, connexions et identifiants\n- Isolation des rôles côté serveur\n- Authentification en deux étapes\n- Hébergement en France\n- Utilisateur comme client-roi\n- Solution open-source\n- Modèle décentralisé en rupture avec le modèle économique actuel des GAFA\n- Cozy Banks est développé par Cozy Cloud, entreprise française dont les serveurs sont situés en France\n- Pour plus d'informations sur la sécurité : https://support.cozy.io/category/5-securite\n\nL'application Cozy Banks est connectée à plus de 100 institutions financières : Caisse d’Epargne, Crédit Agricole, Société Générale, Boursorama, Crédit Mutuel, La Banque Postale, LCL, Banque Populaire, HSBC, Axa Banque, Bred, CIC, BforBank, Hello Bank, Fortuneo Banque, ING Direct, Monabanq, Barclays, BNP Paribas...","changes":""}},"langs":["en","fr"],"screenshots":["screenshots/fr/screenshot1.png","screenshots/fr/screenshot2.png","screenshots/fr/screenshot3.png","screenshots/fr/screenshot4.png","screenshots/fr/screenshot5.png"],"platforms":[{"type":"ios","url":"https://itunes.apple.com/us/app/cozy-banks/id1349814380"},{"type":"android","url":"https://play.google.com/store/apps/details?id=io.cozy.banks.mobile"}],"editor":"Cozy","tags":["bank","banks","money","account"],"routes":{"/":{"folder":"/","index":"index.html","public":false},"/public":{"folder":"/public","public":true}},"services":{"onOperationOrBillCreate":{"type":"node","file":"onOperationOrBillCreate.js","trigger":"@event io.cozy.bills:CREATED","debounce":"75s"},"categorization":{"type":"node","file":"categorization.js","comment":"This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."},"stats":{"type":"node","file":"stats.js","trigger":"@event io.cozy.bank.operations:CREATED,UPDATED","debounce":"1m"},"recurrence":{"type":"node","file":"recurrence.js","trigger":"@event io.cozy.bank.operations:CREATED,UPDATED","debounce":"1m"},"autogroups":{"type":"node","file":"autogroups.js","trigger":"@event io.cozy.bank.accounts:CREATED","debounce":"5s"},"budgetAlerts":{"type":"node","file":"budgetAlerts.js","comment":"Service is run inside onOperationOrBillCreate. The service described here is for diagnosis/debug."},"linkMyselfToAccounts":{"type":"node","file":"linkMyselfToAccounts.js","trigger":"@event io.cozy.bank.accounts:CREATED","debounce":"5s"},"konnectorAlerts":{"type":"node","file":"konnectorAlerts.js","trigger":"@event io.cozy.jobs:UPDATED:konnector:worker","debounce":"60s"}},"notifications":{"balance-lower":{"description":"Alert the user when his account balance is lower than a certain value","collapsible":true,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"health-bill-linked":{"description":"Alert the user when a health bill has been linked to a health expense","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"transaction-greater":{"description":"Alert the user when a transaction amount is greater than a certain value","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"late-health-reimbursement":{"description":"Alert the user when a health reimbursement is late","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"delayed-debit":{"description":"Alert the user when an account balance is going to be negative after delayed debit","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"budget-alerts":{"description":"Alert the user when sum of expenses goes higher than defined in settings","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"konnector-alerts":{"description":"Alert the user when a banking konnector fails","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}}},"permissions":{"bank.groups":{"description":"Manage groups of bank accounts","type":"io.cozy.bank.groups","verbs":["GET","POST","PUT","DELETE"]},"bank.accounts":{"description":"Used to list your bank accounts","type":"io.cozy.bank.accounts","verbs":["GET","POST","PUT","DELETE"]},"bank.accounts.stats":{"description":"Used to aggregate stats about bank accounts","type":"io.cozy.bank.accounts.stats","verbs":["GET","POST","PUT","DELETE"]},"bank.operations":{"description":"Used to manage your bank operations","type":"io.cozy.bank.operations","verbs":["GET","POST","PUT","DELETE"]},"bank.settings":{"description":"Used to manage your bank settings","type":"io.cozy.bank.settings","verbs":["GET","POST","PUT"]},"bank.recipients":{"description":"Show recipients of transfers","type":"io.cozy.bank.recipients"},"bank.recurrence":{"description":"Manage your recurring bundles your Cozy","type":"io.cozy.bank.recurrence","verbs":["GET","POST","PUT","DELETE"]},"bills":{"description":"Manage bills","type":"io.cozy.bills","verbs":["GET","POST","PUT","DELETE"]},"notifications":{"description":"Used to send notifications","type":"io.cozy.notifications","verbs":["POST"]},"apps":{"description":"Required to retrieve links to Documents app","type":"io.cozy.apps","verbs":["GET","POST","PUT"]},"triggers":{"description":"Required to run the konnectors and get statuses","type":"io.cozy.triggers","verbs":["GET","POST"]},"settings":{"description":"Required by the cozy-bar to display Claudy and know which applications are coming soon","type":"io.cozy.settings","verbs":["GET"]},"reporting":{"description":"Allow to report unexpected errors to the support team","type":"cc.cozycloud.sentry","verbs":["POST"]},"autocategorization":{"description":"Allow to anonymously send categorized transactions","type":"cc.cozycloud.autocategorization","verbs":["POST"]},"konnectors":{"description":"Required to install and display konnectors","type":"io.cozy.konnectors","verbs":["GET","POST","PUT","DELETE"]},"apps.suggestions":{"description":"Used to suggest which apps / connectors might be useful for the user","type":"io.cozy.apps.suggestions","verbs":["GET","POST","PUT"]},"jobs":{"description":"Required to run the konnectors","type":"io.cozy.jobs","verbs":["GET","POST","PUT"]},"accounts":{"description":"Required to manage accounts associated to konnectors","type":"io.cozy.accounts","verbs":["GET","POST","PUT","DELETE"]},"contacts":{"description":"Required to access contacts","type":"io.cozy.contacts","verbs":["GET","PUT","POST"],"selector":"me"},"identities":{"description":"Used to update the document storing information entered before a transfer","type":"io.cozy.identities","verbs":["GET","PUT","POST"]},"terms":{"description":"Required to install update terms","type":"io.cozy.terms","verbs":["GET","POST","PUT","DELETE"]},"files":{"description":"Required to access folders","type":"io.cozy.files","verbs":["GET","POST","PUT","PATCH","DELETE"]},"permissions":{"description":"Required to run the konnectors","type":"io.cozy.permissions","verbs":["GET","POST","PATCH"]},"create-a-zip-archive":{"description":"Required to create a zip archive inside the cozy","type":"io.cozy.jobs","verbs":["POST"],"selector":"worker","values":["zip"]}}}
+module.exports = {"name":"Espace personnel MAIF","version":"1.34.0","name_prefix":"","slug":"maif","registry_namespace":"maif","icon":"icon-banks.svg","description":"The banking application for Cozy","category":"cozy","licence":"AGPL-3.0","source":"git://github.com/cozy/cozy-banks.git","type":"webapp","developer":{"name":"Cozy Cloud","url":"https://cozy.io"},"default_locale":"en","locales":{"en":{"short_description":"Cozy Banks is the personal financial management application available on Cozy.","long_description":"Cozy Banks is the all-in-one personal data banking application to manage and control your money\nAll Cozy Banks is free\n- Automatic categorisation of your transactions\n- Simple graph to balances follow-up (New)\n- Smart notifications (New)\n- Multi-bank synchronisation\n- Personal Financial Management\n- Unlimited historic\n- Privacy by design application: 100% control of your personal finances\n\nMAIN FEATURES FOR MORE CONTROL AND SERVICES\n- Detailed overview of your finances\nYour transactions are automatically categorised and even more as you can re-categorise if need be. In-depth understand of your finances with smart graphs\n- All your bank accounts in one place - even different banks\nUnlimited history for all your transactions.\nReal difference with your actuel bank application.\n\nCheck out the list of 25+ banks and account types available in your Cozy:\nAxa Banque, Banque Populaire, BforBank, BNP Paribas, Boursorama, Bred, Carrefour Banque, Caisse d’Epargne, Casden, CIC, Crédit Agricole, Crédit Coopératif, Crédit Maritime, Crédit Mutuel, Crédit du Nord & banques du groupe, Crédit Mutuel, Fortuneo, HelloBank!, HSBC, ING Direct, LCL, Monabanq, La Banque Postale, Société Générale, Société Marseillaise de Crédit\n- One-click follow up of your health expenses\nCheck out directly in one place all your health expenses and be notified in real-time once reimbursed\n- Smart notifications\nCozy Banks warns you when something important occurs on your bank accounts\n- Magic link between your bills and expenses\nCozy Banks imports and associates automatically your bills to your expenses.\nAWARDS\n- Award-Winning Innovation Grand Prix - Ville de Paris 2018\n- Best Secure Data Service - Disruptive Night - 2018\n- Finance Innovation Label - 2018\nSAFE AND SECURE\n- Encrypted storage, connections and credentials\n- Two-factor authentication\n- Hosting in France \n- User is king\n- Using technology of our provider Budget Insight\n- Open source\n- Decentralized model in opposition to the current GAFA model\n- Cozy Cloud is a French company\nMore information available on https://help.cozy.io/article/268-all-my-data-in-a-secure-place","changes":""},"fr":{"short_description":"Cozy Banks est l’application gratuite et sécurisée pour gérer votre argent et tous vos comptes bancaires.","long_description":"Avec Cozy Banks, vous pouvez facilement :\n- Regrouper tous vos comptes même issus de banques différentes\n- Catégoriser automatiquement vos dépenses : revenus, loisirs, santé, logement... avec la possibilité de re-catégoriser si nécessaire\n- Suivre l’évolution des soldes de vos différents comptes bancaires (Nouveauté)\n- Paramétrer vos alertes en temps réel en cas de risque de solde négatif ou entrée d’argent importante\n- Accéder à une vision d’ensemble de toutes vos dépenses\n- Accéder directement aux factures des services que vous avez payés grâce à l’importation automatique des données par les connecteurs\n- Suivre vos dépenses et remboursements de santé entre vos différents services et pour tous les membres de la famille\n\nNOS RÉCOMPENSES & PRIX\n- Lauréat Grand Prix de l’Innovation - Catégorie Moonshot 2040 - Ville de Paris - 2018\n- Lauréat d’Or “Sécurité des données” - Disruptive Night - 2018\n- Label Finance Innovation - 2018\n\nNOS ENGAGEMENTS & GARANTIES DE SÉCURITÉ\n- Chiffrement des données stockées, connexions et identifiants\n- Isolation des rôles côté serveur\n- Authentification en deux étapes\n- Hébergement en France\n- Utilisateur comme client-roi\n- Solution open-source\n- Modèle décentralisé en rupture avec le modèle économique actuel des GAFA\n- Cozy Banks est développé par Cozy Cloud, entreprise française dont les serveurs sont situés en France\n- Pour plus d'informations sur la sécurité : https://support.cozy.io/category/5-securite\n\nL'application Cozy Banks est connectée à plus de 100 institutions financières : Caisse d’Epargne, Crédit Agricole, Société Générale, Boursorama, Crédit Mutuel, La Banque Postale, LCL, Banque Populaire, HSBC, Axa Banque, Bred, CIC, BforBank, Hello Bank, Fortuneo Banque, ING Direct, Monabanq, Barclays, BNP Paribas...","changes":""}},"langs":["en","fr"],"screenshots":["screenshots/fr/screenshot1.png","screenshots/fr/screenshot2.png","screenshots/fr/screenshot3.png","screenshots/fr/screenshot4.png","screenshots/fr/screenshot5.png"],"platforms":[{"type":"ios","url":"https://itunes.apple.com/us/app/cozy-banks/id1349814380"},{"type":"android","url":"https://play.google.com/store/apps/details?id=io.cozy.banks.mobile"}],"editor":"Cozy","tags":["bank","banks","money","account"],"routes":{"/":{"folder":"/","index":"index.html","public":false},"/public":{"folder":"/public","public":true}},"services":{"onOperationOrBillCreate":{"type":"node","file":"onOperationOrBillCreate.js","trigger":"@event io.cozy.bills:CREATED","debounce":"75s"},"categorization":{"type":"node","file":"categorization.js","comment":"This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."},"stats":{"type":"node","file":"stats.js","trigger":"@event io.cozy.bank.operations:CREATED,UPDATED","debounce":"1m"},"recurrence":{"type":"node","file":"recurrence.js","trigger":"@event io.cozy.bank.operations:CREATED,UPDATED","debounce":"1m"},"autogroups":{"type":"node","file":"autogroups.js","trigger":"@event io.cozy.bank.accounts:CREATED","debounce":"5s"},"budgetAlerts":{"type":"node","file":"budgetAlerts.js","comment":"Service is run inside onOperationOrBillCreate. The service described here is for diagnosis/debug."},"linkMyselfToAccounts":{"type":"node","file":"linkMyselfToAccounts.js","trigger":"@event io.cozy.bank.accounts:CREATED","debounce":"5s"},"konnectorAlerts":{"type":"node","file":"konnectorAlerts.js","trigger":"@event io.cozy.jobs:UPDATED:konnector:worker","debounce":"60s"}},"notifications":{"balance-lower":{"description":"Alert the user when his account balance is lower than a certain value","collapsible":true,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"health-bill-linked":{"description":"Alert the user when a health bill has been linked to a health expense","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"transaction-greater":{"description":"Alert the user when a transaction amount is greater than a certain value","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"late-health-reimbursement":{"description":"Alert the user when a health reimbursement is late","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"delayed-debit":{"description":"Alert the user when an account balance is going to be negative after delayed debit","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"budget-alerts":{"description":"Alert the user when sum of expenses goes higher than defined in settings","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}},"konnector-alerts":{"description":"Alert the user when a banking konnector fails","collapsible":false,"stateful":false,"multiple":false,"default_priority":"normal","templates":{}}},"permissions":{"bank.groups":{"description":"Manage groups of bank accounts","type":"io.cozy.bank.groups","verbs":["GET","POST","PUT","DELETE"]},"bank.accounts":{"description":"Used to list your bank accounts","type":"io.cozy.bank.accounts","verbs":["GET","POST","PUT","DELETE"]},"bank.accounts.stats":{"description":"Used to aggregate stats about bank accounts","type":"io.cozy.bank.accounts.stats","verbs":["GET","POST","PUT","DELETE"]},"bank.operations":{"description":"Used to manage your bank operations","type":"io.cozy.bank.operations","verbs":["GET","POST","PUT","DELETE"]},"bank.settings":{"description":"Used to manage your bank settings","type":"io.cozy.bank.settings","verbs":["GET","POST","PUT"]},"bank.recipients":{"description":"Show recipients of transfers","type":"io.cozy.bank.recipients"},"bank.recurrence":{"description":"Manage your recurring bundles your Cozy","type":"io.cozy.bank.recurrence","verbs":["GET","POST","PUT","DELETE"]},"bills":{"description":"Manage bills","type":"io.cozy.bills","verbs":["GET","POST","PUT","DELETE"]},"notifications":{"description":"Used to send notifications","type":"io.cozy.notifications","verbs":["POST"]},"apps":{"description":"Required to retrieve links to Documents app","type":"io.cozy.apps","verbs":["GET","POST","PUT"]},"triggers":{"description":"Required to run the konnectors and get statuses","type":"io.cozy.triggers","verbs":["GET","POST"]},"settings":{"description":"Required by the cozy-bar to display Claudy and know which applications are coming soon","type":"io.cozy.settings","verbs":["GET"]},"reporting":{"description":"Allow to report unexpected errors to the support team","type":"cc.cozycloud.sentry","verbs":["POST"]},"autocategorization":{"description":"Allow to anonymously send categorized transactions","type":"cc.cozycloud.autocategorization","verbs":["POST"]},"konnectors":{"description":"Required to install and display konnectors","type":"io.cozy.konnectors","verbs":["GET","POST","PUT","DELETE"]},"apps.suggestions":{"description":"Used to suggest which apps / connectors might be useful for the user","type":"io.cozy.apps.suggestions","verbs":["GET","POST","PUT"]},"jobs":{"description":"Required to run the konnectors","type":"io.cozy.jobs","verbs":["GET","POST","PUT"]},"accounts":{"description":"Required to manage accounts associated to konnectors","type":"io.cozy.accounts","verbs":["GET","POST","PUT","DELETE"]},"contacts":{"description":"Required to access contacts","type":"io.cozy.contacts","verbs":["GET","PUT","POST"],"selector":"me"},"identities":{"description":"Used to update the document storing information entered before a transfer","type":"io.cozy.identities","verbs":["GET","PUT","POST"]},"terms":{"description":"Required to install update terms","type":"io.cozy.terms","verbs":["GET","POST","PUT","DELETE"]},"files":{"description":"Required to access folders","type":"io.cozy.files","verbs":["GET","POST","PUT","PATCH","DELETE"]},"permissions":{"description":"Required to run the konnectors","type":"io.cozy.permissions","verbs":["GET","POST","PATCH"]},"create-a-zip-archive":{"description":"Required to create a zip archive inside the cozy","type":"io.cozy.jobs","verbs":["POST"],"selector":"worker","values":["zip"]}}}
 
 /***/ }),
 
@@ -1264,7 +1264,7 @@ var BarCenterWrapped = function BarCenterWrapped(_ref2) {
 
   if (hasNeedNavHeader) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(BarCenter, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "u-w-100 u-mr-1"
+      className: "u-w-100 u-mh-1"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_BarContextProvider__WEBPACK_IMPORTED_MODULE_6__["default"], {
       client: client,
       store: client.store,
@@ -1307,6 +1307,33 @@ original_banks_components_ErrorBoundary_Error__WEBPACK_IMPORTED_MODULE_0__["Erro
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (original_banks_components_ErrorBoundary_Error__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/Header/Header.jsx":
+/*!****************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/Header/Header.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var original_banks_components_Header_Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/components/Header/Header */ "./src/components/Header/Header.jsx");
+
+/* harmony default export */ __webpack_exports__["default"] = (original_banks_components_Header_Header__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/Header/Header.styl":
+/*!*****************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/Header/Header.styl ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Header--fixed":"Header--fixed--26ohT","HeaderColor_normal":"HeaderColor_normal--3KOyQ","HeaderColor_inverted":"HeaderColor_inverted--3FUgK","Header--paper":"Header--paper--A6SMK"};
 
 /***/ }),
 
@@ -1575,10 +1602,9 @@ function _defineProperty(obj, key, value) {
 
 
 var tabHeight = 30;
+var IPHONE_X_WIDTH = 376;
 
 var commons = function commons(theme) {
-  var _wrapper;
-
   return {
     root: {
       minHeight: tabHeight,
@@ -1590,18 +1616,13 @@ var commons = function commons(theme) {
     textColorInherit: {
       opacity: 1
     },
-    wrapper: (_wrapper = {
+    wrapper: _defineProperty({
       paddingBottom: 3,
-      fontSize: 14
-    }, _defineProperty(_wrapper, theme.breakpoints.down(375), {
-      fontSize: 13
-    }), _defineProperty(_wrapper, theme.breakpoints.down(360), {
+      fontSize: 14,
+      whiteSpace: 'nowrap'
+    }, theme.breakpoints.down(IPHONE_X_WIDTH), {
       fontSize: 12
-    }), _defineProperty(_wrapper, theme.breakpoints.down(340), {
-      fontSize: 11
-    }), _defineProperty(_wrapper, theme.breakpoints.down(320), {
-      fontSize: 10
-    }), _wrapper)
+    })
   };
 };
 
@@ -1851,6 +1872,72 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NavHeader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavHeader */ "../overrides/cozy-banks/src/components/NavHeader/NavHeader.jsx");
 
 /* harmony default export */ __webpack_exports__["default"] = (_NavHeader__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/Padded/Padded.styl":
+/*!*****************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/Padded/Padded.styl ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Padded":"Padded--Hlwba","Unpadded--vertical":"Unpadded--vertical--3D7Mt","Unpadded--horizontal":"Unpadded--horizontal--3yNHP"};
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/Select/index.jsx":
+/*!***************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/Select/index.jsx ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var original_banks_components_Select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/components/Select */ "./src/components/Select/index.jsx");
+
+/* harmony default export */ __webpack_exports__["default"] = (original_banks_components_Select__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/Select/styles.styl":
+/*!*****************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/Select/styles.styl ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Select":"Select--215cQ","Select__Icon":"Select__Icon--YIV0n"};
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx":
+/*!**************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var original_banks_components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
+
+/* harmony default export */ __webpack_exports__["default"] = (original_banks_components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl":
+/*!***************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"SelectDates":"SelectDates--25Har","prev-button":"prev-button--Hl0wb","next-button":"next-button--1OJ6n","SelectDatesColor_default":"SelectDatesColor_default--1g1nk","SelectDates__separator":"SelectDates__separator--3b4VO","SelectDates__chip":"SelectDates__chip--1R4GH","SelectDatesColor_inverted":"SelectDatesColor_inverted--BTjHP","SelectDatesButtonDisabled":"SelectDatesButtonDisabled--nFnBN","SelectDates__Button":"SelectDates__Button--25Axb","SelectDatesButtonColor":"SelectDatesButtonColor--2NXNY","SelectDates__Select":"SelectDates__Select--198Qc","SelectDates__month":"SelectDates__month--ZL64d","SelectDates__DateYearSelector":"SelectDates__DateYearSelector--eyup-","SelectDates__SelectYearContainer":"SelectDates__SelectYearContainer--2dpu3","SelectDates__SelectMonthContainer":"SelectDates__SelectMonthContainer--ETGhA","SelectDates__buttons":"SelectDates__buttons--32pws","SelectDates__Button--disabled":"SelectDates__Button--disabled--Ve6kK"};
 
 /***/ }),
 
@@ -2185,6 +2272,18 @@ original_banks_ducks_balance_HeaderTitle__WEBPACK_IMPORTED_MODULE_0__["default"]
 
 /***/ }),
 
+/***/ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/HelpSpeedDial.styl":
+/*!**********************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/HelpSpeedDial.styl ***!
+  \**********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"HelpSpeedDial__container":"HelpSpeedDial__container--QNt_4","HelpSpeedDial__icon":"HelpSpeedDial__icon--3pkj1","HelpSpeedDial__a":"HelpSpeedDial__a--OEZdj"};
+
+/***/ }),
+
 /***/ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/QuestionBubbleIcon.jsx":
 /*!**************************************************************************************!*\
   !*** ../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/QuestionBubbleIcon.jsx ***!
@@ -2315,12 +2414,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _WarningLightIcon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./WarningLightIcon */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/WarningLightIcon.jsx");
 /* harmony import */ var _material_ui_lab_SpeedDialAction__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/lab/SpeedDialAction */ "../node_modules/@material-ui/lab/esm/SpeedDialAction/index.js");
 /* harmony import */ var _material_ui_lab_SpeedDial__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/lab/SpeedDial */ "../node_modules/@material-ui/lab/esm/SpeedDial/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
-/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lottie-web */ "../node_modules/lottie-web/build/player/lottie.js");
-/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _animation_json__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./animation.json */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/animation.json");
-var _animation_json__WEBPACK_IMPORTED_MODULE_11___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./animation.json */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/animation.json", 1);
-/* harmony import */ var utils_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! utils/constants */ "../overrides/cozy-banks/src/utils/constants.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lottie-web */ "../node_modules/lottie-web/build/player/lottie.js");
+/* harmony import */ var lottie_web__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lottie_web__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _animation_json__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./animation.json */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/animation.json");
+var _animation_json__WEBPACK_IMPORTED_MODULE_10___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./animation.json */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/animation.json", 1);
+/* harmony import */ var utils_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! utils/constants */ "../overrides/cozy-banks/src/utils/constants.js");
+/* harmony import */ var ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/balance/HelpSpeedDial/HelpSpeedDial.styl */ "../overrides/cozy-banks/src/ducks/balance/HelpSpeedDial/HelpSpeedDial.styl");
+/* harmony import */ var ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12__);
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -2418,11 +2518,6 @@ function _setPrototypeOf(o, p) {
 
 
 
-var style = {
-  position: 'fixed',
-  bottom: '4rem',
-  right: '1rem'
-};
 
 var speedDialIcon = function speedDialIcon(Component, size) {
   var Wrapped = function Wrapped() {
@@ -2439,17 +2534,28 @@ var speedDialIcon = function speedDialIcon(Component, size) {
 
 var QuestionBubbleIcon = speedDialIcon(_QuestionBubbleIcon__WEBPACK_IMPORTED_MODULE_5__["default"], 25);
 var WarningLightIcon = speedDialIcon(_WarningLightIcon__WEBPACK_IMPORTED_MODULE_6__["default"], 26);
-var SpeedDial = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_9__["withStyles"])({
-  directionUp: {},
-  // Necessary to have this empty since we use it below
-  actions: {
-    display: 'flex',
-    pointerEvents: 'auto',
-    '&$directionUp': {
-      paddingBottom: 40
+
+var actions = function actions(t) {
+  return [{
+    name: t('HelpSpeedDial.faq'),
+    icon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(QuestionBubbleIcon, null),
+    FabProps: {
+      color: 'secondary',
+      component: 'a',
+      target: '_blank',
+      href: utils_constants__WEBPACK_IMPORTED_MODULE_11__["DEEP_LINK_FAQ"]
     }
-  }
-})(_material_ui_lab_SpeedDial__WEBPACK_IMPORTED_MODULE_8__["default"]);
+  }, {
+    name: t('HelpSpeedDial.help'),
+    icon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WarningLightIcon, null),
+    FabProps: {
+      color: 'secondary',
+      component: 'a',
+      target: '_blank',
+      href: utils_constants__WEBPACK_IMPORTED_MODULE_11__["DEEP_LINK_ASSISTANCE"]
+    }
+  }];
+};
 
 var SpeedDialControlIcon = /*#__PURE__*/function (_React$Component) {
   _inherits(SpeedDialControlIcon, _React$Component);
@@ -2463,9 +2569,9 @@ var SpeedDialControlIcon = /*#__PURE__*/function (_React$Component) {
   _createClass(SpeedDialControlIcon, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.animation = lottie_web__WEBPACK_IMPORTED_MODULE_10___default.a.loadAnimation({
+      this.animation = lottie_web__WEBPACK_IMPORTED_MODULE_9___default.a.loadAnimation({
         container: this.nodeRef,
-        animationData: _animation_json__WEBPACK_IMPORTED_MODULE_11__,
+        animationData: _animation_json__WEBPACK_IMPORTED_MODULE_10__,
         renderer: 'svg',
         loop: false,
         autoplay: false
@@ -2490,10 +2596,7 @@ var SpeedDialControlIcon = /*#__PURE__*/function (_React$Component) {
       var _this = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        style: {
-          width: 32,
-          height: 32
-        },
+        className: ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12___default.a.HelpSpeedDial__icon,
         ref: function ref(_ref) {
           return _this.nodeRef = _ref;
         }
@@ -2523,12 +2626,6 @@ var BalanceSpeedDial_ = /*#__PURE__*/function (_React$Component2) {
     _defineProperty(_assertThisInitialized(_this2), "handleOpen", function () {
       _this2.setState({
         open: true
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this2), "handleToggle", function () {
-      _this2.setState({
-        open: !_this2.state.open
       });
     });
 
@@ -2591,8 +2688,14 @@ var BalanceSpeedDial_ = /*#__PURE__*/function (_React$Component2) {
     value: function handleScroll() {
       var isMobile = this.props.breakpoints.isMobile;
       var scrollingElement = isMobile ? document.scrollingElement : this.scrollListener;
+      var isHidden = scrollingElement.scrollTop !== 0;
+
+      if (isHidden) {
+        this.handleClose();
+      }
+
       this.setState({
-        hidden: scrollingElement.scrollTop !== 0
+        hidden: isHidden
       });
     }
   }, {
@@ -2607,31 +2710,11 @@ var BalanceSpeedDial_ = /*#__PURE__*/function (_React$Component2) {
       var _this$state = this.state,
           hidden = _this$state.hidden,
           open = _this$state.open;
-      var actions = [{
-        name: t('HelpSpeedDial.faq'),
-        icon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(QuestionBubbleIcon, null),
-        FabProps: {
-          color: 'secondary',
-          component: 'a',
-          target: '_blank',
-          href: utils_constants__WEBPACK_IMPORTED_MODULE_12__["DEEP_LINK_FAQ"]
-        }
-      }, {
-        name: t('HelpSpeedDial.help'),
-        icon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WarningLightIcon, null),
-        FabProps: {
-          color: 'secondary',
-          component: 'a',
-          target: '_blank',
-          href: utils_constants__WEBPACK_IMPORTED_MODULE_12__["DEEP_LINK_ASSISTANCE"]
-        }
-      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        style: style,
+        className: ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12___default.a.HelpSpeedDial__container,
         ref: this.handleContainerRef
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SpeedDial, {
-        ariaLabel: "SpeedDial example",
-        className: "",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_lab_SpeedDial__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        ariaLabel: "SpeedDial",
         hidden: hidden,
         icon: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SpeedDialControlIcon, {
           open: open
@@ -2640,12 +2723,16 @@ var BalanceSpeedDial_ = /*#__PURE__*/function (_React$Component2) {
         onOpen: this.handleOpen,
         open: open,
         direction: "up"
-      }, actions.map(function (action) {
+      }, actions(t).map(function (action) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_lab_SpeedDialAction__WEBPACK_IMPORTED_MODULE_7__["default"], {
           tooltipOpen: true,
           key: action.name,
           icon: action.icon,
-          tooltipTitle: action.name,
+          tooltipTitle: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+            className: ducks_balance_HelpSpeedDial_HelpSpeedDial_styl__WEBPACK_IMPORTED_MODULE_12___default.a.HelpSpeedDial__a,
+            href: action.FabProps.href,
+            target: action.FabProps.target
+          }, action.name),
           FabProps: action.FabProps
         });
       })));
@@ -3023,10 +3110,49 @@ original_banks_ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_0__["A
 
 /***/ }),
 
-/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx":
+/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx":
+/*!************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var original_banks_ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-banks/ducks/categories/CategoriesChart */ "./src/ducks/categories/CategoriesChart.jsx");
+
+/* harmony default export */ __webpack_exports__["default"] = (original_banks_ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl":
 /*!*************************************************************************!*\
-  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx ***!
+  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl ***!
   \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"CategoriesChart":"CategoriesChart--3gPiE","inverted":"inverted--3Bdvv","NoAccount":"NoAccount--2inAe","CategoriesChart__FigureBlockContainer":"CategoriesChart__FigureBlockContainer--3qn28","CategoriesChart__FigureBlock":"CategoriesChart__FigureBlock--38mDx","CategoriesChart__Figure":"CategoriesChart__Figure--19lzS"};
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl":
+/*!*******************************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"CategoriesHeader":"CategoriesHeader--121sZ","NoAccount":"NoAccount--mH41C","NoAccount_container":"NoAccount_container--1Gtge","NoAccount_box":"NoAccount_box--1WepA","NoAccount_chart":"NoAccount_chart--3lX7j","SubcategoryChart":"SubcategoryChart--1FvlE","NoAccount_empty":"NoAccount_empty--37b6a","CategoriesHeader__Toggle":"CategoriesHeader__Toggle--3fCfW","normal":"normal--1nmg1","inverted":"inverted--f0dXR"};
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx":
+/*!*******************************************************************************!*\
+  !*** ../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3167,7 +3293,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ducks_categories_CategoryAccountSwitch__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/categories/CategoryAccountSwitch */ "../overrides/cozy-banks/src/ducks/categories/CategoryAccountSwitch.jsx");
 /* harmony import */ var components_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/Title */ "./src/components/Title/index.js");
@@ -3438,7 +3564,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RecurrencesPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RecurrencesPage */ "../overrides/cozy-banks/src/ducks/recurrence/RecurrencesPage.jsx");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecurrencesPage", function() { return _RecurrencesPage__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var original_banks_ducks_recurrence_RecurrencePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! original-banks/ducks/recurrence/RecurrencePage */ "./src/ducks/recurrence/RecurrencePage.jsx");
+/* harmony import */ var original_banks_ducks_recurrence_RecurrencePage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! original-banks/ducks/recurrence/RecurrencePage */ "./src/ducks/recurrence/RecurrencePage/index.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "RecurrencePage", function() { return original_banks_ducks_recurrence_RecurrencePage__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
 /* harmony import */ var original_banks_ducks_recurrence_search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! original-banks/ducks/recurrence/search */ "./src/ducks/recurrence/search.js");
@@ -3653,6 +3779,18 @@ __webpack_require__.r(__webpack_exports__);
 
 original_banks_ducks_settings_Settings__WEBPACK_IMPORTED_MODULE_0__["default"].defaultProps.delayContent = 300;
 /* harmony default export */ __webpack_exports__["default"] = (original_banks_ducks_settings_Settings__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "../overrides/cozy-banks/src/ducks/settings/Settings.styl":
+/*!****************************************************************!*\
+  !*** ../overrides/cozy-banks/src/ducks/settings/Settings.styl ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"Header--fixed":"Header--fixed--3-UtC","HeaderColor_normal":"HeaderColor_normal--rPiCM","HeaderColor_inverted":"HeaderColor_inverted--Lt_3p","Header--paper":"Header--paper--E2JJO","Settings__Content":"Settings__Content--22giP"};
 
 /***/ }),
 
@@ -6987,7 +7125,7 @@ webpackContext.id = "../overrides/cozy-banks/src/locales sync recursive ^\\.\\/.
 /*! exports provided: extra, AccountSettings, Notifications, Transactions, Reimbursements, PersonalInfo, Recurrence, Store, Error, Transfer, HelpSpeedDial, default */
 /***/ (function(module) {
 
-module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnect your account"},"transactions":{"reconnect-nestor-account":{"title":"Reconnection to your bank is necessary","cta":"Reconnect your account","description":"You need to reconnect your bank %{bankName} to your My Budget service for your personal data to be updated."}},"nestor-migration-modal":{"title":"We've fetched all your account data","content":"Connect to each of your banks to reactivate them.","cta":"OK, understood"},"harvest":{"form":{"title":"Connect your %{name} account"},"success":{"folderLinkLabel":"See collected documents","title":"Successful configuration!","message":"Your data will be available in your assistant in a few minutes, and the next ones will follow shortly.","button":{"label":"Go back to my Budget"}}},"configuration":{"title":"Feature preview","credit":"Apply for a loan"}},"AccountSettings":{"confirm-deletion":{"description":"This action will delete your transactions in the MAIF Personal Space app along with the links set up with your bills. Remove your bank synchronisation from the menu, if you do not wish to reimport your banking data at the next scheduled synchronization."}},"Notifications":{"description":"Choose the notifications that you'll receive on your mobile.","health_section":{"description":"This requires to connect your My Budget service to your medical insurance."},"delayed-debit":{"notification":{"title":"My Budget: Outstanding card alert at delayed debit","content":"The outstanding card of the account %{account} generates a negative balance on its associated current account"}},"konnectorAlerts":{"push":{"content-single":"Log in to your My Budget service to solve the problem"}},"if-balance-lower":{"notification":{"one":{"title":"My Budget: Low balance alert","content":"Low balance: %{accountBalance}%{currency}"},"several":{"title":"My Budget: Low balance alert on accounts"}}},"if-transaction-greater":{"notification":{"one":{"title":"My Budget: %{number} Transaction greater than %{threshold}%{currency}"},"several":{"title":"My Budget: %{number} Transactions greater than %{threshold}%{currency}"},"content":"%{transactionName}: %{amount}%{currency}"}},"category-budgets":{"notification":{"one":{"title":"My Budget: Budget alert","content":"Monthly budget of %{amount} %{category} exceeded"},"several":{"title":"My Budget: Budget alert on categories","content":"%{category}"}}}},"Transactions":{"actions":{"informativeModal":{"health":{"description":"Connect your %{brandName} account to your My Budget service to automatically fetch your reimbursements."},"generic":{"description":"Connect your %{brandName} account to your My Budget service to automatically fetch your bills."},"caption":"Your My Budget service is totally private: nobody but you can access its content."}}},"Reimbursements":{"noReimbursed":{"healthExpenses":"Edit your transactions reimbursement status to easily follow your reimbursements."}},"PersonalInfo":{"info":{"description":"To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money."}},"Recurrence":{"no-recurrences":{"text":"Find here the transactions detected as recurring, you can also manually indicate an transaction as recurring. After setting a transaction as recurrent, similar transactions will be detected automatically in the future."}},"Store":{"search-field":{"label":"Search:","placeholder":"Search your bank"},"fetch-error":"Could not load the services from the registry, are you connected to the Internet?","konnector-not-found":"The requested service was not found in the registry.","modal":{"title":"Select your bank"}},"Error":{"contact":"If the problem persist, #{LINK}our FAQ#{/LINK} can maybe help you."},"Transfer":{"user-blocked":{"title":"Transfers blocked","description":"Transfers are blocked on your My Budget service. Please contact the support."}},"HelpSpeedDial":{"faq":"Frequently asked questions","help":"App help"}};
+module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnect your account"},"transactions":{"reconnect-nestor-account":{"title":"Reconnection to your bank is necessary","cta":"Reconnect your account","description":"You need to reconnect your bank %{bankName} to your My Budget service for your personal data to be updated."}},"nestor-migration-modal":{"title":"We've fetched all your account data","content":"Connect to each of your banks to reactivate them.","cta":"OK, understood"},"harvest":{"form":{"title":"Connect your %{name} account"},"success":{"folderLinkLabel":"See collected documents","title":"Successful configuration!","message":"Your data will be available in your assistant in a few minutes, and the next ones will follow shortly.","button":{"label":"Go back to my Budget"}}},"configuration":{"title":"Feature preview","credit":"Apply for a loan"}},"AccountSettings":{"confirm-deletion":{"description":"This action will delete your transactions in the MAIF Personal Space app along with the links set up with your bills. Remove your bank synchronisation from the menu, if you do not wish to reimport your banking data at the next scheduled synchronization."}},"Notifications":{"description":"Choose the notifications that you'll receive on your mobile.","health_section":{"description":"This requires to connect your My Budget service to your medical insurance."},"delayed-debit":{"notification":{"title":"My Budget: Outstanding card alert at delayed debit","content":"The outstanding card of the account %{account} generates a negative balance on its associated current account"}},"konnectorAlerts":{"push":{"content-single":"Log in to your My Budget service to solve the problem"}},"if-balance-lower":{"notification":{"one":{"title":"My Budget: Low balance alert","content":"Low balance: %{accountBalance}%{currency}"},"several":{"title":"My Budget: Low balance alert on accounts"}}},"if-transaction-greater":{"notification":{"one":{"title":"My Budget: %{number} Transaction greater than %{threshold}%{currency}"},"several":{"title":"My Budget: %{number} Transactions greater than %{threshold}%{currency}"}}},"category-budgets":{"notification":{"one":{"title":"My Budget: Budget alert","content":"Monthly budget of %{amount} %{category} exceeded"},"several":{"title":"My Budget: Budget alert on categories","content":"%{category}"}}}},"Transactions":{"actions":{"informativeModal":{"health":{"description":"Connect your %{brandName} account to your My Budget service to automatically fetch your reimbursements."},"generic":{"description":"Connect your %{brandName} account to your My Budget service to automatically fetch your bills."},"caption":"Your My Budget service is totally private: nobody but you can access its content."}}},"Reimbursements":{"noReimbursed":{"healthExpenses":"Edit your transactions reimbursement status to easily follow your reimbursements."}},"PersonalInfo":{"info":{"description":"To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money."}},"Recurrence":{"no-recurrences":{"text":"Find here the transactions detected as recurring, you can also manually indicate an transaction as recurring. After setting a transaction as recurrent, similar transactions will be detected automatically in the future."}},"Store":{"search-field":{"label":"Search:","placeholder":"Search your bank"},"fetch-error":"Could not load the services from the registry, are you connected to the Internet?","konnector-not-found":"The requested service was not found in the registry.","modal":{"title":"Select your bank"}},"Error":{"contact":"If the problem persist, #{LINK}our FAQ#{/LINK} can maybe help you."},"Transfer":{"user-blocked":{"title":"Transfers blocked","description":"Transfers are blocked on your My Budget service. Please contact the support."}},"HelpSpeedDial":{"faq":"Frequently asked questions","help":"App help"}};
 
 /***/ }),
 
@@ -6998,7 +7136,7 @@ module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnect you
 /*! exports provided: General, Loading, Nav, Error, AccountSwitch, Search, Balance, SelectDates, Accounts, Groups, Data, Categories, Transactions, Notifications, Settings, TOS, BalanceHistory, LogoutModal, AdvancedFeaturesSettings, KonnectorUpdateInfo, Pin, Reimbursements, KonnectorChip, PersonalInfo, Transfer, ReimbursementStatusModal, LoanProgress, LoanDetails, AccountGroupChoice, Confirmation, EditionModal, Recurrence, Harvest, EstimatedBudget, JobsContext, DeletingAccount, Categorization, SelectionBar, Migration, extra, AccountSettings, Store, HelpSpeedDial, default */
 /***/ (function(module) {
 
-module.exports = {"General":{"delete":"Delete","deleting":"Deleting...","cancel":"Cancel","confirm":"Confirm","back":"Back","choose":"Choose"},"Loading":{"loading":"Loading...","error":"An error occured while loading the data. Please try again later."},"Nav":{"analysis":"Analysis","categories":"Categories","settings":"Settings","savings":"Savings","projections":"Forecasts","my-accounts":"My accounts","recurrence":"Recurring"},"Error":{"more-information":"More information","less-information":"Less information","title":"We failed to display your bank data","retry":"You can try again by reloading the page. If the problem persists consult our FAQ.","reload-page":"Reload page","consult-faq":"Consult our FAQ","contact":"If the problem persist, #{LINK}our FAQ#{/LINK} can maybe help you."},"AccountSwitch":{"title":"Choose account or group","account-counter":"%{smart_count} account |||| %{smart_count} accounts","all-accounts":"All accounts","some-accounts":"%{count}/%{smart_count} account |||| %{count}/%{smart_count} accounts","groups":"Groups","accounts":"Accounts"},"Search":{"title":"Search","title-results":"%{smart_count} result |||| %{smart_count} results","no-transactions-found":"No transaction could be found with this search.","input-placeholder":"Hairdresser, transfer...","type-a-search":"Type something to search a transaction","since":"Since %{date}","suggestions":"Salary, Bakery, Transfer...","search-older-transactions":"Search in older transactions"},"Balance":{"bank-name":"Bank","subtitle":{"all":"Total of all your accounts","group":"Total group %{label}","account":"Total account %{label}"},"nb-accounts":"%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts","title":"My accounts","solde":"Balance","account-number":"Account number","account-name":"Account name","manage-accounts":"Manage my accounts","updated-at":{"yesterday":"Yesterday","today":"Today","n-days-ago":"%{nbDays} days ago","unknown":"NC"},"delay":"This may take a few minutes…","import-accounts":"Import accounts","importing-accounts-error":"Failed to import","in-progress":"In progress","error":"Click to restart","trigger-problem":"Problem with the connection","no-accounts-in-group":{"description":"You don't have any accounts associated to this group.","button":"Edit the group"},"reimbursements-caption":"Last 6 months","import-in-progress":"Import in progress"},"SelectDates":{"all-year":"All year","year":"Year","month":"Month","previous-month":"Previous month","next-month":"Next month"},"Accounts":{"account":"Account","add-bank":"Add a bank","no-account":"No account","no-accounts":"You do not have any account yet.","shared-accounts":"Accounts shared to me","no-shared-accounts":"You do not have any shared account yet.","my-accounts":"My accounts","shared":"Shared","add-account":"Add an account","type":"Type","bank":"Bank","label":"Label","manage-accounts":"Manage my accounts","owner":"Owner"},"Groups":{"edit-group":"Edit Group","edit":"edit","manage-groups":"Manage my groups","create":"Create a group","new-group":"New Group","label":"Label","banks":"Banks","bank":"Bank","accounts":"Accounts","groups":"Groups","delete":"remove","no-groups":"Using groups, you can easily gather several accounts, feel free to create one.","back-to-groups":"Back to groups","rename":"Rename","save":"Save","included":"Included","account-number":"Account number","total-balance":"Total","toggle-account-error":"An error occured while adding/removing account from group, please try again later.","deletion-error":"An error occurred while group deletion.","no-account":"No account in this group","name-placeholder":"My group"},"Data":{"accountTypes":{"Business":"Business accounts","Checkings":"Checking accounts","CreditCard":"Credit card accounts","Joint":"Joint accounts","Loan":"Loan accounts","LongTermSavings":"Long term savings","Other":"Other accounts","Reimbursements":"Pending reimbursements","Savings":"Saving accounts"},"categories":{"uncategorized":"To be categorized","incomeCat":"Earnings","dailyLife":"Everyday life","transportation":"Transportation, vehicles","services":"Services","kids":"Children","tax":"Taxes","health":"Health","activities":"Leisure, sports","goingOutAndTravel":"Outings, trips","educationAndTraining":"Education, training","homeAndRealEstate":"Housing, real estate","excludeFromBudgetCat":"Out of budget"},"subcategories":{"potentialTransfer":"Potential transfers","check":"Checks","atm":"Cash withdrawal","activityIncome":"Activity income","replacementIncome":"Replacement income","interests":"Interests","dividends":"Dividends","donationsReceived":"Donations received","allocations":"Allocations","rentalIncome":"Rental income","additionalIncome":"Additional income","retirement":"Retirement","supermarket":"Supermarket","consumerLoan":"Consumer loan","dressing":"Dressing","pets":"Pets","telecom":"Telecom","snaksAndworkMeals":"Snacks and work meals","charity":"Charity","giftsOffered":"Gifts offered","personalCare":"Personal care","tobaccoPress":"Tobacco press","shoppingECommerce":"Shopping and E-commerce","vehiculePurchase":"Vehicule purchase","vehiculeLoan":"Vehicule loan","vehiculeRental":"Vehicule rental","vehiculeInsurance":"Vehicule insurance","vehiculeMaintenance":"Vehicule maintenance","vehiculeGas":"Vehicule gas","privateParking":"Private parking","parkingAndToll":"Parking and toll","publicTransportation":"Public transportation","taxi":"Taxi","post":"Post service","legalCounsel":"Legal counseling","homeAssistance":"Home assistance","bankFees":"Bank fees","financialAdvisor":"Financial advisor","kidsAllowance":"Kids allowance","schoolRestaurant":"School restaurant","childCare":"Child care","schoolInsurance":"School insurance","toysAndGifts":"Toys and gifts","pensionPaid":"Pension paid","kidsActivities":"Kids activities","incomeTax":"Income tax","socialTax":"Social tax","wealthTax":"Wealth tax","realEstateTax":"Real estate tax","healthExpenses":"Health expenses","healthInsurance":"Health insurance","activityFees":"Activity fees","activityEquipments":"Activity equipments","activityLessons":"Activity lessons","electronicsAndMultimedia":"Electronics and multimedia","booksMoviesMusic":"Books, movies, music","hobbyAndPassion":"Hobby and passion","restaurantsAndBars":"Restaurants and bars","goingOutEntertainment":"Going out entertainment","goingOutCulture":"Going out culture","travel":"Travel","journey":"Plane/train/boat...","tuition":"Tuition","eduBooksAndSupplies":"Edu books and supplies","studentLoan":"Student loan","eduLessons":"Edu lessons","realEstateLoan":"Real estate loan","rent":"Rent","homeCharges":"Home charges","homeInsurance":"Home insurance","homeImprovement":"Home improvement","homeHardware":"Home hardware","water":"Water","power":"Power","internalTransfer":"Internal transfer","creditCardPayment":"Credit card payment","loanCredit":"Loan credit","professionalExpenses":"Professional expenses","investmentBuySell":"Investment buy sell","friendBorrowing":"Friend borrowing","savings":"Savings","kids":"Others : Children","dailyLife":"Others : Everyday life","educationAndTraining":"Others : Education, training","health":"Others : Health","homeAndRealEstate":"Others : Housing, real estate","incomeCat":"Others : Earning","activities":"Others : Leisure, sports","excludeFromBudgetCat":"Others : Out of budget","services":"Others : Services","tax":"Others : Taxes","transportation":"Others : Transportation, vehicles","goingOutAndTravel":"Others : Outings, trips","uncategorized":"Others : To be categorized","awaiting":"Categorization in progress"},"virtualAccounts":{"healthReimbursements":"Health reimb","professionalReimbursements":"Professional expenses reimb","othersReimbursements":"Other reimbursements"}},"Categories":{"choice":{"title":"Update category","select-all":"Select all"},"filter":{"credit":"earnings","total":"Total","debit":"Total excl. earnings","includeIncome":"Include incomes"},"headers":{"transactions":{"single":"transaction","plural":"transactions"},"credit":"Credit","total":"Total","categories":"Category","subcategories":"Subcategory","debit":"Debit","movements":"Movements"},"board":{"debit-header":"Spent","credit-header":"Earnings","total-header":"Total"},"title":{"empty-text":"There is no transaction to analyze on this period","total":"On the period","general":"Categorization"},"noAccount":"No account","search":{"title":"Categories search","no-category":"No category found"}},"Transactions":{"title":"Movements","no-movements":"No movements to display","total":"Total","transactions":"Transactions","trigger-error":{"title":"Connection unavailable","description":"Your %{bankName} data is no longer updated.","cta":"Verify the connection"},"will-be-debited-on":"Will be debited on %{date}","debit":"Debit","credit":"Credit","header":{"date":"Date","description":"Description","amount":"Amount","action":"Action"},"actions":{"refund":"Check your refunds","comment":"Comment - available soon","app":"%{appName}","bill":"1 invoice","alert":"Create an alert","attach":"Attach a document","konnector":{"health":"My reimbursements","generic":"My invoices"},"attachedDocs":{"billWithVendor":"%{vendorName} invoice","billWithoutVendor":"Invoice"},"more":"More","healthExpenseProcessed":{"single":"1 reimbursement","plural":"%{nbReimbursements} reimbursements"},"healthExpensePending":"No reimbursement yet","healthExpenseBill":"%{vendor} Statement","vendorsGlue":"and","informativeModal":{"health":{"title":"Automatic tracking of your reimbursements","description":"Connect your %{brandName} account to your My Budget service to automatically fetch your reimbursements."},"generic":{"title":"Automatic fetching of my bills","description":"Connect your %{brandName} account to your My Budget service to automatically fetch your bills."},"caption":"Your My Budget service is totally private: nobody but you can access its content.","cancel":"Cancel","confirm":"Connect"},"reimbursementStatus":{"pending":"No reimbursement yet","reimbursed":"Reimbursed","no-reimbursement":"No expected reimbursement","late":"Late reimbursement","modal":{"title":"Reimbursement"}}},"infos":{"modal-label":"Transaction infos","account":"Account","institution":"Bank","originalBankLabel":"Original label","date":"Date","assignedToPeriod":"Assigned to %{date}","chooseApplicationDate":"Assign to month","chooseRecurrence":"Recurrence","applicationDateChangedAlert":"Operation assigned to %{applicationDate} in the analysis tab","delete-transaction":{"row-label":"Delete transaction","confirm-modal":{"title":"Are you sure ?","content":"This removes the transaction from your history. This action cannot be undone.","confirm":"Delete the transaction","cancel":"Cancel"},"deleting-success":"Transaction deleted","deleting-error":"Cannot delete the transaction at the moment, try again later or contact the support."}},"see-more":"See more...","reimbursementStatus":{"pending":"I am waiting for a reimbursement","reimbursed":"I have already been reimbursed","no-reimbursement":"I am not waiting for a reimbursement"},"reimbursementStatusUpdateError":"An error occured while updating the reimbursement status"},"Notifications":{"title":"Notifications","description":"Choose the notifications that you'll receive on your mobile.","editModal":{"title":"Configure notification"},"if-balance-lower":{"description":"You will receive a notification if your balance goes under *%{value}€* on any account","descriptionWithAccountGroup":"You will receive a notification if your balance goes under *%{value}€* on *%{accountOrGroupLabel}*","settingTitle":"Low balances","fieldLabels":{"value":"Warn me when my balance goes under","accountOrGroup":"On account/group"},"email":{"innerTitle":"Low balances notification","access-accounts":"Access my accounts"},"notification":{"one":{"title":"My Budget: Low balance alert","content":"Low balance: %{accountBalance}%{currency}"},"several":{"title":"My Budget: Low balance alert on accounts"},"several-multi-rule":{"title":"%{accountsLength} accounts are below their threshold amount"}}},"if-transaction-greater":{"description":"You will receive a notification if a movement is greater than *%{value}€*","descriptionWithAccountGroup":"You will receive a notification if a movement is greater than *%{value}€* on *%{accountOrGroupLabel}*","settingTitle":"Transactions","email":{"innerTitle":"Transaction notification"},"fieldLabels":{"value":"Warn me for expenses greater than","accountOrGroup":"On account/group"},"notification":{"content-transaction-mention":"%{smart_count} transaction |||| %{smart_count} transactions","debit":{"title":"Debit of %{amount}%{currency}"},"credit":{"title":"Credit of %{amount}%{currency}"},"others":{"title":"%{transactionsLength} transactions greater than %{maxAmount}€"},"others-multi":{"title":"%{transactionsLength} transactions greater than %{matchingRulesLength} thresholds"},"one":{"title":"My Budget: %{number} Transaction greater than %{threshold}%{currency}"},"several":{"title":"My Budget: %{number} Transactions greater than %{threshold}%{currency}"},"content":"%{transactionName}: %{amount}%{currency}"}},"when-health-bill-linked":{"settingTitle":"Detected","email":{"innerTitle":"New medical expenses coverage"},"description":"You will be notified when a reimbursement is found for a medical expense.","notification":{"title":"New medical expenses coverage","content":{"title":"Health reimbursement notification","treated-by":"Treated by"}}},"when-late-health-reimbursement":{"settingTitle":"Late","description":"You will be notified when no reimbursement have been found for one of your health expenses since *%{value} days*.","unit":"days","email":{"innerTitle":"Late health reimbursement notification","accessReimbursements":"Access my reimbursements"},"fieldLabels":{"value":"Warn me when a health expense has not been reimbursed in"},"notification":{"title":"Late health reimbursements","content":{"title":"Late health reimbursements","message":"%{smart_count} late health reimbursement |||| %{smart_count} late health reimbursements"}}},"health-section":{"title":"Health reimbursement","description":"This requires to connect your Cozy to your medical insurance."},"delayed-debit":{"settingTitle":"Delayed debit alert","settingDescription":"You need a \"credit card\" account for this functionality","description":"You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.","fieldLabels":{"creditCardAccount":"Credit card","checkingsAccount":"Associated checking account","days":"Warn before the end of the month"},"unit":"days","email":{"innerTitle":"Delayed debit notification","accessAccounts":"Access my accounts"},"notification":{"title":"My Budget: Outstanding card alert at delayed debit","content":"The outstanding card of the account %{account} generates a negative balance on its associated current account"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets have exceeded their limit","title-single":"%{categoryLabel} budget has exceeded its limit","innerTitle":"Category budget notification","budgetOutOf":"out of"}},"konnectorAlerts":{"email":{"title-multi":"%{alertCount} connectors no longer sync your data","title-single":"%{konnectorName} no longer syncs your data","innerTitle":"Connector sync"},"push":{"content-single":"Log in to your My Budget service to solve the problem","content-multi":"%{konnectorNames}"}},"health_section":{"description":"This requires to connect your My Budget service to your medical insurance."},"category-budgets":{"notification":{"one":{"title":"My Budget: Budget alert","content":"Monthly budget of %{amount} %{category} exceeded"},"several":{"title":"My Budget: Budget alert on categories","content":"%{category}"}}}},"Settings":{"title":"Settings","accounts":"Accounts","groups":"Groups","configuration":"Config.","debug":"Debug","personal-info":{"title":"Personal information","edit":"Edit personal info"},"security":{"title":"Security","amount-blur":{"title":"Hide amounts","description":"Navigate the app with hidden amounts"}},"rules":{"create":"Create alert","remove-modal":{"title":"Remove alert ?","desc":"Please confirm you want to remove the alert."},"saving-error":"Could not save alert, please try again later"},"budget-category-alerts":{"pane-title":"Category budget","pane-description":"Configure monthly budget notification per category","budget-inferior-to":"Monthly budget of *%{threshold}€*","for-category":"in *%{categoryName}*","for-account":"for account *%{accountOrGroupLabel}*","for-group":"for group *%{accountOrGroupLabel}*","for-all-accounts":"for all accounts","edit":{"modal-title":"Edit alert","category-label":"Category","threshold-label":"Monthly budget","account-group-label":"Account or group","create-ok":"Create alert","update-ok":"Update alert","all-category":"All « %{categoryName} »","cancel":"Cancel"}},"accounts-tab":{"import-in-progress":"Import in progress","in-maintenance":"In maintenance"}},"TOS":{"updated":{"title":"GDPR comes into reality !","detail":"In the context of the General Data Protection Regulation, [our Terms of Service have been updated](%{link}) and will apply to all our Cozy users on May 25, 2018.","cta":"Accept TOS and continue","disconnect":"Refuse and disconnect","error":"Something went wrong, please try again later"}},"BalanceHistory":{"all-accounts":"All accounts","checked-accounts":"%{nbCheckedAccounts}/%{nbAccounts} accounts"},"LogoutModal":{"message":"Logout in progress..."},"AdvancedFeaturesSettings":{"title":"Advanced features","automatic-categorization":{"title":"Automatic categorization","local-model-override":{"description":"Learn from my manual categorizations"}},"balance-history":{"title":"Balance history chart","show-chart":{"description":"Build my balance history chart"}}},"KonnectorUpdateInfo":{"title":"Update of your banking connections","content":"A latest version of our banking connection has been released. You need to sign the new terms of service. <a href='https://support.cozy.io/article/302-budget' target='_blank'>Learn more</a>.","cta":"Update my banks"},"Pin":{"enter-pin-restricted-area":"Please enter pin to enter restricted area","please-choose-pin":"Please choose a security code","please-enter-your-pin":"Please enter your security code","please-repeat-pin":"Please repeat the security code","errors":{"different-pins":"The two codes are different, please retry."},"logout":"Logout","successfully-changed":"Pin successfully changed","error-save":"Could not save pin, are you connected to internet ?","configure-button":"Configure PIN","attempt-count":"%{current}/%{max} attempts","settings":{"toggle-title":"Lock app","toggle-description":"Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity."},"fingerprint-text":"Or your fingerprint","use-fingerprint":{"yes":"Use my fingerprint","no":"No, thanks","title":"Activate fingerprint unlocking","description":"Do you want to use your smartphone's fingerprint security to unlock the app?"}},"Reimbursements":{"title":{"healthExpenses":"Health reimbursements","professionalExpenses":"Professional reimbursements","othersExpenses":"Others reimbursements","group":"All awaiting reimbursements"},"pending":"Pending reimbursements: ","alreadyReimbursed":"Already reimbursed","noPending":{"generic":"No awaiting reimbursement for expenses in %{period}","healthExpenses":"No awaiting reimbursement for health expenses in %{period}","professionalExpenses":"No awaiting reimbursement for professional expenses in %{period}"},"noReimbursed":{"generic":"Manually add some pending reimbursements on expenses to follow their reimbursements","healthExpenses":"Edit your transactions reimbursement status to easily follow your reimbursements.","professionalExpenses":"Categorize some expenses to « professional expense » to follow their reimbursements","group":"Manually add an awaiting reimbursement on expenses to follow their reimbursement, or categorize it with \"out of budget / professional expenses\" or \"health expenses\" to have an automatic tracking"}},"KonnectorChip":{"health":"My reimbursements","generic":"My invoices"},"PersonalInfo":{"birthcity":"Birth city","birthcity-placeholder":"City where you were born","birthcountry":"Birth country","birthcountry-placeholder":"Country where you were born","nationality":"Nationality","save-cta":"Save information","modal-title":"Edit personal information","info-saved-successfully":"Your personal info has been updated","info":{"title":"Why is this information necessary?","description":"To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money."},"validation-error":"All fields are mandatory"},"Transfer":{"nav":"Transfers","page-title":"Transfer","amount":{"page-title":"Amount","field-label":"Transfer amount","title":"How much do you want to send ?","confirm":"Confirm the amount","errors":{"too-high":"Choose an amount lower than %{maximum}€","too-low":"Choose an amount greater than %{minimum}€","incorrect-number":"%{value} is an incorrect amount."}},"category":{"page-title":"Beneficiary","title":"Where do you want to send this transfer ?","internal":"On one of your accounts","external":"On another account"},"beneficiary":{"page-title":"Beneficiary","add-beneficiary":"Add a recipient","help-add-beneficiary-title":"Adding recipients","help-add-beneficiary":"To add recipients, add them directly on the website of your bank.","help-add-beneficiary-action":"Understood !","title":"To which account do you want to send this transfer"},"sender":{"page-title":"Émetteur","title":"From which account do you want to transfer ?"},"summary":{"page-title":"Summary","send":"Send","from":"from","to":"to","for":"for","for-placeholder":"reason (optional)","confirm":"Confirm transfer","on":"on"},"password":{"page-title":"Password","title":"Enter your bank password to confirm the transfer","confirm":"Confirm the transfer","field-label":"Your bank password or pin code","field-placeholder":"******","date-placeholder":"Transfer date"},"success":{"title":"Your transfer request has been sent","description":"Your bank will execute the transfer within a business day, provided you have sufficient funds."},"error":{"title":"Your transfer request could not be sent","description":"You can retry later or contact our support.","description-login-failed":"Your password seems incorrect, please check and try again"},"no-bank":{"title":"Add a bank to be able to send money","add-bank":"Add your first bank"},"no-recipients":{"title":"No recipients found","description":"We could not find any recipients, your bank might be unsupported. See below the supported banks."},"exit":"Finish","retry":"Retry","user-blocked":{"title":"Transfers blocked","description":"Transfers are blocked on your My Budget service. Please contact the support."}},"ReimbursementStatusModal":{"contact":{"actions":{"sendCareSheet":"Send my care sheet","contactComplementary":"Contact my complementary"},"phoneCallPrice":" + call price","phoneCallFree":"Not surcharged call","openApp":{"title":"Open the application","caption":"On my phone"}}},"LoanProgress":{"reimbursedAmount":"Reimbursed amount","borrowedAmount":"Borrowed amount"},"LoanDetails":{"dateGlue":"on","keyInfos":{"title":"Key information","borrowedAmount":"Borrowed amount:","remainingCapital":"Remaining capital:","interestRate":"Interest rate:"},"payments":{"title":"Payments","lastPayment":"Last payment made:","nextPayment":"Next scheduled payment:"},"characteristics":{"title":"Loan characteristics","subscriptionDate":"Subscription date:","maturityDate":"Repayment date:","nbPaymentsLeft":"No payments left:","nbPaymentsDone":"No payments done:"},"creditReserve":{"title":"Credit reserve","totalUsedAmount":"Total used amount:","availableAmount":"Available amount:"}},"AccountGroupChoice":{"nothing-selected":"Select an account","all-accounts":"All accounts"},"Confirmation":{"cancel":"Cancel","ok":"OK"},"EditionModal":{"ok":"OK","cancel":"Cancel","remove":"Remove"},"Recurrence":{"see-transaction-history":"Go to history","display-error":"We are sorry, an error happened during the display of this page. You can go to the debug page to reset the recurrences and reload the page to try to solve this problem.","go-to-debug-page":"Go to debug page","no-recurrences":{"title":"No recurring transactions","text":"Find here the transactions detected as recurring, you can also manually indicate an transaction as recurring. After setting a transaction as recurrent, similar transactions will be detected automatically in the future."},"no-transactions":{"title":"No transactions","text":"This recurrence does not contain any transactions, you may want to delete it."},"table":{"frequency":"Frequency","label":"Label","amount":"Amount","last-occurence":"Last occurrence"},"status":{"ongoing":"Ongoing","finished":"Finished","save-success":"Status changed"},"description-amount":"%{amount}","description-amounts":"between %{minAmount} and %{maxAmount}","delete-success":"Recurrence has been deleted","delete-error":"Recurrence could not be deleted, please try again later","title":"Recurring payments","choice":{"not-recurrent":"Occasional transaction","recurrent":"Recurrent transaction","new-recurrence":"New recurrence"},"action-menu":{"open-button":"Act on recurrence","rename":"Rename","delete":"Delete","delete-caption":"Transactions will be redefined as occasional.","ongoing":"Ongoing","ongoing-caption":"A transaction will be expected in your previsional transactions.","finished":"Finished"},"rename":{"modal-title":"Rename recurrence","save":"Save","cancel":"Cancel","save-success":"Saved!","save-error":"Could not rename, try again later"},"freq-info-word":{"weekly":"every week","monthly":"every month","yearly":"every year"},"freq-info":"every %{frequency} days","deprecated-bundles-help":"Payments below will not be considered for 30-day balance since their last occurence happened more than  4 months ago."},"Harvest":{"modal-title":"Configure accounts","disconnected-account":"Disconnected account"},"EstimatedBudget":{"no-planned-transactions":{"title":"No planned transactions in the next 30 days","text":"You can set any operation as \"recurrent\" to help the prediction."},"30-day-balance":"30-day balance","page-title":"Planned transactions","numberEstimatedTransactions":"%{smart_count} planned transaction |||| %{smart_count} planned transactions"},"JobsContext":{"alerter-success":"Connector import successful","alerter-errored":"An error occurred during the import"},"DeletingAccount":{"related-data":{"deleting":"Deleting associated data, do not close the window...","successfully-deleted":"All associated data has been deleted"}},"Categorization":{"error":"Could not categorize some operations, please try again.","success":"%{smart_count} operation has been recategorized |||| %{smart_count} operations have been recategorized"},"SelectionBar":{"selected_count":"item selected |||| items selected","close":"Close","categorize":"Categorize","selectAll":"Select all","unselectAll":"Unselect all"},"Migration":{"title":"Fresh download of your data is required","content":"Cozy Banks needs to refresh its data in order to improve its navigation performances. You only need a steady network and be patient for 1 minute (and up to several minutes in case of high volume of data) during which you cannot use your app. No data will be lost.","confirm":"Ok, let's do it!","cancel":"No, not now"},"extra":{"balances":{"reconnect-nestor-account":"Reconnect your account"},"transactions":{"reconnect-nestor-account":{"title":"Reconnection to your bank is necessary","cta":"Reconnect your account","description":"You need to reconnect your bank %{bankName} to your My Budget service for your personal data to be updated."}},"nestor-migration-modal":{"title":"We've fetched all your account data","content":"Connect to each of your banks to reactivate them.","cta":"OK, understood"},"harvest":{"form":{"title":"Connect your %{name} account"},"success":{"folderLinkLabel":"See collected documents","title":"Successful configuration!","message":"Your data will be available in your assistant in a few minutes, and the next ones will follow shortly.","button":{"label":"Go back to my Budget"}}},"configuration":{"title":"Feature preview","credit":"Apply for a loan"}},"AccountSettings":{"confirm-deletion":{"description":"This action will delete your transactions in the MAIF Personal Space app along with the links set up with your bills. Remove your bank synchronisation from the menu, if you do not wish to reimport your banking data at the next scheduled synchronization."}},"Store":{"search-field":{"label":"Search:","placeholder":"Search your bank"},"fetch-error":"Could not load the services from the registry, are you connected to the Internet?","konnector-not-found":"The requested service was not found in the registry.","modal":{"title":"Select your bank"}},"HelpSpeedDial":{"faq":"Frequently asked questions","help":"App help"}};
+module.exports = {"General":{"delete":"Delete","deleting":"Deleting...","cancel":"Cancel","confirm":"Confirm","back":"Back","choose":"Choose","reload":"Reload"},"Loading":{"loading":"Loading...","error":"An error occured while loading the data. Please try again later."},"Nav":{"analysis":"Analysis","categories":"Categories","settings":"Settings","savings":"Savings","projections":"Forecasts","my-accounts":"My accounts","recurrence":"Recurring"},"Error":{"more-information":"More information","less-information":"Less information","title":"We failed to display your bank data","retry":"You can try again by reloading the page. If the problem persists consult our FAQ.","reload-page":"Reload page","consult-faq":"Consult our FAQ","fetch-error":"Connection lost. Try again later or verify your connection and reload the page.","contact":"If the problem persist, #{LINK}our FAQ#{/LINK} can maybe help you."},"AccountSwitch":{"title":"Choose account or group","account-counter":"%{smart_count} account |||| %{smart_count} accounts","all-accounts":"All accounts","some-accounts":"%{count}/%{smart_count} account |||| %{count}/%{smart_count} accounts","groups":"Groups","accounts":"Accounts"},"Search":{"title":"Search","title-results":"%{smart_count} result |||| %{smart_count} results","no-transactions-found":"No transaction could be found with this search.","input-placeholder":"Hairdresser, transfer...","type-a-search":"Type something to search a transaction","since":"Since %{date}","suggestions":"Salary, Bakery, Transfer...","search-older-transactions":"Search in older transactions"},"Balance":{"bank-name":"Bank","subtitle":{"all":"Total of all your accounts","group":"Total group %{label}","account":"Total account %{label}"},"nb-accounts":"%{nbCheckedAccounts}/%{smart_count} account |||| %{nbCheckedAccounts}/%{smart_count} accounts","title":"My accounts","solde":"Balance","account-number":"Account number","account-name":"Account name","manage-accounts":"Manage my accounts","updated-at":{"yesterday":"Yesterday","today":"Today","n-days-ago":"%{nbDays} days ago","unknown":"NC"},"delay":"This may take a few minutes…","import-accounts":"Import accounts","importing-accounts-error":"Failed to import","in-progress":"In progress","error":"Click to restart","trigger-problem":"Problem with the connection","no-accounts-in-group":{"description":"You don't have any accounts associated to this group.","button":"Edit the group"},"reimbursements-caption":"Last 6 months","import-in-progress":"Import in progress"},"SelectDates":{"all-year":"All year","year":"Year","month":"Month","previous-month":"Previous month","next-month":"Next month"},"Accounts":{"account":"Account","add-bank":"Add a bank","no-account":"No account","no-accounts":"You do not have any account yet.","shared-accounts":"Accounts shared to me","no-shared-accounts":"You do not have any shared account yet.","my-accounts":"My accounts","shared":"Shared","add-account":"Add an account","type":"Type","bank":"Bank","label":"Label","manage-accounts":"Manage my accounts","owner":"Owner"},"Groups":{"edit-group":"Edit Group","edit":"edit","manage-groups":"Manage my groups","create":"Create a group","new-group":"New Group","label":"Label","banks":"Banks","bank":"Bank","accounts":"Accounts","groups":"Groups","delete":"remove","no-groups":"Using groups, you can easily gather several accounts, feel free to create one.","back-to-groups":"Back to groups","rename":"Rename","save":"Save","included":"Included","account-number":"Account number","total-balance":"Total","toggle-account-error":"An error occured while adding/removing account from group, please try again later.","deletion-error":"An error occurred while group deletion.","no-account":"No account in this group","name-placeholder":"My group"},"Data":{"accountTypes":{"Business":"Business accounts","Checkings":"Checking accounts","CreditCard":"Credit card accounts","Joint":"Joint accounts","Loan":"Loan accounts","LongTermSavings":"Long term savings","Other":"Other accounts","Reimbursements":"Pending reimbursements","Savings":"Saving accounts"},"categories":{"uncategorized":"To be categorized","incomeCat":"Earnings","dailyLife":"Everyday life","transportation":"Transportation, vehicles","services":"Services","kids":"Children","tax":"Taxes","health":"Health","activities":"Leisure, sports","goingOutAndTravel":"Outings, trips","educationAndTraining":"Education, training","homeAndRealEstate":"Housing, real estate","excludeFromBudgetCat":"Out of budget"},"subcategories":{"potentialTransfer":"Potential transfers","check":"Checks","atm":"Cash withdrawal","activityIncome":"Activity income","replacementIncome":"Replacement income","interests":"Interests","dividends":"Dividends","donationsReceived":"Donations received","allocations":"Allocations","rentalIncome":"Rental income","additionalIncome":"Additional income","retirement":"Retirement","supermarket":"Supermarket","consumerLoan":"Consumer loan","dressing":"Dressing","pets":"Pets","telecom":"Telecom","snaksAndworkMeals":"Snacks and work meals","charity":"Charity","giftsOffered":"Gifts offered","personalCare":"Personal care","tobaccoPress":"Tobacco press","shoppingECommerce":"Shopping and E-commerce","vehiculePurchase":"Vehicule purchase","vehiculeLoan":"Vehicule loan","vehiculeRental":"Vehicule rental","vehiculeInsurance":"Vehicule insurance","vehiculeMaintenance":"Vehicule maintenance","vehiculeGas":"Vehicule gas","privateParking":"Private parking","parkingAndToll":"Parking and toll","publicTransportation":"Public transportation","taxi":"Taxi","post":"Post service","legalCounsel":"Legal counseling","homeAssistance":"Home assistance","bankFees":"Bank fees","financialAdvisor":"Financial advisor","kidsAllowance":"Kids allowance","schoolRestaurant":"School restaurant","childCare":"Child care","schoolInsurance":"School insurance","toysAndGifts":"Toys and gifts","pensionPaid":"Pension paid","kidsActivities":"Kids activities","incomeTax":"Income tax","socialTax":"Social tax","wealthTax":"Wealth tax","realEstateTax":"Real estate tax","healthExpenses":"Health expenses","healthInsurance":"Health insurance","activityFees":"Activity fees","activityEquipments":"Activity equipments","activityLessons":"Activity lessons","electronicsAndMultimedia":"Electronics and multimedia","booksMoviesMusic":"Books, movies, music","hobbyAndPassion":"Hobby and passion","restaurantsAndBars":"Restaurants and bars","goingOutEntertainment":"Going out entertainment","goingOutCulture":"Going out culture","travel":"Travel","journey":"Plane/train/boat...","tuition":"Tuition","eduBooksAndSupplies":"Edu books and supplies","studentLoan":"Student loan","eduLessons":"Edu lessons","realEstateLoan":"Real estate loan","rent":"Rent","homeCharges":"Home charges","homeInsurance":"Home insurance","homeImprovement":"Home improvement","homeHardware":"Home hardware","water":"Water","power":"Power","internalTransfer":"Internal transfer","creditCardPayment":"Credit card payment","loanCredit":"Loan credit","professionalExpenses":"Professional expenses","investmentBuySell":"Investment buy sell","friendBorrowing":"Friend borrowing","savings":"Savings","kids":"Others : Children","dailyLife":"Others : Everyday life","educationAndTraining":"Others : Education, training","health":"Others : Health","homeAndRealEstate":"Others : Housing, real estate","incomeCat":"Others : Earning","activities":"Others : Leisure, sports","excludeFromBudgetCat":"Others : Out of budget","services":"Others : Services","tax":"Others : Taxes","transportation":"Others : Transportation, vehicles","goingOutAndTravel":"Others : Outings, trips","uncategorized":"Others : To be categorized","awaiting":"Categorization in progress"},"virtualAccounts":{"healthReimbursements":"Health reimb","professionalReimbursements":"Professional expenses reimb","othersReimbursements":"Other reimbursements"}},"Categories":{"choice":{"title":"Update category","select-all":"Select all"},"filter":{"credit":"earnings","total":"Total","debit":"Total excl. earnings","includeIncome":"Include incomes"},"headers":{"transactions":{"single":"transaction","plural":"transactions"},"credit":"Credit","total":"Total","categories":"Category","subcategories":"Subcategory","debit":"Debit","movements":"Movements"},"board":{"debit-header":"Spent","credit-header":"Earnings","total-header":"Total"},"title":{"empty-text":"There is no transaction to analyze on this period","total":"On the period","general":"Categorization"},"noAccount":"No account","search":{"title":"Categories search","no-category":"No category found"}},"Transactions":{"title":"Movements","no-movements":"No movements to display","total":"Total","transactions":"Transactions","trigger-error":{"title":"Connection unavailable","description":"Your %{bankName} data is no longer updated.","cta":"Verify the connection"},"will-be-debited-on":"Will be debited on %{date}","debit":"Debit","credit":"Credit","header":{"date":"Date","description":"Description","amount":"Amount","action":"Action"},"actions":{"refund":"Check your refunds","comment":"Comment - available soon","app":"%{appName}","bill":"1 invoice","alert":"Create an alert","attach":"Attach a document","konnector":{"health":"My reimbursements","generic":"My invoices"},"attachedDocs":{"billWithVendor":"%{vendorName} invoice","billWithoutVendor":"Invoice"},"more":"More","healthExpenseProcessed":{"single":"1 reimbursement","plural":"%{nbReimbursements} reimbursements"},"healthExpensePending":"No reimbursement yet","healthExpenseBill":"%{vendor} Statement","vendorsGlue":"and","informativeModal":{"health":{"title":"Automatic tracking of your reimbursements","description":"Connect your %{brandName} account to your My Budget service to automatically fetch your reimbursements."},"generic":{"title":"Automatic fetching of my bills","description":"Connect your %{brandName} account to your My Budget service to automatically fetch your bills."},"caption":"Your My Budget service is totally private: nobody but you can access its content.","cancel":"Cancel","confirm":"Connect"},"reimbursementStatus":{"pending":"No reimbursement yet","reimbursed":"Reimbursed","no-reimbursement":"No expected reimbursement","late":"Late reimbursement","modal":{"title":"Reimbursement"}}},"infos":{"modal-label":"Transaction infos","account":"Account","institution":"Bank","originalBankLabel":"Original label","date":"Date","assignedToPeriod":"Assigned to %{date}","chooseApplicationDate":"Assign to month","chooseRecurrence":"Recurrence","applicationDateChangedAlert":"Operation assigned to %{applicationDate} in the analysis tab","delete-transaction":{"row-label":"Delete transaction","confirm-modal":{"title":"Are you sure ?","content":"This removes the transaction from your history. This action cannot be undone.","confirm":"Delete the transaction","cancel":"Cancel"},"deleting-success":"Transaction deleted","deleting-error":"Cannot delete the transaction at the moment, try again later or contact the support."}},"see-more":"See more...","reimbursementStatus":{"pending":"I am waiting for a reimbursement","reimbursed":"I have already been reimbursed","no-reimbursement":"I am not waiting for a reimbursement"},"reimbursementStatusUpdateError":"An error occured while updating the reimbursement status"},"Notifications":{"title":"Notifications","description":"Choose the notifications that you'll receive on your mobile.","editModal":{"title":"Configure notification"},"if-balance-lower":{"description":"You will receive a notification if your balance goes under *%{value}€* on any account","descriptionWithAccountGroup":"You will receive a notification if your balance goes under *%{value}€* on *%{accountOrGroupLabel}*","settingTitle":"Low balances","fieldLabels":{"value":"Warn me when my balance goes under","accountOrGroup":"On account/group"},"email":{"innerTitle":"Low balances notification","access-accounts":"Access my accounts"},"notification":{"one":{"title":"My Budget: Low balance alert","content":"Low balance: %{accountBalance}%{currency}"},"several":{"title":"My Budget: Low balance alert on accounts"},"several-multi-rule":{"title":"%{accountsLength} accounts are below their threshold amount"}}},"if-transaction-greater":{"description":"You will receive a notification if a movement is greater than *%{value}€*","descriptionWithAccountGroup":"You will receive a notification if a movement is greater than *%{value}€* on *%{accountOrGroupLabel}*","settingTitle":"Transactions","email":{"innerTitle":"Transaction notification"},"fieldLabels":{"value":"Warn me for expenses greater than","accountOrGroup":"On account/group"},"notification":{"debit":{"title":"Debit of %{amount}%{currency}"},"credit":{"title":"Credit of %{amount}%{currency}"},"others":{"title":"%{transactionsLength} transactions greater than %{maxAmount}€"},"others-multi":{"title":"%{transactionsLength} transactions greater than %{matchingRulesLength} thresholds"},"one":{"title":"My Budget: %{number} Transaction greater than %{threshold}%{currency}"},"several":{"title":"My Budget: %{number} Transactions greater than %{threshold}%{currency}"}}},"when-health-bill-linked":{"settingTitle":"Detected","email":{"innerTitle":"New medical expenses coverage"},"description":"You will be notified when a reimbursement is found for a medical expense.","notification":{"title":"New medical expenses coverage","content":{"title":"Health reimbursement notification","treated-by":"Treated by"}}},"when-late-health-reimbursement":{"settingTitle":"Late","description":"You will be notified when no reimbursement have been found for one of your health expenses since *%{value} days*.","unit":"days","email":{"innerTitle":"Late health reimbursement notification","accessReimbursements":"Access my reimbursements"},"fieldLabels":{"value":"Warn me when a health expense has not been reimbursed in"},"notification":{"title":"Late health reimbursements","content":{"title":"Late health reimbursements","message":"%{smart_count} late health reimbursement |||| %{smart_count} late health reimbursements"}}},"health-section":{"title":"Health reimbursement","description":"This requires to connect your Cozy to your medical insurance."},"delayed-debit":{"settingTitle":"Delayed debit alert","settingDescription":"You need a \"credit card\" account for this functionality","description":"You will receive a notification when the outstanding card account *%{creditCardLabel}* generates a negative balance on its associated current account *%{checkingsLabel}*, *%{value} days* before the end of the month.","fieldLabels":{"creditCardAccount":"Credit card","checkingsAccount":"Associated checking account","days":"Warn before the end of the month"},"unit":"days","email":{"innerTitle":"Delayed debit notification","accessAccounts":"Access my accounts"},"notification":{"title":"My Budget: Outstanding card alert at delayed debit","content":"The outstanding card of the account %{account} generates a negative balance on its associated current account"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets have exceeded their limit","title-single":"%{categoryLabel} budget has exceeded its limit","innerTitle":"Category budget notification","budgetOutOf":"out of"}},"konnectorAlerts":{"email":{"title-multi":"%{alertCount} connectors no longer sync your data","title-single":"%{konnectorName} no longer syncs your data","innerTitle":"Connector sync"},"push":{"content-single":"Log in to your My Budget service to solve the problem","content-multi":"%{konnectorNames}"}},"health_section":{"description":"This requires to connect your My Budget service to your medical insurance."},"category-budgets":{"notification":{"one":{"title":"My Budget: Budget alert","content":"Monthly budget of %{amount} %{category} exceeded"},"several":{"title":"My Budget: Budget alert on categories","content":"%{category}"}}}},"Settings":{"title":"Settings","accounts":"Accounts","groups":"Groups","configuration":"Config.","debug":"Debug","personal-info":{"title":"Personal information","edit":"Edit personal info"},"security":{"title":"Security","amount-blur":{"title":"Hide amounts","description":"Navigate the app with hidden amounts"}},"rules":{"create":"Create alert","remove-modal":{"title":"Remove alert ?","desc":"Please confirm you want to remove the alert."},"saving-error":"Could not save alert, please try again later"},"budget-category-alerts":{"pane-title":"Category budget","pane-description":"Configure monthly budget notification per category","budget-inferior-to":"Monthly budget of *%{threshold}€*","for-category":"in *%{categoryName}*","for-account":"for account *%{accountOrGroupLabel}*","for-group":"for group *%{accountOrGroupLabel}*","for-all-accounts":"for all accounts","edit":{"modal-title":"Edit alert","category-label":"Category","threshold-label":"Monthly budget","account-group-label":"Account or group","create-ok":"Create alert","update-ok":"Update alert","all-category":"All « %{categoryName} »","cancel":"Cancel"}},"accounts-tab":{"import-in-progress":"Import in progress","in-maintenance":"In maintenance"}},"TOS":{"updated":{"title":"GDPR comes into reality !","detail":"In the context of the General Data Protection Regulation, [our Terms of Service have been updated](%{link}) and will apply to all our Cozy users on May 25, 2018.","cta":"Accept TOS and continue","disconnect":"Refuse and disconnect","error":"Something went wrong, please try again later"}},"BalanceHistory":{"all-accounts":"All accounts","checked-accounts":"%{nbCheckedAccounts}/%{nbAccounts} accounts"},"LogoutModal":{"message":"Logout in progress..."},"AdvancedFeaturesSettings":{"title":"Advanced features","automatic-categorization":{"title":"Automatic categorization","local-model-override":{"description":"Learn from my manual categorizations"}},"balance-history":{"title":"Balance history chart","show-chart":{"description":"Build my balance history chart"}}},"KonnectorUpdateInfo":{"title":"Update of your banking connections","content":"A latest version of our banking connection has been released. You need to sign the new terms of service. <a href='https://support.cozy.io/article/302-budget' target='_blank'>Learn more</a>.","cta":"Update my banks"},"Pin":{"enter-pin-restricted-area":"Please enter pin to enter restricted area","please-choose-pin":"Please choose a security code","please-enter-your-pin":"Please enter your security code","please-repeat-pin":"Please repeat the security code","errors":{"different-pins":"The two codes are different, please retry."},"logout":"Logout","successfully-changed":"Pin successfully changed","error-save":"Could not save pin, are you connected to internet ?","configure-button":"Configure PIN","attempt-count":"%{current}/%{max} attempts","settings":{"toggle-title":"Lock app","toggle-description":"Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity."},"fingerprint-text":"Or your fingerprint","use-fingerprint":{"yes":"Use my fingerprint","no":"No, thanks","title":"Activate fingerprint unlocking","description":"Do you want to use your smartphone's fingerprint security to unlock the app?"}},"Reimbursements":{"title":{"healthExpenses":"Health reimbursements","professionalExpenses":"Professional reimbursements","othersExpenses":"Others reimbursements","group":"All awaiting reimbursements"},"pending":"Pending reimbursements: ","alreadyReimbursed":"Already reimbursed","noPending":{"generic":"No awaiting reimbursement for expenses in %{period}","healthExpenses":"No awaiting reimbursement for health expenses in %{period}","professionalExpenses":"No awaiting reimbursement for professional expenses in %{period}"},"noReimbursed":{"generic":"Manually add some pending reimbursements on expenses to follow their reimbursements","healthExpenses":"Edit your transactions reimbursement status to easily follow your reimbursements.","professionalExpenses":"Categorize some expenses to « professional expense » to follow their reimbursements","group":"Manually add an awaiting reimbursement on expenses to follow their reimbursement, or categorize it with \"out of budget / professional expenses\" or \"health expenses\" to have an automatic tracking"}},"KonnectorChip":{"health":"My reimbursements","generic":"My invoices"},"PersonalInfo":{"birthcity":"Birth city","birthcity-placeholder":"City where you were born","birthcountry":"Birth country","birthcountry-placeholder":"Country where you were born","nationality":"Nationality","save-cta":"Save information","modal-title":"Edit personal information","info-saved-successfully":"Your personal info has been updated","info":{"title":"Why is this information necessary?","description":"To prevent money laundering and terrorism financing, MAIF has enforced strict rules on who is able to transfer money."},"validation-error":"All fields are mandatory"},"Transfer":{"nav":"Transfers","page-title":"Transfer","amount":{"page-title":"Amount","field-label":"Transfer amount","title":"How much do you want to send ?","confirm":"Confirm the amount","errors":{"too-high":"Choose an amount lower than %{maximum}€","too-low":"Choose an amount greater than %{minimum}€","incorrect-number":"%{value} is an incorrect amount."}},"category":{"page-title":"Beneficiary","title":"Where do you want to send this transfer ?","internal":"On one of your accounts","external":"On another account"},"beneficiary":{"page-title":"Beneficiary","add-beneficiary":"Add a recipient","help-add-beneficiary-title":"Adding recipients","help-add-beneficiary":"To add recipients, add them directly on the website of your bank.","help-add-beneficiary-action":"Understood !","title":"To which account do you want to send this transfer"},"sender":{"page-title":"Émetteur","title":"From which account do you want to transfer ?"},"summary":{"page-title":"Summary","send":"Send","from":"from","to":"to","for":"for","for-placeholder":"reason (optional)","confirm":"Confirm transfer","on":"on"},"password":{"page-title":"Password","title":"Enter your bank password to confirm the transfer","confirm":"Confirm the transfer","field-label":"Your bank password or pin code","field-placeholder":"******","date-placeholder":"Transfer date"},"success":{"title":"Your transfer request has been sent","description":"Your bank will execute the transfer within a business day, provided you have sufficient funds."},"error":{"title":"Your transfer request could not be sent","description":"You can retry later or contact our support.","description-login-failed":"Your password seems incorrect, please check and try again"},"no-bank":{"title":"Add a bank to be able to send money","add-bank":"Add your first bank"},"no-recipients":{"title":"No recipients found","description":"We could not find any recipients, your bank might be unsupported. See below the supported banks."},"exit":"Finish","retry":"Retry","user-blocked":{"title":"Transfers blocked","description":"Transfers are blocked on your My Budget service. Please contact the support."}},"ReimbursementStatusModal":{"contact":{"actions":{"sendCareSheet":"Send my care sheet","contactComplementary":"Contact my complementary"},"phoneCallPrice":" + call price","phoneCallFree":"Not surcharged call","openApp":{"title":"Open the application","caption":"On my phone"}}},"LoanProgress":{"reimbursedAmount":"Reimbursed amount","borrowedAmount":"Borrowed amount"},"LoanDetails":{"dateGlue":"on","keyInfos":{"title":"Key information","borrowedAmount":"Borrowed amount:","remainingCapital":"Remaining capital:","interestRate":"Interest rate:"},"payments":{"title":"Payments","lastPayment":"Last payment made:","nextPayment":"Next scheduled payment:"},"characteristics":{"title":"Loan characteristics","subscriptionDate":"Subscription date:","maturityDate":"Repayment date:","nbPaymentsLeft":"No payments left:","nbPaymentsDone":"No payments done:"},"creditReserve":{"title":"Credit reserve","totalUsedAmount":"Total used amount:","availableAmount":"Available amount:"}},"AccountGroupChoice":{"nothing-selected":"Select an account","all-accounts":"All accounts"},"Confirmation":{"cancel":"Cancel","ok":"OK"},"EditionModal":{"ok":"OK","cancel":"Cancel","remove":"Remove"},"Recurrence":{"see-transaction-history":"Go to history","display-error":"We are sorry, an error happened during the display of this page. You can go to the debug page to reset the recurrences and reload the page to try to solve this problem.","go-to-debug-page":"Go to debug page","no-recurrences":{"title":"No recurring transactions","text":"Find here the transactions detected as recurring, you can also manually indicate an transaction as recurring. After setting a transaction as recurrent, similar transactions will be detected automatically in the future."},"no-transactions":{"title":"No transactions","text":"This recurrence does not contain any transactions, you may want to delete it."},"table":{"frequency":"Frequency","label":"Label","amount":"Amount","last-occurence":"Last occurrence"},"status":{"ongoing":"Ongoing","finished":"Finished","save-success":"Status changed"},"description-amount":"%{amount}","description-amounts":"between %{minAmount} and %{maxAmount}","delete-success":"Recurrence has been deleted","delete-error":"Recurrence could not be deleted, please try again later","title":"Recurring payments","choice":{"not-recurrent":"Occasional transaction","recurrent":"Recurrent transaction","new-recurrence":"New recurrence"},"action-menu":{"open-button":"Act on recurrence","rename":"Rename","delete":"Delete","delete-caption":"Transactions will be redefined as occasional.","ongoing":"Ongoing","ongoing-caption":"A transaction will be expected in your previsional transactions.","finished":"Finished"},"rename":{"modal-title":"Rename recurrence","save":"Save","cancel":"Cancel","save-success":"Saved!","save-error":"Could not rename, try again later"},"freq-info-word":{"weekly":"every week","monthly":"every month","yearly":"every year"},"freq-info":"every %{frequency} days","deprecated-bundles-help":"Payments below will not be considered for 30-day balance since their last occurence happened more than  4 months ago."},"Harvest":{"modal-title":"Configure accounts","disconnected-account":"Disconnected account"},"EstimatedBudget":{"no-planned-transactions":{"title":"No planned transactions in the next 30 days","text":"You can set any operation as \"recurrent\" to help the prediction."},"30-day-balance":"30-day balance","page-title":"Planned transactions","numberEstimatedTransactions":"%{smart_count} planned transaction |||| %{smart_count} planned transactions"},"JobsContext":{"alerter-success":"Connector import successful","alerter-errored":"An error occurred during the import"},"DeletingAccount":{"related-data":{"deleting":"Deleting associated data, do not close the window...","successfully-deleted":"All associated data has been deleted"}},"Categorization":{"error":"Could not categorize some operations, please try again.","success":"%{smart_count} operation has been recategorized |||| %{smart_count} operations have been recategorized"},"SelectionBar":{"selected_count":"item selected |||| items selected","close":"Close","categorize":"Categorize","selectAll":"Select all","unselectAll":"Unselect all"},"Migration":{"title":"Fresh download of your data is required","content":"Cozy Banks needs to refresh its data in order to improve its navigation performances. You only need a steady network and be patient for 1 minute (and up to several minutes in case of high volume of data) during which you cannot use your app. No data will be lost.","confirm":"Ok, let's do it!","cancel":"No, not now"},"extra":{"balances":{"reconnect-nestor-account":"Reconnect your account"},"transactions":{"reconnect-nestor-account":{"title":"Reconnection to your bank is necessary","cta":"Reconnect your account","description":"You need to reconnect your bank %{bankName} to your My Budget service for your personal data to be updated."}},"nestor-migration-modal":{"title":"We've fetched all your account data","content":"Connect to each of your banks to reactivate them.","cta":"OK, understood"},"harvest":{"form":{"title":"Connect your %{name} account"},"success":{"folderLinkLabel":"See collected documents","title":"Successful configuration!","message":"Your data will be available in your assistant in a few minutes, and the next ones will follow shortly.","button":{"label":"Go back to my Budget"}}},"configuration":{"title":"Feature preview","credit":"Apply for a loan"}},"AccountSettings":{"confirm-deletion":{"description":"This action will delete your transactions in the MAIF Personal Space app along with the links set up with your bills. Remove your bank synchronisation from the menu, if you do not wish to reimport your banking data at the next scheduled synchronization."}},"Store":{"search-field":{"label":"Search:","placeholder":"Search your bank"},"fetch-error":"Could not load the services from the registry, are you connected to the Internet?","konnector-not-found":"The requested service was not found in the registry.","modal":{"title":"Select your bank"}},"HelpSpeedDial":{"faq":"Frequently asked questions","help":"App help"}};
 
 /***/ }),
 
@@ -7009,7 +7147,7 @@ module.exports = {"General":{"delete":"Delete","deleting":"Deleting...","cancel"
 /*! exports provided: extra, AccountSettings, Notifications, Transactions, Reimbursements, PersonalInfo, Recurrence, Store, Error, Transfer, HelpSpeedDial, default */
 /***/ (function(module) {
 
-module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnectez votre compte"},"transactions":{"reconnect-nestor-account":{"title":"La reconnexion à votre banque est nécessaire","cta":"Reconnecter votre compte","description":"Vous devez reconnecter votre banque %{bankName} à votre service Mon Budget pour que vos données continuent à être mises à jour."}},"nestor-migration-modal":{"title":"Nous avons récupéré l'intégralité de vos comptes","content":"Connectez-vous à chacune de vos banques pour les réactiver.","cta":"OK, bien compris"},"harvest":{"form":{"title":"Connectez votre compte %{name}"},"success":{"folderLinkLabel":"Voir les documents collectés","title":"Configuration réussie !","message":"Vos données existantes seront disponibles dans votre service Mon Budget dans quelques minutes et les prochaines suivront automatiquement.","button":{"label":"Revenir à mon Budget"}}},"configuration":{"title":"En avant-première…","credit":"Demander un crédit"}},"AccountSettings":{"confirm-deletion":{"description":"Cette action supprimera les mouvements déjà présents dans le service Mon Budget, ainsi que les liens avec vos factures. Supprimez également votre synchronisation depuis le menu, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation."}},"Notifications":{"description":"Choisissez les notifications et alertes que vous souhaitez recevoir sur votre mobile.","health_section":{"description":"Cela nécessite d'avoir connecté une assurance santé à votre service Mon Budget."},"delayed-debit":{"notification":{"title":"Mon Budget: Alerte encours carte à débit différé","content":"L'encours carte du compte %{account} engendre un solde négatif sur son compte courant associé"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets ont dépassé leur limite","title-single":"Le budget %{categoryLabel} a dépassé sa limite","innerTitle":"Notification d'alerte par catégorie","budgetOutOf":"sur"}},"konnectorAlerts":{"push":{"content-single":"Connectez-vous à votre service Mon Budget pour régler le problème"}},"if-balance-lower":{"notification":{"one":{"title":"Mon Budget: Alerte solde bas","content":"Solde bas: %{accountBalance}%{currency}"},"several":{"title":"Mon Budget: Alerte solde bas sur les comptes"}}},"if-transaction-greater":{"notification":{"one":{"title":"Mon Budget: %{number} mouvement de plus de %{threshold}%{currency}"},"several":{"title":"Mon Budget: %{number} mouvements de plus de %{threshold}%{currency}"},"content":"%{transactionName}: %{amount}%{currency}"}},"category-budgets":{"notification":{"one":{"title":"Mon Budget: Alerte de Budget","content":"Budget mensuel de %{threshold}%{currency} %{category} dépassé"},"several":{"title":"Mon Budget: Alerte de Budget sur les catégories","content":"%{categories}"}}}},"Transactions":{"actions":{"informativeModal":{"health":{"description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos remboursements automatiquement."},"generic":{"description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos factures automatiquement."},"caption":"Votre service Mon Budget est totalement privé : personne d'autre que vous ne peut accéder à son contenu."}}},"Reimbursements":{"noReimbursed":{"healthExpenses":"Editez le statut de remboursement de vos dépenses pour faciliter le suivi de vos remboursements."}},"PersonalInfo":{"info":{"description":"Afin de prévenir le blanchiment d'argent et le financement du terrorisme, la MAIF s'est dotée de règles strictes"}},"Recurrence":{"no-recurrences":{"text":"Retrouvez ici les opérations détectées comme récurrentes, vous pouvez également indiquer manuellement une opération comme récurrente. (les suivantes seront détectées automatiquement.)"}},"Store":{"search-field":{"label":"Rechercher :","placeholder":"Recherchez votre banque"},"fetch-error":"Impossible de charger les services, êtes-vous connecté à Internet ?","konnector-not-found":"Le service demandé n'a pas été trouvé sur le registre.","modal":{"title":"Sélectionnez votre banque"}},"Error":{"contact":"Si le problème persiste, #{LINK}notre FAQ#{/LINK} peut peut-être vous aider."},"Transfer":{"user-blocked":{"description":"Les virements sont bloqués. Merci de contacter le support."}},"HelpSpeedDial":{"faq":"Questions fréquentes","help":"Assistance de l'app"}};
+module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnectez votre compte"},"transactions":{"reconnect-nestor-account":{"title":"La reconnexion à votre banque est nécessaire","cta":"Reconnecter votre compte","description":"Vous devez reconnecter votre banque %{bankName} à votre service Mon Budget pour que vos données continuent à être mises à jour."}},"nestor-migration-modal":{"title":"Nous avons récupéré l'intégralité de vos comptes","content":"Connectez-vous à chacune de vos banques pour les réactiver.","cta":"OK, bien compris"},"harvest":{"form":{"title":"Connectez votre compte %{name}"},"success":{"folderLinkLabel":"Voir les documents collectés","title":"Configuration réussie !","message":"Vos données existantes seront disponibles dans votre service Mon Budget dans quelques minutes et les prochaines suivront automatiquement.","button":{"label":"Revenir à mon Budget"}}},"configuration":{"title":"En avant-première…","credit":"Demander un crédit"}},"AccountSettings":{"confirm-deletion":{"description":"Cette action supprimera les mouvements déjà présents dans le service Mon Budget, ainsi que les liens avec vos factures. Supprimez également votre synchronisation depuis le menu, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation."}},"Notifications":{"description":"Choisissez les notifications et alertes que vous souhaitez recevoir sur votre mobile.","health_section":{"description":"Cela nécessite d'avoir connecté une assurance santé à votre service Mon Budget."},"delayed-debit":{"notification":{"title":"Mon Budget: Alerte encours carte à débit différé","content":"L'encours carte du compte %{account} engendre un solde négatif sur son compte courant associé"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets ont dépassé leur limite","title-single":"Le budget %{categoryLabel} a dépassé sa limite","innerTitle":"Notification d'alerte par catégorie","budgetOutOf":"sur"}},"konnectorAlerts":{"push":{"content-single":"Connectez-vous à votre service Mon Budget pour régler le problème"}},"if-balance-lower":{"notification":{"one":{"title":"Mon Budget: Alerte solde bas","content":"Solde bas: %{accountBalance}%{currency}"},"several":{"title":"Mon Budget: Alerte solde bas sur les comptes"}}},"if-transaction-greater":{"notification":{"one":{"title":"Mon Budget: %{number} mouvement de plus de %{threshold}%{currency}"},"several":{"title":"Mon Budget: %{number} mouvements de plus de %{threshold}%{currency}"}}},"category-budgets":{"notification":{"one":{"title":"Mon Budget: Alerte de Budget","content":"Budget mensuel de %{threshold}%{currency} %{category} dépassé"},"several":{"title":"Mon Budget: Alerte de Budget sur les catégories","content":"%{categories}"}}}},"Transactions":{"actions":{"informativeModal":{"health":{"description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos remboursements automatiquement."},"generic":{"description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos factures automatiquement."},"caption":"Votre service Mon Budget est totalement privé : personne d'autre que vous ne peut accéder à son contenu."}}},"Reimbursements":{"noReimbursed":{"healthExpenses":"Editez le statut de remboursement de vos dépenses pour faciliter le suivi de vos remboursements."}},"PersonalInfo":{"info":{"description":"Afin de prévenir le blanchiment d'argent et le financement du terrorisme, la MAIF s'est dotée de règles strictes"}},"Recurrence":{"no-recurrences":{"text":"Retrouvez ici les opérations détectées comme récurrentes, vous pouvez également indiquer manuellement une opération comme récurrente. (les suivantes seront détectées automatiquement.)"}},"Store":{"search-field":{"label":"Rechercher :","placeholder":"Recherchez votre banque"},"fetch-error":"Impossible de charger les services, êtes-vous connecté à Internet ?","konnector-not-found":"Le service demandé n'a pas été trouvé sur le registre.","modal":{"title":"Sélectionnez votre banque"}},"Error":{"contact":"Si le problème persiste, #{LINK}notre FAQ#{/LINK} peut peut-être vous aider."},"Transfer":{"user-blocked":{"description":"Les virements sont bloqués. Merci de contacter le support."}},"HelpSpeedDial":{"faq":"Questions fréquentes","help":"Assistance de l'app"}};
 
 /***/ }),
 
@@ -7020,7 +7158,7 @@ module.exports = {"extra":{"balances":{"reconnect-nestor-account":"Reconnectez v
 /*! exports provided: General, Loading, Error, AccountSwitch, Search, Nav, Accounts, Balance, Transactions, Categories, Data, Groups, SelectDates, Notifications, Settings, TOS, BalanceHistory, LogoutModal, AdvancedFeaturesSettings, KonnectorUpdateInfo, Pin, Reimbursements, KonnectorChip, PersonalInfo, Transfer, ReimbursementStatusModal, LoanProgress, LoanDetails, AccountGroupChoice, Confirmation, EditionModal, Recurrence, Harvest, EstimatedBudget, JobsContext, DeletingAccount, Categorization, SelectionBar, Migration, extra, AccountSettings, Store, HelpSpeedDial, default */
 /***/ (function(module) {
 
-module.exports = {"General":{"delete":"Supprimer","deleting":"Suppression...","cancel":"Annuler","confirm":"Confirmer","back":"Revenir","choose":"Choisir"},"Loading":{"loading":"Chargement...","error":"Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."},"Error":{"more-information":"More information","less-information":"Less information","title":"L'affichage de vos données bancaires a échoué","retry":"Vous pouvez essayer de nouveau en rechargeant la page. Si le problème persiste consultez notre FAQ.","reload-page":"Recharger la page","consult-faq":"Consulter notre FAQ","contact":"Si le problème persiste, #{LINK}notre FAQ#{/LINK} peut peut-être vous aider."},"AccountSwitch":{"title":"Choisir un compte / groupe","some-accounts":"%{count}/%{smart_count} compte |||| %{count}/%{smart_count} comptes","all-accounts":"Tous les comptes","accounts":"Comptes","groups":"Groupes","account-counter":"%{smart_count} compte |||| %{smart_count} comptes"},"Search":{"title":"Recherche","title-results":"%{smart_count} résultat |||| %{smart_count} résultats","no-transactions-found":"Aucune opération n'a pu être trouvée avec cette recherche.","input-placeholder":"Rechercher...","type-a-search":"Saisir du texte pour lancer une recherche","since":"Depuis le %{date}","suggestions":"Salaire, EDF, Virement...","search-older-transactions":"Chercher dans les transactions plus anciennes"},"Nav":{"my-accounts":"Mes comptes","analysis":"Analyse","categories":"Catégorisation","projections":"Prévisions","savings":"Economiser","settings":"Paramètres","recurrence":"Récurrences"},"Accounts":{"account":"Compte ","add-account":"Ajouter un compte","add-bank":"Ajouter une banque","no-account":"Aucun compte","bank":"Banque","label":"Libellé","my-accounts":"Mes comptes","no-accounts":"Vous n'avez pas encore de compte.","no-shared-accounts":"Vous n'avez pas encore de compte partagé.","shared":"Partagé","shared-accounts":"Comptes que l'on m'a partagé","type":"Type","manage-accounts":"Gérer mes comptes","owner":"Titulaire"},"Balance":{"title":"Mes comptes","nb-accounts":"%{nbCheckedAccounts}/%{smart_count} compte |||| %{nbCheckedAccounts}/%{smart_count} comptes","subtitle":{"all":"Total de tous vos comptes","group":"Total du groupe %{label}","account":"Total du compte %{label}"},"account-name":"Nom du compte","solde":"Solde","bank-name":"Nom de la banque","account-number":"Numéro du compte","manage-accounts":"Organiser mes comptes","updated-at":{"yesterday":"Hier","today":"Aujourd'hui","n-days-ago":"Il y a %{nbDays} jours","unknown":"NC"},"delay":"Cela peut prendre quelques minutes…","import-accounts":"Import des comptes","importing-accounts-error":"Échec de l'import","in-progress":"En cours","error":"Cliquez pour relancer","trigger-problem":"Problème avec la connexion","no-accounts-in-group":{"description":"Vous n'avez pas de compte associé à ce groupe.","button":"Éditer le groupe"},"reimbursements-caption":"6 derniers mois","import-in-progress":"Import en cours"},"Transactions":{"title":"Mouvements","no-movements":"Pas de mouvements à afficher","total":"Total","trigger-error":{"title":"Connexion impossible","description":"Vos données %{bankName} ne sont plus mises à jour.","cta":"Régler la connexion"},"transactions":"Opérations","will-be-debited-on":"Sera débitée le %{date}","debit":"Débit","credit":"Crédit","header":{"date":"Date","description":"Libellé","amount":"Montant","action":"Action"},"actions":{"more":"Plus","bill":"1 facture","app":"Application %{appName}","refund":"Vérifier vos remboursements","attach":"Attacher un document","konnector":{"health":"Mes remboursements","generic":"Mes factures"},"alert":"Ajouter une alerte","comment":"Commentaire - Bientôt disponible","attachedDocs":{"billWithVendor":"Facture %{vendorName}","billWithoutVendor":"Facture"},"healthExpenseProcessed":{"single":"1 remboursement","plural":"%{nbReimbursements} remboursements"},"healthExpensePending":"Remboursements en attente","healthExpenseBill":"Relevé %{vendor}","vendorsGlue":"et","informativeModal":{"health":{"title":"Suivi automatique de mes remboursements","description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos remboursements automatiquement."},"generic":{"title":"Récupération automatique de mes factures","description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos factures automatiquement."},"caption":"Votre service Mon Budget est totalement privé : personne d'autre que vous ne peut accéder à son contenu.","cancel":"Annuler","confirm":"Connecter"},"reimbursementStatus":{"pending":"Remboursement en attente","reimbursed":"Remboursé","no-reimbursement":"Aucun remboursement attendu","late":"Rembours. en retard","modal":{"title":"Remboursement"}}},"infos":{"modal-label":"Détails de la transaction","account":"Compte","institution":"Banque","originalBankLabel":"Libellé original","date":"Date","assignedToPeriod":"Affectée à %{date}","chooseApplicationDate":"Affecter au mois","applicationDateChangedAlert":"Operation affectée à %{applicationDate} dans l'onglet Analyse","chooseRecurrence":"Récurrence","delete-transaction":{"row-label":"Supprimer l'opération","confirm-modal":{"title":"Êtes-vous sûr(e) ?","content":"La transaction va être supprimée de votre historique. Cette opération ne peut pas être annulée.","confirm":"Supprimer l'opération","cancel":"Annuler"},"deleting-success":"Opération supprimée","deleting-error":"Impossible de supprimer l'opération pour le moment, réessayez plus tard ou contactez le support."}},"see-more":"Voir plus...","reimbursementStatus":{"pending":"J'attends un remboursement","reimbursed":"J'ai déjà été remboursé","no-reimbursement":"Je n'attends pas de remboursement"},"reimbursementStatusUpdateError":"Une erreur est survenue lors de la mise à jour du statut de remboursement"},"Categories":{"choice":{"title":"Modifier la catégorie","select-all":"Sélectionner tout"},"board":{"debit-header":"Dépense","credit-header":"Revenu","total-header":"Total"},"filter":{"debit":"Total hors categ. revenus","credit":"Revenus","total":"Total","includeIncome":"Inclure les revenus"},"title":{"general":"Catégorisation","total":"Sur la période","empty-text":"Aucun mouvement à analyser sur cette période"},"headers":{"categories":"Catégorie","subcategories":"Sous-catégorie","transactions":{"single":"opération","plural":"opérations"},"debit":"Débit","credit":"Crédit","total":"Total","movements":"Mouvements"},"noAccount":"Aucun compte","search":{"title":"Recherche de catégories","no-category":"Aucune catégorie trouvée"}},"Data":{"accountTypes":{"Business":"Comptes professionnels","Checkings":"Comptes courants","CreditCard":"Cartes de crédit","Joint":"Comptes joints","Loan":"Emprunts","LongTermSavings":"Épargne long terme","Other":"Autres comptes","Reimbursements":"Remboursements en attente","Savings":"Épargne"},"categories":{"uncategorized":"A catégoriser","incomeCat":"Revenus","dailyLife":"Dépenses vie courante","transportation":"Transports, véhicules","services":"Services","kids":"Enfants","tax":"Impôts","health":"Santé, prévoyance","activities":"Sports, loisirs","goingOutAndTravel":"Sorties, voyages","educationAndTraining":"Education, formation","homeAndRealEstate":"Logement, immobilier","excludeFromBudgetCat":"Hors budget"},"subcategories":{"potentialTransfer":"Virements à catégoriser","check":"Chèques","atm":"Retraits d'espèces","activityIncome":"Salaire/Revenus d'activité","replacementIncome":"Revenus de remplacement","interests":"Intérêts","dividends":"Dividendes","donationsReceived":"Cadeaux, dons reçus","allocations":"Aides et allocations","rentalIncome":"Revenus locatifs","additionalIncome":"Revenus complémentaires","retirement":"Retraite","supermarket":"Alimentation, supermarché","consumerLoan":"Remb. prêt conso","dressing":"Habillement","pets":"Animaux","telecom":"Internet, TV, télécom","snaksAndworkMeals":"Snacks, repas au travail","charity":"Dons caritatifs","giftsOffered":"Cadeaux offerts","personalCare":"Coiffeur, esthétique, cosmétique, soins","tobaccoPress":"Tabac/Presse","shoppingECommerce":"Shopping/e-Commerce","vehiculePurchase":"Achat véhicule","vehiculeLoan":"Remb. prêt véhicule","vehiculeRental":"Location véhicule","vehiculeInsurance":"Assurance véhicule","vehiculeMaintenance":"Entretien, équipements véhicules","vehiculeGas":"Carburant","privateParking":"Garage, parking privé","parkingAndToll":"Parking, péages, PV","publicTransportation":"Transports en commun","taxi":"Taxi et VTC","post":"Poste, courrier","legalCounsel":"Conseil juridique","homeAssistance":"Aide-à-domicile","bankFees":"Frais bancaires","financialAdvisor":"Conseil financier","kidsAllowance":"Argent de poche","schoolRestaurant":"Restauration scolaire","childCare":"Garde d'enfants","schoolInsurance":"Assurance scolaire","toysAndGifts":"Jouets, cadeaux","pensionPaid":"Pension versée","kidsActivities":"Activités enfants","incomeTax":"Impôts sur le revenu","socialTax":"Contributions sociales","wealthTax":"ISF","realEstateTax":"Taxes foncières, d'habitation","healthExpenses":"Frais, remb santé","healthInsurance":"Cotis mutuelle, prévoyance","activityFees":"Cotis. sports, loisirs","activityEquipments":"Equipement sports, loisirs","activityLessons":"Cours sports, loisirs","electronicsAndMultimedia":"Electronique, multimédia","booksMoviesMusic":"Musique, livres, films","hobbyAndPassion":"Passion, hobby","restaurantsAndBars":"Restaurants, soirées","goingOutEntertainment":"Sorties détente","goingOutCulture":"Sorties culturelles","travel":"Voyages","journey":"Avion/train/bateau...","tuition":"Inscription, scolarité","eduBooksAndSupplies":"Livres, fournitures (éducation)","studentLoan":"Remb. prêt étudiant","eduLessons":"Cours, soutien scolaire","realEstateLoan":"Remb. prêt immobilier","rent":"Loyer","homeCharges":"Charges logement","homeInsurance":"Assurance logement","homeImprovement":"Travaux, déco, jardin","homeHardware":"Meubles, équipement","water":"Eau","power":"Electricité, gaz, chauffage","internalTransfer":"Virements internes","creditCardPayment":"Prél. carte débit différé","loanCredit":"Déblocage prêt, crédits, réserves","professionalExpenses":"Notes de frais (+/-)","investmentBuySell":"Achats, ventes de titres","friendBorrowing":"Avances, remboursements","savings":"Virements d'épargne","kids":"Autres : Enfants","dailyLife":"Autres : Dépenses vie courante","educationAndTraining":"Autres : Education, formation","health":"Autres : Santé, prévoyance","homeAndRealEstate":"Autres : Logement, immobilier","incomeCat":"Autres : Revenus","activities":"Autres : Sports, loisirs","excludeFromBudgetCat":"Autres : Hors budget","services":"Autres : Services","tax":"Autres : Impôts","transportation":"Autres : Transports, véhicules","goingOutAndTravel":"Autres : Sorties, voyages","uncategorized":"Autres : A catégoriser","awaiting":"Catégorisation en cours"},"virtualAccounts":{"healthReimbursements":"Remb santé","professionalReimbursements":"Remb notes de frais","othersReimbursements":"Autres remboursements"}},"Groups":{"groups":"Groupes","label":"Libellé","banks":"Banques","bank":"Banque","accounts":"Comptes","new-group":"Nouveau groupe","create":"Créer un groupe","edit":"éditer","manage-groups":"Gérer mes groupes","delete":"supprimer","edit-group":"Editer le groupe","no-groups":"Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !","back-to-groups":"Revenir aux groupes","rename":"Renommer","save":"Sauvegarder","included":"Inclus","account-number":"Numéro du compte","total-balance":"Total","toggle-account-error":"Impossible d'ajouter/supprimer le compte au groupe, merci de réessayer plus tard","deletion-error":"Une erreur est survenue lors de la suppression du groupe.","no-account":"Aucun compte n'est présent dans ce groupe","name-placeholder":"Mon groupe"},"SelectDates":{"all-year":"Toute l'année","year":"Année","month":"Mois","previous-month":"Mois précédent","next-month":"Mois suivant"},"Notifications":{"title":"Notifications","description":"Choisissez les notifications et alertes que vous souhaitez recevoir sur votre mobile.","editModal":{"title":"Configurer la notification"},"if-balance-lower":{"settingTitle":"Solde bas","fieldLabels":{"value":"Me prévenir quand mon solde passe sous","accountOrGroup":"sur"},"email":{"innerTitle":"Notification de solde bas","access-accounts":"Accéder à mes comptes"},"description":"Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur l'un de vos comptes","descriptionWithAccountGroup":"Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur *%{accountOrGroupLabel}*","notification":{"one":{"title":"Mon Budget: Alerte solde bas","content":"Solde bas: %{accountBalance}%{currency}"},"several":{"title":"Mon Budget: Alerte solde bas sur les comptes"},"several-multi-rule":{"title":"%{accountsLength} comptes sont en dessous de leur seuil limite"}}},"if-transaction-greater":{"settingTitle":"Mouvements","description":"Vous recevrez une notification si un mouvement est supérieur à *%{value}*€","descriptionWithAccountGroup":"Vous recevrez une notification si un mouvement est supérieur à *%{value}*€ sur *%{accountOrGroupLabel}*","email":{"innerTitle":"Notification de mouvement"},"fieldLabels":{"value":"Me prévenir pour les dépenses dépassant","accountOrGroup":"sur"},"notification":{"content-transaction-mention":"%{smart_count} mouvement |||| %{smart_count} mouvements","debit":{"title":"Dépense de %{amount}%{currency}"},"credit":{"title":"Versement de %{amount}%{currency}"},"others":{"title":"%{transactionsLength} mouvements de plus de %{maxAmount}€"},"others-multi":{"title":"%{transactionsLength} mouvements au dessus de %{matchingRulesLength} seuils"},"one":{"title":"Mon Budget: %{number} mouvement de plus de %{threshold}%{currency}"},"several":{"title":"Mon Budget: %{number} mouvements de plus de %{threshold}%{currency}"},"content":"%{transactionName}: %{amount}%{currency}"}},"when-health-bill-linked":{"settingTitle":"Detecté","description":"Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé","email":{"innerTitle":"Remboursements de santé"},"notification":{"title":"Nouveaux remboursements de santé","content":{"title":"Remboursement de santé","treated-by":"Traité par"}}},"when-late-health-reimbursement":{"settingTitle":"En retard","description":"Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis *%{value}* jours.","unit":"jours","email":{"innerTitle":"Notification de remboursement(s) en retard","accessReimbursements":"Accéder à mes remboursements"},"fieldLabels":{"value":"Me prévenir quand une dépense de santé n'est pas remboursée depuis"},"notification":{"title":"Remboursements de santé en retard","content":{"title":"Remboursements de santé en retard","message":"%{smart_count} remboursement de santé en retard |||| %{smart_count} remboursements de santé en retard"}}},"health-section":{"title":"Remboursement de santé","description":"Cela nécessite d'avoir connecté une assurance santé à votre Cozy."},"delayed-debit":{"settingTitle":"Paiement de l'encours carte à débit différé","settingDescription":"Cela nécessite d'avoir connecté un compte de type \"carte de crédit\"","fieldLabels":{"creditCardAccount":"Carte de crédit","checkingsAccount":"Compte courant de l'encours","days":"Me prévenir avant la fin du mois"},"description":"Vous recevrez une notification lorque l'encours carte du compte *%{creditCardLabel}* engendre un solde négatif sur son compte courant associé *%{checkingsLabel}*, *%{value}* jour(s) avant la fin du mois","unit":"jours","email":{"innerTitle":"Notification de paiement de l'encours carte à débit différé","accessAccounts":"Accéder à mes comptes"},"notification":{"title":"Mon Budget: Alerte encours carte à débit différé","content":"L'encours carte du compte %{account} engendre un solde négatif sur son compte courant associé"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets ont dépassé leur limite","title-single":"Le budget %{categoryLabel} a dépassé sa limite","innerTitle":"Notification d'alerte par catégorie","budgetOutOf":"sur"}},"konnectorAlerts":{"email":{"title-multi":"%{alertCount} connecteurs ne synchronisent plus vos données","title-single":"Le connecteur %{konnectorName} ne synchronise plus vos données","innerTitle":"Synchronisation des connecteurs"},"push":{"content-single":"Connectez-vous à votre service Mon Budget pour régler le problème","content-multi":"%{konnectorNames}"}},"health_section":{"description":"Cela nécessite d'avoir connecté une assurance santé à votre service Mon Budget."},"category-budgets":{"notification":{"one":{"title":"Mon Budget: Alerte de Budget","content":"Budget mensuel de %{threshold}%{currency} %{category} dépassé"},"several":{"title":"Mon Budget: Alerte de Budget sur les catégories","content":"%{categories}"}}}},"Settings":{"title":"Paramètres","accounts":"Comptes","groups":"Groupes","configuration":"Config.","debug":"Debug","personal-info":{"title":"Informations personnelles","edit":"Compléter mes informations personnelles"},"security":{"title":"Sécurité","amount-blur":{"title":"Masquer les montants","description":"Naviguer dans l'app avec les montants cachés"}},"rules":{"create":"Créer une alerte","remove-modal":{"title":"Supprimer l'alerte ?","desc":"Merci de confirmer vouloir supprimer l'alerte."},"saving-error":"Impossible de sauvegarder l'alerte, merci de réessayer plus tard."},"budget-category-alerts":{"pane-title":"Budget par catégorie","pane-description":"Configurer les alertes de budget par catégorie","budget-inferior-to":"Budget mensuel de *%{threshold}€*","for-account":"pour le compte *%{accountOrGroupLabel}*","for-group":"pour le groupe *%{accountOrGroupLabel}*","for-all-accounts":"pour tous les comptes","for-category":"en *%{categoryName}*","edit":{"modal-title":"Configurer la notification","category-label":"Catégorie","threshold-label":"Budget mensuel","account-group-label":"Compte ou groupe","create-ok":"Créer","update-ok":"Mettre à jour","all-category":"Tout « %{categoryName} »","cancel":"Annuler"}},"accounts-tab":{"import-in-progress":"Import en cours","in-maintenance":"En maintenance"}},"TOS":{"updated":{"title":"Du nouveau avec le RGPD !","detail":"Dans le cadre du Règlement Général de la Protection des Données (RGPD), [nos CGU sont actualisées](%{link}) et s’appliquent pour vous à partir du 25 mai 2018.","cta":"Accepter les CGU et continuer","disconnect":"Refuser et se déconnecter","error":"Une erreur est survenue, merci de réessayer plus tard"}},"BalanceHistory":{"all-accounts":"Tous les comptes","checked-accounts":"%{nbCheckedAccounts}/%{nbAccounts} comptes"},"LogoutModal":{"message":"Déconnexion en cours..."},"AdvancedFeaturesSettings":{"title":"Fonctions avancées","automatic-categorization":{"title":"Catégorisation automatique","local-model-override":{"description":"Apprendre de mes catégorisations manuelles"}},"balance-history":{"title":"Courbe d'historique de soldes","show-chart":{"description":"Voir mon historique de soldes"}}},"KonnectorUpdateInfo":{"title":"Nouveaux connecteurs bancaires","content":"De nouvelles versions des connecteurs sont disponibles et nécessitent une mise à jour de leurs CGUs. <a href='https://support.cozy.io/article/302-budget' target='_blank'>En savoir plus</a>.","cta":"Mettre à jour mes banques"},"Pin":{"enter-pin-restricted-area":"Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité","please-choose-pin":"Choisir un code de sécurité","please-enter-your-pin":"Entrez votre code de sécurité","please-repeat-pin":"Confirmez le code de sécurité","errors":{"different-pins":"Les deux codes sont différents, merci de recommencer."},"logout":"Quitter","successfully-changed":"Code changé avec succès","error-save":"Erreur de la sauvegarde du pin, êtes vous connecté à internet ?","configure-button":"Configurer un code PIN","attempt-count":"%{current}/%{max} essais","settings":{"toggle-title":"Verrouillage de l'application","toggle-description":"Verrouiller mon app par code pin ou empreinte digitale. Le déverrouillage sera demandé après 30 secondes d'inactivité dans l'application."},"fingerprint-text":"Ou votre empreinte digitale","use-fingerprint":{"yes":"Utiliser mon empreinte","no":"Non, merci","title":"Activer le déverrouillage par empreinte digitale","description":"Souhaitez vous utiliser la sécurité par empreinte proposée par votre téléphone ?"}},"Reimbursements":{"title":{"healthExpenses":"Rembours. santé","professionalExpenses":"Rembours. notes de frais","othersExpenses":"Autres remboursements","group":"Tous les remb. en attente"},"pending":"Remboursements en attente : ","alreadyReimbursed":"Déjà remboursés","noPending":{"generic":"Aucun remboursement attendu pour des dépenses en %{period}.","healthExpenses":"Aucun remboursement attendu pour des dépenses de santé en %{period}","professionalExpenses":"Aucun remboursement attendu pour des notes de frais en %{period}"},"noReimbursed":{"generic":"Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement.","healthExpenses":"Editez le statut de remboursement de vos dépenses pour faciliter le suivi de vos remboursements.","professionalExpenses":"Categorisez des dépenses en « note de frais » pour suivre leur remboursement.","group":"Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement, ou catégorizez les en \"hors budget / notes de frais\" ou \"frais de santé\" pour avoir un suivi automatique."}},"KonnectorChip":{"health":"Mes remboursements","generic":"Mes factures"},"PersonalInfo":{"birthcity":"Commune de naissance","birthcity-placeholder":"Ville où vous êtes né(e)","birthcountry":"Pays de naissance","birthcountry-placeholder":"Pays où vous êtes né(e)","nationality":"Nationalité","save-cta":"Sauvegarder","modal-title":"Modifier mes infos personnelles","info-saved-successfully":"Vos informations ont bien été mises à jour","info":{"title":"Pourquoi ces informations vous sont demandées ?","description":"Afin de prévenir le blanchiment d'argent et le financement du terrorisme, la MAIF s'est dotée de règles strictes"},"validation-error":"Tous les champs sont obligatoires"},"Transfer":{"nav":"Virements","page-title":"Virement","amount":{"page-title":"Montant","field-label":"Montant du virement","title":"Quel montant souhaitez-vous envoyer ?","confirm":"Confirmer le montant","errors":{"too-high":"Choisissez un montant inférieur à %{maximum}€","too-low":"Choisissez un montant supérieur à %{minimum}€","incorrect-number":"%{value} est un montant incorrect."}},"category":{"page-title":"Virement","title":"A qui souhaitez-vous envoyer ce virement ?","internal":"L'un de mes comptes","external":"Un compte tiers"},"beneficiary":{"page-title":"Bénéficiaire","add-beneficiary":"Ajouter un bénéficiaire","help-add-beneficiary-title":"Ajout de bénéficiaires","help-add-beneficiary-action":"Compris !","help-add-beneficiary":"Pour rajouter des bénéficiaires, ajoutez les directement depuis le site de votre banque.","title":"Vers quel compte souhaitez-vous effectuer un virement ?"},"sender":{"page-title":"Émetteur","title":"Depuis quel compte ?"},"summary":{"page-title":"Récapitulatif","send":"Envoyer","from":"depuis","to":"à","for":"pour","for-placeholder":"motif (facultatif)","confirm":"Confirmer le virement","on":"le"},"password":{"page-title":"Mot de passe","title":"Merci de ressaisir le mot de passe de la banque émettrice du virement.","confirm":"Confirmer le virement","field-label":"Votre mot de passe bancaire","field-placeholder":"******","date-placeholder":"Date du virement"},"success":{"title":"Votre demande de virement a été prise en compte","description":"Votre banque procédera au virement sous 1 jour ouvré, sous réserve de solde suffisant."},"error":{"title":"Votre demande de virement n'a pas été prise en compte","description":"Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support.","description-login-failed":"Votre mot de passe semble incorrect, merci de réessayer."},"no-bank":{"title":"Ajoutez une banque pour pouvoir effectuer un virement","add-bank":"Ajouter une banque"},"no-recipients":{"title":"Pas de bénéficiaires trouvés","description":"Nous n'avons pas pu trouver de bénéficiaires, il se peut que votre banque ne soit pas supportée pour les virements. Ci-dessous la liste des banques supportées pour les virements."},"exit":"Terminer","retry":"Réessayer","user-blocked":{"title":"Virements bloqués","description":"Les virements sont bloqués. Merci de contacter le support."}},"ReimbursementStatusModal":{"contact":{"actions":{"sendCareSheet":"Envoyer ma feuile de soin","contactComplementary":"Contacter ma complémentaire"},"phoneCallPrice":" + prix appel","phoneCallFree":"Appel non surtaxé","openApp":{"title":"Ouvrir l'application","caption":"Depuis mon téléphone"}}},"LoanProgress":{"reimbursedAmount":"Montant remboursé","borrowedAmount":"Montant emprunté"},"LoanDetails":{"dateGlue":"le","keyInfos":{"title":"Informations clées","borrowedAmount":"Montant emprunté :","remainingCapital":"Capital restant dû :","interestRate":"Taux d'intérêt :"},"payments":{"title":"Paiements","lastPayment":"Dernier paiement effectué :","nextPayment":"Prochain paiement prévu :"},"characteristics":{"title":"Caractéristiques du prêt","subscriptionDate":"Date de souscription :","maturityDate":"Date de remboursement :","nbPaymentsLeft":"Nb d'échéances encore prévues :","nbPaymentsDone":"Nb d'échéances payées :"},"creditReserve":{"title":"Réserve crédit","totalUsedAmount":"Montant total utilisé :","availableAmount":"Réserve disponible :"}},"AccountGroupChoice":{"nothing-selected":"Sélectionner un compte","all-accounts":"Tous les comptes"},"Confirmation":{"cancel":"Annuler","ok":"OK"},"EditionModal":{"ok":"OK","cancel":"Annuler","remove":"Supprimer"},"Recurrence":{"see-transaction-history":"Voir l'historique","display-error":"Nous sommes désolés, une erreur a empêché l'affichage de cette page. Vous pouvez aller sur la page de debug pour réinitialiser les récurrences, et rechargez la page pour essayer de résoudre le problème.","go-to-debug-page":"Aller sur la page de debug","no-recurrences":{"title":"Aucune opération récurrente","text":"Retrouvez ici les opérations détectées comme récurrentes, vous pouvez également indiquer manuellement une opération comme récurrente. (les suivantes seront détectées automatiquement.)"},"no-transactions":{"title":"Aucune opération","text":"Cette récurrence ne contient aucune opération, vous pouvez la supprimer."},"table":{"frequency":"Fréquence","label":"Libellé","amount":"Montant","last-occurence":"Dernière occurence"},"status":{"ongoing":"En cours","finished":"Terminé","save-success":"Statut changé"},"description-amount":"%{amount}","description-amounts":"entre %{minAmount} et %{maxAmount}","delete-success":"La récurrence a bien été supprimée","delete-error":"La récurrence n'a pas pu été supprimée, merci de réessayer plus tard","title":"Paiements récurrents","choice":{"not-recurrent":"Opération occasionelle","recurrent":"Opération récurrente","new-recurrence":"Nouvelle récurrence"},"action-menu":{"open-button":"Actions sur la récurrence","rename":"Renommer","delete":"Supprimer","delete-caption":"Les opérations seront redéfinies en opérations occasionnelles.","ongoing":"En cours","ongoing-caption":"Une transaction sera attendue dans votre budget prévisionnel","finished":"Terminé"},"rename":{"modal-title":"Renommer le groupe de récurrence","save":"Sauvegarder","cancel":"Annuler","save-success":"Groupe de récurrence correctement sauvé","save-error":"Impossible de renommer, merci de réessayer plus tard"},"freq-info-word":{"weekly":"toutes les semaines","monthly":"tous les mois","yearly":"tous les ans"},"freq-info":"tous les %{frequency} jours","deprecated-bundles-help":"Les paiements ci-dessous ne sont pas comptées dans le solde à venir car leur dernière occurence date de plus de 4 mois."},"Harvest":{"modal-title":"Configurer les comptes","disconnected-account":"Compte déconnecté"},"EstimatedBudget":{"no-planned-transactions":{"title":"Pas d'opérations prévues à 30 jours","text":"Vous pouvez désigner toute opération d'un compte comme \"récurrente\" pour aider la prévision"},"30-day-balance":"Solde à 30 jours","page-title":"Dépenses prévues","numberEstimatedTransactions":"%{smart_count} opération prévue |||| %{smart_count} opérations prévues"},"JobsContext":{"alerter-success":"Import du connecteur réussi","alerter-errored":"Une erreur s'est produite lors de l'import"},"DeletingAccount":{"related-data":{"deleting":"Suppression des données associées, ne pas fermer la fenêtre...","successfully-deleted":"Toutes les données associées ont bien été supprimées"}},"Categorization":{"error":"Impossible de catégoriser certaines opérations, merci de réessayer plus tard.","success":"%{smart_count} operation a été recatégorisée |||| %{smart_count} operations ont été recatégorisées"},"SelectionBar":{"selected_count":"élément sélectionné |||| éléments sélectionnés","close":"Fermer","categorize":"Catégorisation","selectAll":"Tout sélectionner","unselectAll":"Tout désélectionner"},"Migration":{"title":"Rechargement des données nécessaire","content":"Vos données vont être re-téléchargées dans votre application afin d'améliorer les performances de navigation. Cela nécessite une connexion réseau stable et de patienter environ une minute (parfois plus si vous avez un historique très important). Aucune donnée ne sera supprimée. Merci de patienter jusqu'à ce que l'app ait retéléchargée toutes vos données.","confirm":"Ok, c'est parti !","cancel":"Non, pas maintenant"},"extra":{"balances":{"reconnect-nestor-account":"Reconnectez votre compte"},"transactions":{"reconnect-nestor-account":{"title":"La reconnexion à votre banque est nécessaire","cta":"Reconnecter votre compte","description":"Vous devez reconnecter votre banque %{bankName} à votre service Mon Budget pour que vos données continuent à être mises à jour."}},"nestor-migration-modal":{"title":"Nous avons récupéré l'intégralité de vos comptes","content":"Connectez-vous à chacune de vos banques pour les réactiver.","cta":"OK, bien compris"},"harvest":{"form":{"title":"Connectez votre compte %{name}"},"success":{"folderLinkLabel":"Voir les documents collectés","title":"Configuration réussie !","message":"Vos données existantes seront disponibles dans votre service Mon Budget dans quelques minutes et les prochaines suivront automatiquement.","button":{"label":"Revenir à mon Budget"}}},"configuration":{"title":"En avant-première…","credit":"Demander un crédit"}},"AccountSettings":{"confirm-deletion":{"description":"Cette action supprimera les mouvements déjà présents dans le service Mon Budget, ainsi que les liens avec vos factures. Supprimez également votre synchronisation depuis le menu, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation."}},"Store":{"search-field":{"label":"Rechercher :","placeholder":"Recherchez votre banque"},"fetch-error":"Impossible de charger les services, êtes-vous connecté à Internet ?","konnector-not-found":"Le service demandé n'a pas été trouvé sur le registre.","modal":{"title":"Sélectionnez votre banque"}},"HelpSpeedDial":{"faq":"Questions fréquentes","help":"Assistance de l'app"}};
+module.exports = {"General":{"delete":"Supprimer","deleting":"Suppression...","cancel":"Annuler","confirm":"Confirmer","back":"Revenir","choose":"Choisir","reload":"Recharger"},"Loading":{"loading":"Chargement...","error":"Il y a eu une erreur pendant le chargement des données. Merci de réessayer plus tard."},"Error":{"more-information":"More information","less-information":"Less information","title":"L'affichage de vos données bancaires a échoué","retry":"Vous pouvez essayer de nouveau en rechargeant la page. Si le problème persiste consultez notre FAQ.","reload-page":"Recharger la page","consult-faq":"Consulter notre FAQ","fetch-error":"Connexion perdue. Réessayez plus tard ou vérifiez votre connexion et rechargez la page.","contact":"Si le problème persiste, #{LINK}notre FAQ#{/LINK} peut peut-être vous aider."},"AccountSwitch":{"title":"Choisir un compte / groupe","some-accounts":"%{count}/%{smart_count} compte |||| %{count}/%{smart_count} comptes","all-accounts":"Tous les comptes","accounts":"Comptes","groups":"Groupes","account-counter":"%{smart_count} compte |||| %{smart_count} comptes"},"Search":{"title":"Recherche","title-results":"%{smart_count} résultat |||| %{smart_count} résultats","no-transactions-found":"Aucune opération n'a pu être trouvée avec cette recherche.","input-placeholder":"Rechercher...","type-a-search":"Saisir du texte pour lancer une recherche","since":"Depuis le %{date}","suggestions":"Salaire, EDF, Virement...","search-older-transactions":"Chercher dans les transactions plus anciennes"},"Nav":{"my-accounts":"Mes comptes","analysis":"Analyse","categories":"Catégorisation","projections":"Prévisions","savings":"Economiser","settings":"Paramètres","recurrence":"Récurrences"},"Accounts":{"account":"Compte ","add-account":"Ajouter un compte","add-bank":"Ajouter une banque","no-account":"Aucun compte","bank":"Banque","label":"Libellé","my-accounts":"Mes comptes","no-accounts":"Vous n'avez pas encore de compte.","no-shared-accounts":"Vous n'avez pas encore de compte partagé.","shared":"Partagé","shared-accounts":"Comptes que l'on m'a partagé","type":"Type","manage-accounts":"Gérer mes comptes","owner":"Titulaire"},"Balance":{"title":"Mes comptes","nb-accounts":"%{nbCheckedAccounts}/%{smart_count} compte |||| %{nbCheckedAccounts}/%{smart_count} comptes","subtitle":{"all":"Total de tous vos comptes","group":"Total du groupe %{label}","account":"Total du compte %{label}"},"account-name":"Nom du compte","solde":"Solde","bank-name":"Nom de la banque","account-number":"Numéro du compte","manage-accounts":"Organiser mes comptes","updated-at":{"yesterday":"Hier","today":"Aujourd'hui","n-days-ago":"Il y a %{nbDays} jours","unknown":"NC"},"delay":"Cela peut prendre quelques minutes…","import-accounts":"Import des comptes","importing-accounts-error":"Échec de l'import","in-progress":"En cours","error":"Cliquez pour relancer","trigger-problem":"Problème avec la connexion","no-accounts-in-group":{"description":"Vous n'avez pas de compte associé à ce groupe.","button":"Éditer le groupe"},"reimbursements-caption":"6 derniers mois","import-in-progress":"Import en cours"},"Transactions":{"title":"Mouvements","no-movements":"Pas de mouvements à afficher","total":"Total","trigger-error":{"title":"Connexion impossible","description":"Vos données %{bankName} ne sont plus mises à jour.","cta":"Régler la connexion"},"transactions":"Opérations","will-be-debited-on":"Sera débitée le %{date}","debit":"Débit","credit":"Crédit","header":{"date":"Date","description":"Libellé","amount":"Montant","action":"Action"},"actions":{"more":"Plus","bill":"1 facture","app":"Application %{appName}","refund":"Vérifier vos remboursements","attach":"Attacher un document","konnector":{"health":"Mes remboursements","generic":"Mes factures"},"alert":"Ajouter une alerte","comment":"Commentaire - Bientôt disponible","attachedDocs":{"billWithVendor":"Facture %{vendorName}","billWithoutVendor":"Facture"},"healthExpenseProcessed":{"single":"1 remboursement","plural":"%{nbReimbursements} remboursements"},"healthExpensePending":"Remboursements en attente","healthExpenseBill":"Relevé %{vendor}","vendorsGlue":"et","informativeModal":{"health":{"title":"Suivi automatique de mes remboursements","description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos remboursements automatiquement."},"generic":{"title":"Récupération automatique de mes factures","description":"Connectez votre compte %{brandName} à votre service Mon Budget pour récupérer vos factures automatiquement."},"caption":"Votre service Mon Budget est totalement privé : personne d'autre que vous ne peut accéder à son contenu.","cancel":"Annuler","confirm":"Connecter"},"reimbursementStatus":{"pending":"Remboursement en attente","reimbursed":"Remboursé","no-reimbursement":"Aucun remboursement attendu","late":"Rembours. en retard","modal":{"title":"Remboursement"}}},"infos":{"modal-label":"Détails de la transaction","account":"Compte","institution":"Banque","originalBankLabel":"Libellé original","date":"Date","assignedToPeriod":"Affectée à %{date}","chooseApplicationDate":"Affecter au mois","applicationDateChangedAlert":"Operation affectée à %{applicationDate} dans l'onglet Analyse","chooseRecurrence":"Récurrence","delete-transaction":{"row-label":"Supprimer l'opération","confirm-modal":{"title":"Êtes-vous sûr(e) ?","content":"La transaction va être supprimée de votre historique. Cette opération ne peut pas être annulée.","confirm":"Supprimer l'opération","cancel":"Annuler"},"deleting-success":"Opération supprimée","deleting-error":"Impossible de supprimer l'opération pour le moment, réessayez plus tard ou contactez le support."}},"see-more":"Voir plus...","reimbursementStatus":{"pending":"J'attends un remboursement","reimbursed":"J'ai déjà été remboursé","no-reimbursement":"Je n'attends pas de remboursement"},"reimbursementStatusUpdateError":"Une erreur est survenue lors de la mise à jour du statut de remboursement"},"Categories":{"choice":{"title":"Modifier la catégorie","select-all":"Sélectionner tout"},"board":{"debit-header":"Dépense","credit-header":"Revenu","total-header":"Total"},"filter":{"debit":"Total hors categ. revenus","credit":"Revenus","total":"Total","includeIncome":"Inclure les revenus"},"title":{"general":"Catégorisation","total":"Sur la période","empty-text":"Aucun mouvement à analyser sur cette période"},"headers":{"categories":"Catégorie","subcategories":"Sous-catégorie","transactions":{"single":"opération","plural":"opérations"},"debit":"Débit","credit":"Crédit","total":"Total","movements":"Mouvements"},"noAccount":"Aucun compte","search":{"title":"Recherche de catégories","no-category":"Aucune catégorie trouvée"}},"Data":{"accountTypes":{"Business":"Comptes professionnels","Checkings":"Comptes courants","CreditCard":"Cartes de crédit","Joint":"Comptes joints","Loan":"Emprunts","LongTermSavings":"Épargne long terme","Other":"Autres comptes","Reimbursements":"Remboursements en attente","Savings":"Épargne"},"categories":{"uncategorized":"A catégoriser","incomeCat":"Revenus","dailyLife":"Dépenses vie courante","transportation":"Transports, véhicules","services":"Services","kids":"Enfants","tax":"Impôts","health":"Santé, prévoyance","activities":"Sports, loisirs","goingOutAndTravel":"Sorties, voyages","educationAndTraining":"Education, formation","homeAndRealEstate":"Logement, immobilier","excludeFromBudgetCat":"Hors budget"},"subcategories":{"potentialTransfer":"Virements à catégoriser","check":"Chèques","atm":"Retraits d'espèces","activityIncome":"Salaire/Revenus d'activité","replacementIncome":"Revenus de remplacement","interests":"Intérêts","dividends":"Dividendes","donationsReceived":"Cadeaux, dons reçus","allocations":"Aides et allocations","rentalIncome":"Revenus locatifs","additionalIncome":"Revenus complémentaires","retirement":"Retraite","supermarket":"Alimentation, supermarché","consumerLoan":"Remb. prêt conso","dressing":"Habillement","pets":"Animaux","telecom":"Internet, TV, télécom","snaksAndworkMeals":"Snacks, repas au travail","charity":"Dons caritatifs","giftsOffered":"Cadeaux offerts","personalCare":"Coiffeur, esthétique, cosmétique, soins","tobaccoPress":"Tabac/Presse","shoppingECommerce":"Shopping/e-Commerce","vehiculePurchase":"Achat véhicule","vehiculeLoan":"Remb. prêt véhicule","vehiculeRental":"Location véhicule","vehiculeInsurance":"Assurance véhicule","vehiculeMaintenance":"Entretien, équipements véhicules","vehiculeGas":"Carburant","privateParking":"Garage, parking privé","parkingAndToll":"Parking, péages, PV","publicTransportation":"Transports en commun","taxi":"Taxi et VTC","post":"Poste, courrier","legalCounsel":"Conseil juridique","homeAssistance":"Aide-à-domicile","bankFees":"Frais bancaires","financialAdvisor":"Conseil financier","kidsAllowance":"Argent de poche","schoolRestaurant":"Restauration scolaire","childCare":"Garde d'enfants","schoolInsurance":"Assurance scolaire","toysAndGifts":"Jouets, cadeaux","pensionPaid":"Pension versée","kidsActivities":"Activités enfants","incomeTax":"Impôts sur le revenu","socialTax":"Contributions sociales","wealthTax":"ISF","realEstateTax":"Taxes foncières, d'habitation","healthExpenses":"Frais, remb santé","healthInsurance":"Cotis mutuelle, prévoyance","activityFees":"Cotis. sports, loisirs","activityEquipments":"Equipement sports, loisirs","activityLessons":"Cours sports, loisirs","electronicsAndMultimedia":"Electronique, multimédia","booksMoviesMusic":"Musique, livres, films","hobbyAndPassion":"Passion, hobby","restaurantsAndBars":"Restaurants, soirées","goingOutEntertainment":"Sorties détente","goingOutCulture":"Sorties culturelles","travel":"Voyages","journey":"Avion/train/bateau...","tuition":"Inscription, scolarité","eduBooksAndSupplies":"Livres, fournitures (éducation)","studentLoan":"Remb. prêt étudiant","eduLessons":"Cours, soutien scolaire","realEstateLoan":"Remb. prêt immobilier","rent":"Loyer","homeCharges":"Charges logement","homeInsurance":"Assurance logement","homeImprovement":"Travaux, déco, jardin","homeHardware":"Meubles, équipement","water":"Eau","power":"Electricité, gaz, chauffage","internalTransfer":"Virements internes","creditCardPayment":"Prél. carte débit différé","loanCredit":"Déblocage prêt, crédits, réserves","professionalExpenses":"Notes de frais (+/-)","investmentBuySell":"Achats, ventes de titres","friendBorrowing":"Avances, remboursements","savings":"Virements d'épargne","kids":"Autres : Enfants","dailyLife":"Autres : Dépenses vie courante","educationAndTraining":"Autres : Education, formation","health":"Autres : Santé, prévoyance","homeAndRealEstate":"Autres : Logement, immobilier","incomeCat":"Autres : Revenus","activities":"Autres : Sports, loisirs","excludeFromBudgetCat":"Autres : Hors budget","services":"Autres : Services","tax":"Autres : Impôts","transportation":"Autres : Transports, véhicules","goingOutAndTravel":"Autres : Sorties, voyages","uncategorized":"Autres : A catégoriser","awaiting":"Catégorisation en cours"},"virtualAccounts":{"healthReimbursements":"Remb santé","professionalReimbursements":"Remb notes de frais","othersReimbursements":"Autres remboursements"}},"Groups":{"groups":"Groupes","label":"Libellé","banks":"Banques","bank":"Banque","accounts":"Comptes","new-group":"Nouveau groupe","create":"Créer un groupe","edit":"éditer","manage-groups":"Gérer mes groupes","delete":"supprimer","edit-group":"Editer le groupe","no-groups":"Avec les groupes, vous pouvez facilement rassembler plusieurs comptes, n'hésitez pas à en créer un !","back-to-groups":"Revenir aux groupes","rename":"Renommer","save":"Sauvegarder","included":"Inclus","account-number":"Numéro du compte","total-balance":"Total","toggle-account-error":"Impossible d'ajouter/supprimer le compte au groupe, merci de réessayer plus tard","deletion-error":"Une erreur est survenue lors de la suppression du groupe.","no-account":"Aucun compte n'est présent dans ce groupe","name-placeholder":"Mon groupe"},"SelectDates":{"all-year":"Toute l'année","year":"Année","month":"Mois","previous-month":"Mois précédent","next-month":"Mois suivant"},"Notifications":{"title":"Notifications","description":"Choisissez les notifications et alertes que vous souhaitez recevoir sur votre mobile.","editModal":{"title":"Configurer la notification"},"if-balance-lower":{"settingTitle":"Solde bas","fieldLabels":{"value":"Me prévenir quand mon solde passe sous","accountOrGroup":"sur"},"email":{"innerTitle":"Notification de solde bas","access-accounts":"Accéder à mes comptes"},"description":"Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur l'un de vos comptes","descriptionWithAccountGroup":"Vous recevrez une notification si votre solde est inférieur à *%{value}*€ sur *%{accountOrGroupLabel}*","notification":{"one":{"title":"Mon Budget: Alerte solde bas","content":"Solde bas: %{accountBalance}%{currency}"},"several":{"title":"Mon Budget: Alerte solde bas sur les comptes"},"several-multi-rule":{"title":"%{accountsLength} comptes sont en dessous de leur seuil limite"}}},"if-transaction-greater":{"settingTitle":"Mouvements","description":"Vous recevrez une notification si un mouvement est supérieur à *%{value}*€","descriptionWithAccountGroup":"Vous recevrez une notification si un mouvement est supérieur à *%{value}*€ sur *%{accountOrGroupLabel}*","email":{"innerTitle":"Notification de mouvement"},"fieldLabels":{"value":"Me prévenir pour les dépenses dépassant","accountOrGroup":"sur"},"notification":{"debit":{"title":"Dépense de %{amount}%{currency}"},"credit":{"title":"Versement de %{amount}%{currency}"},"others":{"title":"%{transactionsLength} mouvements de plus de %{maxAmount}€"},"others-multi":{"title":"%{transactionsLength} mouvements au dessus de %{matchingRulesLength} seuils"},"one":{"title":"Mon Budget: %{number} mouvement de plus de %{threshold}%{currency}"},"several":{"title":"Mon Budget: %{number} mouvements de plus de %{threshold}%{currency}"}}},"when-health-bill-linked":{"settingTitle":"Detecté","description":"Vous recevrez une notification lorsqu'un remboursement a été trouvé pour une de vos dépenses de santé","email":{"innerTitle":"Remboursements de santé"},"notification":{"title":"Nouveaux remboursements de santé","content":{"title":"Remboursement de santé","treated-by":"Traité par"}}},"when-late-health-reimbursement":{"settingTitle":"En retard","description":"Vous recevrez une notification lorsqu'un remboursement n'a pas été trouvé pour une de vos dépenses de santé depuis *%{value}* jours.","unit":"jours","email":{"innerTitle":"Notification de remboursement(s) en retard","accessReimbursements":"Accéder à mes remboursements"},"fieldLabels":{"value":"Me prévenir quand une dépense de santé n'est pas remboursée depuis"},"notification":{"title":"Remboursements de santé en retard","content":{"title":"Remboursements de santé en retard","message":"%{smart_count} remboursement de santé en retard |||| %{smart_count} remboursements de santé en retard"}}},"health-section":{"title":"Remboursement de santé","description":"Cela nécessite d'avoir connecté une assurance santé à votre Cozy."},"delayed-debit":{"settingTitle":"Paiement de l'encours carte à débit différé","settingDescription":"Cela nécessite d'avoir connecté un compte de type \"carte de crédit\"","fieldLabels":{"creditCardAccount":"Carte de crédit","checkingsAccount":"Compte courant de l'encours","days":"Me prévenir avant la fin du mois"},"description":"Vous recevrez une notification lorque l'encours carte du compte *%{creditCardLabel}* engendre un solde négatif sur son compte courant associé *%{checkingsLabel}*, *%{value}* jour(s) avant la fin du mois","unit":"jours","email":{"innerTitle":"Notification de paiement de l'encours carte à débit différé","accessAccounts":"Accéder à mes comptes"},"notification":{"title":"Mon Budget: Alerte encours carte à débit différé","content":"L'encours carte du compte %{account} engendre un solde négatif sur son compte courant associé"}},"categoryBudgets":{"email":{"title-multi":"%{alertCount} budgets ont dépassé leur limite","title-single":"Le budget %{categoryLabel} a dépassé sa limite","innerTitle":"Notification d'alerte par catégorie","budgetOutOf":"sur"}},"konnectorAlerts":{"email":{"title-multi":"%{alertCount} connecteurs ne synchronisent plus vos données","title-single":"Le connecteur %{konnectorName} ne synchronise plus vos données","innerTitle":"Synchronisation des connecteurs"},"push":{"content-single":"Connectez-vous à votre service Mon Budget pour régler le problème","content-multi":"%{konnectorNames}"}},"health_section":{"description":"Cela nécessite d'avoir connecté une assurance santé à votre service Mon Budget."},"category-budgets":{"notification":{"one":{"title":"Mon Budget: Alerte de Budget","content":"Budget mensuel de %{threshold}%{currency} %{category} dépassé"},"several":{"title":"Mon Budget: Alerte de Budget sur les catégories","content":"%{categories}"}}}},"Settings":{"title":"Paramètres","accounts":"Comptes","groups":"Groupes","configuration":"Config.","debug":"Debug","personal-info":{"title":"Informations personnelles","edit":"Compléter mes informations personnelles"},"security":{"title":"Sécurité","amount-blur":{"title":"Masquer les montants","description":"Naviguer dans l'app avec les montants cachés"}},"rules":{"create":"Créer une alerte","remove-modal":{"title":"Supprimer l'alerte ?","desc":"Merci de confirmer vouloir supprimer l'alerte."},"saving-error":"Impossible de sauvegarder l'alerte, merci de réessayer plus tard."},"budget-category-alerts":{"pane-title":"Budget par catégorie","pane-description":"Configurer les alertes de budget par catégorie","budget-inferior-to":"Budget mensuel de *%{threshold}€*","for-account":"pour le compte *%{accountOrGroupLabel}*","for-group":"pour le groupe *%{accountOrGroupLabel}*","for-all-accounts":"pour tous les comptes","for-category":"en *%{categoryName}*","edit":{"modal-title":"Configurer la notification","category-label":"Catégorie","threshold-label":"Budget mensuel","account-group-label":"Compte ou groupe","create-ok":"Créer","update-ok":"Mettre à jour","all-category":"Tout « %{categoryName} »","cancel":"Annuler"}},"accounts-tab":{"import-in-progress":"Import en cours","in-maintenance":"En maintenance"}},"TOS":{"updated":{"title":"Du nouveau avec le RGPD !","detail":"Dans le cadre du Règlement Général de la Protection des Données (RGPD), [nos CGU sont actualisées](%{link}) et s’appliquent pour vous à partir du 25 mai 2018.","cta":"Accepter les CGU et continuer","disconnect":"Refuser et se déconnecter","error":"Une erreur est survenue, merci de réessayer plus tard"}},"BalanceHistory":{"all-accounts":"Tous les comptes","checked-accounts":"%{nbCheckedAccounts}/%{nbAccounts} comptes"},"LogoutModal":{"message":"Déconnexion en cours..."},"AdvancedFeaturesSettings":{"title":"Fonctions avancées","automatic-categorization":{"title":"Catégorisation automatique","local-model-override":{"description":"Apprendre de mes catégorisations manuelles"}},"balance-history":{"title":"Courbe d'historique de soldes","show-chart":{"description":"Voir mon historique de soldes"}}},"KonnectorUpdateInfo":{"title":"Nouveaux connecteurs bancaires","content":"De nouvelles versions des connecteurs sont disponibles et nécessitent une mise à jour de leurs CGUs. <a href='https://support.cozy.io/article/302-budget' target='_blank'>En savoir plus</a>.","cta":"Mettre à jour mes banques"},"Pin":{"enter-pin-restricted-area":"Merci d'entrer votre code pin courant pour accéder à cette fonctionnalité","please-choose-pin":"Choisir un code de sécurité","please-enter-your-pin":"Entrez votre code de sécurité","please-repeat-pin":"Confirmez le code de sécurité","errors":{"different-pins":"Les deux codes sont différents, merci de recommencer."},"logout":"Quitter","successfully-changed":"Code changé avec succès","error-save":"Erreur de la sauvegarde du pin, êtes vous connecté à internet ?","configure-button":"Configurer un code PIN","attempt-count":"%{current}/%{max} essais","settings":{"toggle-title":"Verrouillage de l'application","toggle-description":"Verrouiller mon app par code pin ou empreinte digitale. Le déverrouillage sera demandé après 30 secondes d'inactivité dans l'application."},"fingerprint-text":"Ou votre empreinte digitale","use-fingerprint":{"yes":"Utiliser mon empreinte","no":"Non, merci","title":"Activer le déverrouillage par empreinte digitale","description":"Souhaitez vous utiliser la sécurité par empreinte proposée par votre téléphone ?"}},"Reimbursements":{"title":{"healthExpenses":"Rembours. santé","professionalExpenses":"Rembours. notes de frais","othersExpenses":"Autres remboursements","group":"Tous les remb. en attente"},"pending":"Remboursements en attente : ","alreadyReimbursed":"Déjà remboursés","noPending":{"generic":"Aucun remboursement attendu pour des dépenses en %{period}.","healthExpenses":"Aucun remboursement attendu pour des dépenses de santé en %{period}","professionalExpenses":"Aucun remboursement attendu pour des notes de frais en %{period}"},"noReimbursed":{"generic":"Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement.","healthExpenses":"Editez le statut de remboursement de vos dépenses pour faciliter le suivi de vos remboursements.","professionalExpenses":"Categorisez des dépenses en « note de frais » pour suivre leur remboursement.","group":"Ajoutez un remboursement en attente manuellement sur des dépenses pour suivre leur remboursement, ou catégorizez les en \"hors budget / notes de frais\" ou \"frais de santé\" pour avoir un suivi automatique."}},"KonnectorChip":{"health":"Mes remboursements","generic":"Mes factures"},"PersonalInfo":{"birthcity":"Commune de naissance","birthcity-placeholder":"Ville où vous êtes né(e)","birthcountry":"Pays de naissance","birthcountry-placeholder":"Pays où vous êtes né(e)","nationality":"Nationalité","save-cta":"Sauvegarder","modal-title":"Modifier mes infos personnelles","info-saved-successfully":"Vos informations ont bien été mises à jour","info":{"title":"Pourquoi ces informations vous sont demandées ?","description":"Afin de prévenir le blanchiment d'argent et le financement du terrorisme, la MAIF s'est dotée de règles strictes"},"validation-error":"Tous les champs sont obligatoires"},"Transfer":{"nav":"Virements","page-title":"Virement","amount":{"page-title":"Montant","field-label":"Montant du virement","title":"Quel montant souhaitez-vous envoyer ?","confirm":"Confirmer le montant","errors":{"too-high":"Choisissez un montant inférieur à %{maximum}€","too-low":"Choisissez un montant supérieur à %{minimum}€","incorrect-number":"%{value} est un montant incorrect."}},"category":{"page-title":"Virement","title":"A qui souhaitez-vous envoyer ce virement ?","internal":"L'un de mes comptes","external":"Un compte tiers"},"beneficiary":{"page-title":"Bénéficiaire","add-beneficiary":"Ajouter un bénéficiaire","help-add-beneficiary-title":"Ajout de bénéficiaires","help-add-beneficiary-action":"Compris !","help-add-beneficiary":"Pour rajouter des bénéficiaires, ajoutez les directement depuis le site de votre banque.","title":"Vers quel compte souhaitez-vous effectuer un virement ?"},"sender":{"page-title":"Émetteur","title":"Depuis quel compte ?"},"summary":{"page-title":"Récapitulatif","send":"Envoyer","from":"depuis","to":"à","for":"pour","for-placeholder":"motif (facultatif)","confirm":"Confirmer le virement","on":"le"},"password":{"page-title":"Mot de passe","title":"Merci de ressaisir le mot de passe de la banque émettrice du virement.","confirm":"Confirmer le virement","field-label":"Votre mot de passe bancaire","field-placeholder":"******","date-placeholder":"Date du virement"},"success":{"title":"Votre demande de virement a été prise en compte","description":"Votre banque procédera au virement sous 1 jour ouvré, sous réserve de solde suffisant."},"error":{"title":"Votre demande de virement n'a pas été prise en compte","description":"Votre demande de virement n'a pas pu être envoyée, merci de réessayer plus tard ou contactez notre support.","description-login-failed":"Votre mot de passe semble incorrect, merci de réessayer."},"no-bank":{"title":"Ajoutez une banque pour pouvoir effectuer un virement","add-bank":"Ajouter une banque"},"no-recipients":{"title":"Pas de bénéficiaires trouvés","description":"Nous n'avons pas pu trouver de bénéficiaires, il se peut que votre banque ne soit pas supportée pour les virements. Ci-dessous la liste des banques supportées pour les virements."},"exit":"Terminer","retry":"Réessayer","user-blocked":{"title":"Virements bloqués","description":"Les virements sont bloqués. Merci de contacter le support."}},"ReimbursementStatusModal":{"contact":{"actions":{"sendCareSheet":"Envoyer ma feuile de soin","contactComplementary":"Contacter ma complémentaire"},"phoneCallPrice":" + prix appel","phoneCallFree":"Appel non surtaxé","openApp":{"title":"Ouvrir l'application","caption":"Depuis mon téléphone"}}},"LoanProgress":{"reimbursedAmount":"Montant remboursé","borrowedAmount":"Montant emprunté"},"LoanDetails":{"dateGlue":"le","keyInfos":{"title":"Informations clées","borrowedAmount":"Montant emprunté :","remainingCapital":"Capital restant dû :","interestRate":"Taux d'intérêt :"},"payments":{"title":"Paiements","lastPayment":"Dernier paiement effectué :","nextPayment":"Prochain paiement prévu :"},"characteristics":{"title":"Caractéristiques du prêt","subscriptionDate":"Date de souscription :","maturityDate":"Date de remboursement :","nbPaymentsLeft":"Nb d'échéances encore prévues :","nbPaymentsDone":"Nb d'échéances payées :"},"creditReserve":{"title":"Réserve crédit","totalUsedAmount":"Montant total utilisé :","availableAmount":"Réserve disponible :"}},"AccountGroupChoice":{"nothing-selected":"Sélectionner un compte","all-accounts":"Tous les comptes"},"Confirmation":{"cancel":"Annuler","ok":"OK"},"EditionModal":{"ok":"OK","cancel":"Annuler","remove":"Supprimer"},"Recurrence":{"see-transaction-history":"Voir l'historique","display-error":"Nous sommes désolés, une erreur a empêché l'affichage de cette page. Vous pouvez aller sur la page de debug pour réinitialiser les récurrences, et rechargez la page pour essayer de résoudre le problème.","go-to-debug-page":"Aller sur la page de debug","no-recurrences":{"title":"Aucune opération récurrente","text":"Retrouvez ici les opérations détectées comme récurrentes, vous pouvez également indiquer manuellement une opération comme récurrente. (les suivantes seront détectées automatiquement.)"},"no-transactions":{"title":"Aucune opération","text":"Cette récurrence ne contient aucune opération, vous pouvez la supprimer."},"table":{"frequency":"Fréquence","label":"Libellé","amount":"Montant","last-occurence":"Dernière occurence"},"status":{"ongoing":"En cours","finished":"Terminé","save-success":"Statut changé"},"description-amount":"%{amount}","description-amounts":"entre %{minAmount} et %{maxAmount}","delete-success":"La récurrence a bien été supprimée","delete-error":"La récurrence n'a pas pu été supprimée, merci de réessayer plus tard","title":"Paiements récurrents","choice":{"not-recurrent":"Opération occasionelle","recurrent":"Opération récurrente","new-recurrence":"Nouvelle récurrence"},"action-menu":{"open-button":"Actions sur la récurrence","rename":"Renommer","delete":"Supprimer","delete-caption":"Les opérations seront redéfinies en opérations occasionnelles.","ongoing":"En cours","ongoing-caption":"Une transaction sera attendue dans votre budget prévisionnel","finished":"Terminé"},"rename":{"modal-title":"Renommer le groupe de récurrence","save":"Sauvegarder","cancel":"Annuler","save-success":"Groupe de récurrence correctement sauvé","save-error":"Impossible de renommer, merci de réessayer plus tard"},"freq-info-word":{"weekly":"toutes les semaines","monthly":"tous les mois","yearly":"tous les ans"},"freq-info":"tous les %{frequency} jours","deprecated-bundles-help":"Les paiements ci-dessous ne sont pas comptées dans le solde à venir car leur dernière occurence date de plus de 4 mois."},"Harvest":{"modal-title":"Configurer les comptes","disconnected-account":"Compte déconnecté"},"EstimatedBudget":{"no-planned-transactions":{"title":"Pas d'opérations prévues à 30 jours","text":"Vous pouvez désigner toute opération d'un compte comme \"récurrente\" pour aider la prévision"},"30-day-balance":"Solde à 30 jours","page-title":"Dépenses prévues","numberEstimatedTransactions":"%{smart_count} opération prévue |||| %{smart_count} opérations prévues"},"JobsContext":{"alerter-success":"Import du connecteur réussi","alerter-errored":"Une erreur s'est produite lors de l'import"},"DeletingAccount":{"related-data":{"deleting":"Suppression des données associées, ne pas fermer la fenêtre...","successfully-deleted":"Toutes les données associées ont bien été supprimées"}},"Categorization":{"error":"Impossible de catégoriser certaines opérations, merci de réessayer plus tard.","success":"%{smart_count} operation a été recatégorisée |||| %{smart_count} operations ont été recatégorisées"},"SelectionBar":{"selected_count":"élément sélectionné |||| éléments sélectionnés","close":"Fermer","categorize":"Catégorisation","selectAll":"Tout sélectionner","unselectAll":"Tout désélectionner"},"Migration":{"title":"Rechargement des données nécessaire","content":"Vos données vont être re-téléchargées dans votre application afin d'améliorer les performances de navigation. Cela nécessite une connexion réseau stable et de patienter environ une minute (parfois plus si vous avez un historique très important). Aucune donnée ne sera supprimée. Merci de patienter jusqu'à ce que l'app ait retéléchargée toutes vos données.","confirm":"Ok, c'est parti !","cancel":"Non, pas maintenant"},"extra":{"balances":{"reconnect-nestor-account":"Reconnectez votre compte"},"transactions":{"reconnect-nestor-account":{"title":"La reconnexion à votre banque est nécessaire","cta":"Reconnecter votre compte","description":"Vous devez reconnecter votre banque %{bankName} à votre service Mon Budget pour que vos données continuent à être mises à jour."}},"nestor-migration-modal":{"title":"Nous avons récupéré l'intégralité de vos comptes","content":"Connectez-vous à chacune de vos banques pour les réactiver.","cta":"OK, bien compris"},"harvest":{"form":{"title":"Connectez votre compte %{name}"},"success":{"folderLinkLabel":"Voir les documents collectés","title":"Configuration réussie !","message":"Vos données existantes seront disponibles dans votre service Mon Budget dans quelques minutes et les prochaines suivront automatiquement.","button":{"label":"Revenir à mon Budget"}}},"configuration":{"title":"En avant-première…","credit":"Demander un crédit"}},"AccountSettings":{"confirm-deletion":{"description":"Cette action supprimera les mouvements déjà présents dans le service Mon Budget, ainsi que les liens avec vos factures. Supprimez également votre synchronisation depuis le menu, si vous ne souhaitez pas réimporter vos données à la prochaine synchronisation."}},"Store":{"search-field":{"label":"Rechercher :","placeholder":"Recherchez votre banque"},"fetch-error":"Impossible de charger les services, êtes-vous connecté à Internet ?","konnector-not-found":"Le service demandé n'a pas été trouvé sur le registre.","modal":{"title":"Sélectionnez votre banque"}},"HelpSpeedDial":{"faq":"Questions fréquentes","help":"Assistance de l'app"}};
 
 /***/ }),
 
@@ -7484,6 +7622,9 @@ lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()(original_cozy_ui_transpiled_
     colorPrimary: {
       '&$checked + $track$track': {
         backgroundColor: secondaryColor
+      },
+      '&:not($checked) + $track$track': {
+        opacity: 0.38
       }
     }
   },
@@ -7505,7 +7646,6 @@ lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()(original_cozy_ui_transpiled_
       position: 'relative',
       // Extend the hover area so that SpeedDial do not close if we hover on the tooltip
       '&:before': {
-        content: '""',
         display: 'block',
         // Magic value, it would be difficult to make the click area in function of the
         // text content of the tooltips
@@ -7556,6 +7696,106 @@ lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()(original_cozy_ui_transpiled_
   }
 });
 
+
+/***/ }),
+
+/***/ "../overrides/cozy-ui/transpiled/react/Radio/index.jsx":
+/*!*************************************************************!*\
+  !*** ../overrides/cozy-ui/transpiled/react/Radio/index.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var original_cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! original-cozy-ui/transpiled/react/Radio */ "./node_modules/cozy-ui/transpiled/react/Radio/index.js");
+/* harmony import */ var _overrides_styles_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./overrides-styles.styl */ "../overrides/cozy-ui/transpiled/react/Radio/overrides-styles.styl");
+/* harmony import */ var _overrides_styles_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_overrides_styles_styl__WEBPACK_IMPORTED_MODULE_3__);
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+
+  var target = _objectWithoutPropertiesLoose(source, excluded);
+
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+
+
+
+
+
+var MaifRadio = function MaifRadio(_ref) {
+  var className = _ref.className,
+      props = _objectWithoutProperties(_ref, ["className"]);
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(original_cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, _overrides_styles_styl__WEBPACK_IMPORTED_MODULE_3___default.a['c-input-radio'])
+  }, props));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MaifRadio);
+
+/***/ }),
+
+/***/ "../overrides/cozy-ui/transpiled/react/Radio/overrides-styles.styl":
+/*!*************************************************************************!*\
+  !*** ../overrides/cozy-ui/transpiled/react/Radio/overrides-styles.styl ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+module.exports = {"c-input-radio":"c-input-radio--w1YoV"};
 
 /***/ }),
 
@@ -7641,6 +7881,101 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 
+
+/***/ }),
+
+/***/ "../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js":
+/*!********************************************************************!*\
+  !*** ../overrides/cozy-ui/transpiled/react/helpers/breakpoints.js ***!
+  \********************************************************************/
+/*! exports provided: getBreakpointsStatus, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var original_cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! original-cozy-ui/transpiled/react/helpers/breakpoints */ "./node_modules/cozy-ui/transpiled/react/helpers/breakpoints.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getBreakpointsStatus", function() { return original_cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_0__["getBreakpointsStatus"]; });
+
+function _objectSpread(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? Object(arguments[i]) : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+
+var medium = original_cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_0__["default"].isMedium[1];
+
+var breakpoints = _objectSpread({}, original_cozy_ui_transpiled_react_helpers_breakpoints__WEBPACK_IMPORTED_MODULE_0__["default"], {
+  isMedium: [medium + 1],
+  isDesktop: [medium + 1],
+  isTablet: [medium],
+  isMobile: [0, medium]
+});
+
+
+/* harmony default export */ __webpack_exports__["default"] = (breakpoints);
+
+/***/ }),
+
+/***/ "./node_modules/cozy-client/dist/models/document/locales sync recursive ^\\.\\/.*\\.json$":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/cozy-client/dist/models/document/locales sync ^\.\/.*\.json$ ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./en.json": "./node_modules/cozy-client/dist/models/document/locales/en.json",
+	"./fr.json": "./node_modules/cozy-client/dist/models/document/locales/fr.json"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/cozy-client/dist/models/document/locales sync recursive ^\\.\\/.*\\.json$";
 
 /***/ }),
 
@@ -8970,31 +9305,40 @@ module.exports = {"ActionMenuHelper__menu":"ActionMenuHelper__menu--EZMib"};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
-/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/flowRight */ "./node_modules/lodash/flowRight.js");
-/* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_flowRight__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-client/dist/devtools */ "./node_modules/cozy-client/dist/devtools/index.js");
-/* harmony import */ var cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-ui/transpiled/react/Alerter */ "./node_modules/cozy-ui/transpiled/react/Alerter/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Layout */ "./node_modules/cozy-ui/transpiled/react/Layout/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Sidebar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Sidebar */ "./node_modules/cozy-ui/transpiled/react/Sidebar/index.js");
-/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
-/* harmony import */ var ducks_commons_Nav__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/commons/Nav */ "./src/ducks/commons/Nav.jsx");
-/* harmony import */ var ducks_warnings__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/warnings */ "./src/ducks/warnings/index.js");
-/* harmony import */ var ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/settings/helpers */ "./src/ducks/settings/helpers.js");
-/* harmony import */ var ducks_pin__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/pin */ "./src/ducks/pin/index.browser.jsx");
-/* harmony import */ var components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! components/ErrorBoundary */ "./src/components/ErrorBoundary/index.js");
-/* harmony import */ var components_ReactHint__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/ReactHint */ "./src/components/ReactHint.jsx");
-/* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
-/* harmony import */ var components_AppSearchBar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/AppSearchBar */ "./src/components/AppSearchBar.jsx");
-/* harmony import */ var components_useKeyboardState__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/useKeyboardState */ "./src/components/useKeyboardState.jsx");
-/* harmony import */ var ducks_devtools_banksPanels__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ducks/devtools/banksPanels */ "./src/ducks/devtools/banksPanels.js");
-/* harmony import */ var _App_styl__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./App.styl */ "./src/components/App.styl");
-/* harmony import */ var _App_styl__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_App_styl__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/flowRight */ "./node_modules/lodash/flowRight.js");
+/* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_flowRight__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/throttle */ "./node_modules/lodash/throttle.js");
+/* harmony import */ var lodash_throttle__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_throttle__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-client/dist/devtools */ "./node_modules/cozy-client/dist/devtools/index.js");
+/* harmony import */ var cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Alerter */ "./node_modules/cozy-ui/transpiled/react/Alerter/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Layout */ "./node_modules/cozy-ui/transpiled/react/Layout/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Sidebar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/Sidebar */ "./node_modules/cozy-ui/transpiled/react/Sidebar/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
+/* harmony import */ var ducks_commons_Nav__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/commons/Nav */ "./src/ducks/commons/Nav.jsx");
+/* harmony import */ var ducks_warnings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/warnings */ "./src/ducks/warnings/index.js");
+/* harmony import */ var ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/settings/helpers */ "./src/ducks/settings/helpers.js");
+/* harmony import */ var ducks_pin__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ducks/pin */ "./src/ducks/pin/index.browser.jsx");
+/* harmony import */ var components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/ErrorBoundary */ "./src/components/ErrorBoundary/index.js");
+/* harmony import */ var components_ReactHint__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/ReactHint */ "./src/components/ReactHint.jsx");
+/* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
+/* harmony import */ var components_AppSearchBar__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! components/AppSearchBar */ "./src/components/AppSearchBar.jsx");
+/* harmony import */ var components_useKeyboardState__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! components/useKeyboardState */ "./src/components/useKeyboardState.jsx");
+/* harmony import */ var ducks_client_links__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ducks/client/links */ "./src/ducks/client/links.js");
+/* harmony import */ var ducks_devtools_banksPanels__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/devtools/banksPanels */ "./src/ducks/devtools/banksPanels.js");
+/* harmony import */ var components_utils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! components/utils */ "./src/components/utils.jsx");
+/* harmony import */ var components_App_styl__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! components/App.styl */ "./src/components/App.styl");
+/* harmony import */ var components_App_styl__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(components_App_styl__WEBPACK_IMPORTED_MODULE_24__);
+
+
+
+
 
 
 
@@ -9019,35 +9363,68 @@ __webpack_require__.r(__webpack_exports__);
 
 var KeyboardAwareSidebar = function KeyboardAwareSidebar(_ref) {
   var children = _ref.children;
-  var showing = Object(components_useKeyboardState__WEBPACK_IMPORTED_MODULE_18__["default"])();
-  return showing ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Sidebar__WEBPACK_IMPORTED_MODULE_8__["default"], null, children);
+  var showing = Object(components_useKeyboardState__WEBPACK_IMPORTED_MODULE_20__["default"])();
+  return showing ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Sidebar__WEBPACK_IMPORTED_MODULE_9__["default"], null, children);
 };
+
+var WAIT_THROTTLE = 30 * 1000;
 
 var App = function App(props) {
   var showBottomNav = props.showBottomNav,
       settingsCollection = props.settingsCollection;
-  var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_12__["getDefaultedSettingsFromCollection"])(settingsCollection);
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_10__["useI18n"])(),
+      t = _useI18n.t;
+
+  var client = Object(cozy_client__WEBPACK_IMPORTED_MODULE_5__["useClient"])();
+  var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_14__["getDefaultedSettingsFromCollection"])(settingsCollection);
+
+  var showAlert = function showAlert() {
+    cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_7__["default"].info(t('Error.fetch-error'), {
+      buttonText: t('General.reload'),
+      buttonAction: function buttonAction() {
+        return window.location.reload();
+      }
+    });
+  };
+
+  var showAlertThrottled = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    return lodash_throttle__WEBPACK_IMPORTED_MODULE_3___default()(showAlert, WAIT_THROTTLE, {
+      trailing: false
+    });
+  }, [] // eslint-disable-line react-hooks/exhaustive-deps
+  );
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('local-model-override', settings.community.localModelOverride.enabled);
+    var onError = function onError(e) {
+      if (!Object(ducks_client_links__WEBPACK_IMPORTED_MODULE_21__["isActivatePouch"])() && Object(components_utils__WEBPACK_IMPORTED_MODULE_23__["hasFetchFailedError"])(e)) {
+        showAlertThrottled();
+      }
+    };
+
+    client.setOnError(onError);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    cozy_flags__WEBPACK_IMPORTED_MODULE_4___default()('local-model-override', settings.community.localModelOverride.enabled);
   }, [settings.community.localModelOverride.enabled]);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_RouterContext__WEBPACK_IMPORTED_MODULE_16__["default"].Provider, {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_RouterContext__WEBPACK_IMPORTED_MODULE_18__["default"].Provider, {
     value: props.router
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_AppSearchBar__WEBPACK_IMPORTED_MODULE_17__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_7__["Layout"], null, showBottomNav && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeyboardAwareSidebar, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_commons_Nav__WEBPACK_IMPORTED_MODULE_10__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_7__["Main"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_7__["Content"], {
-    className: _App_styl__WEBPACK_IMPORTED_MODULE_20___default.a.Main
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_14__["default"], null, props.children))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_ReactHint__WEBPACK_IMPORTED_MODULE_15__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_warnings__WEBPACK_IMPORTED_MODULE_11__["Warnings"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"], null)), cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('debug') ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_5___default.a, {
-    panels: ducks_devtools_banksPanels__WEBPACK_IMPORTED_MODULE_19__["default"]
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_AppSearchBar__WEBPACK_IMPORTED_MODULE_19__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_8__["Layout"], null, showBottomNav && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(KeyboardAwareSidebar, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_commons_Nav__WEBPACK_IMPORTED_MODULE_12__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_8__["Main"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Layout__WEBPACK_IMPORTED_MODULE_8__["Content"], {
+    className: components_App_styl__WEBPACK_IMPORTED_MODULE_24___default.a.Main
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_16__["default"], null, props.children))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_ReactHint__WEBPACK_IMPORTED_MODULE_17__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_warnings__WEBPACK_IMPORTED_MODULE_13__["Warnings"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_7__["default"], null)), cozy_flags__WEBPACK_IMPORTED_MODULE_4___default()('debug') ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    panels: ducks_devtools_banksPanels__WEBPACK_IMPORTED_MODULE_22__["default"]
   }) : null);
 };
 
 App.defaultProps = {
   showBottomNav: true
 };
-/* harmony default export */ __webpack_exports__["default"] = (lodash_flowRight__WEBPACK_IMPORTED_MODULE_4___default()(Object(ducks_pin__WEBPACK_IMPORTED_MODULE_13__["pinGuarded"])({
-  timeout: cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('pin.debug') ? 10 * 1000 : undefined,
-  showTimeout: cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('pin.debug')
-}), Object(cozy_client__WEBPACK_IMPORTED_MODULE_2__["queryConnect"])({
-  settingsCollection: doctypes__WEBPACK_IMPORTED_MODULE_9__["settingsConn"]
-}), react_router__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(App));
+/* harmony default export */ __webpack_exports__["default"] = (lodash_flowRight__WEBPACK_IMPORTED_MODULE_2___default()(Object(ducks_pin__WEBPACK_IMPORTED_MODULE_15__["pinGuarded"])({
+  timeout: cozy_flags__WEBPACK_IMPORTED_MODULE_4___default()('pin.debug') ? 10 * 1000 : undefined,
+  showTimeout: cozy_flags__WEBPACK_IMPORTED_MODULE_4___default()('pin.debug')
+}), Object(cozy_client__WEBPACK_IMPORTED_MODULE_5__["queryConnect"])({
+  settingsCollection: doctypes__WEBPACK_IMPORTED_MODULE_11__["settingsConn"]
+}), react_router__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(App));
 
 /***/ }),
 
@@ -10683,7 +11060,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_ListItemText__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/ListItemText */ "./node_modules/cozy-ui/transpiled/react/ListItemText/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_ListItemSecondaryAction__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_CozyDialogs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyDialogs */ "./node_modules/cozy-ui/transpiled/react/CozyDialogs/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "./node_modules/cozy-ui/transpiled/react/Radio/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "../overrides/cozy-ui/transpiled/react/Radio/index.jsx");
 /* harmony import */ var cozy_ui_transpiled_react_Stack__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/Stack */ "./node_modules/cozy-ui/transpiled/react/Stack/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
@@ -11663,7 +12040,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var components_Header_Header_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Header/Header.styl */ "./src/components/Header/Header.styl");
+/* harmony import */ var components_Header_Header_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Header/Header.styl */ "../overrides/cozy-banks/src/components/Header/Header.styl");
 /* harmony import */ var components_Header_Header_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Header_Header_styl__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -11738,18 +12115,6 @@ Header.defaultProps = {
 
 /***/ }),
 
-/***/ "./src/components/Header/Header.styl":
-/*!*******************************************!*\
-  !*** ./src/components/Header/Header.styl ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Header--fixed":"Header--fixed--3AlaC","HeaderColor_normal":"HeaderColor_normal--3oD_i","HeaderColor_inverted":"HeaderColor_inverted--2f6TG","Header--paper":"Header--paper--2GJ6m"};
-
-/***/ }),
-
 /***/ "./src/components/Header/index.js":
 /*!****************************************!*\
   !*** ./src/components/Header/index.js ***!
@@ -11759,7 +12124,7 @@ module.exports = {"Header--fixed":"Header--fixed--3AlaC","HeaderColor_normal":"H
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var components_Header_Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/Header/Header */ "./src/components/Header/Header.jsx");
+/* harmony import */ var components_Header_Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/Header/Header */ "../overrides/cozy-banks/src/components/Header/Header.jsx");
 
 /* harmony default export */ __webpack_exports__["default"] = (components_Header_Header__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
@@ -12068,7 +12433,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var components_List_List_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/List/List.styl */ "./src/components/List/List.styl");
 /* harmony import */ var components_List_List_styl__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(components_List_List_styl__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "./node_modules/cozy-ui/transpiled/react/Radio/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "../overrides/cozy-ui/transpiled/react/Radio/index.jsx");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_4__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -12440,7 +12805,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Padded/Padded.styl */ "./src/components/Padded/Padded.styl");
+/* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Padded/Padded.styl */ "../overrides/cozy-banks/src/components/Padded/Padded.styl");
 /* harmony import */ var components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Padded_Padded_styl__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -12485,18 +12850,6 @@ var Unpadded = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(Unpadded_);
 var MemoPadded = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(Padded);
 MemoPadded.Unpadded = Unpadded;
 /* harmony default export */ __webpack_exports__["default"] = (MemoPadded);
-
-/***/ }),
-
-/***/ "./src/components/Padded/Padded.styl":
-/*!*******************************************!*\
-  !*** ./src/components/Padded/Padded.styl ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Padded":"Padded--2G0ky","Unpadded--vertical":"Unpadded--vertical--2Dfk0","Unpadded--horizontal":"Unpadded--horizontal--2y2qz"};
 
 /***/ }),
 
@@ -12776,7 +13129,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_SelectBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/SelectBox */ "../overrides/cozy-ui/transpiled/react/SelectBox/index.js");
-/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Select/styles.styl */ "./src/components/Select/styles.styl");
+/* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Select/styles.styl */ "../overrides/cozy-banks/src/components/Select/styles.styl");
 /* harmony import */ var components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(components_Select_styles_styl__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/find */ "./node_modules/lodash/find.js");
 /* harmony import */ var lodash_find__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_find__WEBPACK_IMPORTED_MODULE_4__);
@@ -13107,18 +13460,6 @@ var mergeStyles = function mergeStyles() {
 
 /***/ }),
 
-/***/ "./src/components/Select/styles.styl":
-/*!*******************************************!*\
-  !*** ./src/components/Select/styles.styl ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Select":"Select--1UqU3","Select__Icon":"Select__Icon--2n3lJ"};
-
-/***/ }),
-
 /***/ "./src/components/SelectDates/ConnectedSelectDates.jsx":
 /*!*************************************************************!*\
   !*** ./src/components/SelectDates/ConnectedSelectDates.jsx ***!
@@ -13131,7 +13472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ConnectedSelectDates", function() { return ConnectedSelectDates; });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
+/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx");
 
 
 
@@ -13187,9 +13528,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_Chip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-ui/transpiled/react/Chip */ "./node_modules/cozy-ui/transpiled/react/Chip/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Icons_Left__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Left */ "./node_modules/cozy-ui/transpiled/react/Icons/Left.js");
 /* harmony import */ var cozy_ui_transpiled_react_Icons_Right__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Right */ "./node_modules/cozy-ui/transpiled/react/Icons/Right.js");
-/* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/SelectDates/SelectDates.styl */ "./src/components/SelectDates/SelectDates.styl");
+/* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/SelectDates/SelectDates.styl */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.styl");
 /* harmony import */ var components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(components_SelectDates_SelectDates_styl__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var components_Select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Select */ "./src/components/Select/index.jsx");
+/* harmony import */ var components_Select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Select */ "../overrides/cozy-banks/src/components/Select/index.jsx");
 /* harmony import */ var components_SelectDates_utils__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/SelectDates/utils */ "./src/components/SelectDates/utils.js");
 /* harmony import */ var components_useTheme__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/useTheme */ "./src/components/useTheme.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -13308,7 +13649,7 @@ var mobileMenuStyle = function mobileMenuStyle(base) {
 
 var textStyle = function textStyle() {
   return {
-    color: 'var(--primaryContrastTextColor)'
+    color: 'var(--primaryColor)'
   };
 };
 
@@ -13701,18 +14042,6 @@ SelectDates.propTypes = {
 
 /***/ }),
 
-/***/ "./src/components/SelectDates/SelectDates.styl":
-/*!*****************************************************!*\
-  !*** ./src/components/SelectDates/SelectDates.styl ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"SelectDates":"SelectDates--1JS-v","prev-button":"prev-button--OOpIR","next-button":"next-button--3dY2f","SelectDatesColor_default":"SelectDatesColor_default--1TyJC","SelectDates__separator":"SelectDates__separator--2eEMc","SelectDates__chip":"SelectDates__chip--1QEMF","SelectDatesColor_inverted":"SelectDatesColor_inverted--DOW8w","SelectDatesButtonDisabled":"SelectDatesButtonDisabled--1k5zs","SelectDates__Button":"SelectDates__Button--1um7t","SelectDatesButtonColor":"SelectDatesButtonColor--ZulzM","SelectDates__Select":"SelectDates__Select--2aVLs","SelectDates__month":"SelectDates__month--13175","SelectDates__DateYearSelector":"SelectDates__DateYearSelector--3XBO-","SelectDates__SelectYearContainer":"SelectDates__SelectYearContainer--zhofq","SelectDates__SelectMonthContainer":"SelectDates__SelectMonthContainer--3Fj0-","SelectDates__buttons":"SelectDates__buttons--1DCj5","SelectDates__Button--disabled":"SelectDates__Button--disabled--2ajcE"};
-
-/***/ }),
-
 /***/ "./src/components/SelectDates/index.jsx":
 /*!**********************************************!*\
   !*** ./src/components/SelectDates/index.jsx ***!
@@ -13722,7 +14051,7 @@ module.exports = {"SelectDates":"SelectDates--1JS-v","prev-button":"prev-button-
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "./src/components/SelectDates/SelectDates.jsx");
+/* harmony import */ var components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! components/SelectDates/SelectDates */ "../overrides/cozy-banks/src/components/SelectDates/SelectDates.jsx");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return components_SelectDates_SelectDates__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
 /* harmony import */ var components_SelectDates_ConnectedSelectDates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! components/SelectDates/ConnectedSelectDates */ "./src/components/SelectDates/ConnectedSelectDates.jsx");
@@ -15212,6 +15541,23 @@ var useToggle = function useToggle(initial) {
 
 /***/ }),
 
+/***/ "./src/components/utils.jsx":
+/*!**********************************!*\
+  !*** ./src/components/utils.jsx ***!
+  \**********************************/
+/*! exports provided: hasFetchFailedError */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "hasFetchFailedError", function() { return hasFetchFailedError; });
+var FAILED_TO_FETCH_ERROR = 'Failed to fetch';
+var hasFetchFailedError = function hasFetchFailedError(error) {
+  return error.message === FAILED_TO_FETCH_ERROR;
+};
+
+/***/ }),
+
 /***/ "./src/components/withContext.jsx":
 /*!****************************************!*\
   !*** ./src/components/withContext.jsx ***!
@@ -16074,7 +16420,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_ListSubheader__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_ListItemSecondaryAction__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_ListItemText__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! cozy-ui/transpiled/react/ListItemText */ "./node_modules/cozy-ui/transpiled/react/ListItemText/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "./node_modules/cozy-ui/transpiled/react/Radio/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Radio__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! cozy-ui/transpiled/react/Radio */ "../overrides/cozy-ui/transpiled/react/Radio/index.jsx");
 /* harmony import */ var cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Bottom */ "./node_modules/cozy-ui/transpiled/react/Icons/Bottom.js");
 /* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
@@ -16758,10 +17104,6 @@ var buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
   filter: othersFilter
 });
 var buildVirtualAccounts = function buildVirtualAccounts(transactions) {
-  if (transactions.length === 0) {
-    return [];
-  }
-
   return [buildHealthReimbursementsVirtualAccount(transactions), buildProfessionalReimbursementsVirtualAccount(transactions), buildOthersReimbursementsVirtualAccount(transactions)].filter(Boolean);
 };
 var isReimbursementsAccount = function isReimbursementsAccount(account) {
@@ -17983,39 +18325,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/flowRight */ "./node_modules/lodash/flowRight.js");
 /* harmony import */ var lodash_flowRight__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_flowRight__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
-/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/es/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
-/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-realtime */ "./node_modules/cozy-realtime/dist/index.js");
-/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(cozy_realtime__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
-/* harmony import */ var selectors__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! selectors */ "./src/selectors/index.js");
-/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
-/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ducks/balance/BalanceHeader */ "./src/ducks/balance/BalanceHeader.jsx");
-/* harmony import */ var ducks_balance_NoAccount__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ducks/balance/NoAccount */ "../overrides/cozy-banks/src/ducks/balance/NoAccount.jsx");
-/* harmony import */ var ducks_balance_AccountsImporting__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ducks/balance/AccountsImporting */ "./src/ducks/balance/AccountsImporting.jsx");
-/* harmony import */ var ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ducks/settings/helpers */ "./src/ducks/settings/helpers.js");
-/* harmony import */ var ducks_account_helpers__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/account/helpers */ "./src/ducks/account/helpers.js");
-/* harmony import */ var utils_triggers__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! utils/triggers */ "./src/utils/triggers.js");
-/* harmony import */ var ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ducks/balance/Balance.styl */ "./src/ducks/balance/Balance.styl");
-/* harmony import */ var ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var ducks_balance_BalancePanels__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ducks/balance/BalancePanels */ "../overrides/cozy-banks/src/ducks/balance/BalancePanels.jsx");
-/* harmony import */ var ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ducks/balance/helpers */ "./src/ducks/balance/helpers.js");
-/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
-/* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
-/* harmony import */ var ducks_balance_ImportGroupPanel__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ducks/balance/ImportGroupPanel */ "./src/ducks/balance/ImportGroupPanel.jsx");
-/* harmony import */ var components_Delayed__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! components/Delayed */ "./src/components/Delayed.jsx");
-/* harmony import */ var hooks_useFullyLoadedQuery__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! hooks/useFullyLoadedQuery */ "./src/hooks/useFullyLoadedQuery.jsx");
+/* harmony import */ var lib_sentry__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lib/sentry */ "./src/lib/sentry.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/es/index.js");
+/* harmony import */ var reselect__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! reselect */ "./node_modules/reselect/es/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-realtime */ "./node_modules/cozy-realtime/dist/index.js");
+/* harmony import */ var cozy_realtime__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(cozy_realtime__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
+/* harmony import */ var selectors__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! selectors */ "./src/selectors/index.js");
+/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
+/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
+/* harmony import */ var ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ducks/balance/BalanceHeader */ "./src/ducks/balance/BalanceHeader.jsx");
+/* harmony import */ var ducks_balance_NoAccount__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ducks/balance/NoAccount */ "../overrides/cozy-banks/src/ducks/balance/NoAccount.jsx");
+/* harmony import */ var ducks_balance_AccountsImporting__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ducks/balance/AccountsImporting */ "./src/ducks/balance/AccountsImporting.jsx");
+/* harmony import */ var ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/settings/helpers */ "./src/ducks/settings/helpers.js");
+/* harmony import */ var ducks_account_helpers__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ducks/account/helpers */ "./src/ducks/account/helpers.js");
+/* harmony import */ var utils_triggers__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! utils/triggers */ "./src/utils/triggers.js");
+/* harmony import */ var ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ducks/balance/Balance.styl */ "./src/ducks/balance/Balance.styl");
+/* harmony import */ var ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_25___default = /*#__PURE__*/__webpack_require__.n(ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_25__);
+/* harmony import */ var ducks_balance_BalancePanels__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ducks/balance/BalancePanels */ "../overrides/cozy-banks/src/ducks/balance/BalancePanels.jsx");
+/* harmony import */ var ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ducks/balance/helpers */ "./src/ducks/balance/helpers.js");
+/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
+/* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
+/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
+/* harmony import */ var ducks_balance_ImportGroupPanel__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ducks/balance/ImportGroupPanel */ "./src/ducks/balance/ImportGroupPanel.jsx");
+/* harmony import */ var components_Delayed__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! components/Delayed */ "./src/components/Delayed.jsx");
+/* harmony import */ var hooks_useFullyLoadedQuery__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! hooks/useFullyLoadedQuery */ "./src/hooks/useFullyLoadedQuery.jsx");
 
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -18091,6 +18434,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var syncPouchImmediately = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(client) {
     var pouchLink, pouchManager;
@@ -18118,7 +18462,7 @@ var syncPouchImmediately = /*#__PURE__*/function () {
   };
 }();
 
-var REALTIME_DOCTYPES = [doctypes__WEBPACK_IMPORTED_MODULE_14__["ACCOUNT_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_14__["TRIGGER_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_14__["TRANSACTION_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_14__["GROUP_DOCTYPE"]];
+var REALTIME_DOCTYPES = [doctypes__WEBPACK_IMPORTED_MODULE_15__["ACCOUNT_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_15__["TRIGGER_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_15__["TRANSACTION_DOCTYPE"], doctypes__WEBPACK_IMPORTED_MODULE_15__["GROUP_DOCTYPE"]];
 
 var isLoading = function isLoading(props) {
   var accountsCollection = props.accounts,
@@ -18126,7 +18470,7 @@ var isLoading = function isLoading(props) {
       settingsCollection = props.settings;
   var collections = [accountsCollection, groupsCollection, settingsCollection];
   return collections.some(function (col) {
-    return Object(cozy_client__WEBPACK_IMPORTED_MODULE_11__["isQueryLoading"])(col) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_11__["hasQueryBeenLoaded"])(col);
+    return Object(cozy_client__WEBPACK_IMPORTED_MODULE_12__["isQueryLoading"])(col) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_12__["hasQueryBeenLoaded"])(col);
   });
 };
 
@@ -18203,7 +18547,7 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
       var _this$props2 = this.props,
           settingsCollection = _this$props2.settings,
           client = _this$props2.client;
-      var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_21__["getDefaultedSettingsFromCollection"])(settingsCollection);
+      var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_22__["getDefaultedSettingsFromCollection"])(settingsCollection);
 
       var newSettings = _objectSpread({}, settings, {
         panelsState: panels
@@ -18254,7 +18598,7 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
       }
 
       var client = this.props.client;
-      this.realtime = new cozy_realtime__WEBPACK_IMPORTED_MODULE_13___default.a({
+      this.realtime = new cozy_realtime__WEBPACK_IMPORTED_MODULE_14___default.a({
         client: client
       });
     }
@@ -18390,8 +18734,9 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
       this.startResumeListeners();
-      Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_29__["trackPage"])('moncompte:home');
+      Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__["trackPage"])('moncompte:home');
     }
   }, {
     key: "componentWillUnmount",
@@ -18423,7 +18768,7 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
       var accountsCollection = this.props.accounts;
       var collections = [accountsCollection];
 
-      if (collections.some(cozy_client__WEBPACK_IMPORTED_MODULE_11__["isQueryLoading"])) {
+      if (collections.some(cozy_client__WEBPACK_IMPORTED_MODULE_12__["isQueryLoading"])) {
         return;
       } // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
 
@@ -18463,22 +18808,22 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
     key: "render",
     value: function render() {
       if (isLoading(this.props)) {
-        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_6__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_27__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_7__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_28__["default"], {
           theme: "primary"
-        }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_18__["default"], null), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_16__["default"], null));
+        }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_19__["default"], null), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_17__["default"], null));
       }
 
       var triggersCollection = this.props.triggers;
       var accounts = this.getAllAccounts();
       var triggers = triggersCollection.data;
       var hasNoAccount = accounts.filter(function (a) {
-        return !Object(ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_26__["isVirtualAccount"])(a);
+        return !Object(ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_27__["isVirtualAccount"])(a);
       }).length === 0;
 
-      if (hasNoAccount || cozy_flags__WEBPACK_IMPORTED_MODULE_12___default()('balance.no-account') || cozy_flags__WEBPACK_IMPORTED_MODULE_12___default()('banks.balance.account-loading')) {
+      if (hasNoAccount || cozy_flags__WEBPACK_IMPORTED_MODULE_13___default()('balance.no-account') || cozy_flags__WEBPACK_IMPORTED_MODULE_13___default()('banks.balance.account-loading')) {
         var konnectorInfos = triggers.map(function (x) {
           return x.attributes;
-        }).filter(utils_triggers__WEBPACK_IMPORTED_MODULE_23__["isBankTrigger"]).map(function (t) {
+        }).filter(utils_triggers__WEBPACK_IMPORTED_MODULE_24__["isBankTrigger"]).map(function (t) {
           return {
             konnector: lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(t, 'message.konnector'),
             account: lodash_get__WEBPACK_IMPORTED_MODULE_4___default()(t, 'message.account'),
@@ -18486,7 +18831,7 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
           };
         });
 
-        if (cozy_flags__WEBPACK_IMPORTED_MODULE_12___default()('banks.balance.account-loading')) {
+        if (cozy_flags__WEBPACK_IMPORTED_MODULE_13___default()('banks.balance.account-loading')) {
           // eslint-disable-next-line no-console
           console.log('konnectorInfos', konnectorInfos);
 
@@ -18507,33 +18852,33 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
         });
 
         if (hasKonnectorRunning) {
-          return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_AccountsImporting__WEBPACK_IMPORTED_MODULE_20__["default"], {
+          return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_AccountsImporting__WEBPACK_IMPORTED_MODULE_21__["default"], {
             konnectorInfos: konnectorInfos
           });
         }
 
-        return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_NoAccount__WEBPACK_IMPORTED_MODULE_19__["default"], null);
+        return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_NoAccount__WEBPACK_IMPORTED_MODULE_20__["default"], null);
       }
 
       var groups = getAllGroups(this.props);
       var checkedAccounts = this.getCheckedAccounts();
-      var accountsBalance = lodash_sumBy__WEBPACK_IMPORTED_MODULE_3___default()(checkedAccounts, ducks_account_helpers__WEBPACK_IMPORTED_MODULE_22__["getAccountBalance"]);
+      var accountsBalance = lodash_sumBy__WEBPACK_IMPORTED_MODULE_3___default()(checkedAccounts, ducks_account_helpers__WEBPACK_IMPORTED_MODULE_23__["getAccountBalance"]);
       var subtitleParams = checkedAccounts.length === accounts.length ? undefined : {
         nbCheckedAccounts: checkedAccounts.length,
         nbAccounts: accounts.length
       };
-      return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_6__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_27__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_7__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_28__["default"], {
         theme: "primary"
-      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_BalanceHeader__WEBPACK_IMPORTED_MODULE_19__["default"], {
         onClickBalance: this.handleClickBalance,
         accountsBalance: accountsBalance,
         accounts: checkedAccounts,
         subtitleParams: subtitleParams
-      }), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(components_Delayed__WEBPACK_IMPORTED_MODULE_31__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(components_Delayed__WEBPACK_IMPORTED_MODULE_32__["default"], {
         delay: this.props.delayContent
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_17__["default"], {
-        className: classnames__WEBPACK_IMPORTED_MODULE_10___default()(_defineProperty({}, ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_24___default.a.Balance__panelsContainer, true))
-      }, react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_ImportGroupPanel__WEBPACK_IMPORTED_MODULE_30__["default"], null), react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(ducks_balance_BalancePanels__WEBPACK_IMPORTED_MODULE_25__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_18__["default"], {
+        className: classnames__WEBPACK_IMPORTED_MODULE_11___default()(_defineProperty({}, ducks_balance_Balance_styl__WEBPACK_IMPORTED_MODULE_25___default.a.Balance__panelsContainer, true))
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_ImportGroupPanel__WEBPACK_IMPORTED_MODULE_31__["default"], null), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(ducks_balance_BalancePanels__WEBPACK_IMPORTED_MODULE_26__["default"], {
         groups: groups,
         panelsState: this.state.panels,
         onSwitchChange: this.handleSwitchChange,
@@ -18548,10 +18893,10 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
       }
 
       var settingsCollection = props.settings;
-      var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_21__["getDefaultedSettingsFromCollection"])(settingsCollection);
+      var settings = Object(ducks_settings_helpers__WEBPACK_IMPORTED_MODULE_22__["getDefaultedSettingsFromCollection"])(settingsCollection);
       var allGroups = getAllGroups(props);
       var currentPanelsState = state.panels || settings.panelsState || {};
-      var newPanelsState = Object(ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_26__["getPanelsState"])(allGroups, currentPanelsState);
+      var newPanelsState = Object(ducks_balance_helpers__WEBPACK_IMPORTED_MODULE_27__["getPanelsState"])(allGroups, currentPanelsState);
       return {
         panels: newPanelsState
       };
@@ -18559,21 +18904,21 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
   }]);
 
   return Balance;
-}(react__WEBPACK_IMPORTED_MODULE_6__["PureComponent"]);
+}(react__WEBPACK_IMPORTED_MODULE_7__["PureComponent"]);
 
 Balance.defaultProps = {
   delayContent: 0
 };
 var DumbBalance = Balance;
 var actionCreators = {
-  filterByAccounts: ducks_filters__WEBPACK_IMPORTED_MODULE_28__["filterByAccounts"]
+  filterByAccounts: ducks_filters__WEBPACK_IMPORTED_MODULE_29__["filterByAccounts"]
 };
 
 var addTransactions = function addTransactions(Component) {
   var Wrapped = function Wrapped(props) {
-    var conn = Object(doctypes__WEBPACK_IMPORTED_MODULE_14__["makeBalanceTransactionsConn"])();
-    var transactions = Object(hooks_useFullyLoadedQuery__WEBPACK_IMPORTED_MODULE_32__["default"])(conn.query, conn);
-    return react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(Component, _extends({}, props, {
+    var conn = Object(doctypes__WEBPACK_IMPORTED_MODULE_15__["makeBalanceTransactionsConn"])();
+    var transactions = Object(hooks_useFullyLoadedQuery__WEBPACK_IMPORTED_MODULE_33__["default"])(conn.query, conn);
+    return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement(Component, _extends({}, props, {
       transactions: transactions
     }));
   };
@@ -18582,15 +18927,15 @@ var addTransactions = function addTransactions(Component) {
   return Wrapped;
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (lodash_flowRight__WEBPACK_IMPORTED_MODULE_5___default()(react_router__WEBPACK_IMPORTED_MODULE_8__["withRouter"], Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(null, actionCreators), Object(cozy_client__WEBPACK_IMPORTED_MODULE_11__["queryConnect"])({
-  accounts: doctypes__WEBPACK_IMPORTED_MODULE_14__["accountsConn"],
-  groups: doctypes__WEBPACK_IMPORTED_MODULE_14__["groupsConn"],
-  settings: doctypes__WEBPACK_IMPORTED_MODULE_14__["settingsConn"],
-  triggers: doctypes__WEBPACK_IMPORTED_MODULE_14__["cronKonnectorTriggersConn"]
-}), Object(react_redux__WEBPACK_IMPORTED_MODULE_7__["connect"])(Object(reselect__WEBPACK_IMPORTED_MODULE_9__["createStructuredSelector"])({
-  virtualAccounts: selectors__WEBPACK_IMPORTED_MODULE_15__["getVirtualAccounts"],
-  virtualGroups: selectors__WEBPACK_IMPORTED_MODULE_15__["getVirtualGroups"]
-})), cozy_client__WEBPACK_IMPORTED_MODULE_11__["withClient"], addTransactions)(Balance));
+/* harmony default export */ __webpack_exports__["default"] = (lodash_flowRight__WEBPACK_IMPORTED_MODULE_5___default()(react_router__WEBPACK_IMPORTED_MODULE_9__["withRouter"], Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(null, actionCreators), Object(cozy_client__WEBPACK_IMPORTED_MODULE_12__["queryConnect"])({
+  accounts: doctypes__WEBPACK_IMPORTED_MODULE_15__["accountsConn"],
+  groups: doctypes__WEBPACK_IMPORTED_MODULE_15__["groupsConn"],
+  settings: doctypes__WEBPACK_IMPORTED_MODULE_15__["settingsConn"],
+  triggers: doctypes__WEBPACK_IMPORTED_MODULE_15__["cronKonnectorTriggersConn"]
+}), Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(Object(reselect__WEBPACK_IMPORTED_MODULE_10__["createStructuredSelector"])({
+  virtualAccounts: selectors__WEBPACK_IMPORTED_MODULE_16__["getVirtualAccounts"],
+  virtualGroups: selectors__WEBPACK_IMPORTED_MODULE_16__["getVirtualGroups"]
+})), cozy_client__WEBPACK_IMPORTED_MODULE_12__["withClient"], addTransactions)(Balance));
 
 /***/ }),
 
@@ -19971,7 +20316,7 @@ var NoAccount = function NoAccount(_ref) {
   };
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_4__["default"], {
     variant: "inverted"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_5__["default"], null, t('Balance.title')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_VerticalBox__WEBPACK_IMPORTED_MODULE_9__["Container"], {
+  }, isMobile && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_5__["default"], null, t('Balance.title')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_VerticalBox__WEBPACK_IMPORTED_MODULE_9__["Container"], {
     className: ducks_balance_NoAccount_styl__WEBPACK_IMPORTED_MODULE_11___default.a.NoAccount
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_10__["default"], {
     theme: "primary"
@@ -21702,7 +22047,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var ducks_categories_Chart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ducks/categories/Chart */ "./src/ducks/categories/Chart.jsx");
-/* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesChart.styl */ "./src/ducks/categories/CategoriesChart.styl");
+/* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/categories/CategoriesChart.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.styl");
 /* harmony import */ var ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesChart_styl__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var cozy_ui_transpiled_react_Figure__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Figure */ "./node_modules/cozy-ui/transpiled/react/Figure/index.js");
 /* harmony import */ var lodash_sortBy__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash/sortBy */ "./node_modules/lodash/sortBy.js");
@@ -21809,30 +22154,6 @@ var CategoriesChart = function CategoriesChart(props) {
 
 /***/ }),
 
-/***/ "./src/ducks/categories/CategoriesChart.styl":
-/*!***************************************************!*\
-  !*** ./src/ducks/categories/CategoriesChart.styl ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"CategoriesChart":"CategoriesChart--38fEq","inverted":"inverted--X2-iL","NoAccount":"NoAccount--140Dq","CategoriesChart__FigureBlockContainer":"CategoriesChart__FigureBlockContainer--1ScR9","CategoriesChart__FigureBlock":"CategoriesChart__FigureBlock--3WShs","CategoriesChart__Figure":"CategoriesChart__Figure--2CEkT"};
-
-/***/ }),
-
-/***/ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl":
-/*!*********************************************************************!*\
-  !*** ./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"CategoriesHeader":"CategoriesHeader--fIToZ","NoAccount":"NoAccount--39bHl","NoAccount_container":"NoAccount_container--J5Ppl","NoAccount_box":"NoAccount_box--1ZKSt","NoAccount_chart":"NoAccount_chart--3tX9R","SubcategoryChart":"SubcategoryChart--2Gu0p","NoAccount_empty":"NoAccount_empty--2pzhE","CategoriesHeader__Toggle":"CategoriesHeader__Toggle--cSV4-","normal":"normal--2Ma-d","inverted":"inverted--oUHKE"};
-
-/***/ }),
-
 /***/ "./src/ducks/categories/CategoriesHeader/CategoriesTableHead.jsx":
 /*!***********************************************************************!*\
   !*** ./src/ducks/categories/CategoriesHeader/CategoriesTableHead.jsx ***!
@@ -21913,7 +22234,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_Stack__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/Stack */ "./node_modules/cozy-ui/transpiled/react/Stack/index.js");
 /* harmony import */ var components_Table__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! components/Table */ "./src/components/Table/index.jsx");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/AddAccountButton */ "../overrides/cozy-banks/src/ducks/categories/AddAccountButton.jsx");
 /* harmony import */ var cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/Fade */ "./node_modules/cozy-ui/transpiled/react/Fade/index.js");
@@ -22024,7 +22345,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/Empty */ "./node_modules/cozy-ui/transpiled/react/Empty/index.js");
 /* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var ducks_categories_AddAccountButton__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/categories/AddAccountButton */ "../overrides/cozy-banks/src/ducks/categories/AddAccountButton.jsx");
 /* harmony import */ var components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! components/HeaderLoadingProgress */ "./src/components/HeaderLoadingProgress.jsx");
@@ -22129,9 +22450,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
 /* harmony import */ var ducks_transactions_TransactionSelectDates__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/transactions/TransactionSelectDates */ "./src/ducks/transactions/TransactionSelectDates.jsx");
 /* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/CategoriesChart */ "./src/ducks/categories/CategoriesChart.jsx");
+/* harmony import */ var ducks_categories_CategoriesChart__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/categories/CategoriesChart */ "../overrides/cozy-banks/src/ducks/categories/CategoriesChart.jsx");
 /* harmony import */ var ducks_categories_helpers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/categories/helpers */ "./src/ducks/categories/helpers.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var ducks_categories_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/categories/utils */ "./src/ducks/categories/utils.js");
 /* harmony import */ var ducks_categories_IncomeToggle__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/IncomeToggle */ "./src/ducks/categories/IncomeToggle.jsx");
@@ -22320,7 +22641,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
 /* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
 /* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
-/* harmony import */ var ducks_categories_CategoriesHeader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/CategoriesHeader */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader.jsx");
+/* harmony import */ var ducks_categories_CategoriesHeader__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/categories/CategoriesHeader */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/index.jsx");
 /* harmony import */ var ducks_categories_Categories__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ducks/categories/Categories */ "./src/ducks/categories/Categories.jsx");
 /* harmony import */ var ducks_categories_utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ducks/categories/utils */ "./src/ducks/categories/utils.js");
 /* harmony import */ var ducks_categories_CategoriesPage_CategoryTransactions__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ducks/categories/CategoriesPage/CategoryTransactions */ "./src/ducks/categories/CategoriesPage/CategoryTransactions.jsx");
@@ -23238,7 +23559,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
 /* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_Switch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/Switch */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/Switch/index.js");
-/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "./src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
+/* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/categories/CategoriesHeader/CategoriesHeader.styl */ "../overrides/cozy-banks/src/ducks/categories/CategoriesHeader/CategoriesHeader.styl");
 /* harmony import */ var ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ducks_categories_CategoriesHeader_CategoriesHeader_styl__WEBPACK_IMPORTED_MODULE_5__);
 
 
@@ -24663,11 +24984,12 @@ var getClient = /*#__PURE__*/function () {
 /*!***********************************!*\
   !*** ./src/ducks/client/links.js ***!
   \***********************************/
-/*! exports provided: getLinks */
+/*! exports provided: isActivatePouch, getLinks */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isActivatePouch", function() { return isActivatePouch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLinks", function() { return getLinks; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -24794,7 +25116,9 @@ function _asyncToGenerator(fn) {
 
 
 
-var activatePouch =  false && false;
+var isActivatePouch = function isActivatePouch() {
+  return  false && false;
+};
 var links = null;
 var getLinks = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -24827,7 +25151,7 @@ var getLinks = /*#__PURE__*/function () {
             adapter = _context.sent;
             links = [stackLink];
 
-            if (activatePouch) {
+            if (isActivatePouch()) {
               pouchLinkOptions = {
                 doctypes: doctypes__WEBPACK_IMPORTED_MODULE_4__["offlineDoctypes"],
                 doctypesReplicationOptions: _defineProperty({}, doctypes__WEBPACK_IMPORTED_MODULE_4__["TRANSACTION_DOCTYPE"], {
@@ -27010,9 +27334,9 @@ var Notifications = function Notifications() {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_client_dist_devtools__WEBPACK_IMPORTED_MODULE_7__["PanelContent"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
     variant: "subtitle1",
     gutterBottom: true
-  }, "Notifications"), Object(cozy_device_helper__WEBPACK_IMPORTED_MODULE_3__["isMobileApp"])() ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DeviceToken, {
+  }, "Notifications"), Object(cozy_device_helper__WEBPACK_IMPORTED_MODULE_3__["isMobileApp"])() && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DeviceToken, {
     client: client
-  }) : null, "Route:", ' ', react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, "Route :", ' ', react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     value: notificationRoute,
     onChange: function onChange(ev) {
       return setNotificationRoute(ev.target.value);
@@ -27025,7 +27349,11 @@ var Notifications = function Notifications() {
     value: "/analysis/categories"
   }, "categories"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
     value: "/analysis/recurrence"
-  }, "recurrence")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), notificationRoute === '/balances/details' ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, "Sur le compte", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
+  }, "recurrence"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+    value: "/settings/accounts"
+  }, "konnector alerts"))), notificationRoute === '/balances/details' && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "u-mt-half"
+  }, "Sur le compte :", ' ', react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
     value: notificationAccountId,
     onChange: function onChange(ev) {
       return setNotificationAccountId(ev.target.value);
@@ -27037,7 +27365,8 @@ var Notifications = function Notifications() {
       key: account._id,
       value: account._id
     }, account.label);
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null)) : null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    className: "u-mt-1",
     label: "Send notification",
     onClick: function onClick() {
       return sendNotification(client, notificationRoute, notificationAccountId);
@@ -32934,10 +33263,176 @@ var DebugRecurrencePage = function DebugRecurrencePage() {
 
 /***/ }),
 
-/***/ "./src/ducks/recurrence/RecurrencePage.jsx":
-/*!*************************************************!*\
-  !*** ./src/ducks/recurrence/RecurrencePage.jsx ***!
-  \*************************************************/
+/***/ "./src/ducks/recurrence/RecurrencePage/ActionItems/DeleteActionItem.jsx":
+/*!******************************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/ActionItems/DeleteActionItem.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icons_Trash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Trash */ "./node_modules/cozy-ui/transpiled/react/Icons/Trash.js");
+/* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
+
+
+
+
+
+
+
+var DeleteActionItem = function DeleteActionItem(_ref) {
+  var onClick = _ref.onClick;
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__["useI18n"])(),
+      t = _useI18n.t;
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__["ActionMenuItem"], {
+    onClick: onClick,
+    left: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      icon: cozy_ui_transpiled_react_Icons_Trash__WEBPACK_IMPORTED_MODULE_4__["default"]
+    })
+  }, t('Recurrence.action-menu.delete'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    variant: "caption",
+    color: "textSecondary"
+  }, t('Recurrence.action-menu.delete-caption')));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(DeleteActionItem));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem.jsx":
+/*!********************************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem.jsx ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/recurrence/api */ "./src/ducks/recurrence/api.js");
+
+
+
+
+
+var FinishedActionItem = function FinishedActionItem(_ref) {
+  var recurrence = _ref.recurrence,
+      onClick = _ref.onClick;
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__["useI18n"])(),
+      t = _useI18n.t;
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__["ActionMenuItem"], {
+    onClick: onClick,
+    left: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__["ActionMenuRadio"], {
+      readOnly: true,
+      checked: Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_3__["isFinished"])(recurrence)
+    })
+  }, t('Recurrence.action-menu.finished'));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(FinishedActionItem));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem.jsx":
+/*!*******************************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem.jsx ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ducks/recurrence/api */ "./src/ducks/recurrence/api.js");
+
+
+
+
+
+
+var OngoingActionItem = function OngoingActionItem(_ref) {
+  var recurrence = _ref.recurrence,
+      onClick = _ref.onClick;
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__["useI18n"])(),
+      t = _useI18n.t;
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_3__["ActionMenuItem"], {
+    onClick: onClick,
+    left: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_3__["ActionMenuRadio"], {
+      readOnly: true,
+      checked: Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_4__["isOngoing"])(recurrence)
+    })
+  }, t('Recurrence.action-menu.ongoing'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    variant: "caption",
+    color: "textSecondary"
+  }, t('Recurrence.action-menu.ongoing-caption')));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(OngoingActionItem));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/ActionItems/RenameActionItem.jsx":
+/*!******************************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/ActionItems/RenameActionItem.jsx ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icons_Pen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Pen */ "./node_modules/cozy-ui/transpiled/react/Icons/Pen.js");
+
+
+
+
+
+
+var RenameActionItem = function RenameActionItem(_ref) {
+  var onClick = _ref.onClick;
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_1__["useI18n"])(),
+      t = _useI18n.t;
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__["ActionMenuItem"], {
+    onClick: onClick,
+    left: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      icon: cozy_ui_transpiled_react_Icons_Pen__WEBPACK_IMPORTED_MODULE_4__["default"]
+    })
+  }, t('Recurrence.action-menu.rename'));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(RenameActionItem));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/BundleInfo.jsx":
+/*!************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/BundleInfo.jsx ***!
+  \************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -32947,54 +33442,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
-/* harmony import */ var _queries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./queries */ "./src/ducks/recurrence/queries.js");
-/* harmony import */ var cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-ui/transpiled/react/Alerter */ "./node_modules/cozy-ui/transpiled/react/Alerter/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_CozyDialogs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyDialogs */ "./node_modules/cozy-ui/transpiled/react/CozyDialogs/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Button */ "../overrides/cozy-ui/transpiled/react/Button/index.jsx");
-/* harmony import */ var cozy_ui_transpiled_react_Field__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/Field */ "./node_modules/cozy-ui/transpiled/react/Field/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cozy-ui/transpiled/react/Media */ "./node_modules/cozy-ui/transpiled/react/Media/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-ui/transpiled/react/Empty */ "./node_modules/cozy-ui/transpiled/react/Empty/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Breadcrumbs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-ui/transpiled/react/Breadcrumbs */ "./node_modules/cozy-ui/transpiled/react/Breadcrumbs/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! cozy-ui/transpiled/react/hooks/useBreakpoints */ "./node_modules/cozy-ui/transpiled/react/hooks/useBreakpoints/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_ListSubheader__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icons_Pen__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Pen */ "./node_modules/cozy-ui/transpiled/react/Icons/Pen.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icons_Trash__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Trash */ "./node_modules/cozy-ui/transpiled/react/Icons/Trash.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Bottom */ "./node_modules/cozy-ui/transpiled/react/Icons/Bottom.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Dots */ "./node_modules/cozy-ui/transpiled/react/Icons/Dots.js");
-/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_IconButton__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! cozy-ui/transpiled/react/IconButton */ "./node_modules/cozy-ui/transpiled/react/IconButton/index.js");
-/* harmony import */ var cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! cozy-ui/transpiled/react/Fade */ "./node_modules/cozy-ui/transpiled/react/Fade/index.js");
-/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
-/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_transactions_TransactionRow_TransactionRowDesktop__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ducks/transactions/TransactionRow/TransactionRowDesktop */ "./src/ducks/transactions/TransactionRow/TransactionRowDesktop.jsx");
-/* harmony import */ var ducks_transactions_TransactionRow_TransactionRowMobile__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ducks/transactions/TransactionRow/TransactionRowMobile */ "./src/ducks/transactions/TransactionRow/TransactionRowMobile.jsx");
-/* harmony import */ var components_Table__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! components/Table */ "./src/components/Table/index.jsx");
-/* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
-/* harmony import */ var components_BackButton__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! components/BackButton */ "./src/components/BackButton/index.jsx");
-/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
-/* harmony import */ var ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ducks/recurrence/utils */ "./src/ducks/recurrence/utils.js");
-/* harmony import */ var ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ducks/recurrence/api */ "./src/ducks/recurrence/api.js");
-/* harmony import */ var components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! components/Title/PageTitle */ "./src/components/Title/PageTitle.jsx");
-/* harmony import */ var components_Bar__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! components/Bar */ "../overrides/cozy-banks/src/components/Bar.jsx");
-/* harmony import */ var ducks_transactions_header_TableHead__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ducks/transactions/header/TableHead */ "./src/ducks/transactions/header/TableHead.jsx");
-/* harmony import */ var _styles_styl__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./styles.styl */ "./src/ducks/recurrence/styles.styl");
-/* harmony import */ var _styles_styl__WEBPACK_IMPORTED_MODULE_39___default = /*#__PURE__*/__webpack_require__.n(_styles_styl__WEBPACK_IMPORTED_MODULE_39__);
-/* harmony import */ var components_useToggle__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! components/useToggle */ "./src/components/useToggle.js");
-/* harmony import */ var components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! components/ActionMenuHelper */ "./src/components/ActionMenuHelper/index.jsx");
-/* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
-/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
-/* harmony import */ var components_useDocument__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! components/useDocument */ "./src/components/useDocument.js");
-/* harmony import */ var ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ducks/legal/LegalMention */ "../overrides/cozy-banks/src/ducks/legal/LegalMention.jsx");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Alerter */ "./node_modules/cozy-ui/transpiled/react/Alerter/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/Button */ "../overrides/cozy-ui/transpiled/react/Button/index.jsx");
+/* harmony import */ var cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/Media */ "./node_modules/cozy-ui/transpiled/react/Media/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Breadcrumbs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! cozy-ui/transpiled/react/Breadcrumbs */ "./node_modules/cozy-ui/transpiled/react/Breadcrumbs/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! cozy-ui/transpiled/react/hooks/useBreakpoints */ "./node_modules/cozy-ui/transpiled/react/hooks/useBreakpoints/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Bottom */ "./node_modules/cozy-ui/transpiled/react/Icons/Bottom.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icons/Dots */ "./node_modules/cozy-ui/transpiled/react/Icons/Dots.js");
+/* harmony import */ var cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-ui/transpiled/react/Icon */ "./node_modules/cozy-ui/transpiled/react/Icon/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_IconButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! cozy-ui/transpiled/react/IconButton */ "./node_modules/cozy-ui/transpiled/react/IconButton/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! cozy-ui/transpiled/react/Fade */ "./node_modules/cozy-ui/transpiled/react/Fade/index.js");
+/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
+/* harmony import */ var components_Header__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/Header */ "./src/components/Header/index.js");
+/* harmony import */ var components_useToggle__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! components/useToggle */ "./src/components/useToggle.js");
+/* harmony import */ var components_BackButton__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! components/BackButton */ "./src/components/BackButton/index.jsx");
+/* harmony import */ var components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! components/ActionMenuHelper */ "./src/components/ActionMenuHelper/index.jsx");
+/* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
+/* harmony import */ var ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/recurrence/utils */ "./src/ducks/recurrence/utils.js");
+/* harmony import */ var components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! components/Title/PageTitle */ "./src/components/Title/PageTitle.jsx");
+/* harmony import */ var components_Bar__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! components/Bar */ "../overrides/cozy-banks/src/components/Bar.jsx");
+/* harmony import */ var ducks_transactions_header_TableHead__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ducks/transactions/header/TableHead */ "./src/ducks/transactions/header/TableHead.jsx");
+/* harmony import */ var ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ducks/recurrence/api */ "./src/ducks/recurrence/api.js");
+/* harmony import */ var ducks_recurrence_RecurrencePage_RecurrenceActionMenu__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/RecurrenceActionMenu */ "./src/ducks/recurrence/RecurrencePage/RecurrenceActionMenu.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_RecurrenceStatusMenu__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/RecurrenceStatusMenu */ "./src/ducks/recurrence/RecurrencePage/RecurrenceStatusMenu.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_RenameBundleDialog__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/RenameBundleDialog */ "./src/ducks/recurrence/RecurrencePage/RenameBundleDialog.jsx");
 
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -33008,49 +33489,366 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // Need to reset line-height to 1 for action menus to be correctly rendered
+// inside Img element
+
+var imgLineHeightStyle = {
+  lineHeight: 1
+};
+
+var BundleInfo = function BundleInfo(_ref) {
+  var bundle = _ref.bundle;
+  var history = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_21__["useHistory"])();
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_6__["useI18n"])(),
+      t = _useI18n.t;
+
+  var client = Object(cozy_client__WEBPACK_IMPORTED_MODULE_2__["useClient"])();
+
+  var _useBreakpoints = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_9__["default"])(),
+      isMobile = _useBreakpoints.isMobile;
+
+  var _useToggle = Object(components_useToggle__WEBPACK_IMPORTED_MODULE_18__["default"])(false),
+      _useToggle2 = _slicedToArray(_useToggle, 3),
+      showingActionsMenu = _useToggle2[0],
+      showActionsMenu = _useToggle2[1],
+      hideActionsMenu = _useToggle2[2];
+
+  var _useToggle3 = Object(components_useToggle__WEBPACK_IMPORTED_MODULE_18__["default"])(false),
+      _useToggle4 = _slicedToArray(_useToggle3, 3),
+      showingRename = _useToggle4[0],
+      showRename = _useToggle4[1],
+      hideRename = _useToggle4[2];
+
+  var goToRecurrenceRoot = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    return history.push('/analysis/recurrence');
+  }, [history]);
+  var handleOpenRename = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
+    showRename();
+  }, [showRename]);
+  var handleDelete = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            goToRecurrenceRoot();
+            _context.next = 4;
+            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_26__["deleteRecurrence"])(client, bundle);
+
+          case 4:
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].success(t('Recurrence.delete-success'));
+            _context.next = 10;
+            break;
+
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context["catch"](0);
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].error(t('Recurrence.delete-error'));
+
+          case 10:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 7]]);
+  })), [bundle, client, goToRecurrenceRoot, t]);
+  var handleSetStatusOngoing = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.prev = 0;
+            _context2.next = 3;
+            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_26__["setStatusOngoing"])(client, bundle);
+
+          case 3:
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].success(t('Recurrence.status.save-success'));
+            _context2.next = 9;
+            break;
+
+          case 6:
+            _context2.prev = 6;
+            _context2.t0 = _context2["catch"](0);
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].error(t('Recurrence.status.save-error'));
+
+          case 9:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[0, 6]]);
+  })), [bundle, client, t]);
+  var handleSetStatusFinished = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.prev = 0;
+            _context3.next = 3;
+            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_26__["setStatusFinished"])(client, bundle);
+
+          case 3:
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].success(t('Recurrence.status.save-success'));
+            _context3.next = 9;
+            break;
+
+          case 6:
+            _context3.prev = 6;
+            _context3.t0 = _context3["catch"](0);
+            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].error(t('Recurrence.status.save-error'));
+
+          case 9:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[0, 6]]);
+  })), [bundle, client, t]);
+
+  if (!bundle) {
+    return null;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Header__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    fixed: true,
+    theme: "inverted"
+  }, isMobile ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_BackButton__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    theme: "primary",
+    onClick: goToRecurrenceRoot
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_23__["BarTitle"], null, Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_22__["getLabel"])(bundle)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Bar__WEBPACK_IMPORTED_MODULE_24__["BarRight"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_IconButton__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    className: "u-mr-half",
+    onClick: showActionsMenu
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    icon: cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_11__["default"]
+  }))), showingActionsMenu && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_recurrence_RecurrencePage_RecurrenceActionMenu__WEBPACK_IMPORTED_MODULE_27__["default"], {
+    onClose: hideActionsMenu,
+    recurrence: bundle,
+    onClickOngoing: handleSetStatusOngoing,
+    onClickFinished: handleSetStatusFinished,
+    onClickRename: handleOpenRename,
+    onClickDelete: handleDelete
+  })) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_16__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_5__["Media"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_5__["Bd"], {
+    className: "u-ov-visible"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    in: true
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    variant: "h5"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Breadcrumbs__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    items: [{
+      name: t('Recurrence.title'),
+      onClick: goToRecurrenceRoot
+    }, {
+      name: Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_22__["getLabel"])(bundle)
+    }],
+    theme: "primary"
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_BackButton__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    theme: "primary"
+  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_5__["Img"], {
+    className: "u-flex",
+    style: imgLineHeightStyle
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    opener: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      extension: "narrow",
+      theme: "secondary",
+      label: t("Recurrence.status.".concat(Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_26__["getStatus"])(bundle))),
+      extraRight: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        className: "u-ml-half",
+        icon: cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_10__["default"]
+      })
+    }),
+    menu: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_recurrence_RecurrencePage_RecurrenceStatusMenu__WEBPACK_IMPORTED_MODULE_28__["default"], {
+      recurrence: bundle,
+      onClickRename: handleOpenRename,
+      onClickOngoing: handleSetStatusOngoing,
+      onClickFinished: handleSetStatusFinished
+    })
+  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    opener: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      iconOnly: true,
+      label: t('Recurrence.action-menu.open-button'),
+      extension: "narrow",
+      icon: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        icon: cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_11__["default"]
+      }),
+      theme: "secondary"
+    }),
+    menu: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_recurrence_RecurrencePage_RecurrenceActionMenu__WEBPACK_IMPORTED_MODULE_27__["default"], {
+      recurrence: bundle,
+      onClickRename: handleOpenRename,
+      onClickOngoing: handleSetStatusOngoing,
+      onClickFinished: handleSetStatusFinished,
+      onClickDelete: handleDelete
+    })
+  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_header_TableHead__WEBPACK_IMPORTED_MODULE_25__["default"], null)), showingRename && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    variant: "normal"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_recurrence_RecurrencePage_RenameBundleDialog__WEBPACK_IMPORTED_MODULE_29__["default"], {
+    bundle: bundle,
+    onSuccess: hideRename,
+    dismissAction: hideRename
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(BundleInfo));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/BundleTransactions.jsx":
+/*!********************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/BundleTransactions.jsx ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/hooks/useBreakpoints */ "./node_modules/cozy-ui/transpiled/react/hooks/useBreakpoints/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/Empty */ "./node_modules/cozy-ui/transpiled/react/Empty/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_MuiCozyTheme_ListSubheader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader */ "./node_modules/cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader/index.js");
+/* harmony import */ var components_Table__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! components/Table */ "./src/components/Table/index.jsx");
+/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
+/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
+/* harmony import */ var ducks_transactions_TransactionRow_TransactionRowDesktop__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/transactions/TransactionRow/TransactionRowDesktop */ "./src/ducks/transactions/TransactionRow/TransactionRowDesktop.jsx");
+/* harmony import */ var ducks_transactions_TransactionRow_TransactionRowMobile__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/transactions/TransactionRow/TransactionRowMobile */ "./src/ducks/transactions/TransactionRow/TransactionRowMobile.jsx");
+/* harmony import */ var ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ducks/legal/LegalMention */ "../overrides/cozy-banks/src/ducks/legal/LegalMention.jsx");
+/* harmony import */ var ducks_recurrence_queries__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ducks/recurrence/queries */ "./src/ducks/recurrence/queries.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var BundleTransactionMobile = function BundleTransactionMobile(_ref) {
+  var transaction = _ref.transaction;
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_3__["useI18n"])(),
+      f = _useI18n.f;
+
+  var date = transaction.date;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_MuiCozyTheme_ListSubheader__WEBPACK_IMPORTED_MODULE_5__["default"], null, f(date, 'dddd D MMMM')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_transactions_TransactionRow_TransactionRowMobile__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    showRecurrence: false,
+    transaction: transaction
+  }));
+};
+
+var BundleMobileWrapper = function BundleMobileWrapper(_ref2) {
+  var children = _ref2.children;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "u-mt-3"
+  }, children);
+};
+
+var BundleDesktopWrapper = function BundleDesktopWrapper(_ref3) {
+  var children = _ref3.children;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Table__WEBPACK_IMPORTED_MODULE_6__["default"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, children));
+};
+
+var BundleTransactions = function BundleTransactions(_ref4) {
+  var bundle = _ref4.bundle;
+  var transactionsConn = Object(ducks_recurrence_queries__WEBPACK_IMPORTED_MODULE_12__["bundleTransactionsQueryConn"])({
+    bundle: bundle
+  });
+
+  var _useBreakpoints = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_2__["default"])(),
+      isMobile = _useBreakpoints.isMobile;
+
+  var _useI18n2 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_3__["useI18n"])(),
+      t = _useI18n2.t;
+
+  var transactionCol = Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(transactionsConn.query, transactionsConn);
+
+  if (Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["isQueryLoading"])(transactionCol) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["hasQueryBeenLoaded"])(transactionCol)) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+  }
+
+  var transactions = transactionCol.data,
+      fetchStatus = transactionCol.fetchStatus,
+      lastError = transactionCol.lastError;
+  var TransactionRow = isMobile ? BundleTransactionMobile : ducks_transactions_TransactionRow_TransactionRowDesktop__WEBPACK_IMPORTED_MODULE_9__["default"];
+  var Wrapper = isMobile ? BundleMobileWrapper : BundleDesktopWrapper;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrapper, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "u-m-1"
+  }), transactions.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_7__["default"], null, fetchStatus === 'failed' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, t('Loading.error')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, lastError && lastError.message)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    icon: {},
+    title: t('Recurrence.no-transactions.title'),
+    text: t('Recurrence.no-transactions.text')
+  })), transactions.map(function (tr) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TransactionRow, {
+      showRecurrence: false,
+      transaction: tr,
+      key: tr._id
+    });
+  })));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(BundleTransactions));
+
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/RecurrenceActionMenu.jsx":
+/*!**********************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/RecurrenceActionMenu.jsx ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/hooks/useBreakpoints */ "./node_modules/cozy-ui/transpiled/react/hooks/useBreakpoints/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_OngoingActionItem__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_FinishedActionItem__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_RenameActionItem__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/RenameActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/RenameActionItem.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_DeleteActionItem__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/DeleteActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/DeleteActionItem.jsx");
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -33068,13 +33866,7 @@ var identity = function identity(x) {
 };
 
 var portal = function portal(children) {
-  return react_dom__WEBPACK_IMPORTED_MODULE_2___default.a.createPortal(children, document.body);
-}; // Need to reset line-height to 1 for action menus to be correctly rendered
-// inside Img element
-
-
-var imgLineHeightStyle = {
-  lineHeight: 1
+  return react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.createPortal(children, document.body);
 };
 
 var RecurrenceActionMenu = function RecurrenceActionMenu(_ref) {
@@ -33085,138 +33877,208 @@ var RecurrenceActionMenu = function RecurrenceActionMenu(_ref) {
       onClickDelete = _ref.onClickDelete,
       props = _objectWithoutProperties(_ref, ["recurrence", "onClickRename", "onClickOngoing", "onClickFinished", "onClickDelete"]);
 
-  var _useBreakpoints = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_15__["default"])(),
+  var _useBreakpoints = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_3__["default"])(),
       isMobile = _useBreakpoints.isMobile;
 
   var wrapper = isMobile ? portal : identity;
-  return wrapper(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  return wrapper(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_2__["default"], {
     variant: "normal"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["default"], props, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RenameActionItem, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_4__["default"], props, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_RenameActionItem__WEBPACK_IMPORTED_MODULE_7__["default"], {
     onClick: onClickRename
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(DeleteActionItem, {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_DeleteActionItem__WEBPACK_IMPORTED_MODULE_8__["default"], {
     onClick: onClickDelete
-  }), isMobile ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OngoingActionItem, {
+  }), isMobile && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_OngoingActionItem__WEBPACK_IMPORTED_MODULE_5__["default"], {
     recurrence: recurrence,
     onClick: onClickOngoing
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FinishedActionItem, {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_FinishedActionItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
     recurrence: recurrence,
     onClick: onClickFinished
-  })) : null)));
+  })))));
 };
 
-var RenameActionItem = function RenameActionItem(_ref2) {
-  var onClick = _ref2.onClick;
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(RecurrenceActionMenu));
 
-  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n.t;
+/***/ }),
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuItem"], {
-    onClick: onClick,
-    left: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__["default"], {
-      icon: cozy_ui_transpiled_react_Icons_Pen__WEBPACK_IMPORTED_MODULE_18__["default"]
-    })
-  }, t('Recurrence.action-menu.rename'));
+/***/ "./src/ducks/recurrence/RecurrencePage/RecurrencePage.jsx":
+/*!****************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/RecurrencePage.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
+/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
+/* harmony import */ var components_RouterContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/RouterContext */ "./src/components/RouterContext.jsx");
+/* harmony import */ var components_useDocument__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! components/useDocument */ "./src/components/useDocument.js");
+/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
+/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_BundleTransactions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/BundleTransactions */ "./src/ducks/recurrence/RecurrencePage/BundleTransactions.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_BundleInfo__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/BundleInfo */ "./src/ducks/recurrence/RecurrencePage/BundleInfo.jsx");
+
+
+
+
+
+
+
+
+
+
+
+var RecurrencePage = function RecurrencePage() {
+  var params = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_4__["useParams"])();
+  var history = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_4__["useHistory"])();
+  var recurrenceCol = Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(doctypes__WEBPACK_IMPORTED_MODULE_2__["recurrenceConn"].query, doctypes__WEBPACK_IMPORTED_MODULE_2__["recurrenceConn"]);
+  var bundleId = params.bundleId;
+  var bundle = Object(components_useDocument__WEBPACK_IMPORTED_MODULE_5__["default"])(doctypes__WEBPACK_IMPORTED_MODULE_2__["RECURRENCE_DOCTYPE"], bundleId);
+  var shouldShowLoading = Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["isQueryLoading"])(recurrenceCol) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_1__["hasQueryBeenLoaded"])(recurrenceCol);
+  Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_7__["useTrackPage"])('recurrences:details');
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    // If the recurrence gets deleted, there is no bundle anymore and
+    // we redirect to the recurrence list
+    if (!shouldShowLoading && !bundle) {
+      history.push('/analysis/recurrence');
+    }
+  }, [shouldShowLoading, bundle, history]);
+
+  if (shouldShowLoading) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    theme: "primary"
+  }), bundle && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_BundleInfo__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    bundle: bundle
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_BundleTransactions__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    bundle: bundle
+  })));
 };
 
-var DeleteActionItem = function DeleteActionItem(_ref3) {
-  var onClick = _ref3.onClick;
+/* harmony default export */ __webpack_exports__["default"] = (RecurrencePage);
 
-  var _useI18n2 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n2.t;
+/***/ }),
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuItem"], {
-    onClick: onClick,
-    left: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__["default"], {
-      icon: cozy_ui_transpiled_react_Icons_Trash__WEBPACK_IMPORTED_MODULE_19__["default"]
-    })
-  }, t('Recurrence.action-menu.delete'), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    variant: "caption",
-    color: "textSecondary"
-  }, t('Recurrence.action-menu.delete-caption')));
-};
+/***/ "./src/ducks/recurrence/RecurrencePage/RecurrenceStatusMenu.jsx":
+/*!**********************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/RecurrenceStatusMenu.jsx ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var OngoingActionItem = function OngoingActionItem(_ref4) {
-  var recurrence = _ref4.recurrence,
-      onClick = _ref4.onClick;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyTheme */ "./node_modules/cozy-ui/transpiled/react/CozyTheme/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-ui/transpiled/react/ActionMenu */ "./node_modules/cozy-ui/transpiled/react/ActionMenu/index.js");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_OngoingActionItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem.jsx");
+/* harmony import */ var ducks_recurrence_RecurrencePage_ActionItems_FinishedActionItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem */ "./src/ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem.jsx");
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-  var _useI18n3 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n3.t;
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuItem"], {
-    onClick: onClick,
-    left: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuRadio"], {
-      readOnly: true,
-      checked: Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["isOngoing"])(recurrence)
-    })
-  }, t('Recurrence.action-menu.ongoing'), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    variant: "caption",
-    color: "textSecondary"
-  }, t('Recurrence.action-menu.ongoing-caption')));
-};
 
-var FinishedActionItem = function FinishedActionItem(_ref5) {
-  var recurrence = _ref5.recurrence,
-      onClick = _ref5.onClick;
 
-  var _useI18n4 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n4.t;
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuItem"], {
-    onClick: onClick,
-    left: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["ActionMenuRadio"], {
-      readOnly: true,
-      checked: Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["isFinished"])(recurrence)
-    })
-  }, t('Recurrence.action-menu.finished'));
-};
 
-var RecurrenceStatusMenu = function RecurrenceStatusMenu(_ref6) {
-  var recurrence = _ref6.recurrence,
-      onClickOngoing = _ref6.onClickOngoing,
-      onClickFinished = _ref6.onClickFinished,
-      props = _objectWithoutProperties(_ref6, ["recurrence", "onClickOngoing", "onClickFinished"]);
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_13__["default"], {
+
+var RecurrenceStatusMenu = function RecurrenceStatusMenu(_ref) {
+  var recurrence = _ref.recurrence,
+      onClickOngoing = _ref.onClickOngoing,
+      onClickFinished = _ref.onClickFinished,
+      props = _objectWithoutProperties(_ref, ["recurrence", "onClickOngoing", "onClickFinished"]);
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_CozyTheme__WEBPACK_IMPORTED_MODULE_1__["default"], {
     variant: "normal"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_16__["default"], props, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(OngoingActionItem, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(cozy_ui_transpiled_react_ActionMenu__WEBPACK_IMPORTED_MODULE_2__["default"], props, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_OngoingActionItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
     recurrence: recurrence,
     onClick: onClickOngoing
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(FinishedActionItem, {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_recurrence_RecurrencePage_ActionItems_FinishedActionItem__WEBPACK_IMPORTED_MODULE_4__["default"], {
     recurrence: recurrence,
     onClick: onClickFinished
   })));
 };
 
-var RenameBundleDialog = function RenameBundleDialog(_ref7) {
-  var bundle = _ref7.bundle,
-      dismissAction = _ref7.dismissAction;
-  var client = Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["useClient"])();
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(RecurrenceStatusMenu));
 
-  var _useI18n5 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n5.t;
+/***/ }),
+
+/***/ "./src/ducks/recurrence/RecurrencePage/RenameBundleDialog.jsx":
+/*!********************************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/RenameBundleDialog.jsx ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! cozy-ui/transpiled/react/Alerter */ "./node_modules/cozy-ui/transpiled/react/Alerter/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_CozyDialogs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cozy-ui/transpiled/react/CozyDialogs */ "./node_modules/cozy-ui/transpiled/react/CozyDialogs/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! cozy-ui/transpiled/react/Button */ "../overrides/cozy-ui/transpiled/react/Button/index.jsx");
+/* harmony import */ var cozy_ui_transpiled_react_Field__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-ui/transpiled/react/Field */ "./node_modules/cozy-ui/transpiled/react/Field/index.js");
+/* harmony import */ var cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-ui/transpiled/react/I18n */ "./node_modules/cozy-ui/transpiled/react/I18n/index.js");
+/* harmony import */ var ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/recurrence/utils */ "./src/ducks/recurrence/utils.js");
+/* harmony import */ var ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/recurrence/api */ "./src/ducks/recurrence/api.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+
+
+
+
+
+
+var RenameBundleDialog = function RenameBundleDialog(_ref) {
+  var bundle = _ref.bundle,
+      dismissAction = _ref.dismissAction;
+  var client = Object(cozy_client__WEBPACK_IMPORTED_MODULE_2__["useClient"])();
+
+  var _useI18n = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_7__["useI18n"])(),
+      t = _useI18n.t;
 
   var renameInputRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])();
 
   var handleRename = /*#__PURE__*/function () {
-    var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["renameRecurrenceManually"])(client, bundle, renameInputRef.current.value);
+              return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_9__["renameRecurrenceManually"])(client, bundle, renameInputRef.current.value);
 
             case 3:
               dismissAction();
-              cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].success(t('Recurrence.rename.save-success'));
+              cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].success(t('Recurrence.rename.save-success'));
               _context.next = 10;
               break;
 
             case 7:
               _context.prev = 7;
               _context.t0 = _context["catch"](0);
-              cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].error(t('Recurrence.rename.save-error'));
+              cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_3__["default"].error(t('Recurrence.rename.save-error'));
 
             case 10:
             case "end":
@@ -33227,30 +34089,30 @@ var RenameBundleDialog = function RenameBundleDialog(_ref7) {
     }));
 
     return function handleRename() {
-      return _ref8.apply(this, arguments);
+      return _ref2.apply(this, arguments);
     };
   }();
 
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_CozyDialogs__WEBPACK_IMPORTED_MODULE_7__["Dialog"], {
-    opened: true,
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_CozyDialogs__WEBPACK_IMPORTED_MODULE_4__["Dialog"], {
+    open: true,
     size: "small",
     title: t('Recurrence.rename.modal-title'),
-    content: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Field__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    content: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Field__WEBPACK_IMPORTED_MODULE_6__["default"], {
       className: "u-m-0",
       labelProps: {
         className: 'u-pt-0'
       },
       fieldProps: {
-        defaultValue: Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_34__["getLabel"])(bundle)
+        defaultValue: Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_8__["getLabel"])(bundle)
       },
       inputRef: renameInputRef,
       label: t('Recurrence.table.label')
     }),
-    actions: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    actions: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
       theme: "primary",
       onClick: handleRename,
       label: t('Recurrence.rename.save')
-    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
       theme: "secondary",
       onClick: dismissAction,
       label: t('Recurrence.rename.cancel')
@@ -33258,290 +34120,22 @@ var RenameBundleDialog = function RenameBundleDialog(_ref7) {
   });
 };
 
-var BundleInfo = function BundleInfo(_ref9) {
-  var bundle = _ref9.bundle;
-  var history = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_42__["useHistory"])();
+/* harmony default export */ __webpack_exports__["default"] = (react__WEBPACK_IMPORTED_MODULE_1___default.a.memo(RenameBundleDialog));
 
-  var _useI18n6 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n6.t;
+/***/ }),
 
-  var client = Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["useClient"])();
+/***/ "./src/ducks/recurrence/RecurrencePage/index.js":
+/*!******************************************************!*\
+  !*** ./src/ducks/recurrence/RecurrencePage/index.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-  var _useBreakpoints2 = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_15__["default"])(),
-      isMobile = _useBreakpoints2.isMobile;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _RecurrencePage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RecurrencePage */ "./src/ducks/recurrence/RecurrencePage/RecurrencePage.jsx");
 
-  var _useToggle = Object(components_useToggle__WEBPACK_IMPORTED_MODULE_40__["default"])(false),
-      _useToggle2 = _slicedToArray(_useToggle, 3),
-      showingActionsMenu = _useToggle2[0],
-      showActionsMenu = _useToggle2[1],
-      hideActionsMenu = _useToggle2[2];
-
-  var _useToggle3 = Object(components_useToggle__WEBPACK_IMPORTED_MODULE_40__["default"])(false),
-      _useToggle4 = _slicedToArray(_useToggle3, 3),
-      showingRename = _useToggle4[0],
-      showRename = _useToggle4[1],
-      hideRename = _useToggle4[2];
-
-  var goToRecurrenceRoot = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
-    return history.push('/analysis/recurrence');
-  }, [history]);
-  var handleOpenRename = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function () {
-    showRename();
-  }, [showRename]);
-  var handleDelete = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.prev = 0;
-            goToRecurrenceRoot();
-            _context2.next = 4;
-            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["deleteRecurrence"])(client, bundle);
-
-          case 4:
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].success(t('Recurrence.delete-success'));
-            _context2.next = 10;
-            break;
-
-          case 7:
-            _context2.prev = 7;
-            _context2.t0 = _context2["catch"](0);
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].error(t('Recurrence.delete-error'));
-
-          case 10:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2, null, [[0, 7]]);
-  })), [bundle, client, goToRecurrenceRoot, t]);
-  var handleSetStatusOngoing = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.prev = 0;
-            _context3.next = 3;
-            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["setStatusOngoing"])(client, bundle);
-
-          case 3:
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].success(t('Recurrence.status.save-success'));
-            _context3.next = 9;
-            break;
-
-          case 6:
-            _context3.prev = 6;
-            _context3.t0 = _context3["catch"](0);
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].error(t('Recurrence.status.save-error'));
-
-          case 9:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3, null, [[0, 6]]);
-  })), [bundle, client, t]);
-  var handleSetStatusFinished = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            _context4.prev = 0;
-            _context4.next = 3;
-            return Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["setStatusFinished"])(client, bundle);
-
-          case 3:
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].success(t('Recurrence.status.save-success'));
-            _context4.next = 9;
-            break;
-
-          case 6:
-            _context4.prev = 6;
-            _context4.t0 = _context4["catch"](0);
-            cozy_ui_transpiled_react_Alerter__WEBPACK_IMPORTED_MODULE_6__["default"].error(t('Recurrence.status.save-error'));
-
-          case 9:
-          case "end":
-            return _context4.stop();
-        }
-      }
-    }, _callee4, null, [[0, 6]]);
-  })), [bundle, client, t]);
-
-  if (!bundle) {
-    return null;
-  }
-
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Header__WEBPACK_IMPORTED_MODULE_31__["default"], {
-    fixed: true,
-    theme: "inverted"
-  }, isMobile ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_BackButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
-    theme: "primary",
-    onClick: goToRecurrenceRoot
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Title_PageTitle__WEBPACK_IMPORTED_MODULE_36__["BarTitle"], null, Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_34__["getLabel"])(bundle)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Bar__WEBPACK_IMPORTED_MODULE_37__["BarRight"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_IconButton__WEBPACK_IMPORTED_MODULE_24__["default"], {
-    className: "u-mr-half",
-    onClick: showActionsMenu
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__["default"], {
-    icon: cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_21__["default"]
-  }))), showingActionsMenu ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RecurrenceActionMenu, {
-    onClose: hideActionsMenu,
-    recurrence: bundle,
-    onClickOngoing: handleSetStatusOngoing,
-    onClickFinished: handleSetStatusFinished,
-    onClickRename: handleOpenRename,
-    onClickDelete: handleDelete
-  }) : null) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_27__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_10__["Media"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_10__["Bd"], {
-    className: "u-ov-visible"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Fade__WEBPACK_IMPORTED_MODULE_25__["default"], {
-    in: true
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    variant: "h5"
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Breadcrumbs__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    items: [{
-      name: t('Recurrence.title'),
-      onClick: goToRecurrenceRoot
-    }, {
-      name: Object(ducks_recurrence_utils__WEBPACK_IMPORTED_MODULE_34__["getLabel"])(bundle)
-    }],
-    theme: "primary"
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_BackButton__WEBPACK_IMPORTED_MODULE_32__["default"], {
-    theme: "primary"
-  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Media__WEBPACK_IMPORTED_MODULE_10__["Img"], {
-    className: "u-flex",
-    style: imgLineHeightStyle
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_41__["default"], {
-    opener: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      extension: "narrow",
-      theme: "secondary",
-      label: t("Recurrence.status.".concat(Object(ducks_recurrence_api__WEBPACK_IMPORTED_MODULE_35__["getStatus"])(bundle))),
-      extraRight: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__["default"], {
-        className: "u-ml-half",
-        icon: cozy_ui_transpiled_react_Icons_Bottom__WEBPACK_IMPORTED_MODULE_20__["default"]
-      })
-    }),
-    menu: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RecurrenceStatusMenu, {
-      recurrence: bundle,
-      onClickRename: handleOpenRename,
-      onClickOngoing: handleSetStatusOngoing,
-      onClickFinished: handleSetStatusFinished
-    })
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_ActionMenuHelper__WEBPACK_IMPORTED_MODULE_41__["default"], {
-    opener: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Button__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      iconOnly: true,
-      label: t('Recurrence.action-menu.open-button'),
-      extension: "narrow",
-      icon: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Icon__WEBPACK_IMPORTED_MODULE_22__["default"], {
-        icon: cozy_ui_transpiled_react_Icons_Dots__WEBPACK_IMPORTED_MODULE_21__["default"]
-      }),
-      theme: "secondary"
-    }),
-    menu: react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RecurrenceActionMenu, {
-      recurrence: bundle,
-      onClickRename: handleOpenRename,
-      onClickOngoing: handleSetStatusOngoing,
-      onClickFinished: handleSetStatusFinished,
-      onClickDelete: handleDelete
-    })
-  })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_header_TableHead__WEBPACK_IMPORTED_MODULE_38__["default"], null)), showingRename ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(RenameBundleDialog, {
-    bundle: bundle,
-    onSuccess: hideRename,
-    dismissAction: hideRename
-  }) : null);
-};
-
-var BundleMobileWrapper = function BundleMobileWrapper(_ref13) {
-  var children = _ref13.children;
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: _styles_styl__WEBPACK_IMPORTED_MODULE_39___default.a.RecurrencesMobileContent
-  }, children);
-};
-
-var BundleDesktopWrapper = function BundleDesktopWrapper(_ref14) {
-  var children = _ref14.children;
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Table__WEBPACK_IMPORTED_MODULE_30__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("tbody", null, children));
-};
-
-var BundleTransactionMobile = function BundleTransactionMobile(_ref15) {
-  var transaction = _ref15.transaction;
-
-  var _useI18n7 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      f = _useI18n7.f;
-
-  var date = transaction.date;
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_MuiCozyTheme_ListSubheader__WEBPACK_IMPORTED_MODULE_17__["default"], null, f(date, 'dddd D MMMM')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_TransactionRow_TransactionRowMobile__WEBPACK_IMPORTED_MODULE_29__["default"], {
-    showRecurrence: false,
-    transaction: transaction
-  }));
-};
-
-var BundleTransactions = function BundleTransactions(_ref16) {
-  var bundle = _ref16.bundle;
-  var transactionsConn = Object(_queries__WEBPACK_IMPORTED_MODULE_5__["bundleTransactionsQueryConn"])({
-    bundle: bundle
-  });
-
-  var _useBreakpoints3 = Object(cozy_ui_transpiled_react_hooks_useBreakpoints__WEBPACK_IMPORTED_MODULE_15__["default"])(),
-      isMobile = _useBreakpoints3.isMobile;
-
-  var _useI18n8 = Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_11__["useI18n"])(),
-      t = _useI18n8.t;
-
-  var transactionCol = Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(transactionsConn.query, transactionsConn);
-
-  if (Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["isQueryLoading"])(transactionCol) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["hasQueryBeenLoaded"])(transactionCol)) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_26__["default"], null);
-  }
-
-  var transactions = transactionCol.data,
-      fetchStatus = transactionCol.fetchStatus,
-      lastError = transactionCol.lastError;
-  var TransactionRow = isMobile ? BundleTransactionMobile : ducks_transactions_TransactionRow_TransactionRowDesktop__WEBPACK_IMPORTED_MODULE_28__["default"];
-  var Wrapper = isMobile ? BundleMobileWrapper : BundleDesktopWrapper;
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Wrapper, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_45__["default"], {
-    className: "u-m-1"
-  }), transactions.length === 0 ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_27__["default"], null, fetchStatus === 'failed' ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, t('Loading.error')), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, lastError && lastError.message)) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Empty__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    icon: {},
-    title: t('Recurrence.no-transactions.title'),
-    text: t('Recurrence.no-transactions.text')
-  })) : null, transactions.map(function (tr) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(TransactionRow, {
-      showRecurrence: false,
-      transaction: tr,
-      key: tr._id
-    });
-  })));
-};
-
-var RecurrencePage = function RecurrencePage() {
-  var params = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_42__["useParams"])();
-  var history = Object(components_RouterContext__WEBPACK_IMPORTED_MODULE_42__["useHistory"])();
-  var recurrenceCol = Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(doctypes__WEBPACK_IMPORTED_MODULE_4__["recurrenceConn"].query, doctypes__WEBPACK_IMPORTED_MODULE_4__["recurrenceConn"]);
-  var bundleId = params.bundleId;
-  var bundle = Object(components_useDocument__WEBPACK_IMPORTED_MODULE_44__["default"])(doctypes__WEBPACK_IMPORTED_MODULE_4__["RECURRENCE_DOCTYPE"], bundleId);
-  var shouldShowLoading = Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["isQueryLoading"])(recurrenceCol) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_3__["hasQueryBeenLoaded"])(recurrenceCol);
-  Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_43__["useTrackPage"])('recurrences:details');
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    // If the recurrence gets deleted, there is no bundle anymore and
-    // we redirect to the recurrence list
-    if (!shouldShowLoading && !bundle) {
-      history.push('/analysis/recurrence');
-    }
-  }, [shouldShowLoading, bundle, history]);
-
-  if (shouldShowLoading) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_26__["default"], null);
-  }
-
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_33__["default"], {
-    theme: "primary"
-  }), bundle ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(BundleInfo, {
-    bundle: bundle
-  }) : null, bundle ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(BundleTransactions, {
-    bundle: bundle
-  }) : null);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (RecurrencePage);
+/* harmony default export */ __webpack_exports__["default"] = (_RecurrencePage__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 /***/ }),
 
@@ -34334,15 +34928,18 @@ module.exports = {"amountShouldBeMoreThan":{"active":true,"options":5},"bundleSi
 /*!*******************************************!*\
   !*** ./src/ducks/recurrence/constants.js ***!
   \*******************************************/
-/*! exports provided: NOT_RECURRENT_ID, ONE_DAY */
+/*! exports provided: NOT_RECURRENT_ID, ONE_DAY, PERCENTAGE_AMOUNTS_ACCEPTED */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOT_RECURRENT_ID", function() { return NOT_RECURRENT_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ONE_DAY", function() { return ONE_DAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PERCENTAGE_AMOUNTS_ACCEPTED", function() { return PERCENTAGE_AMOUNTS_ACCEPTED; });
 var NOT_RECURRENT_ID = 'not-recurrent';
 var ONE_DAY = 1000 * 60 * 60 * 24; // ms * s * min * hours, to be used with Date()
+
+var PERCENTAGE_AMOUNTS_ACCEPTED = 0.05;
 
 /***/ }),
 
@@ -35704,7 +36301,7 @@ var main = /*#__PURE__*/function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"ColumnSizeLabel":"ColumnSizeLabel--2RFj5","ColumnSizeLastOccurence":"ColumnSizeLastOccurence--RTVxO","ColumnSizeFrequency":"ColumnSizeFrequency--ozCee","ColumnSizeAmount":"ColumnSizeAmount--jU6KV","BundleRow":"BundleRow--1kJVk","BarButtonRight":"BarButtonRight--3RSGi","RecurrencesMobileContent":"RecurrencesMobileContent--3V_rn"};
+module.exports = {"ColumnSizeLabel":"ColumnSizeLabel--2RFj5","ColumnSizeLastOccurence":"ColumnSizeLastOccurence--RTVxO","ColumnSizeFrequency":"ColumnSizeFrequency--ozCee","ColumnSizeAmount":"ColumnSizeAmount--jU6KV","BundleRow":"BundleRow--1kJVk","BarButtonRight":"BarButtonRight--3RSGi"};
 
 /***/ }),
 
@@ -35814,7 +36411,7 @@ var useStickyState = function useStickyState(defaultValue, localStorageKey) {
 /*!***************************************!*\
   !*** ./src/ducks/recurrence/utils.js ***!
   \***************************************/
-/*! exports provided: prettyLabel, getLabel, getCategories, getFrequencyWord, getFrequency, getFrequencyText, getAmount, getCurrency, makeRecurrenceFromTransaction, nextDate, isDeprecatedBundle, addTransactionToBundles */
+/*! exports provided: prettyLabel, getLabel, getCategories, getFrequencyWord, getFrequency, getFrequencyText, getAmount, getCurrency, getMinAmount, getMaxAmount, isBetween, makeRecurrenceFromTransaction, nextDate, isDeprecatedBundle, addTransactionToBundles */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35827,6 +36424,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFrequencyText", function() { return getFrequencyText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAmount", function() { return getAmount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCurrency", function() { return getCurrency; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMinAmount", function() { return getMinAmount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMaxAmount", function() { return getMaxAmount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBetween", function() { return isBetween; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeRecurrenceFromTransaction", function() { return makeRecurrenceFromTransaction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextDate", function() { return nextDate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isDeprecatedBundle", function() { return isDeprecatedBundle; });
@@ -35835,14 +36435,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_uniqBy__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lodash_startCase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/startCase */ "./node_modules/lodash/startCase.js");
 /* harmony import */ var lodash_startCase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_startCase__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! date-fns/add_days */ "./node_modules/date-fns/add_days/index.js");
-/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(date_fns_add_days__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var date_fns_parse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! date-fns/parse */ "./node_modules/date-fns/parse/index.js");
-/* harmony import */ var date_fns_parse__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(date_fns_parse__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns/difference_in_days */ "./node_modules/date-fns/difference_in_days/index.js");
-/* harmony import */ var date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
-/* harmony import */ var ducks_recurrence_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ducks/recurrence/service */ "./src/ducks/recurrence/service.js");
+/* harmony import */ var lodash_min__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/min */ "./node_modules/lodash/min.js");
+/* harmony import */ var lodash_min__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_min__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var lodash_max__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/max */ "./node_modules/lodash/max.js");
+/* harmony import */ var lodash_max__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_max__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! date-fns/add_days */ "./node_modules/date-fns/add_days/index.js");
+/* harmony import */ var date_fns_add_days__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(date_fns_add_days__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var date_fns_parse__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! date-fns/parse */ "./node_modules/date-fns/parse/index.js");
+/* harmony import */ var date_fns_parse__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(date_fns_parse__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! date-fns/difference_in_days */ "./node_modules/date-fns/difference_in_days/index.js");
+/* harmony import */ var date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
+/* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var ducks_recurrence_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/recurrence/constants */ "./src/ducks/recurrence/constants.js");
+/* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
+/* harmony import */ var ducks_recurrence_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ducks/recurrence/service */ "./src/ducks/recurrence/service.js");
 function _objectSpread(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? Object(arguments[i]) : {};
@@ -35919,6 +36526,10 @@ function _arrayLikeToArray(arr, len) {
 
 
 
+
+
+
+
 var RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence';
 var prettyLabel = function prettyLabel(label) {
   return label ? lodash_startCase__WEBPACK_IMPORTED_MODULE_1___default()(label.toLowerCase()) : '';
@@ -35959,6 +36570,21 @@ var getAmount = function getAmount(bundle) {
 var getCurrency = function getCurrency() {
   return '€';
 };
+var PERCENTAGE = Number(cozy_flags__WEBPACK_IMPORTED_MODULE_7___default()('banks.recurrency.percentage-amounts-accepted')) || ducks_recurrence_constants__WEBPACK_IMPORTED_MODULE_8__["PERCENTAGE_AMOUNTS_ACCEPTED"];
+var getMinAmount = function getMinAmount(bundle) {
+  var minAmount = Math.abs(lodash_min__WEBPACK_IMPORTED_MODULE_2___default()(bundle.amounts));
+  return minAmount - minAmount * PERCENTAGE;
+};
+var getMaxAmount = function getMaxAmount(bundle) {
+  var maxAmount = Math.abs(lodash_max__WEBPACK_IMPORTED_MODULE_3___default()(bundle.amounts));
+  return maxAmount + maxAmount * PERCENTAGE;
+};
+var isBetween = function isBetween(_ref) {
+  var value = _ref.value,
+      min = _ref.min,
+      max = _ref.max;
+  return min <= value && value <= max;
+};
 /**
  * Make a recurrence from a transaction. The recurrence will inherit
  * the amount / account / category of the transaction
@@ -35971,7 +36597,7 @@ var makeRecurrenceFromTransaction = function makeRecurrenceFromTransaction(trans
   var accountId = transaction.account;
   return {
     _type: RECURRENCE_DOCTYPE,
-    automaticLabel: Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_5__["getLabel"])(transaction),
+    automaticLabel: Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_9__["getLabel"])(transaction),
     stats: {
       deltas: {
         median: 30
@@ -35981,7 +36607,7 @@ var makeRecurrenceFromTransaction = function makeRecurrenceFromTransaction(trans
     latestAmount: transaction.amount,
     accounts: [accountId],
     amounts: [transaction.amount],
-    categoryIds: [Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_5__["getCategoryId"])(transaction)]
+    categoryIds: [Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_9__["getCategoryId"])(transaction)]
   };
 };
 /** Gives the next date for a recurrence, based on the median stat and the latest date */
@@ -35990,14 +36616,14 @@ var nextDate = function nextDate(recurrence) {
   try {
     var rawLatestDate = recurrence.latestDate,
         median = recurrence.stats.deltas.median;
-    var latestDate = date_fns_parse__WEBPACK_IMPORTED_MODULE_3___default()(rawLatestDate);
+    var latestDate = date_fns_parse__WEBPACK_IMPORTED_MODULE_5___default()(rawLatestDate);
     var now = new Date(Date.now());
-    var deltaDays = date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4___default()(now, latestDate);
+    var deltaDays = date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6___default()(now, latestDate);
     var n = deltaDays / median;
     var r = Math.ceil(n);
-    var candidate = date_fns_add_days__WEBPACK_IMPORTED_MODULE_2___default()(latestDate, r * median);
+    var candidate = date_fns_add_days__WEBPACK_IMPORTED_MODULE_4___default()(latestDate, r * median);
 
-    if (date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4___default()(candidate, now) <= 0) {
+    if (date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6___default()(candidate, now) <= 0) {
       return new Date(now);
     }
 
@@ -36009,30 +36635,45 @@ var nextDate = function nextDate(recurrence) {
   }
 };
 var isDeprecatedBundle = function isDeprecatedBundle(recurrence) {
-  var latestDate = date_fns_parse__WEBPACK_IMPORTED_MODULE_3___default()(recurrence.latestDate);
+  var latestDate = date_fns_parse__WEBPACK_IMPORTED_MODULE_5___default()(recurrence.latestDate);
   var now = Date.now();
-  return date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_4___default()(now, latestDate);
+  return date_fns_difference_in_days__WEBPACK_IMPORTED_MODULE_6___default()(now, latestDate);
 };
+/**
+ * Allows to add transactions to bundles which match with these conditions:
+ * - Amount (with +/- percentage)
+ * - CategoryId
+ * - Account
+ *
+ * @param {Array<Recurrence>} bundles
+ * @param {Array<Transaction>} transactions
+ *
+ * @returns {{transactionsForUpdatedBundles: Array<Transaction>, updatedBundles: Array<Recurrence>}}
+ */
+
 var addTransactionToBundles = function addTransactionToBundles(bundles, transactions) {
   var transactionsForUpdatedBundles = [];
 
   var updatedBundles = _toConsumableArray(bundles).map(function (b) {
-    var bundle = _objectSpread({}, b); // Matching on Amount, CategoryId and account
+    var bundle = _objectSpread({}, b);
 
-
+    var minAmount = getMinAmount(bundle);
+    var maxAmount = getMaxAmount(bundle);
     var transactionFounds = transactions.filter(function (transaction) {
       var _bundle$accounts;
 
       var hasSomeSameCategoryId = bundle.categoryIds.some(function (catId) {
-        return Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_5__["getCategoryId"])(transaction) === catId;
+        return Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_9__["getCategoryId"])(transaction) === catId;
       });
-      var hasSomeSameAmount = bundle.amounts.some(function (amount) {
-        return amount === transaction.amount;
+      var hasAmountsBetweenExtremum = isBetween({
+        value: Math.abs(transaction.amount),
+        min: minAmount,
+        max: maxAmount
       });
       var hasSomeSameAccount = (_bundle$accounts = bundle.accounts) === null || _bundle$accounts === void 0 ? void 0 : _bundle$accounts.some(function (account) {
         return account === transaction.account;
       });
-      return hasSomeSameCategoryId && hasSomeSameAmount && hasSomeSameAccount;
+      return hasSomeSameCategoryId && hasAmountsBetweenExtremum && hasSomeSameAccount;
     });
 
     if ((transactionFounds === null || transactionFounds === void 0 ? void 0 : transactionFounds.length) > 0) {
@@ -36045,7 +36686,7 @@ var addTransactionToBundles = function addTransactionToBundles(bundles, transact
     return bundle;
   });
 
-  Object(ducks_recurrence_service__WEBPACK_IMPORTED_MODULE_6__["logRecurrencesLabelAndTransactionsNumber"])({
+  Object(ducks_recurrence_service__WEBPACK_IMPORTED_MODULE_10__["logRecurrencesLabelAndTransactionsNumber"])({
     prefix: "\u2B50 Updated: ".concat(updatedBundles.length, " existing bundles:"),
     recurrences: updatedBundles
   });
@@ -40929,7 +41570,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ducks_settings_AppVersion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ducks/settings/AppVersion */ "./src/ducks/settings/AppVersion.jsx");
 /* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
 /* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/settings/Settings.styl */ "./src/ducks/settings/Settings.styl");
+/* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ducks/settings/Settings.styl */ "../overrides/cozy-banks/src/ducks/settings/Settings.styl");
 /* harmony import */ var ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ducks_settings_Settings_styl__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var ducks_legal_LegalMention__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ducks/legal/LegalMention */ "../overrides/cozy-banks/src/ducks/legal/LegalMention.jsx");
 /* harmony import */ var ducks_settings_TabsHeader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ducks/settings/TabsHeader */ "../overrides/cozy-banks/src/ducks/settings/TabsHeader/index.jsx");
@@ -40967,18 +41608,6 @@ Settings.defaultProps = {
   delayContent: 0
 };
 /* harmony default export */ __webpack_exports__["default"] = (Settings);
-
-/***/ }),
-
-/***/ "./src/ducks/settings/Settings.styl":
-/*!******************************************!*\
-  !*** ./src/ducks/settings/Settings.styl ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-module.exports = {"Header--fixed":"Header--fixed--13jJK","HeaderColor_normal":"HeaderColor_normal--2Iyoo","HeaderColor_inverted":"HeaderColor_inverted--1A7aE","Header--paper":"Header--paper--nfeJG","Settings__Content":"Settings__Content--3HFT0"};
 
 /***/ }),
 
@@ -49453,11 +50082,15 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
         // yet.
         var _accounts = makeAccounts(filteringDoc, groups);
 
+        indexFields = [dateAttribute, 'account'];
         whereClause = {
           account: {
             $in: _accounts
           }
         };
+        sortByClause = [_defineProperty({}, dateAttribute, 'desc'), {
+          account: 'desc'
+        }];
       } else if (filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_7__["ACCOUNT_DOCTYPE"]) {
         whereClause = {
           account: filteringDoc._id
@@ -49550,11 +50183,11 @@ var addMonthToConn = function addMonthToConn(baseConn, month) {
  * so that only transactions for a given month are fetched.
  */
 
-var addPeriodToConn = function addPeriodToConn(_ref3) {
-  var baseConn = _ref3.baseConn,
-      period = _ref3.period,
-      _ref3$dateAttribute = _ref3.dateAttribute,
-      dateAttribute = _ref3$dateAttribute === void 0 ? 'date' : _ref3$dateAttribute;
+var addPeriodToConn = function addPeriodToConn(_ref4) {
+  var baseConn = _ref4.baseConn,
+      period = _ref4.period,
+      _ref4$dateAttribute = _ref4.dateAttribute,
+      dateAttribute = _ref4$dateAttribute === void 0 ? 'date' : _ref4$dateAttribute;
 
   var mkBaseQuery = baseConn.query,
       baseAs = baseConn.as,
