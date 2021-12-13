@@ -18733,11 +18733,48 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
     }
   }, {
     key: "componentDidMount",
-    value: function componentDidMount() {
-      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
-      this.startResumeListeners();
-      Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__["trackPage"])('moncompte:home');
-    }
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var a;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                console.log('----Coucou');
+                _context3.prev = 1;
+                console.log('---aaaa-');
+                _context3.next = 5;
+                return Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
+
+              case 5:
+                a = _context3.sent;
+                console.log('----a', a);
+                _context3.next = 12;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](1);
+                console.log('----e ', _context3.t0);
+
+              case 12:
+                this.startResumeListeners();
+                Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__["trackPage"])('moncompte:home');
+
+              case 14:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this, [[1, 9]]);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
@@ -53995,13 +54032,20 @@ var normalizeBreadcrumbs = function normalizeBreadcrumbs(data) {
 var logMessage = function logMessage(message) {
   var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'info';
   return new Promise(function (resolve) {
-    raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.captureMessage(message, {
-      level: level,
-      tags: {
-        slug: slug,
-        domain: domain
-      }
-    });
+    console.log('----mess', message);
+
+    try {
+      raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.captureMessage(message, {
+        level: level,
+        tags: {
+          slug: slug,
+          domain: domain
+        }
+      });
+    } catch (e) {
+      console.log('----eee raven', e);
+    }
+
     resolve();
   });
 };
