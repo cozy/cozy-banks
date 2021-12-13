@@ -53967,10 +53967,11 @@ var setURLContext = function setURLContext(url) {
   slug = Object(lib_cozyUrl__WEBPACK_IMPORTED_MODULE_2__["getSlug"])(url);
 };
 var getSentryMiddleware = function getSentryMiddleware(cozyClient) {
+  console.log('----Senrty Middleware Flag', cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'));
   return redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default()(cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'), getSentryConfiguration(cozyClient));
 };
 var configureSentry = function configureSentry(cozyClient) {
-  console.log('----Flag', cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'));
+  console.log('----Configur Flag', cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'));
   raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.config(cozy_flags__WEBPACK_IMPORTED_MODULE_3___default()('banks.url.sentry'), getSentryConfiguration(cozyClient)).install();
   raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.setTagsContext({
     target: "browser"
