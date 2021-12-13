@@ -7803,7 +7803,7 @@ module.exports = {"c-input-radio":"c-input-radio--w1YoV"};
 /*!********************************************************************!*\
   !*** ../overrides/cozy-ui/transpiled/react/SelectBox/SelectBox.js ***!
   \********************************************************************/
-/*! exports provided: Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox, default */
+/*! exports provided: default, Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18735,38 +18735,20 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
     key: "componentDidMount",
     value: function () {
       var _componentDidMount = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var a;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log('----Coucou');
-                _context3.prev = 1;
-                console.log('---aaaa-');
-                _context3.next = 5;
-                return Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
-
-              case 5:
-                a = _context3.sent;
-                console.log('----a', a);
-                _context3.next = 12;
-                break;
-
-              case 9:
-                _context3.prev = 9;
-                _context3.t0 = _context3["catch"](1);
-                console.log('----e ', _context3.t0);
-
-              case 12:
+                Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
                 this.startResumeListeners();
                 Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__["trackPage"])('moncompte:home');
 
-              case 14:
+              case 3:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this, [[1, 9]]);
+        }, _callee3, this);
       }));
 
       function componentDidMount() {
@@ -19133,7 +19115,7 @@ var getComponent = function getComponent(filteringDoc) {
 };
 
 var RawBalanceDetailsPage = function RawBalanceDetailsPage(props) {
-  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_10__["logMessage"])('> Filtering Doc' + JSON.stringify(props.filteringDoc));
+  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_10__["logInfo"])('> Filtering Doc : ' + JSON.stringify(props.filteringDoc));
   var Component = getComponent(props.filteringDoc);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_8__["default"], {
     theme: 'primary'
@@ -46838,11 +46820,12 @@ module.exports = {"TransactionsHeader__chart":"TransactionsHeader__chart--Ft9Oy"
 /*!*****************************************************!*\
   !*** ./src/ducks/transactions/TransactionsPage.jsx ***!
   \*****************************************************/
-/*! exports provided: DumbTransactionsPage, UnpluggedTransactionsPage, TransactionsPageWithBackButton, default */
+/*! exports provided: predicateBetweenDates, DumbTransactionsPage, UnpluggedTransactionsPage, TransactionsPageWithBackButton, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "predicateBetweenDates", function() { return predicateBetweenDates; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DumbTransactionsPage", function() { return DumbTransactionsPage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnpluggedTransactionsPage", function() { return UnpluggedTransactionsPage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TransactionsPageWithBackButton", function() { return TransactionsPageWithBackButton; });
@@ -46868,23 +46851,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! cozy-ui/transpiled/react/Typography */ "./node_modules/cozy-ui/transpiled/react/Typography/index.js");
 /* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! cozy-flags */ "./node_modules/cozy-flags/dist/index.js");
 /* harmony import */ var cozy_flags__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(cozy_flags__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
-/* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
-/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
-/* harmony import */ var components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/HeaderLoadingProgress */ "./src/components/HeaderLoadingProgress.jsx");
-/* harmony import */ var hooks_useLast__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! hooks/useLast */ "./src/hooks/useLast.jsx");
-/* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
-/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
-/* harmony import */ var ducks_future_FutureBalanceCard__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ducks/future/FutureBalanceCard */ "./src/ducks/future/FutureBalanceCard.jsx");
-/* harmony import */ var ducks_transactions_Transactions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ducks/transactions/Transactions */ "./src/ducks/transactions/Transactions.jsx");
-/* harmony import */ var ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/transactions/TransactionsPage.styl */ "./src/ducks/transactions/TransactionsPage.styl");
-/* harmony import */ var ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var ducks_transactions_TransactionHeader__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ducks/transactions/TransactionHeader */ "./src/ducks/transactions/TransactionHeader.jsx");
-/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
-/* harmony import */ var ducks_transactions_TransactionActionsProvider__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ducks/transactions/TransactionActionsProvider */ "../overrides/cozy-banks/src/ducks/transactions/TransactionActionsProvider.jsx");
-/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
-/* harmony import */ var ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ducks/transactions/queries */ "./src/ducks/transactions/queries.js");
-/* harmony import */ var _scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./scroll/getScrollingElement */ "./src/ducks/transactions/scroll/getScrollingElement.jsx");
+/* harmony import */ var lib_sentry__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lib/sentry */ "./src/lib/sentry.js");
+/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
+/* harmony import */ var ducks_filters__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ducks/filters */ "./src/ducks/filters/index.js");
+/* harmony import */ var components_Padded__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! components/Padded */ "./src/components/Padded/index.js");
+/* harmony import */ var components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! components/HeaderLoadingProgress */ "./src/components/HeaderLoadingProgress.jsx");
+/* harmony import */ var hooks_useLast__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! hooks/useLast */ "./src/hooks/useLast.jsx");
+/* harmony import */ var ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ducks/transactions/helpers */ "./src/ducks/transactions/helpers.js");
+/* harmony import */ var components_Loading__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! components/Loading */ "../overrides/cozy-banks/src/components/Loading/index.js");
+/* harmony import */ var ducks_future_FutureBalanceCard__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ducks/future/FutureBalanceCard */ "./src/ducks/future/FutureBalanceCard.jsx");
+/* harmony import */ var ducks_transactions_Transactions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ducks/transactions/Transactions */ "./src/ducks/transactions/Transactions.jsx");
+/* harmony import */ var ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ducks/transactions/TransactionsPage.styl */ "./src/ducks/transactions/TransactionsPage.styl");
+/* harmony import */ var ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var ducks_transactions_TransactionHeader__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ducks/transactions/TransactionHeader */ "./src/ducks/transactions/TransactionHeader.jsx");
+/* harmony import */ var ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ducks/bar/BarTheme */ "./src/ducks/bar/BarTheme.jsx");
+/* harmony import */ var ducks_transactions_TransactionActionsProvider__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ducks/transactions/TransactionActionsProvider */ "../overrides/cozy-banks/src/ducks/transactions/TransactionActionsProvider.jsx");
+/* harmony import */ var ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ducks/tracking/browser */ "./src/ducks/tracking/browser.jsx");
+/* harmony import */ var ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ducks/transactions/queries */ "./src/ducks/transactions/queries.js");
+/* harmony import */ var _scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./scroll/getScrollingElement */ "./src/ducks/transactions/scroll/getScrollingElement.jsx");
 
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -46954,8 +46938,17 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var getMonth = function getMonth(date) {
   return date.slice(0, 7);
+};
+
+var predicateBetweenDates = function predicateBetweenDates(t) {
+  var fromDate = Date.parse('2021-12-09');
+  var toDate = Date.parse('2021-12-11');
+  var date = Date.parse(t.rawDate);
+  var matchDate = date >= fromDate && date <= toDate;
+  return matchDate;
 };
 
 var updateListStyle = function updateListStyle(listRef, headerRef) {
@@ -47034,16 +47027,16 @@ var TransactionsPage = /*#__PURE__*/function (_Component) {
           subcategoryName = _router$params.subcategoryName;
 
       if (categoryName && subcategoryName) {
-        Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_26__["trackPage"])("analyse:".concat(categoryName ? categoryName : 'home').concat(subcategoryName ? ":details" : ''));
+        Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_27__["trackPage"])("analyse:".concat(categoryName ? categoryName : 'home').concat(subcategoryName ? ":details" : ''));
       } else {
-        Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_26__["trackPage"])('mon_compte:compte');
+        Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_27__["trackPage"])('mon_compte:compte');
       }
     }
   }, {
     key: "handleChangeTopmostTransaction",
     value: function handleChangeTopmostTransaction(transaction) {
       this.setState({
-        currentMonth: getMonth(Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_18__["getDisplayDate"])(transaction))
+        currentMonth: getMonth(Object(ducks_transactions_helpers__WEBPACK_IMPORTED_MODULE_19__["getDisplayDate"])(transaction))
       });
     }
     /**
@@ -47062,7 +47055,7 @@ var TransactionsPage = /*#__PURE__*/function (_Component) {
       });
       this.props.onChangeMonth(month);
       var isDesktop = this.props.breakpoints.isDesktop;
-      var scrollingElement = Object(_scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_28__["default"])(isDesktop);
+      var scrollingElement = Object(_scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_29__["default"])(isDesktop);
       scrollingElement.scrollTo({
         top: 0
       });
@@ -47075,24 +47068,28 @@ var TransactionsPage = /*#__PURE__*/function (_Component) {
           transactions = _this$props.transactions,
           filteringDoc = _this$props.filteringDoc,
           showTriggerErrors = _this$props.showTriggerErrors;
-      var isFilteringOnAccount = filteringDoc && filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_13__["ACCOUNT_DOCTYPE"];
+      var isFilteringOnAccount = filteringDoc && filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_14__["ACCOUNT_DOCTYPE"];
       var isFetching = Object(cozy_client__WEBPACK_IMPORTED_MODULE_9__["isQueryLoading"])(transactions) && !Object(cozy_client__WEBPACK_IMPORTED_MODULE_9__["hasQueryBeenLoaded"])(transactions);
 
       if (isFetching) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_19__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Loading__WEBPACK_IMPORTED_MODULE_20__["default"], {
           loadingType: "movements"
         });
       }
 
       if (transactions.data === 0) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_Padded__WEBPACK_IMPORTED_MODULE_16__["default"], {
           className: "u-pt-0"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(cozy_ui_transpiled_react_Typography__WEBPACK_IMPORTED_MODULE_11__["default"], {
           variant: "body1"
         }, t('Transactions.no-movements')));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_Transactions__WEBPACK_IMPORTED_MODULE_21__["TransactionList"], {
+      var transactionsBetweenDates = transactions.data.filter(predicateBetweenDates);
+      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_13__["logInfo"])('> Transactions ' + transactionsBetweenDates.length // ' - ' +
+      // JSON.stringify(transactionsBetweenDates)
+      );
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_Transactions__WEBPACK_IMPORTED_MODULE_22__["TransactionList"], {
         showTriggerErrors: showTriggerErrors,
         onChangeTopMostTransaction: this.handleChangeTopmostTransaction,
         transactions: transactions.data,
@@ -47162,23 +47159,23 @@ var TransactionsPage = /*#__PURE__*/function (_Component) {
           transactions = _this$props2.transactions,
           isFetchingNewData = _this$props2.isFetchingNewData;
       var theme = 'primary';
-      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_TransactionActionsProvider__WEBPACK_IMPORTED_MODULE_25__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_24__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_TransactionActionsProvider__WEBPACK_IMPORTED_MODULE_26__["default"], null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_25__["default"], {
         theme: theme
-      }), showHeader ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_TransactionHeader__WEBPACK_IMPORTED_MODULE_23__["default"], {
+      }), showHeader ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_transactions_TransactionHeader__WEBPACK_IMPORTED_MODULE_24__["default"], {
         ref: this.handleHeaderRef,
         transactions: transactions.data || [],
         handleChangeMonth: this.handleChangeMonth,
         currentMonth: this.state.currentMonth,
         showBackButton: this.props.showBackButton
-      }) : null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_16__["default"], {
+      }) : null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(components_HeaderLoadingProgress__WEBPACK_IMPORTED_MODULE_17__["default"], {
         isFetching: isFetchingNewData || !!this.fetchingMore
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         ref: this.handleListRef,
         style: {
           opacity: 0
         },
-        className: classnames__WEBPACK_IMPORTED_MODULE_5___default()(ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_22___default.a.TransactionPage__transactions, className, _scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_28__["DESKTOP_SCROLLING_ELEMENT_CLASSNAME"])
-      }, cozy_flags__WEBPACK_IMPORTED_MODULE_12___default()('banks.future-balance') && showFutureBalance ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_future_FutureBalanceCard__WEBPACK_IMPORTED_MODULE_20__["default"], null) : null, this.renderTransactions()));
+        className: classnames__WEBPACK_IMPORTED_MODULE_5___default()(ducks_transactions_TransactionsPage_styl__WEBPACK_IMPORTED_MODULE_23___default.a.TransactionPage__transactions, className, _scroll_getScrollingElement__WEBPACK_IMPORTED_MODULE_29__["DESKTOP_SCROLLING_ELEMENT_CLASSNAME"])
+      }, cozy_flags__WEBPACK_IMPORTED_MODULE_12___default()('banks.future-balance') && showFutureBalance ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ducks_future_FutureBalanceCard__WEBPACK_IMPORTED_MODULE_21__["default"], null) : null, this.renderTransactions()));
     }
   }]);
 
@@ -47192,7 +47189,7 @@ TransactionsPage.defaultProps = {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    filteringDoc: Object(ducks_filters__WEBPACK_IMPORTED_MODULE_14__["getFilteringDoc"])(state)
+    filteringDoc: Object(ducks_filters__WEBPACK_IMPORTED_MODULE_15__["getFilteringDoc"])(state)
   };
 };
 
@@ -47215,14 +47212,24 @@ var addTransactions = function addTransactions(Component) {
         month = _useState2[0],
         setMonth = _useState2[1];
 
-    var initialConn = Object(ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_27__["makeFilteredTransactionsConn"])(props);
+    var initialConn = Object(ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_28__["makeFilteredTransactionsConn"])(props);
     var conn = Object(react__WEBPACK_IMPORTED_MODULE_1__["useMemo"])(function () {
-      return month ? setAutoUpdate(Object(ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_27__["addMonthToConn"])(initialConn, month)) : setAutoUpdate(initialConn);
+      return month ? setAutoUpdate(Object(ducks_transactions_queries__WEBPACK_IMPORTED_MODULE_28__["addMonthToConn"])(initialConn, month)) : setAutoUpdate(initialConn);
     }, [initialConn, month]);
     var transactions = Object(cozy_client__WEBPACK_IMPORTED_MODULE_9__["useQuery"])(conn.query, conn);
-    var transactionsLoaded = Object(hooks_useLast__WEBPACK_IMPORTED_MODULE_17__["default"])(transactions, function (last, cur) {
+
+    if (transactions.data) {
+      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_13__["logInfo"])(' > Add transactions (transactions): ' + transactions.data.filter(predicateBetweenDates).length + ' ' + JSON.stringify(transactions.data.filter(predicateBetweenDates)));
+    }
+
+    var transactionsLoaded = Object(hooks_useLast__WEBPACK_IMPORTED_MODULE_18__["default"])(transactions, function (last, cur) {
       return !last || cur.lastUpdate;
     });
+
+    if (transactionsLoaded.data) {
+      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_13__["logInfo"])(' > Add transactions (transactionsLoaded): ' + transactionsLoaded.data.filter(predicateBetweenDates).length + ' - ' + JSON.stringify(transactionsLoaded.data.filter(predicateBetweenDates)));
+    }
+
     var handleChangeMonth = Object(react__WEBPACK_IMPORTED_MODULE_1__["useCallback"])(function (month) {
       setMonth(month);
     }, [setMonth]);
@@ -47240,9 +47247,9 @@ var addTransactions = function addTransactions(Component) {
 var DumbTransactionsPage = TransactionsPage;
 var UnpluggedTransactionsPage = lodash_flowRight__WEBPACK_IMPORTED_MODULE_7___default()(react_router__WEBPACK_IMPORTED_MODULE_3__["withRouter"], Object(cozy_ui_transpiled_react_I18n__WEBPACK_IMPORTED_MODULE_10__["translate"])())(TransactionsPage);
 var ConnectedTransactionsPage = lodash_flowRight__WEBPACK_IMPORTED_MODULE_7___default()(react_router__WEBPACK_IMPORTED_MODULE_3__["withRouter"], Object(cozy_client__WEBPACK_IMPORTED_MODULE_9__["queryConnect"])({
-  accounts: doctypes__WEBPACK_IMPORTED_MODULE_13__["accountsConn"],
-  groups: doctypes__WEBPACK_IMPORTED_MODULE_13__["groupsConn"],
-  triggers: doctypes__WEBPACK_IMPORTED_MODULE_13__["cronKonnectorTriggersConn"]
+  accounts: doctypes__WEBPACK_IMPORTED_MODULE_14__["accountsConn"],
+  groups: doctypes__WEBPACK_IMPORTED_MODULE_14__["groupsConn"],
+  triggers: doctypes__WEBPACK_IMPORTED_MODULE_14__["cronKonnectorTriggersConn"]
 }), addTransactions, Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps))(UnpluggedTransactionsPage);
 var TransactionsPageWithBackButton = function TransactionsPageWithBackButton(props) {
   return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(ConnectedTransactionsPage, _extends({}, props, {
@@ -49986,10 +49993,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var date_fns_format__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(date_fns_format__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
-/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
-/* harmony import */ var ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ducks/transactions/constants */ "./src/ducks/transactions/constants.js");
+/* harmony import */ var lib_sentry__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lib/sentry */ "./src/lib/sentry.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cozy-client */ "./node_modules/cozy-client/dist/index.js");
+/* harmony import */ var cozy_client__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(cozy_client__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var doctypes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! doctypes */ "../overrides/cozy-banks/src/doctypes.js");
+/* harmony import */ var ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ducks/transactions/constants */ "./src/ducks/transactions/constants.js");
 function _objectWithoutProperties(source, excluded) {
   if (source == null) return {};
 
@@ -50069,6 +50077,7 @@ function _defineProperty(obj, key, value) {
 
 
 
+
 var makeAccounts = function makeAccounts(filteringDoc, groups) {
   var accounts;
 
@@ -50115,7 +50124,7 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
 
   if (enabled) {
     if (filteringDoc) {
-      if (filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_7__["GROUP_DOCTYPE"]) {
+      if (filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_8__["GROUP_DOCTYPE"]) {
         // The query issued does not use the index "by_account_and_date"
         // because of the $or. It is therefore much slower than queries
         // with only the account. We haven't found a satisfactory solution
@@ -50131,7 +50140,7 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
         sortByClause = [_defineProperty({}, dateAttribute, 'desc'), {
           account: 'desc'
         }];
-      } else if (filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_7__["ACCOUNT_DOCTYPE"]) {
+      } else if (filteringDoc._type === doctypes__WEBPACK_IMPORTED_MODULE_8__["ACCOUNT_DOCTYPE"]) {
         whereClause = {
           account: filteringDoc._id
         };
@@ -50155,11 +50164,18 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
     }
   }
 
+  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])(' > Queries : ' + JSON.stringify({
+    date: new Date().toTimeString(),
+    indexFields: indexFields,
+    whereClause: whereClause,
+    sortByClause: sortByClause,
+    as: "transactions-by-".concat(dateAttribute, "-").concat(filteringDoc ? filteringDoc._id : 'all')
+  }));
   return {
     query: function query() {
-      return doctypes__WEBPACK_IMPORTED_MODULE_7__["transactionsConn"].query().where(whereClause).indexFields(indexFields).sortBy(sortByClause).limitBy(100);
+      return doctypes__WEBPACK_IMPORTED_MODULE_8__["transactionsConn"].query().where(whereClause).indexFields(indexFields).sortBy(sortByClause).limitBy(100);
     },
-    fetchPolicy: doctypes__WEBPACK_IMPORTED_MODULE_7__["transactionsConn"].fetchPolicy,
+    fetchPolicy: doctypes__WEBPACK_IMPORTED_MODULE_8__["transactionsConn"].fetchPolicy,
     as: "transactions-by-".concat(dateAttribute, "-").concat(filteringDoc ? filteringDoc._id : 'all'),
     enabled: enabled
   };
@@ -50177,7 +50193,7 @@ var makeFilteredTransactionsConn = function makeFilteredTransactionsConn(options
  */
 
 var makeEarliestLatestQueries = function makeEarliestLatestQueries(baseQuery) {
-  var latestQuery = Object(cozy_client__WEBPACK_IMPORTED_MODULE_6__["Q"])('io.cozy.bank.operations').limitBy(1).where(_objectSpread({}, baseQuery.selector, {
+  var latestQuery = Object(cozy_client__WEBPACK_IMPORTED_MODULE_7__["Q"])('io.cozy.bank.operations').limitBy(1).where(_objectSpread({}, baseQuery.selector, {
     date: {
       $gt: null
     }
@@ -50185,7 +50201,7 @@ var makeEarliestLatestQueries = function makeEarliestLatestQueries(baseQuery) {
   .indexFields(['date']).sortBy([{
     date: 'desc'
   }]);
-  var earliestQuery = Object(cozy_client__WEBPACK_IMPORTED_MODULE_6__["Q"])('io.cozy.bank.operations').limitBy(1).where(_objectSpread({}, baseQuery.selector, {
+  var earliestQuery = Object(cozy_client__WEBPACK_IMPORTED_MODULE_7__["Q"])('io.cozy.bank.operations').limitBy(1).where(_objectSpread({}, baseQuery.selector, {
     date: {
       $gt: null
     }
@@ -50236,9 +50252,9 @@ var addPeriodToConn = function addPeriodToConn(_ref4) {
   var d = new Date(period);
   var startDate = period.length === 7 ? date_fns_start_of_month__WEBPACK_IMPORTED_MODULE_0___default()(d) : date_fns_start_of_year__WEBPACK_IMPORTED_MODULE_2___default()(d);
   var endDate = period.length === 7 ? date_fns_end_of_month__WEBPACK_IMPORTED_MODULE_1___default()(d) : date_fns_end_of_year__WEBPACK_IMPORTED_MODULE_3___default()(d);
-  var dateFormat = dateAttribute === ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_8__["APPLICATION_DATE"] ? 'YYYY-MM-DD' : 'YYYY-MM-DD[T]HH:mm';
+  var dateFormat = dateAttribute === ducks_transactions_constants__WEBPACK_IMPORTED_MODULE_9__["APPLICATION_DATE"] ? 'YYYY-MM-DD' : 'YYYY-MM-DD[T]HH:mm';
   var baseQuery = mkBaseQuery();
-  var query = Object(cozy_client__WEBPACK_IMPORTED_MODULE_6__["Q"])(baseQuery.doctype).where(lodash_merge__WEBPACK_IMPORTED_MODULE_5___default()(_defineProperty({}, dateAttribute, {
+  var query = Object(cozy_client__WEBPACK_IMPORTED_MODULE_7__["Q"])(baseQuery.doctype).where(lodash_merge__WEBPACK_IMPORTED_MODULE_5___default()(_defineProperty({}, dateAttribute, {
     $lte: date_fns_format__WEBPACK_IMPORTED_MODULE_4___default()(endDate, dateFormat),
     $gte: date_fns_format__WEBPACK_IMPORTED_MODULE_4___default()(startDate, dateFormat)
   }), baseQuery.selector)).indexFields(baseQuery.indexedFields || ['account', dateAttribute]).sortBy(baseQuery.sort || [{
@@ -54039,22 +54055,13 @@ var normalizeBreadcrumbs = function normalizeBreadcrumbs(data) {
 
 var logMessage = function logMessage(message) {
   var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'info';
-  return new Promise(function (resolve) {
-    console.log('----mess', message);
-
-    try {
-      raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.captureMessage(message, {
-        level: level,
-        tags: {
-          slug: slug,
-          domain: domain
-        }
-      });
-    } catch (e) {
-      console.log('----eee raven', e);
+  console.log('----Message', message);
+  raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.captureMessage(message, {
+    level: level,
+    tags: {
+      slug: slug,
+      domain: domain
     }
-
-    resolve();
   });
 };
 
