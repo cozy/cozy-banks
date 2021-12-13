@@ -53929,13 +53929,13 @@ var normalizeData = function normalizeData(data) {
 }; // Configure
 
 var isSentryEnabled = function isSentryEnabled() {
-  return  true && "development" == 'production';
+  return true;
 };
 
 var getSentryConfiguration = function getSentryConfiguration(cozyClient) {
   var config = {
     shouldSendCallback: true,
-    environment:  true ? 'development' : undefined,
+    environment: 'production',
     release: "1.5.5",
     allowSecretKey: true,
     dataCallback: normalizeData
@@ -53963,10 +53963,10 @@ var setURLContext = function setURLContext(url) {
   slug = Object(lib_cozyUrl__WEBPACK_IMPORTED_MODULE_2__["getSlug"])(url);
 };
 var getSentryMiddleware = function getSentryMiddleware(cozyClient) {
-  return redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default()("https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11", getSentryConfiguration(cozyClient));
+  return redux_raven_middleware__WEBPACK_IMPORTED_MODULE_1___default()('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11', getSentryConfiguration(cozyClient));
 };
 var configureSentry = function configureSentry(cozyClient) {
-  raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.config("https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11", getSentryConfiguration(cozyClient)).install();
+  raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.config('https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11', getSentryConfiguration(cozyClient)).install();
   raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.setTagsContext({
     target: "browser"
   });
@@ -54075,10 +54075,7 @@ var SentryCozyClientPlugin = function SentryCozyClientPlugin(client) {
     setURLContext(client.stackClient.uri);
   }
 
-  if (isSentryEnabled()) {
-    configureSentry(client);
-  }
-
+  configureSentry(client);
   client.on('login', function () {
     setURLContext(client.stackClient.uri);
   });
@@ -54633,10 +54630,7 @@ var configureStore = function configureStore(cozyClient, persistedState) {
     middlewares.push(loggerMiddleware);
   }
 
-  if (Object(lib_sentry__WEBPACK_IMPORTED_MODULE_5__["isSentryEnabled"])()) {
-    middlewares.push(Object(lib_sentry__WEBPACK_IMPORTED_MODULE_5__["getSentryMiddleware"])(cozyClient));
-  }
-
+  middlewares.push(Object(lib_sentry__WEBPACK_IMPORTED_MODULE_5__["getSentryMiddleware"])(cozyClient));
   var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     filters: ducks_filters__WEBPACK_IMPORTED_MODULE_6__["default"],
     cozy: cozyClient.reducer()
