@@ -7200,6 +7200,7 @@ cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.health-reimbursements.d
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.future-balance', true);
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.transaction-actions.deactivated', true);
 cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.show-nav-header', true);
+cozy_flags__WEBPACK_IMPORTED_MODULE_1___default()('banks.url.sentry', '_');
 
 /***/ }),
 
@@ -7803,7 +7804,7 @@ module.exports = {"c-input-radio":"c-input-radio--w1YoV"};
 /*!********************************************************************!*\
   !*** ../overrides/cozy-ui/transpiled/react/SelectBox/SelectBox.js ***!
   \********************************************************************/
-/*! exports provided: Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox, default */
+/*! exports provided: default, Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
