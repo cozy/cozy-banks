@@ -26,9 +26,9 @@ describe('createTriggerAt', () => {
     expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
   })
 
-  it("should not create @at triggers if the konnector doesn't match last-failure-already-notified condition", async () => {
+  it("should not create @at triggers if the konnector doesn't sent notification", async () => {
     getTriggerStates.mockResolvedValue({
-      trigger01Id: { shouldNotify: { reason: 'error-not-actionable' } }
+      trigger01Id: { shouldNotify: { ok: false } }
     })
 
     await createScheduledTrigger(client)
@@ -39,7 +39,7 @@ describe('createTriggerAt', () => {
   it('should not create @at triggers if there are already created', async () => {
     getTriggerStates.mockResolvedValue({
       trigger01Id: {
-        shouldNotify: { reason: 'last-failure-already-notified' }
+        shouldNotify: { ok: true }
       }
     })
     fetchRelatedAtTriggers.mockResolvedValue([
@@ -51,25 +51,10 @@ describe('createTriggerAt', () => {
     expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
   })
 
-  it('should not create @at triggers if the konnector status is not errored ', async () => {
-    getTriggerStates.mockResolvedValue({
-      trigger01Id: {
-        shouldNotify: { reason: 'last-failure-already-notified' },
-        status: 'done'
-      }
-    })
-    fetchRelatedAtTriggers.mockResolvedValue([])
-
-    await createScheduledTrigger(client)
-
-    expect(containerForTesting.createTriggerAt).not.toHaveBeenCalled()
-  })
-
   it('should create two @at triggers', async () => {
     getTriggerStates.mockResolvedValue({
       trigger01Id: {
-        shouldNotify: { reason: 'last-failure-already-notified' },
-        status: 'errored'
+        shouldNotify: { ok: true }
       }
     })
     fetchRelatedAtTriggers.mockResolvedValue([])
