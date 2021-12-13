@@ -7803,7 +7803,7 @@ module.exports = {"c-input-radio":"c-input-radio--w1YoV"};
 /*!********************************************************************!*\
   !*** ../overrides/cozy-ui/transpiled/react/SelectBox/SelectBox.js ***!
   \********************************************************************/
-/*! exports provided: default, Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox */
+/*! exports provided: Option, CheckboxOption, ActionsOption, computedMenuListHeightStyles, reactSelectControl, components, SelectBox, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19133,7 +19133,7 @@ var getComponent = function getComponent(filteringDoc) {
 };
 
 var RawBalanceDetailsPage = function RawBalanceDetailsPage(props) {
-  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_10__["logMessage"])('> Filtering Doc', JSON.stringify(props.filteringDoc));
+  Object(lib_sentry__WEBPACK_IMPORTED_MODULE_10__["logMessage"])('> Filtering Doc' + JSON.stringify(props.filteringDoc));
   var Component = getComponent(props.filteringDoc);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ducks_bar_BarTheme__WEBPACK_IMPORTED_MODULE_8__["default"], {
     theme: 'primary'
