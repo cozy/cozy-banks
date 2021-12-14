@@ -18582,6 +18582,18 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
       var _this2 = this;
 
       var accounts = this.getAllAccounts();
+      Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])(' >> Accounts : ' + JSON.stringify(accounts.map(function (a) {
+        var _String, _String2;
+
+        var balance = (_String = String(Math.abs(a === null || a === void 0 ? void 0 : a.balance))) === null || _String === void 0 ? void 0 : _String.substring(1);
+        var comingBalance = (_String2 = String(Math.abs(a === null || a === void 0 ? void 0 : a.comingBalance))) === null || _String2 === void 0 ? void 0 : _String2.substring(1);
+        return {
+          _id: a._id,
+          label: a.label,
+          comingBalance: comingBalance,
+          balance: balance
+        };
+      })));
       return accounts.filter(function (account) {
         var occurrences = _this2.getAccountOccurrencesInState(account);
 
@@ -18739,11 +18751,10 @@ var Balance = /*#__PURE__*/function (_PureComponent) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                Object(lib_sentry__WEBPACK_IMPORTED_MODULE_6__["logInfo"])('----> Balance page');
                 this.startResumeListeners();
                 Object(ducks_tracking_browser__WEBPACK_IMPORTED_MODULE_30__["trackPage"])('moncompte:home');
 
-              case 3:
+              case 2:
               case "end":
                 return _context3.stop();
             }
@@ -46944,8 +46955,8 @@ var getMonth = function getMonth(date) {
 };
 
 var predicateBetweenDates = function predicateBetweenDates(t) {
-  var fromDate = Date.parse('2021-12-09');
-  var toDate = Date.parse('2021-12-11');
+  var fromDate = Date.parse('2021-12-02');
+  var toDate = Date.parse('2021-12-01');
   var date = Date.parse(t.rawDate);
   var matchDate = date >= fromDate && date <= toDate;
   return matchDate;
@@ -54050,12 +54061,11 @@ var normalizeBreadcrumbs = function normalizeBreadcrumbs(data) {
     });
     return data;
   }
-}; // LOG
-
+};
 
 var logMessage = function logMessage(message) {
   var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'info';
-  console.log('----Message', message);
+  console.log(' -> Message', message);
   raven_js__WEBPACK_IMPORTED_MODULE_0___default.a.captureMessage(message, {
     level: level,
     tags: {
