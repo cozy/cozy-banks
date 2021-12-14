@@ -125,6 +125,8 @@ Here are the rules for those notifications:
 - They should only be sent for automatic jobs (not manual)
 - We should not send a notification if the state stays the same
 
+The service also determines if a delayed notification schedule at D+3 and D+7 is necessary. When a notification is scheduled, if there are no future reminders, the service will create them.
+
 ℹ️  This service can be run via CLI via `yarn service konnectorAlerts`
 
 ## I am writing a banking konnector, what should I do?
