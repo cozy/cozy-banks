@@ -105,6 +105,7 @@ class Balance extends PureComponent {
 
     this.handleResume = this.handleResume.bind(this)
     this.updateQueries = this.updateQueries.bind(this)
+    this.onVisibleHandler = this.onVisibleHandler.bind(this)
     this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
       leading: false,
       trailing: true
@@ -253,11 +254,18 @@ class Balance extends PureComponent {
   handleResume() {
     this.updateQueries()
   }
-
+  onVisibleHandler() {
+    if (document.visibilityState === 'visible') {
+      this.handleResume()
+    }
+  }
   startResumeListeners() {
     if (__TARGET__ === 'mobile') {
       document.addEventListener('resume', this.handleResume)
       window.addEventListener('online', this.handleResume)
+    } else {
+      window.addEventListener('online', this.handleResume)
+      document.addEventListener('visibilitychange', this.onVisibleHandler)
     }
   }
 
@@ -265,6 +273,9 @@ class Balance extends PureComponent {
     if (__TARGET__ === 'mobile') {
       document.removeEventListener('resume', this.handleResume)
       window.removeEventListener('online', this.handleResume)
+    } else {
+      window.removeEventListener('online', this.handleResume)
+      document.removeEventListener('visibilitychange', this.onVisibleHandler)
     }
   }
 
