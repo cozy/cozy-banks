@@ -5150,17 +5150,17 @@ cozy-doctypes@^1.83.3:
     lodash "^4.17.19"
     prop-types "^15.7.2"
 
-cozy-flags@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.4.0.tgz#4737cba7820b51a7cece7bf1dcb9acd6cb7b66c7"
-  integrity sha512-4gSgm1lfiy966z02WiAZ0eJgtkyEd6ZHzNlS4nMIpy2UD5TFO6o4yIi/fF1wUaPVug34JeELnFpVoVJOM344PA==
-  dependencies:
-    microee "^0.0.6"
-
 cozy-flags@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.4.1.tgz#0bb4ccb3278238fb12813c421ea7f60b6da961fa"
   integrity sha512-a/06JaRJ50STnOMPHdoDCQHPQuf0nN2yg9PXnRFKSeJfeq+2yQz3rbBkXq/jL1QnRrPEiBDK/TYfS+2pf+9w9Q==
+  dependencies:
+    microee "^0.0.6"
+
+cozy-flags@2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/cozy-flags/-/cozy-flags-2.5.2.tgz#e1cc4b29c4295bb4b2ea5f24c9b1f1669692ac23"
+  integrity sha512-ODf9hWHcNr7y+6cWX8F6w605JZP3gWjZrWR0yP0TTd97oJzWo13vZADuLRvaLNVnRTxm2ZFl0ChQBG4HXztt3g==
   dependencies:
     microee "^0.0.6"
 
