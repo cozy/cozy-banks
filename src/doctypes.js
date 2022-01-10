@@ -243,6 +243,7 @@ export const makeBalanceTransactionsConn = () => {
           'currency',
           'manualCategoryId',
           'cozyCategoryId',
+          'cozyCategoryProba',
           'localCategoryId',
           'localCategoryProba',
           'automaticCategoryId',
