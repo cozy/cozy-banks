@@ -244,6 +244,7 @@ export const makeBalanceTransactionsConn = () => {
           'manualCategoryId',
           'cozyCategoryId',
           'localCategoryId',
+          'localCategoryProba',
           'automaticCategoryId',
           'label',
           'reimbursementStatus'
