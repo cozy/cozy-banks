@@ -235,7 +235,19 @@ export const makeBalanceTransactionsConn = () => {
         })
         .sortBy([{ date: 'desc' }])
         .indexFields(['date'])
-        .select(['_id', 'date', 'amount', 'account', 'currency'])
+        .select([
+          '_id',
+          'date',
+          'amount',
+          'account',
+          'currency',
+          'manualCategoryId',
+          'cozyCategoryId',
+          'localCategoryId',
+          'automaticCategoryId',
+          'label',
+          'reimbursementStatus'
+        ])
   }
 }
 
