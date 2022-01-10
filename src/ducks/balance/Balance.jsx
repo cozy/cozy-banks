@@ -247,7 +247,11 @@ class Balance extends PureComponent {
         this.props.groups.fetch()
       }
     })
-    this.props.transactions.fetch()
+    //need https://github.com/cozy/cozy-client/pull/1098 to work
+    if (this.props.transactions && this.props.transactions.fetch) {
+      this.props.transactions.fetch()
+    }
+
     this.props.triggers.fetch()
   }
 
