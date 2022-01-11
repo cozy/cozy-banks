@@ -71,7 +71,7 @@ main()
     // More information on open handles by decommenting the two following lines:
     // var wtf = require('wtfnode')
     // wtf.dump()
-    process.exit(0)
+    return process.exit(0)
   })
   .catch(err => {
     // eslint-disable-next-line no-console
