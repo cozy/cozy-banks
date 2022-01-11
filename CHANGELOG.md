@@ -1,3 +1,11 @@
+# 1.41.0
+
+## ✨ Features
+
+## 🐛 Bug Fixes
+
+## 🔧 Tech
+
 # 1.40.0
 
 ## ✨ Features
@@ -8,7 +16,7 @@
 * Scheduled notification are created only if a notification will be sent in the next day, and only if there is no already notification in the futur
 * Notifications for errored connector are now sent at 5am local time (UTC for cozy servers) instead of 6am
 * Scheduling notifications if sending is between 10pm and 5am local time (UTC for cozy servers) instead of 11pm and 6am
-* Reimbursment panel was not correctly displaying the transactions 
+* Reimbursment panel was not correctly displaying the transactions
 * Switching to /analysis/categories from "reimbursment virutal group" no longer leads to empty page
 
 ## 🔧 Tech
