@@ -178,7 +178,7 @@
     "cozy-notifications": "0.12.0",
     "cozy-pouch-link": "27.4.0",
     "cozy-realtime": "3.11.0",
-    "cozy-scripts": "5.2.0",
+    "cozy-scripts": "^6.1.1",
     "cozy-sharing": "3.12.2",
     "cozy-stack-client": "27.1.0",
     "cozy-ui": "58.1.2",
