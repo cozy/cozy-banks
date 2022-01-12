@@ -67,7 +67,7 @@ export const filterByPeriod = (transactions, period, dateGetter) => {
     throw new Error('Invalid period: ' + JSON.stringify(period))
   }
 
-  let realDateGetter = dateGetter || getDisplayDate
+  const realDateGetter = dateGetter || getDisplayDate
   return transactions.filter(transaction => {
     const date = realDateGetter(transaction)
     if (!date) {

@@ -3,8 +3,8 @@ import addMonths from 'date-fns/add_months'
 import isSameDay from 'date-fns/is_same_day'
 
 const rangedSome = (arr, predicate, start, end) => {
-  let realStart = Math.max(start, 0)
-  let realEnd = Math.min(end, arr.length)
+  const realStart = Math.max(start, 0)
+  const realEnd = Math.min(end, arr.length)
   const step = realStart > realEnd ? -1 : 1
   if (!arr || arr.length === 0) {
     return false
