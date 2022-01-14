@@ -40,7 +40,7 @@ describe('TransactionRowMobile', () => {
 
   it('should show transaction information', () => {
     const { root } = setup()
-    // the special char for the space is important! 
+    // the special char for the space is important!
     expect(root.text()).toEqual(
       'CafeteriaCarte de crédit - Boursorama-1 251,00€'
     )
