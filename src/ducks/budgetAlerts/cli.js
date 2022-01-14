@@ -64,6 +64,7 @@ const main = async () => {
 }
 
 main()
+  // eslint-disable-next-line
   .then(() => {
     // IDK why but the server created that receives cozy-client's oauth
     // callback stays up even after the destroy(). It leaves an open handle
@@ -71,7 +72,7 @@ main()
     // More information on open handles by decommenting the two following lines:
     // var wtf = require('wtfnode')
     // wtf.dump()
-    return process.exit(0)
+    process.exit(0)
   })
   .catch(err => {
     // eslint-disable-next-line no-console
