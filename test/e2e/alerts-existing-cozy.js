@@ -222,6 +222,7 @@ main()
     console.error(e)
     process.exit(1)
   })
+  // eslint-disable-next-line
   .then(() => {
-    return process.exit(0)
+    process.exit(0)
   })
