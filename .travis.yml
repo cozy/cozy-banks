@@ -65,7 +65,7 @@ jobs:
           - 'android-sdk-preview-license-52d11cd2'
           - 'android-sdk-license-.+'
           - 'google-gdk-license-.+'
-      before_install: nvm install 10
+      before_install: nvm install 16
       before_script:  ./scripts/ci/android_before_script.sh
       script: ./scripts/ci/android_script.sh
       after_success: ./scripts/ci/android_after_success.sh
