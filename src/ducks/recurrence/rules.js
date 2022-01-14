@@ -96,9 +96,7 @@ function customizer(objValue, srcValue, key, obj, src) {
     return objValue
   } else if (isArray(objValue)) {
     return objValue.concat(srcValue)
-  } /* else if (isString(objValue)) {
-    return `${objValue} / ${srcValue}`
-  } */
+  }
 }
 
 export const mergeBundles = bundles => {
