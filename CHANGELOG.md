@@ -4,12 +4,15 @@
 
 ## 🐛 Bug Fixes
 
+* Transactions page indicated `isDesktop undefined` when changing month in the date selector
+
 ## 🔧 Tech
 
 # 1.40.0
 
 ## ✨ Features
-- cozy-harvest-lib 6.15.0 : get support email according to the contect [PR](https://github.com/cozy/cozy-libs/pull/1392)
+
+* cozy-harvest-lib 6.15.0 : get support email according to the contect [PR](https://github.com/cozy/cozy-libs/pull/1392)
 
 ## 🐛 Bug Fixes
 
