@@ -27,6 +27,9 @@ Other fixtures
 
 The reference file is `demo.json`. Other files should follow it.
 
+`fixtures-l.json` and `fixtures-m.json` are there if you want to 
+test performance issue https://github.com/cozy/cozy-banks/blob/master/docs/perfs.md
+
 There are also more focused files that can be used to test specific usecases. See:
 
 * [Matching service](matching-service/README.md)
