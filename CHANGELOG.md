@@ -5,6 +5,7 @@
 ## 🐛 Bug Fixes
 
 * Transactions page indicated `isDesktop undefined` when changing month in the date selector
+* Get reimbursements data for transactions fetched on the homepage. This fixes reimbursements group.
 
 ## 🔧 Tech
 
