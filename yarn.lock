@@ -5290,6 +5290,13 @@ cozy-harvest-lib@6.15.0:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
+cozy-intent@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.7.1.tgz#6ec12e2a29147f9e5c1c0bdaeef6ab882f97c13f"
+  integrity sha512-chSNdMaDKlAZUTtNqPt6T/m52n/d8irsiic8VuoAFJcBwGAJQ5WSxYM6jCZiuyGm3MXjSndeiNdSG9OQjr2nwA==
+  dependencies:
+    post-me "0.4.5"
+
 cozy-interapp@0.4.9:
   version "0.4.9"
   resolved "https://registry.yarnpkg.com/cozy-interapp/-/cozy-interapp-0.4.9.tgz#5ef68d54755cc99c3e154e5a4646b68cbe5f16fd"
@@ -13495,9 +13502,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
@@ -15157,6 +15164,11 @@ posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
+
+post-me@0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/post-me/-/post-me-0.4.5.tgz#6171b721c7b86230c51cfbe48ddea047ef8831ce"
+  integrity sha512-XgPdktF/2M5jglgVDULr9NUb/QNv3bY3g6RG22iTb5MIMtB07/5FJB5fbVmu5Eaopowc6uZx7K3e7x1shPwnXw==
 
 postcss-assets-webpack-plugin@3.0.0:
   version "3.0.0"
