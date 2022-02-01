@@ -10,6 +10,7 @@
 ## 🔧 Tech
 
 * Refactor of Reimbursements from class component to functional component
+* Update documentation to install and start project
 
 # 1.40.0
 
