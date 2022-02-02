@@ -5,7 +5,6 @@
 ## 🐛 Bug Fixes
 
 * Transactions page indicated `isDesktop undefined` when changing month in the date selector
-* Get reimbursements data for transactions fetched on the homepage. This fixes reimbursements group.
 
 ## 🔧 Tech
 
@@ -22,6 +21,7 @@
 * Scheduling notifications if sending is between 10pm and 5am local time (UTC for cozy servers) instead of 11pm and 6am
 * Reimbursment panel was not correctly displaying the transactions
 * Switching to /analysis/categories from "reimbursment virutal group" no longer leads to empty page
+* Get reimbursements data for transactions fetched on the homepage. This fixes reimbursements group.
 
 ## 🔧 Tech
 
