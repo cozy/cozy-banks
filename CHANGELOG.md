@@ -8,6 +8,8 @@
 
 ## 🔧 Tech
 
+* Refactor of Reimbursements from class component to functional component
+
 # 1.40.0
 
 ## ✨ Features
