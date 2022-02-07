@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { transactionsConn, GROUP_DOCTYPE } from 'doctypes'
+import { transactionsConn } from 'doctypes'
 import sumBy from 'lodash/sumBy'
 import compose from 'lodash/flowRight'
-import cx from 'classnames'
 
 import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
-import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
 import { TransactionList } from 'ducks/transactions/Transactions'
-import Padded from 'components/Padded'
 import styles from 'ducks/reimbursements/Reimbursements.styl'
 import Loading from 'components/Loading'
-import { KonnectorChip } from 'components/KonnectorChip'
-import StoreLink from 'components/StoreLink'
 import { Section, SectionTitle } from 'components/Section'
 import withFilters from 'components/withFilters'
 import { getYear } from 'date-fns'
@@ -23,55 +19,9 @@ import TransactionActionsProvider from 'ducks/transactions/TransactionActionsPro
 import withBrands from 'ducks/brandDictionary/withBrands'
 import { getGroupedFilteredExpenses } from './selectors'
 import { getPeriod, parsePeriod, getFilteringDoc } from 'ducks/filters'
-import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
-
-const Caption = props => {
-  const { className, ...rest } = props
-
-  return <p className={cx(styles.Caption, className)} {...rest} />
-}
-
-const NoPendingReimbursements = ({ period, doc }) => {
-  const { t } = useI18n()
-
-  const categoryName = doc.categoryId ? getCategoryName(doc.categoryId) : null
-  const message = categoryName
-    ? t(`Reimbursements.noPending.${categoryName}`, { period })
-    : t('Reimbursements.noPending.generic', { period })
-
-  return (
-    <Padded className="u-pv-0">
-      <Caption>{message}</Caption>
-    </Padded>
-  )
-}
-
-const NoReimbursedExpenses = ({ hasHealthBrands, doc }) => {
-  const { t } = useI18n()
-
-  const categoryName = doc.categoryId ? getCategoryName(doc.categoryId) : null
-
-  let message
-  if (doc._type === GROUP_DOCTYPE) {
-    message = t('Reimbursements.noReimbursed.group')
-  } else if (categoryName) {
-    message = t(`Reimbursements.noReimbursed.${categoryName}`)
-  } else {
-    message = t('Reimbursements.noReimbursed.generic')
-  }
-
-  return (
-    <Padded className="u-pv-0">
-      <Caption>{message}</Caption>
-      {!hasHealthBrands && categoryName === 'healthExpenses' && (
-        <StoreLink type="konnector" category="insurance">
-          <KonnectorChip konnectorType="health" />
-        </StoreLink>
-      )}
-    </Padded>
-  )
-}
+import NoPendingReimbursements from 'ducks/reimbursements/NoPendingReimbursements'
+import NoReimbursedExpenses from 'ducks/reimbursements/NoReimbursedExpenses'
 
 export class DumbReimbursements extends Component {
   componentDidMount() {
