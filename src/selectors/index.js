@@ -63,19 +63,29 @@ export const queryDataSelector = (queryName, options) =>
     query => (query && query.data) || []
   )
 
-export const documentSelector = (doctype, options = {}) =>
-  createSelector([state => state.cozy.documents[doctype]], documents => {
+export const getUnmemoTransactionsRaw = state =>
+  createSelector([x => x], documents => {
     const client = getClient()
     const docs = Object.values(documents || {})
-    return options.hydrated ? client.hydrateDocuments(doctype, docs) : docs
-  })
+    const partialTransactions = client.hydrateDocuments(
+      TRANSACTION_DOCTYPE,
+      docs
+    )
+
+    return partialTransactions.filter(x => !!x.label)
+  })(state.cozy.documents[TRANSACTION_DOCTYPE])
+
+export const documentSelector = createSelector(
+  [state => state.cozy.documents[TRANSACTION_DOCTYPE]],
+  documents => {
+    const docs = Object.values(documents || {})
+    const client = getClient()
+    return client.hydrateDocuments(TRANSACTION_DOCTYPE, docs)
+  }
+)
 
 export const getTransactionsRaw = createSelector(
-  [
-    documentSelector(TRANSACTION_DOCTYPE, {
-      hydrated: true
-    })
-  ],
+  [documentSelector],
   partialTransactions => {
     return partialTransactions.filter(x => !!x.label)
   }
@@ -100,6 +110,11 @@ export const getRecurrences = queryDataSelector('recurrence', {
 
 export const getTransactions = createSelector(
   [getTransactionsRaw],
+  transactions => transactions.filter(Boolean)
+)
+
+export const getUnmemoTransactions = createSelector(
+  [getUnmemoTransactionsRaw],
   transactions => transactions.filter(Boolean)
 )
 

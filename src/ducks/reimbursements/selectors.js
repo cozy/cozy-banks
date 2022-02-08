@@ -7,7 +7,7 @@ import {
   getPeriod,
   getDateGetter
 } from 'ducks/filters'
-import { getTransactions } from 'selectors'
+import { getUnmemoTransactions } from 'selectors'
 import { createSelector } from 'reselect'
 import {
   isReimbursementLate,
@@ -44,7 +44,7 @@ export const getGroupedHealthExpenses = createSelector(
 )
 
 export const getExpensesByFilteringDoc = createSelector(
-  [getTransactions, getFilteringDoc],
+  [getUnmemoTransactions, getFilteringDoc],
   (transactions, filteringDoc) => {
     let filter
 
