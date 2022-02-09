@@ -5,6 +5,7 @@
 ## 🐛 Bug Fixes
 
 * Transactions page indicated `isDesktop undefined` when changing month in the date selector
+* Reimbursements shows correct datas even if coming from the home page
 
 ## 🔧 Tech
 
