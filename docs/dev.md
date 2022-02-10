@@ -57,16 +57,22 @@ Then you can install the dependencies:
 $ yarn
 ```
 
-Develop:
+Install the fixtures:
 
 ```console
-$ yarn start
+$ yarn fixtures
 ```
 
-And build:
+Build the app:
 
 ```console
 $ yarn build
+```
+
+And running the app:
+
+```console
+$ yarn start
 ```
 
 Please note that for the project to work, you will need to have a working
@@ -90,7 +96,7 @@ the config file). See an example config file
 
 ## Fixtures
 
-While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.
+While developing, it is convenient to be able to inject and remove arbitrary data on your local instance.
 You can add fixtures by using [ACH](https://github.com/cozy/ACH) and data in [test/fixtures](./test/fixtures).
 
 We have a set of fake banking data in the
@@ -171,7 +177,7 @@ $ yarn [plateform]:run
 ⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
 the filepath without the [hash] otherwise you will not hit the right JS file.
 
-⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load
+⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some CSS resources like fonts will not load
 
 For more information about installing prerequisites (installing Android Studio, Cordova etc.), you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in French for now, don't hesitate to open a pull request).
 
@@ -203,7 +209,7 @@ Store).
 
 ### Start a release branch
 
-When starting a release, start the checklist PR with :
+When starting a release, start the checklist PR with:
 
 ```
 yarn release
@@ -217,7 +223,7 @@ will also create the related pull request for you.
 
 When a release branch is created, features are frozen and the branch should only receive bugfixes.
 
-To create beta versions, you have to do two thinkgs:
+To create beta versions, you have to do two things:
 
 * Bump the different version codes in `src/targets/mobile/config.xml` file (see below for more details`android-versionCode`, `ios-CFBundleVersion`, `version` and `AppendUserAgent`)
 * Commit it and create a tag with the `X.Y.Z-beta.M` scheme (for example `1.5.0-beta.1`) and push them
@@ -270,7 +276,7 @@ yarn global add cordova@<same version as in package.json>
 yarn mobile:icon
 ```
 
-On iOS, if the given splashscreens are not to the resoution of the device, iOS
+On iOS, if the given splashscreens are not to the resolution of the device, iOS
 falls back to compatibility mode and adds blacks bars to the top/bottom of the
 screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
 shape.
@@ -367,7 +373,7 @@ when you do not want to commit/push too often.
 #### Android
 
 Anytime a beta is tagged, Travis produces an APK in the Android stage.
-In the logs is displayed an URL for the APK that has been built.
+In the logs is displayed a URL for the APK that has been built.
 This APK can then be tested and then pushed and published in the Play
 Developer Console.
 
