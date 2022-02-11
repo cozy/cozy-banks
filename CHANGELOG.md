@@ -5,10 +5,12 @@
 ## 🐛 Bug Fixes
 
 * Transactions page indicated `isDesktop undefined` when changing month in the date selector
+* Reimbursements shows correct datas even if coming from the home page
 
 ## 🔧 Tech
 
 * Refactor of Reimbursements from class component to functional component
+* Update documentation to install and start project
 
 # 1.40.0
 
