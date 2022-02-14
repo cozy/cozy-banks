@@ -1,6 +1,12 @@
-# 1.41.0
+# 1.42.0
 
 ## ✨ Features
+
+## 🐛 Bug Fixes
+
+## 🔧 Tech
+
+# 1.41.0
 
 ## 🐛 Bug Fixes
 
