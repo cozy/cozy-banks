@@ -6,6 +6,8 @@
 
 ## 🔧 Tech
 
+* Remove the creation of an Android version of the application
+
 # 1.41.0
 
 ## 🐛 Bug Fixes
