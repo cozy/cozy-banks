@@ -72,11 +72,6 @@ export const documentSelector = createSelector(
     const client = getClient()
     const docs = Object.values(documents || {})
     return client.hydrateDocuments(TRANSACTION_DOCTYPE, docs)
-  },
-  {
-    memoizeOptions: {
-      equalityCheck: (a, b) => isEqual(a, b)
-    }
   }
 )
 
