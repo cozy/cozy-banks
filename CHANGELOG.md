@@ -2,7 +2,8 @@
 
 ## ✨ Features
 
-## 🐛 Bug Fixes
+* Update cozy-client and cozy-stack-client to 27.17.0
+* Update cozy-harvest-lib to 7.3.1
 
 ## 🔧 Tech
 
