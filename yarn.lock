@@ -5013,17 +5013,17 @@ cozy-authentication@2.1.0:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-bar@^8.4.3:
-  version "8.4.3"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-8.4.3.tgz#91c7302c18c056ea316cb47163bf01e77e10723d"
-  integrity sha512-32jK5lm5f9vmj2mRoSgfMnSao5HEH8LdQ41jwoTzTTfKHDr4Sj2EfYNyn+VXHZQgQCd/pmL/0bJwTPrxJG1gUQ==
+cozy-bar@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-8.6.0.tgz#a49beab108d14fb7dd1e331f1674f27152c923f7"
+  integrity sha512-3kiFxfLh9pjeh09BBiYz+mgEzqDj7UH9WWnlHYljXPiq/9ZIDQlNyc8A8KLMQeVZtffXLxKZL1DTR2qYQLcZPA==
   dependencies:
     "@cozy/minilog" "^1.0.0"
-    cozy-client "^27.14.4"
+    cozy-client "^27.17.0"
     cozy-device-helper "^1.16.1"
     cozy-flags "2.4.1"
     cozy-interapp "0.4.9"
-    cozy-realtime "3.2.1"
+    cozy-realtime "^4.0.5"
     cozy-ui "^51.8.0"
     hammerjs "2.0.8"
     lodash.debounce "4.0.8"
@@ -5295,10 +5295,10 @@ cozy-harvest-lib@^7.3.1:
     react-markdown "^4.2.2"
     uuid "^3.3.2"
 
-cozy-intent@^1.10.3:
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.10.3.tgz#8c57e54b3f70228b8e7189a63cabc9e021c701f6"
-  integrity sha512-DOy40/BtJOoPEZjv1+eiPCQaXB1QVenbTQWYWVfq3PqdRyfjeuSGntIlLL79BqOco/yFAwHP6yL89GBVG9UwTA==
+cozy-intent@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/cozy-intent/-/cozy-intent-1.11.0.tgz#36f48f20b513313108383a26e8ca7887d8d95c15"
+  integrity sha512-DigCwWZ84h6G6aT5SW12Ajommpuhko0pjfPg5MBHSBQ2mm9M9NvGF4q4stHDfPH97lNzIDAeFEAKBwt+k/XcOw==
   dependencies:
     post-me "0.4.5"
 
@@ -5336,20 +5336,20 @@ cozy-jobs-cli@1.9.13:
     replay "2.4.0"
     strip-json-comments "3.0.1"
 
-cozy-keys-lib@3.8.0:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.8.0.tgz#655a6d05d012081d595ece7f25c6e8efa832b91f"
-  integrity sha512-uwuX3btRlItvaSsxTyuX2XiAFMmVjCJYYAKyQjQNgGsRfOiwVGUBp6GxjU54fd6X5tLTNdIysODNlbt+0WuS9Q==
+cozy-keys-lib@3.8.1:
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/cozy-keys-lib/-/cozy-keys-lib-3.8.1.tgz#0e43228cd4d54e8b00dec80f60a54045c68b5e0a"
+  integrity sha512-ztYr2XBl2rOCJYGLdqt03gpcCjpu/5BeezLxLExiq3D6k11qOXB/1BECEIno7V8rMeDtK70asTCGXe3n+nAVlA==
   dependencies:
     "@aspnet/signalr" "^1.1.4"
     "@aspnet/signalr-protocol-msgpack" "^1.1.0"
+    "@cozy/minilog" "^1.0.0"
     big-integer "^1.6.44"
     classnames "^2.2.6"
     cozy-device-helper "^1.7.5"
     lodash "^4.17.15"
     lunr "^2.3.6"
     microee "^0.0.6"
-    minilog "https://github.com/cozy/minilog.git#master"
     node-forge "^0.9.0"
     papaparse "^5.1.1"
     prop-types "^15.7.2"
@@ -5475,12 +5475,13 @@ cozy-realtime@3.11.0:
     "@cozy/minilog" "^1.0.0"
     cozy-device-helper "^1.10.3"
 
-cozy-realtime@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-3.2.1.tgz#b22cb9468566ae691edfa0383efbab3071a2f01e"
-  integrity sha512-Ff1vQ8vxam5aH9GmL6+YgEApV40aku7Z84yTdfcEUaOYo4OJ+n40P0EUsQoqgpA2suGONdUfvJ+FnS0aha+9nw==
+cozy-realtime@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/cozy-realtime/-/cozy-realtime-4.0.5.tgz#61115917229092353264e8a94791f8a7219ec08c"
+  integrity sha512-ZsoEtnqneABu7+J/lTtCTFgNCNnXbruJo5LWKXZq0T6B2FFAH5AwbJCHSoOFftk3IUYEqAaZaLSdTmxalO06SQ==
   dependencies:
-    minilog "3.1.0"
+    "@cozy/minilog" "^1.0.0"
+    cozy-device-helper "^1.17.0"
 
 cozy-release@1.10.0:
   version "1.10.0"
@@ -12926,12 +12927,6 @@ mini-html-webpack-plugin@^0.2.3:
   integrity sha512-wfkLf+CmyDg++K1S0QdAvUvS29DfVHe9SQ63syX8aX375mInzC5uwHxb/1+3exiiv84xnPrf6zsOnReRe15rjg==
   dependencies:
     webpack-sources "^1.1.0"
-
-minilog@3.1.0, "minilog@https://github.com/cozy/minilog.git#master":
-  version "3.1.0"
-  resolved "https://github.com/cozy/minilog.git#f01f7d9dfe20981177dd34b9662c2f077d818f82"
-  dependencies:
-    microee "0.0.6"
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
