@@ -6,6 +6,8 @@
 
 ## 🔧 Tech
 
+* Update cozy-ui to 62.1.4 and material-ui to 4.12.3
+
 # 1.42.0
 
 ## ✨ Features
