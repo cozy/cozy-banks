@@ -1,0 +1,90 @@
+{
+  "baseDir": "./build",
+  "files": [
+    {
+      "path": "img/*",
+      "maxSize": "175 KB"
+    },
+    {
+      "path": "mesinfos/*",
+      "maxSize": "2 KB"
+    },
+    {
+      "path": "public/*",
+      "maxSize": "1 KB"
+    },
+    {
+      "path": "screenshots/**/*.png",
+      "maxSize": "1.3 MB"
+    },
+    {
+      "path": "autogroups.js",
+      "maxSize": "453 KB"
+    },
+    {
+      "path": "budgetAlerts.js",
+      "maxSize": "1.1 MB"
+    },
+    {
+      "path": "categorization.js",
+      "maxSize": "1.1 MB"
+    },
+    {
+      "path": "cozy-bar.bundle.js",
+      "maxSize": "36 KB"
+    },
+    {
+      "path": "index.html",
+      "maxSize": "2 KB"
+    },
+    {
+      "path": "konnectorAlerts.js",
+      "maxSize": "1.1 MB"
+    },
+    {
+      "path": "linkMyselfToAccounts.js",
+      "maxSize": "453 KB"
+    },
+    {
+      "path": "main.bundle.js",
+      "maxSize": "181 KB"
+    },
+    {
+      "path": "main-banks.<hash>.min.css",
+      "maxSize": "18 KB"
+    },
+    {
+      "path": "onOperationOrBillCreate.js",
+      "maxSize": "1.1 MB"
+    },
+    {
+      "path": "recurrence.js",
+      "maxSize": "450 KB"
+    },
+    {
+      "path": "stats.js",
+      "maxSize": "483 KB"
+    },
+    {
+      "path": "vendors.bundle.js",
+      "maxSize": "1.1 MB"
+    },
+    {
+      "path": "vendors-banks.<hash>.<hash>.min.css",
+      "maxSize": "32 KB"
+    },
+    {
+      "path": "*.png",
+      "maxSize": "1 KB"
+    },
+    {
+      "path": "*.svg",
+      "maxSize": "1 KB"
+    },
+    {
+      "path": "*.jpg",
+      "maxSize": "9 KB"
+    },
+  ],
+  "reportOutput": ["github"]
+}
