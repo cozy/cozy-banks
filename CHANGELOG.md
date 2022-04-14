@@ -2,6 +2,8 @@
 
 ## ✨ Features
 
+* Change Sentry url + add instance in tags context
+
 ## 🐛 Bug Fixes
 
 ## 🔧 Tech
