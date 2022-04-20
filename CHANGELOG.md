@@ -6,6 +6,8 @@
 
 ## 🐛 Bug Fixes
 
+* cozy-harvest-lib 8.2.1 : Get correct bi mapping for bnp_es and cic_es [PR](https://github.com/cozy/cozy-libs/pull/1531)
+
 ## 🔧 Tech
 
 * Update cozy-ui to 62.1.4 and material-ui to 4.12.3
