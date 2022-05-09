@@ -146,7 +146,11 @@ export class PersonalInfoDialog extends React.Component {
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
       Alerter.success(t('PersonalInfo.info-saved-successfully'))
-      await updateBIUserConfig(client, updatedIdentity, isBankTrigger)
+      await updateBIUserConfig({
+        client,
+        identity: updatedIdentity,
+        isBankTrigger
+      })
       trackEvent('sauver')
     } finally {
       this.setState({ saving: false })

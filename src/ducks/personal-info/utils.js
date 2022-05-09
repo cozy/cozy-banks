@@ -91,7 +91,11 @@ export const saveIdentity = async (client, identity, contactAttrs) => {
  * - Birth city
  * - Nationalities
  */
-export const updateBIUserConfig = async (client, identity, isBankTrigger) => {
+export const updateBIUserConfig = async ({
+  client,
+  identity,
+  isBankTrigger
+}) => {
   const { data: allTriggers } = await client.query(
     cronKonnectorTriggersConn.query(),
     cronKonnectorTriggersConn
