@@ -6,7 +6,7 @@ import useBankingSlug from 'hooks/useBankingSlugs'
  * @description HOC to banking slugs and banking slugs functions
  *
  * @param  {Component} WrappedComponent - wrapped component
- * @returns {Function} - Component that will recieve banking slugs and function as props
+ * @returns {Function} - Component that will receive banking slugs and function as props
  */
 const withBankingSlugs = WrappedComponent => {
   const Wrapped = props => {
