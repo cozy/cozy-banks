@@ -9,14 +9,16 @@ const useBankingSlugs = () => {
 
   useEffect(() => {
     const load = async () => {
-      const bankingKonnectors = await client.query(
-        Q(KONNECTOR_DOCTYPE).where({
-          categories: {
-            $elemMatch: {
-              $eq: 'banking'
+      const bankingKonnectors = await client.queryAll(
+        Q(KONNECTOR_DOCTYPE)
+          .where({
+            categories: {
+              $elemMatch: {
+                $eq: 'banking'
+              }
             }
-          }
-        })
+          })
+          .indexFields(['categories'])
       )
       const result = bankingKonnectors?.data?.map(konnector => konnector.slug)
       setBankingSlugs(result)

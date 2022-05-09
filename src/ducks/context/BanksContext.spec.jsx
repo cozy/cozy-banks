@@ -30,10 +30,13 @@ describe('Banks Context', () => {
     const client = new CozyClient({})
     useClient.mockImplementation(() => client)
     Q.mockImplementation(() => ({
-      where: jest.fn(),
+      where: jest.fn().mockImplementation(() => ({ indexFields: jest.fn() })),
       getByIds: jest.fn()
     }))
     client.query.mockResolvedValue({
+      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
+    })
+    client.queryAll.mockResolvedValue({
       data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
     })
     CozyRealtime.mockImplementation(() => {
@@ -77,7 +80,7 @@ describe('Banks Context', () => {
   }
   it('should display banks job in progress', async () => {
     const { root, client } = setup({ konnectors: KONNECTORS })
-    await act(async () => expect(client.query).toHaveBeenCalledTimes(1))
+    await act(async () => expect(client.queryAll).toHaveBeenCalledTimes(1))
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
@@ -88,7 +91,7 @@ describe('Banks Context', () => {
 
   it('should not display banks job in progress', async () => {
     const { root, client } = setup({ konnectors: [] })
-    await act(async () => expect(client.query).toHaveBeenCalledTimes(1))
+    await act(async () => expect(client.queryAll).toHaveBeenCalledTimes(1))
     expect(root.queryByText('caissedepargne1')).toBeNull()
     expect(root.queryByText('1234')).toBeNull()
     expect(root.queryByText('boursorama83')).toBeNull()
