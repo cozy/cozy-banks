@@ -5374,10 +5374,10 @@ cozy-flags@^2.8.5:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^8.2.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-8.3.1.tgz#2cd4b7dc529edabd2f5493edd2b63b17cf08a346"
-  integrity sha512-KYzT6Nu7Qslq37bSGSnWHyYjX/vw3HHp8za7/TnMad9je8oAxzTGk1uNlDuFA/5OJQ9QM44flCVa5zu4aNcTTg==
+cozy-harvest-lib@^9.2.1:
+  version "9.2.1"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.2.1.tgz#900f5d75d6654ca794f54aceb4bb6acd80f58fa8"
+  integrity sha512-iqzNYObd9fZaP59dKUq4zVEc96ztOM1sxvDrEtw5lPeY1+opr0Y0zgwNZ1YrpjKBjkU4733OACDNCRXVNcSYNg==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -17851,6 +17851,8 @@ rxjs@^6.1.0, rxjs@^6.3.3, rxjs@^6.4.0:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.2.tgz#2e35ce815cd46d84d02a209fb4e5921e051dbec7"
   integrity sha512-HUb7j3kvb7p7eCUHE3FqjoDsC1xfZQ4AHFWfTKSpZ+sAhhz5X1WX0ZuUqWbzB2QhSLp3DoLUG+hMdEDKqWo2Zg==
+  dependencies:
+    tslib "^1.9.0"
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
