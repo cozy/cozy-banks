@@ -2,89 +2,68 @@
   "baseDir": "./build",
   "files": [
     {
-      "path": "img/*",
-      "maxSize": "175 KB"
+      "path": "img/*"
     },
     {
-      "path": "mesinfos/*",
-      "maxSize": "2 KB"
+      "path": "mesinfos/*"
     },
     {
-      "path": "public/*",
-      "maxSize": "1 KB"
+      "path": "public/*"
     },
     {
-      "path": "screenshots/**/*.png",
-      "maxSize": "1.3 MB"
+      "path": "screenshots/**/*.png"
     },
     {
-      "path": "autogroups.js",
-      "maxSize": "453 KB"
+      "path": "autogroups.js"
     },
     {
-      "path": "budgetAlerts.js",
-      "maxSize": "1.1 MB"
+      "path": "budgetAlerts.js"
     },
     {
-      "path": "categorization.js",
-      "maxSize": "1.1 MB"
+      "path": "categorization.js"
     },
     {
-      "path": "cozy-bar.bundle.js",
-      "maxSize": "36 KB"
+      "path": "cozy-bar.bundle.js"
     },
     {
-      "path": "index.html",
-      "maxSize": "2 KB"
+      "path": "index.html"
     },
     {
-      "path": "konnectorAlerts.js",
-      "maxSize": "1.1 MB"
+      "path": "konnectorAlerts.js"
     },
     {
-      "path": "linkMyselfToAccounts.js",
-      "maxSize": "453 KB"
+      "path": "linkMyselfToAccounts.js"
     },
     {
-      "path": "main.bundle.js",
-      "maxSize": "181 KB"
+      "path": "main.bundle.js"
     },
     {
-      "path": "main-banks.<hash>.min.css",
-      "maxSize": "18 KB"
+      "path": "main-banks.<hash>.min.css"
     },
     {
-      "path": "onOperationOrBillCreate.js",
-      "maxSize": "1.1 MB"
+      "path": "onOperationOrBillCreate.js"
     },
     {
-      "path": "recurrence.js",
-      "maxSize": "450 KB"
+      "path": "recurrence.js"
     },
     {
-      "path": "stats.js",
-      "maxSize": "483 KB"
+      "path": "stats.js"
     },
     {
-      "path": "vendors.bundle.js",
-      "maxSize": "1.1 MB"
+      "path": "vendors.bundle.js"
     },
     {
-      "path": "vendors-banks.<hash>.<hash>.min.css",
-      "maxSize": "32 KB"
+      "path": "vendors-banks.<hash>.<hash>.min.css"
     },
     {
-      "path": "*.png",
-      "maxSize": "1 KB"
+      "path": "*.png"
     },
     {
-      "path": "*.svg",
-      "maxSize": "1 KB"
+      "path": "*.svg"
     },
     {
-      "path": "*.jpg",
-      "maxSize": "9 KB"
-    },
+      "path": "*.jpg"
+    }
   ],
   "reportOutput": ["github"]
 }
