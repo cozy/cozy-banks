@@ -3,6 +3,7 @@
 ## ✨ Features
 
 * Change Sentry url + add instance in tags context
+* Upgrade cozy-client to get ability to force HTTPs fetches when `window.cozy.isSecureProtocol` is `true`
 
 ## 🐛 Bug Fixes
 
@@ -10,7 +11,7 @@
 
 ## 🔧 Tech
 
-* Update cozy-ui to 62.1.4 and material-ui to 4.12.3
+* Update cozy packages
 
 # 1.42.0
 
