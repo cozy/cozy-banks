@@ -17,6 +17,7 @@
 
 * cozy-harvest-lib 8.2.1 : Get correct bi mapping for bnp_es and cic_es [PR](https://github.com/cozy/cozy-libs/pull/1531)
 * Upgrade cozy-ui to 67.0.2 to get bugfix on Matomo tracking
+* Fix deprecated bundles help french translation
 
 ## 🔧 Tech
 
