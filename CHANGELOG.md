@@ -11,7 +11,9 @@
 ## ✨ Features
 
 * Change Sentry url + add instance in tags context
-* Upgrade cozy-client to get ability to force HTTPs fetches when `window.cozy.isSecureProtocol` is `true`
+* Upgrade cozy-client
+  * to get ability to force HTTPs fetches when `window.cozy.isSecureProtocol` is `true`
+  * CozyClient can be used in a node env [[PR]](https://github.com/cozy/cozy-client/pull/1176)
 
 ## 🐛 Bug Fixes
 
