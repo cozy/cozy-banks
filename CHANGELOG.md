@@ -7,9 +7,10 @@
 
 ## 🐛 Bug Fixes
 
-* cozy-harvest-lib 9.3.0 :
+* cozy-harvest-lib 9.4.0 :
   * Get correct bi mapping for bnp_es and cic_es [PR](https://github.com/cozy/cozy-libs/pull/1531)
   * Remove useVaultClient call in LegacyTriggerManager [PR](https://github.com/cozy/cozy-libs/pull/1616)
+  * TriggerManager OAuthForm wrapper [PR](https://github.com/cozy/cozy-libs/pull/1617)
 * Upgrade cozy-ui to 67.0.2 to get bugfix on Matomo tracking
 * Fix deprecated bundles help french translation
 
