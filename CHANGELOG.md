@@ -4,6 +4,8 @@
 
 ## 🐛 Bug Fixes
 
+* Fix services that were broken due to latest cozy-client update [[PR]](https://github.com/cozy/cozy-client/pull/1180)
+
 ## 🔧 Tech
 
 # 1.43.0
