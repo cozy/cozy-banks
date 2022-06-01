@@ -5,6 +5,7 @@
 ## 🐛 Bug Fixes
 
 * Fix services that were broken due to latest cozy-client update [[PR]](https://github.com/cozy/cozy-client/pull/1180)
+* Fix App Amirale UI issues by updating cozy-ui [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
 
 ## 🔧 Tech
 
@@ -16,6 +17,7 @@
 * Upgrade cozy-client
   * to get ability to force HTTPs fetches when `window.cozy.isSecureProtocol` is `true`
   * CozyClient can be used in a node env [[PR]](https://github.com/cozy/cozy-client/pull/1176)
+* Fix App Amirale localhost dev server issues by updating cozy-scripts [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
 
 ## 🐛 Bug Fixes
 
