@@ -5241,30 +5241,6 @@ cozy-client@^23.18.0:
     sift "^6.0.0"
     url-search-params-polyfill "^7.0.0"
 
-cozy-client@^29.0.1:
-  version "29.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-29.0.1.tgz#c29828c7358a0f4c275ccf4520a355ce4aec0edb"
-  integrity sha512-wf9UnHjErFerbOBIJMiA6EPlsTTIAm7I3s1h3riEyUPptBNMx7Kcrgvq8HbU8i7U3fWc4yDbzSiWIercJoIi5g==
-  dependencies:
-    "@cozy/minilog" "1.0.0"
-    "@types/jest" "^26.0.20"
-    "@types/lodash" "^4.14.170"
-    btoa "^1.2.1"
-    cozy-stack-client "^29.0.0"
-    json-stable-stringify "^1.0.1"
-    lodash "^4.17.13"
-    microee "^0.0.6"
-    node-fetch "^2.6.1"
-    node-polyglot "2.4.2"
-    open "7.4.2"
-    prop-types "^15.6.2"
-    react-redux "^7.2.0"
-    redux "3 || 4"
-    redux-thunk "^2.3.0"
-    server-destroy "^1.0.1"
-    sift "^6.0.0"
-    url-search-params-polyfill "^8.0.0"
-
 cozy-client@^29.1.1:
   version "29.1.1"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-29.1.1.tgz#232b72fcbc9d9848b3bc024f668fc4e702672777"
@@ -5557,12 +5533,12 @@ cozy-notifications@0.12.0:
     mjml "4.3.1"
     word-wrap "^1.2.3"
 
-cozy-pouch-link@^29.0.1:
-  version "29.0.1"
-  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-29.0.1.tgz#b202834472796f2b82c6467b84bc985b745e794e"
-  integrity sha512-zv6bo6l82fsp6zyjP262WGYdKjPjKqTgKpnZqzlfr0gUM9e4HXNrbHkrvC9b5W+GcnhOgYIYyhJjBnbEjcoxyQ==
+cozy-pouch-link@^29.1.1:
+  version "29.1.1"
+  resolved "https://registry.yarnpkg.com/cozy-pouch-link/-/cozy-pouch-link-29.1.1.tgz#6ce85820c9415f76e0bd4acd5e63b651a922c903"
+  integrity sha512-GN9c5JWJQFsvnakbjETr3KI+ZZrM/i2Bl/taNv8MosD9vauv/fisnyPtGHYay/OXAQyPUYYycpS4echmpOQvZQ==
   dependencies:
-    cozy-client "^29.0.1"
+    cozy-client "^29.1.1"
     pouchdb-browser "^7.2.2"
     pouchdb-find "^7.2.2"
 
@@ -5662,15 +5638,6 @@ cozy-stack-client@^23.19.0:
   integrity sha512-oq7/ERKy/Gg3jnxSi0rs3upvBccsGmmfdMiIa9hhJcw/Vxl7NMmjUM2itPnfmBNAMfBax6VlB8HWI1LY87fLuw==
   dependencies:
     cozy-flags "2.7.1"
-    detect-node "^2.0.4"
-    mime "^2.4.0"
-    qs "^6.7.0"
-
-cozy-stack-client@^29.0.0:
-  version "29.0.0"
-  resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-29.0.0.tgz#d94ab0f1432d9a6175bbbcde850dafde0d657752"
-  integrity sha512-pGXq+7P/BriMqku43QLQhctQ3lop0GyHLc/82E+APZTMQh6bVO/0tTyggQ45HxfB76vMyZoY+BSubr+vQVLUkQ==
-  dependencies:
     detect-node "^2.0.4"
     mime "^2.4.0"
     qs "^6.7.0"
@@ -13590,9 +13557,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"

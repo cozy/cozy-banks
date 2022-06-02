@@ -2,6 +2,8 @@
 
 ## ✨ Features
 
+* Update cozy-stack-client and cozy-pouch-link to sync with cozy-client version
+
 ## 🐛 Bug Fixes
 
 * Fix App Amirale UI issues by updating cozy-ui [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
