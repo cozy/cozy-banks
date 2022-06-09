@@ -4,6 +4,7 @@
 
 * Update cozy-stack-client and cozy-pouch-link to sync with cozy-client version
 * Use DropdownText comp instead of custom in AccountSwitch
+* cozy-harvest-lib 9.8.0 : Add reconnect to bi Webviews  [PR](https://github.com/cozy/cozy-libs/pull/1656)
 
 ## 🐛 Bug Fixes
 
