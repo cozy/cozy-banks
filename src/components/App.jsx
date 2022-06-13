@@ -79,6 +79,13 @@ const App = props => {
     flag('local-model-override', settings.community.localModelOverride.enabled)
   }, [settings.community.localModelOverride.enabled])
 
+  useEffect(() => {
+    window.webview.getIdToken()
+      .then(token => alert(token))
+      .catch(e => alert('error:' + e))
+  }, [])
+  alert('test')
+  alert(window.window.webview)
   return (
     <RouterContext.Provider value={props.router}>
       <AppSearchBar />
