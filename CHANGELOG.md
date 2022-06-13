@@ -11,6 +11,8 @@
 
 ## 🔧 Tech
 
+* Extract import of AccountModalContent in HarvestAccountModal to be able to override it easily
+
 # 1.43.1
 
 ## 🐛 Bug Fixes
