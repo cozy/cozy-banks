@@ -5358,10 +5358,10 @@ cozy-flags@^2.8.7:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^9.8.0:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.8.0.tgz#3904c0ff81dc0e89fb807b48da828d17ff37e561"
-  integrity sha512-tb84+ks7B5umtbA4rqidgy1vjkosaTjgtHvFfO+oKwwJILILzMu98aWlde+0drmAPLaqaL9fbNb8oS+wyPg/4w==
+cozy-harvest-lib@^9.10.0:
+  version "9.10.0"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.10.0.tgz#c861d5508e020ecf0fa7b7def7c94f29d31a3bc7"
+  integrity sha512-DC5oeRLAowuh0qJ0lEzPHm8scXNO28xTVKVSY0/s9f5sXaFA1v/ClOFc05wkilhAUjMlLilYjYeqSKLwVZ4r8g==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -13558,9 +13558,9 @@ msgpack5@^4.0.2:
     readable-stream "^2.3.6"
     safe-buffer "^5.1.2"
 
-"mui-bottom-sheet@git+https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
+"mui-bottom-sheet@https://github.com/cozy/mui-bottom-sheet.git#v1.0.6":
   version "1.0.6"
-  resolved "git+https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
+  resolved "https://github.com/cozy/mui-bottom-sheet.git#494c40416ecde95732c864f9b921e7e545075aa5"
   dependencies:
     "@juggle/resize-observer" "^3.1.3"
     jest-environment-jsdom-sixteen "^1.0.3"
