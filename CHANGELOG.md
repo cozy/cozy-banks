@@ -4,8 +4,10 @@
 
 * Update cozy-stack-client and cozy-pouch-link to sync with cozy-client version
 * Use DropdownText comp instead of custom in AccountSwitch
-* cozy-harvest-lib 9.8.0 : Add reconnect to bi Webviews  [PR](https://github.com/cozy/cozy-libs/pull/1656)
-* cozy-harvest-lib 9.10.1 : Add custom intentsApi prop to TriggerManager [PR](https://github.com/cozy/cozy-libs/pull/1663)
+* Update cozy-harvest-lib
+  * 9.8.0 : Add reconnect to bi Webviews [PR](https://github.com/cozy/cozy-libs/pull/1656)
+  * 9.10.1 : Add custom intentsApi prop to TriggerManager [PR](https://github.com/cozy/cozy-libs/pull/1663)
+  * 9.11.1 : Add sync date on ContractItem and overrides ability in AccountModal [[PR]](https://github.com/cozy/cozy-libs/pull/1678) and [[PR]](https://github.com/cozy/cozy-libs/pull/1679)
 
 ## 🐛 Bug Fixes
 
