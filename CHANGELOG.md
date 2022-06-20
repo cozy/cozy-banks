@@ -78,6 +78,8 @@
   * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Update cozy-harvest-lib
+  * 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
 
 ## 🔧 Tech
 
