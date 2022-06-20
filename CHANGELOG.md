@@ -91,12 +91,14 @@
   * Breaking changes are not supposed to affect cozy-banks
 * Invalidate temporary token cache when there is a change of BI user
 * OauthWindowInAppBrowser re-render
+* 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
 * Harvest 9.25.0:
   * Remove an BI webview reconnection step
   * Remove an unused request to BI api to be faster
 * 9.26.6 :
   * Better handling of duplicate accounts : locale + realtime in bank accounts
 * Display the resulting account in the Settings screen after an account creation (with realtime)
+ Update cozy-harvest-lib
 
 ## 🔧 Tech
 
