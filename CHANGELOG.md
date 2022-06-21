@@ -5,17 +5,17 @@
 * Update cozy-stack-client and cozy-pouch-link to sync with cozy-client version
 * Use DropdownText comp instead of custom in AccountSwitch
 * Update cozy-harvest-lib
-  * 9.8.0 : Add reconnect to bi Webviews [PR](https://github.com/cozy/cozy-libs/pull/1656)
-  * 9.10.1 : Add custom intentsApi prop to TriggerManager [PR](https://github.com/cozy/cozy-libs/pull/1663)
+  * 9.8.0 : Add reconnect to bi Webviews [[PR]](https://github.com/cozy/cozy-libs/pull/1656)
+  * 9.10.1 : Add custom intentsApi prop to TriggerManager [[PR]](https://github.com/cozy/cozy-libs/pull/1663)
   * 9.11.1 : Add sync date on ContractItem and overrides ability in AccountModal [[PR]](https://github.com/cozy/cozy-libs/pull/1678) and [[PR]](https://github.com/cozy/cozy-libs/pull/1679)
-  * 9.12.0 : Do not show Popup when intentsApi parameter is given [PR](https://github.com/cozy/cozy-libs/pull/1683)
+  * 9.12.0 : Do not show Popup when intentsApi parameter is given [[PR]](https://github.com/cozy/cozy-libs/pull/1683)
+  * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
+  * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
+  * 9.14.1 : Change RedirectToAccountFormButton label & size [[PR]](https://github.com/cozy/cozy-libs/pull/1688)
 
 ## 🐛 Bug Fixes
 
 * Fix App Amirale UI issues by updating cozy-ui [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
-* Update cozy-harvest-lib
-  * 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
-  * 9.12.3 : Do not double encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1687)
 
 ## 🔧 Tech
 
