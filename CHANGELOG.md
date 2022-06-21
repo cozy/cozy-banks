@@ -80,6 +80,7 @@
   * Breaking changes are not supposed to affect cozy-banks
 * Update cozy-harvest-lib
   * 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
+  * 9.12.3 : Do not double encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1687)
 
 ## 🔧 Tech
 
