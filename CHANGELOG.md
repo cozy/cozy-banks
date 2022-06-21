@@ -41,6 +41,7 @@
   * 9.12.0 : Do not show Popup when intentsApi parameter is given [[PR]](https://github.com/cozy/cozy-libs/pull/1683)
   * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
   * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
+  * 9.14.1 : Change RedirectToAccountFormButton label & size [[PR]](https://github.com/cozy/cozy-libs/pull/1688)
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
   * 9.16.0 :
     * Allow EditAccountModal to have intentsApi ([43c5910](https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e))
@@ -64,6 +65,7 @@
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
+
 
 ## 🐛 Bug Fixes
 
