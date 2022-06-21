@@ -66,6 +66,7 @@
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
 * Add a spinner in OAuth popup/InAppBrowser after OAuth redirection
+ 
 
 ## 🐛 Bug Fixes
 
@@ -98,7 +99,7 @@
 * 9.26.6 :
   * Better handling of duplicate accounts : locale + realtime in bank accounts
 * Display the resulting account in the Settings screen after an account creation (with realtime)
- Update cozy-harvest-lib
+* Update cozy-harvest-lib 9.14.1
 
 ## 🔧 Tech
 
