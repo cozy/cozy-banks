@@ -4,6 +4,8 @@
 
 ## 🐛 Bug Fixes
 
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector
+
 ## 🔧 Tech
 
 # 1.44.0
