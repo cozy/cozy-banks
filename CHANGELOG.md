@@ -23,6 +23,8 @@
 * Fix typo in French translation [[PR]](https://github.com/cozy/cozy-banks/pull/2430)
 * Transactions actions style on mobile
 * Notifications based on transactions changes will only be sent once, even if the transaction is modified after the first trigger [[PR]](https://github.com/cozy/cozy-banks/pull/2437)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector
+
 
 ## 🔧 Tech
 
