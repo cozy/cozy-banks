@@ -2,9 +2,12 @@
 
 ## ✨ Features
 
+* Update cozy-harvest-lib
+  * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
+
 ## 🐛 Bug Fixes
 
-* Update trigger without fetch policy in AccountModal, while reconnecting a konnector
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
 
 ## 🔧 Tech
 
