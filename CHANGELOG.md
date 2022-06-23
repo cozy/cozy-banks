@@ -24,7 +24,9 @@
 * Transactions actions style on mobile
 * Notifications based on transactions changes will only be sent once, even if the transaction is modified after the first trigger [[PR]](https://github.com/cozy/cozy-banks/pull/2437)
 * Update trigger without fetch policy in AccountModal, while reconnecting a konnector
-
+* Update cozy-harvest-lib
+  * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
 
 ## 🔧 Tech
 
