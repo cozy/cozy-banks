@@ -23,6 +23,7 @@
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
+* Remove icon on ReconnectTriggerButton
 
 ## 🐛 Bug Fixes
 
