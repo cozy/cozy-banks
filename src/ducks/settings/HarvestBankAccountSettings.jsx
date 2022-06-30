@@ -158,7 +158,11 @@ const HarvestTrackingProvider = ({ children }) => {
 /**
  * Shows a modal displaying the AccountModal from Harvest
  */
-const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
+const HarvestBankAccountSettings = ({
+  connectionId,
+  onDismiss,
+  intentsApi
+}) => {
   const { dialogProps } = useCozyDialog({
     open: true,
     size: 'medium'
@@ -182,6 +186,7 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                           <HarvestAccountModal
                             accountId={connectionId}
                             triggers={triggers}
+                            intentsApi={intentsApi}
                             konnector={konnector}
                             accountsAndTriggers={accountsAndTriggers}
                             onDismiss={() => {
@@ -200,13 +205,21 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                 connectionId => (
                   // TODO Avoid passing reconnect in props,
                   // prefer to use location instead.
-                  <EditModal connectionId={connectionId} reconnect={true} />
+                  <EditModal
+                    connectionId={connectionId}
+                    reconnect={true}
+                    intentsApi={intentsApi}
+                  />
                 )
               ],
               [
                 '/accounts/:connectionId/edit',
                 connectionId => (
-                  <EditModal connectionId={connectionId} reconnect={false} />
+                  <EditModal
+                    connectionId={connectionId}
+                    reconnect={false}
+                    intentsApi={intentsApi}
+                  />
                 )
               ]
             ]}
@@ -218,13 +231,14 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
   )
 }
 
-const EditModal = React.memo(({ reconnect, connectionId }) => {
+const EditModal = React.memo(({ reconnect, connectionId, intentsApi }) => {
   return (
     <HarvestLoader connectionId={connectionId}>
       {({ konnector, accountsAndTriggers }) => {
         return (
           <EditAccountModal
             konnector={konnector}
+            intentsApi={intentsApi}
             accountId={connectionId}
             accounts={accountsAndTriggers}
             reconnect={reconnect}
