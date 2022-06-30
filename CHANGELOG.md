@@ -66,7 +66,6 @@
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
 
-
 ## 🐛 Bug Fixes
 
 * Fix App Amirale UI issues by updating cozy-ui [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
