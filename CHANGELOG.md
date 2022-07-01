@@ -12,6 +12,15 @@
   * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
   * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
+  * 9.16.0 :
+    * Allow EditAccountModal to have intentsApi ([43c5910](https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e))
+    * Now open the BI manage webview to the correct connection id ([2f3da74](https://github.com/cozy/cozy-libs/commit/2f3da74213710a06ad8877dd350bcd04b86d5e64))
+  * 9.17.0 :
+    * All oauth methods to handle reconection case ([b1a6033](https://github.com/cozy/cozy-libs/commit/b1a6033b393b1732d985807328ea83e1c87e5373))
+    * Do not show identifiers with bi Webviews ([58e1bb1](https://github.com/cozy/cozy-libs/commit/58e1bb16c7703590c7396c33d50c1c17ec58e512))
+  * 9.18.0 :
+    * Add error message display in OAuthForm component ([f29b3c4](https://github.com/cozy/cozy-libs/commit/f29b3c4d8357b3f58b37dfe1a50233ceddd42ff7))
+    * Handle user dismiss in Oauth window ([a6dcba8](https://github.com/cozy/cozy-libs/commit/a6dcba86de227d9c5a3271554b31598e3611ebf9))
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
