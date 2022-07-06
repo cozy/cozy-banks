@@ -39,6 +39,7 @@
 * Fix App Amirale UI issues by updating cozy-ui [[PR]](https://github.com/cozy/cozy-banks/pull/2380)
 * Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
 * Use the right color for input text
+* Colors when importing account
 
 ## 🔧 Tech
 
