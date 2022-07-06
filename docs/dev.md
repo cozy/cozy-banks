@@ -97,7 +97,7 @@ the config file). See an example config file
 ## Fixtures
 
 While developing, it is convenient to be able to inject and remove arbitrary data on your local instance.
-You can add fixtures by using [ACH](https://github.com/cozy/ACH) and data in [test/fixtures](./test/fixtures).
+You can add fixtures by installing [`ACH`](https://github.com/cozy/ACH) globally and using data from [test/fixtures](./test/fixtures).
 
 We have a set of fake banking data in the
 [`test/fixtures/demo.json`](https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json)
@@ -574,4 +574,3 @@ To import it execute `./scripts/import_mobile_keys`
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH
-

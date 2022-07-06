@@ -6,6 +6,8 @@
 
 ## 🔧 Tech
 
+* Remove dev dependency to cozy-ach [[PR]](https://github.com/cozy/cozy-banks/pull/2418)
+
 # 1.44.0
 
 ## ✨ Features
