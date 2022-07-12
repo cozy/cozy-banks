@@ -10,7 +10,6 @@
  */
 
 import set from 'lodash/set'
-import flatten from 'lodash/flatten'
 import uniq from 'lodash/uniq'
 
 import omit from 'lodash/omit'
@@ -95,19 +94,31 @@ export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
     _id: saveBundlesResp[i].id
   }))
 
-  const ops = flatten(
-    bundlesWithIds.map(recurrenceBundle =>
-      recurrenceBundle.ops.map(op =>
-        addRelationship(dehydrate(op), 'recurrence', {
-          _id: recurrenceBundle._id,
-          _type: RECURRENCE_DOCTYPE
-        })
-      )
-    )
-  )
+  // Only update transactions which don't alredy have the bundle set as their
+  // recurrence relation to avoid triggering the service for up-to-date
+  // transactions.
+  const opsToUpdate = []
+  for (const recurrenceBundle of bundlesWithIds) {
+    if (!Array.isArray(recurrenceBundle.ops)) continue
+
+    for (const op of recurrenceBundle.ops) {
+      if (
+        !op.relationships ||
+        !op.relationships.recurrence ||
+        op.relationships.recurrence.data._id !== recurrenceBundle._id
+      ) {
+        opsToUpdate.push(
+          addRelationship(dehydrate(op), 'recurrence', {
+            _id: recurrenceBundle._id,
+            _type: RECURRENCE_DOCTYPE
+          })
+        )
+      }
+    }
+  }
 
   const opCollection = client.collection('io.cozy.bank.operations')
-  await opCollection.updateAll(ops.map(op => omit(op, '_type')))
+  await opCollection.updateAll(opsToUpdate.map(op => omit(op, '_type')))
 }
 
 export const resetBundles = async client => {
