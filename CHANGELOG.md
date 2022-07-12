@@ -4,6 +4,8 @@
 
 ## 🐛 Bug Fixes
 
+* Fix recurrence service that was triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2429)
+
 ## 🔧 Tech
 
 * Remove dev dependency to cozy-ach [[PR]](https://github.com/cozy/cozy-banks/pull/2418)
