@@ -4,6 +4,8 @@
 
 ## 🐛 Bug Fixes
 
+* Fix recurrence service that was triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2422)
+
 ## 🔧 Tech
 
 # 1.43.1
