@@ -27,6 +27,8 @@
 * Update cozy-harvest-lib
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
 * Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+
 
 ## 🔧 Tech
 
