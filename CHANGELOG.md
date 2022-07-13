@@ -32,6 +32,7 @@
 * Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
 * Use the right color for input text
 * Colors when importing account
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
 
 ## 🔧 Tech
 
