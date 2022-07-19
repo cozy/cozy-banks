@@ -3,6 +3,7 @@
 ## ✨ Features
 
 * Add tags on transactions
+* Add a tab in the settings to list all the tags
 
 ## 🐛 Bug Fixes
 
