@@ -142,7 +142,9 @@ const TransactionRowMobile = ({
                     styles.TransactionRowMobile__actions
                   )}
                 >
-                  <TagChips transaction={transaction} clickable />
+                  {flag('banks.tags.enabled') && (
+                    <TagChips transaction={transaction} clickable />
+                  )}
                 </TransactionActions>
               )}
             </Bd>
