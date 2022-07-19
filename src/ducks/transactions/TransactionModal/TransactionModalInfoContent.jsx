@@ -195,7 +195,7 @@ const TransactionModalInfoContent = props => {
         isModalItem
       />
 
-      <TagListItem transaction={transaction} />
+      {flag('banks.tags.enabled') && <TagListItem transaction={transaction} />}
 
       <DeleteTransactionRow transaction={transaction} onDelete={requestClose} />
 
