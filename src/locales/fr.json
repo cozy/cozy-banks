@@ -865,7 +865,7 @@
     "delete-error": "La récurrence n'a pas pu été supprimée, merci de réessayer plus tard",
     "title": "Paiements récurrents",
     "choice": {
-      "not-recurrent": "Opération occasionelle",
+      "not-recurrent": "Opération occasionnelle",
       "recurrent": "Opération récurrente",
       "new-recurrence": "Nouvelle récurrence"
     },
