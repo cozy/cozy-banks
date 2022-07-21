@@ -110,6 +110,11 @@
   * Better handling of duplicate accounts : locale + realtime in bank accounts
 * Display the resulting account in the Settings screen after an account creation (with realtime)
 * Update cozy-harvest-lib 9.14.1
+* Update cozy-client to 32.2.6 :
+  * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
+  * Breaking changes are not supposed to affect cozy-banks
+
+
 
 ## 🔧 Tech
 
