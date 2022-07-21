@@ -64,6 +64,13 @@
 * Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
 * Use the right color for input text
 * Colors when importing account
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+* Do not allways show the same bank in BI webview
+* Do fail the connector for banks with multiple bank ids
+* Update cozy-client to 32.2.6 :
+  * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
+  * Breaking changes are not supposed to affect cozy-banks
+
 
 ## 🔧 Tech
 
