@@ -1,5 +1,6 @@
 {
   "General": {
+    "apply": "Appliquer",
     "delete": "Supprimer",
     "deleting": "Suppression...",
     "cancel": "Annuler",
@@ -212,6 +213,10 @@
       "total-header": "Total"
     },
     "filter": {
+      "advancedFilters": {
+        "hideIncomes": "Masquer les revenus",
+        "title": "Filtres avancés"
+      },
       "debit": "Total hors categ. revenus",
       "credit": "Revenus",
       "total": "Total",

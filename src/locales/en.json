@@ -1,5 +1,6 @@
 {
   "General": {
+    "apply": "Apply",
     "delete": "Delete",
     "deleting": "Deleting...",
     "cancel": "Cancel",
@@ -275,6 +276,10 @@
       "select-all": "Select all"
     },
     "filter": {
+      "advancedFilters": {
+        "hideIncomes": "Hide incomes",
+        "title": "Advanced filters"
+      },
       "credit": "earnings",
       "total": "Total",
       "debit": "Total excl. earnings",
