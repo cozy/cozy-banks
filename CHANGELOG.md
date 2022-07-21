@@ -21,6 +21,8 @@
   * 9.18.0 :
     * Add error message display in OAuthForm component ([f29b3c4](https://github.com/cozy/cozy-libs/commit/f29b3c4d8357b3f58b37dfe1a50233ceddd42ff7))
     * Handle user dismiss in Oauth window ([a6dcba8](https://github.com/cozy/cozy-libs/commit/a6dcba86de227d9c5a3271554b31598e3611ebf9))
+  * 9.22.2 :
+    * feat: Allow disabled banks to be clickable
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
@@ -33,6 +35,14 @@
 * Use the right color for input text
 * Colors when importing account
 * Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+* Do not allways show the same bank in BI webview
+* Do fail the connector for banks with multiple bank ids
+* Update cozy-client to 32.2.7 :
+  * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
+  * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
+  * Breaking changes are not supposed to affect cozy-banks
+
+
 
 ## 🔧 Tech
 
