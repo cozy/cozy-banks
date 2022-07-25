@@ -16,7 +16,7 @@ import {
 } from 'ducks/transactions/helpers'
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
 
-const TagAddModal = ({ transaction, onClose }) => {
+const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   const [showAddNewTagModal, setShowAddNewTagModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [selectedTagIds, setSelectedTagIds] = useState(() =>
@@ -109,4 +109,4 @@ const TagAddModal = ({ transaction, onClose }) => {
   )
 }
 
-export default TagAddModal
+export default TagAddModalOrBottomSheet
