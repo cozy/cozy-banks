@@ -4,6 +4,7 @@
 
 * Add tags on transactions
 * Add a tab in the settings to list all the tags
+* Upgrade cozy-ui from 69.3.0 to 70.2.0
 
 ## 🐛 Bug Fixes
 
