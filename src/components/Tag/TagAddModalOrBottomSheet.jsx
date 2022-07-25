@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 import { useQueryAll, isQueryLoading } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { tagsConn } from 'doctypes'
-import TagAddModalContent from 'components/Tag/TagAddModalContent'
+import TagAddModal from 'components/Tag/TagAddModal'
+import TagBottomSheet from 'components/Tag/TagBottomSheet'
 import TagAddNewTagModal from 'components/Tag/TagAddNewTagModal'
 import {
   addTag,
@@ -17,13 +16,13 @@ import {
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
 
 const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
+  const { isMobile } = useBreakpoints()
   const [showAddNewTagModal, setShowAddNewTagModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [selectedTagIds, setSelectedTagIds] = useState(() =>
     getTransactionTagsIds(transaction)
   )
   const [hasTagsBeenModified, setHasTagsBeenModified] = useState(false)
-  const { t } = useI18n()
 
   const toggleAddNewTagModal = () => setShowAddNewTagModal(prev => !prev)
 
@@ -75,29 +74,18 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     }
   }, [isSaving, transaction, selectedTagIds, tags, onClose])
 
+  const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
+
   return (
     <>
-      <ConfirmDialog
-        size="small"
-        open
-        disableGutters
-        title={<div className="u-mt-1-half">{t('Tag.add-tag')}</div>}
-        content={
-          isSaving || isLoading ? (
-            <Spinner
-              size="xlarge"
-              className="u-flex u-flex-justify-center u-mv-1"
-            />
-          ) : (
-            <TagAddModalContent
-              toggleAddNewTagModal={toggleAddNewTagModal}
-              selectedTagIds={selectedTagIds}
-              tags={tags}
-              onClick={handleClick}
-            />
-          )
-        }
-        onClose={isSaving ? undefined : handleClose}
+      <ModalOrBottomSheet
+        tags={tags}
+        selectedTagIds={selectedTagIds}
+        isSaving={isSaving}
+        isLoading={isLoading}
+        toggleAddNewTagModal={toggleAddNewTagModal}
+        onClick={handleClick}
+        onClose={handleClose}
       />
       {showAddNewTagModal && (
         <TagAddNewTagModal
