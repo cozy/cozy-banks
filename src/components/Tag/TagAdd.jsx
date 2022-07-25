@@ -6,11 +6,8 @@ import TagAddChip from 'components/Tag/TagAddChip'
 const TagAdd = ({ transaction, disabled }) => {
   const [showModalOrBottomSheet, setShowModalOrBottomSheet] = useState(false)
 
-  const toggleModalOrBottomSheet = () =>
-    setShowModalOrBottomSheet(prev => !prev)
-
   const handleClick = () => {
-    !disabled && toggleModalOrBottomSheet()
+    !disabled && setShowModalOrBottomSheet(true)
   }
 
   return (
@@ -19,7 +16,7 @@ const TagAdd = ({ transaction, disabled }) => {
       {showModalOrBottomSheet && (
         <TagAddModalOrBottomSheet
           transaction={transaction}
-          onClose={toggleModalOrBottomSheet}
+          onClose={() => setShowModalOrBottomSheet(false)}
         />
       )}
     </>
