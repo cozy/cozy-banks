@@ -88,6 +88,8 @@
 * Update cozy-client to 32.2.6 :
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Invalidate temporary token cache when there is a change of BI user
+* OauthWindowInAppBrowser re-render
 
 
 
