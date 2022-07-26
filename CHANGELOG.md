@@ -23,6 +23,8 @@
     * Handle user dismiss in Oauth window ([a6dcba8](https://github.com/cozy/cozy-libs/commit/a6dcba86de227d9c5a3271554b31598e3611ebf9))
   * 9.22.2 :
     * feat: Allow disabled banks to be clickable
+  * 9.23.2 :
+    * Add BI aggregator releationship to BI accounts
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
@@ -41,6 +43,8 @@
   * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Invalidate temporary token cache when there is a change of BI user
+* OauthWindowInAppBrowser re-render
 
 
 
