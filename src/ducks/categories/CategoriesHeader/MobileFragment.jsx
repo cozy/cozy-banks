@@ -31,7 +31,8 @@ const MobileFragment = React.memo(props => {
     isFetching,
     isFetchingNewData,
     selectedCategory,
-    showAdvancedFilter
+    showAdvancedFilter,
+    selectedTags
   } = props
 
   return (
@@ -49,7 +50,10 @@ const MobileFragment = React.memo(props => {
           theme={isMobile ? 'normal' : 'inverted'}
         >
           {flag('banks.tags.enabled') && (
-            <AdvancedFilter onClick={showAdvancedFilter} />
+            <AdvancedFilter
+              onClick={showAdvancedFilter}
+              selectedTagsLength={selectedTags.length}
+            />
           )}
           <HeaderLoadingProgress
             isFetching={!!isFetchingNewData && !isFetching}
