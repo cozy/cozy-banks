@@ -12,7 +12,7 @@ import { isQueryLoading, useQueryAll } from 'cozy-client'
 
 import { tagsConn } from 'doctypes'
 import IncomeListItem from 'ducks/categories/AdvancedFilterModal/IncomeListItem'
-import TagListItem from 'components/Tag/TagListItem'
+import style from 'ducks/categories/AdvancedFilterModal/AdvancedFilterModal.styl'
 import TagListItem from 'ducks/categories/CategoriesTags/TagListItem'
 
 const AdvancedFilterModal = ({
@@ -60,14 +60,19 @@ const AdvancedFilterModal = ({
     <ConfirmDialog
       open
       onClose={onClose}
+      className={style.no_padding}
       title={t('Categories.filter.advancedFilters.title')}
       content={
-        <List style={{ margin: '0 -1rem 0 -0.5rem' }}>
+        <List style={{ margin: '0 -1rem' }}>
           <IncomeListItem
             onChange={toogleIncome}
             value={!isWithIncomeChecked}
           />
-          <Divider variant="inset" component="li" />
+          <Divider
+            variant="inset"
+            component="li"
+            style={{ marginLeft: '3rem' }}
+          />
           <TagListItem
             tags={tags}
             tagListSelected={tagListSelected}
