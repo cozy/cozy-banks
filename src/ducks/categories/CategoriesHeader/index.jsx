@@ -45,7 +45,9 @@ const CategoriesHeader = props => {
     isFetchingNewData,
     categoryName,
     subcategoryName,
-    classes
+    classes,
+    setSelectedTags,
+    selectedTags
   } = props
 
   const hasData =
@@ -130,12 +132,15 @@ const CategoriesHeader = props => {
         isFetching={isFetching}
         isFetchingNewData={isFetchingNewData}
         showAdvancedFilter={showAdvancedFilter}
+        selectedTags={selectedTags}
       />
       {isAdvancedFilterDisplayed && (
         <AdvancedFilterModal
           onClose={hideAdvancedFilter}
           onConfirm={onWithIncomeToggle}
           withIncome={withIncome}
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
         />
       )}
     </>
