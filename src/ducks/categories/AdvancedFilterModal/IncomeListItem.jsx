@@ -22,7 +22,7 @@ const IncomeListItem = ({ onChange, value }) => {
       <ListItemText
         primary={t('Categories.filter.advancedFilters.hideIncomes')}
       />
-      <ListItemSecondaryAction>
+      <ListItemSecondaryAction className="u-pr-half">
         <Checkbox checked={value} onChange={onChange} />
       </ListItemSecondaryAction>
     </ListItem>
