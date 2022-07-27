@@ -37,6 +37,7 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
       selectedTagIds={selectedTagIds}
       onClick={handleClick}
       onClose={handleClose}
+      withButton
     />
   )
 }
