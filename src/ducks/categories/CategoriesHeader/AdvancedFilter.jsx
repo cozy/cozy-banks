@@ -12,10 +12,21 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import SettingIcon from 'cozy-ui/transpiled/react/Icons/Setting'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+import Badge from 'cozy-ui/transpiled/react/Badge'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
 
-const AdvancedFilter = ({ onClick, className }) => {
+const useStyles = makeStyles({
+  badge: {
+    top: '50%',
+    right: '2.2rem'
+  }
+})
+
+const AdvancedFilter = ({ onClick, selectedTagsLength, className }) => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
+  const classes = useStyles()
 
   if (isMobile) {
     return (
@@ -28,7 +39,18 @@ const AdvancedFilter = ({ onClick, className }) => {
             primary={t('Categories.filter.advancedFilters.title')}
           />
           <ListItemSecondaryAction className="u-mr-1">
-            <Icon icon={RightIcon} color="var(--secondaryTextColor)" />
+            <Badge
+              badgeContent={selectedTagsLength}
+              classes={{ badge: classes.badge }}
+              showZero={false}
+              color="primary"
+              variant="standard"
+              size="medium"
+            >
+              <IconButton data-testid="SwitchButton" size="small">
+                <Icon icon={RightIcon} color="var(--secondaryTextColor)" />
+              </IconButton>
+            </Badge>
           </ListItemSecondaryAction>
         </ListItem>
       </List>
@@ -48,6 +70,7 @@ const AdvancedFilter = ({ onClick, className }) => {
 
 AdvancedFilter.prototype = {
   onClick: PropTypes.func,
+  hasSelectedTags: PropTypes.bool,
   className: PropTypes.string
 }
 
