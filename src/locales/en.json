@@ -959,6 +959,14 @@
     "sortCountAsc": "Least used first",
     "sortCountDesc": "Most used first",
     "sortDateAsc": "Least common first",
-    "sortDateDesc": "Most common first"
+    "sortDateDesc": "Most common first",
+    "renameModal": {
+      "title": "Rename",
+      "label": "Name of the tag",
+      "actions": {
+        "cancel": "Annuler",
+        "submit": "Rename"
+      }
+    }
   }
 }
