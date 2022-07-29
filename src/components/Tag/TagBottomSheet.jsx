@@ -20,7 +20,8 @@ const TagBottomSheet = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
-  withButton
+  withButton,
+  title
 }) => {
   const { t } = useI18n()
 
@@ -35,7 +36,7 @@ const TagBottomSheet = ({
     <BottomSheet backdrop onClose={onClose}>
       <BottomSheetItem disableGutters disableElevation>
         <Typography variant="h6" align="center" paragraph>
-          {t('Tag.add-tag')}
+          {title}
         </Typography>
         <Divider />
         <TagAddModalContent
