@@ -967,6 +967,14 @@
         "cancel": "Annuler",
         "submit": "Rename"
       }
+    },
+    "deleteModal": {
+      "title": "Delete",
+      "content": "Deleting this tag will prevent it to be applied on your transactions and it will be removed from %{smart_count} transaction that has it. |||| Deleting this tag will prevent it to be applied on your transactions and it will be removed from %{smart_count} transactions that have it",
+      "actions": {
+        "cancel": "Cancel",
+        "submit": "Delete"
+      }
     }
   }
 }
