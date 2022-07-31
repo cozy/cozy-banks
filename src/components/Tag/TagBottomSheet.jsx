@@ -20,7 +20,6 @@ const TagBottomSheet = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
-  withButton,
   title
 }) => {
   const { t } = useI18n()
@@ -44,13 +43,10 @@ const TagBottomSheet = ({
           selectedTagIds={selectedTagIds}
           tags={tags}
           onClick={onClick}
-          withButton={withButton}
         />
-        {withButton && (
-          <div className="u-p-1">
-            <Button fullWidth onClick={onClose} label={t('General.valid')} />
-          </div>
-        )}
+        <div className="u-p-1">
+          <Button fullWidth onClick={onClose} label={t('General.valid')} />
+        </div>
       </BottomSheetItem>
     </BottomSheet>
   )
