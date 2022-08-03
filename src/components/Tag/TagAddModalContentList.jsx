@@ -29,7 +29,9 @@ const TagAddModalContentList = ({
               checked={selectedTagIds.some(id => id === tag._id)}
               onClick={onClick}
             />
-            <Divider component="li" variant="inset" />
+            {index < tags.length - 1 && (
+              <Divider component="li" variant="inset" />
+            )}
           </Fragment>
         ))}
         {toggleAddNewTagModal && (
