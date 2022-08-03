@@ -25,7 +25,6 @@ const TagAddNewTagModal = ({ transaction, onClose }) => {
   }
 
   const handleClick = async () => {
-    if (!label) return
     toggleBusy()
 
     const { data: tag } = await client.save({
@@ -65,14 +64,16 @@ const TagAddNewTagModal = ({ transaction, onClose }) => {
       actions={
         <>
           <Button
+            fullWidth
             variant="secondary"
             label={t('Confirmation.cancel')}
             onClick={onClose}
           />
           <Button
-            variant="primary"
+            fullWidth
             label={t('Confirmation.ok')}
             busy={isBusy}
+            disabled={label.length === 0}
             onClick={handleClick}
           />
         </>
