@@ -15,7 +15,8 @@ const TagAddModal = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
-  title
+  title,
+  disabled
 }) => {
   const { t } = useI18n()
 
@@ -41,7 +42,12 @@ const TagAddModal = ({
             />
 
             <div className="u-p-1">
-              <Button fullWidth onClick={onClose} label={t('General.valid')} />
+              <Button
+                fullWidth
+                onClick={onClose}
+                label={t('General.valid')}
+                disabled={disabled}
+              />
             </div>
           </>
         )

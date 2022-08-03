@@ -40,6 +40,7 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
       selectedTagIds={selectedTagIds}
       onClick={handleClick}
       onClose={handleClose}
+      disabled={selectedTagIds.length === 0}
     />
   )
 }
