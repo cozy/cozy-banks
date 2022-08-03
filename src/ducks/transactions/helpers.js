@@ -342,3 +342,7 @@ export const hasTag = (transaction, tag) =>
 
 export const removeTransaction = async (tag, transaction) =>
   await tag.transactions?.remove(transaction)
+
+export const getCountOfTagsByTransaction = transaction => {
+  return transaction.tags?.count || 0
+}
