@@ -8,11 +8,15 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import { countTransactions } from 'components/Tag/helpers'
 
-const TagAddModalContentListItem = ({ tag, checked, onClick }) => {
+const TagAddModalContentListItem = ({ tag, checked, onClick, disabled }) => {
   const { t } = useI18n()
 
   return (
-    <ListItem button onClick={() => onClick(tag)}>
+    <ListItem
+      button
+      onClick={() => onClick(tag)}
+      disabled={!checked && disabled}
+    >
       <ListItemIcon>
         <Checkbox checked={checked} />
       </ListItemIcon>

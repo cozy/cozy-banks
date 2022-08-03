@@ -31,7 +31,7 @@ const TagsListSettings = ({ tags }) => {
   const [filter, setFilter] = useState('')
   const [sort, setSort] = useState('label-asc')
 
-  const filterPlaceholder = t('Tag.search')
+  const filterPlaceholder = t('Tag.search-tag')
 
   const sortOptions = {
     'label-asc': t('Tag.sortLabelAsc'),

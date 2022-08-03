@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   mobileTopBox: {
     display: 'flex',
     flexDirection: 'row',
-    margin: '-.5rem 0 -.5rem 2rem',
+    marginLeft: '2rem',
     gap: '.5rem'
   },
   desktopTopBox: {
