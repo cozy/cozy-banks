@@ -19,7 +19,7 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
   const handleClick = tag => {
     if (isAlreadyChecked(selectedTagIds, tag)) {
       setSelectedTagIds(prev => prev.filter(id => id !== tag._id))
-    } else if (selectedTagIds.length < 5) {
+    } else {
       setSelectedTagIds(prev => [...prev, tag._id])
     }
   }
