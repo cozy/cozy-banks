@@ -44,16 +44,9 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     setHasTagsBeenModified(true)
   }
 
-  const handleClose = () => {
+  const handleConfirm = async () => {
     if (hasTagsBeenModified) {
       setIsSaving(true)
-    } else {
-      onClose()
-    }
-  }
-
-  useEffect(() => {
-    if (isSaving) {
       const tagsToRemove = makeTagsToRemove({
         transactionTags: getTagsRelationshipByTransaction(transaction),
         selectedTagIds,
@@ -66,15 +59,15 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
       })
 
       if (tagsToRemove.length > 0) {
-        removeTagRelationshipFromTransaction(transaction, tagsToRemove)
+        await removeTagRelationshipFromTransaction(transaction, tagsToRemove)
       }
       if (tagsToAdd.length > 0) {
-        addTagRelationshipToTransaction(transaction, tagsToAdd)
+        await addTagRelationshipToTransaction(transaction, tagsToAdd)
       }
 
       onClose()
     }
-  }, [isSaving, transaction, selectedTagIds, tags, onClose])
+  }
 
   const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
 
@@ -88,7 +81,8 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
         isLoading={isLoading}
         toggleAddNewTagModal={toggleAddNewTagModal}
         onClick={handleClick}
-        onClose={handleClose}
+        onClose={onClose}
+        onConfirm={handleConfirm}
       />
       {showAddNewTagModal && (
         <TagAddNewTagModal
