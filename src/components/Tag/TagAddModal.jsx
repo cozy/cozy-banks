@@ -15,6 +15,7 @@ const TagAddModal = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
+  onConfirm,
   title,
   disabled
 }) => {
@@ -44,7 +45,7 @@ const TagAddModal = ({
             <div className="u-p-1">
               <Button
                 fullWidth
-                onClick={onClose}
+                onClick={onConfirm}
                 label={t('General.valid')}
                 disabled={disabled}
               />
