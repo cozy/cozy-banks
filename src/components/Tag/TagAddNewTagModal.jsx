@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react'
+import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -33,6 +34,8 @@ const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
     })
 
     if (
+      transaction != null &&
+      selectedTagIds != null &&
       getCountOfTagsByTransaction(transaction) < 5 &&
       selectedTagIds.length < 5
     ) {
@@ -85,6 +88,12 @@ const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
       }
     />
   )
+}
+
+TagAddNewTagModal.propTypes = {
+  transaction: PropTypes.object,
+  selectedTagIds: PropTypes.array,
+  onClose: PropTypes.func.isRequired
 }
 
 export default TagAddNewTagModal
