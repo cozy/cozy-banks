@@ -21,7 +21,7 @@ const TagAddModalContent = ({
   if (tags.length === 0 && toggleAddNewTagModal) {
     return (
       <List>
-        <ListItem onClick={toggleAddNewTagModal}>
+        <ListItem button onClick={toggleAddNewTagModal}>
           <ListItemIcon>
             <Icon icon={PlusIcon} />
           </ListItemIcon>
