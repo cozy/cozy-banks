@@ -344,14 +344,36 @@ export const removeTagRelationshipFromTransaction = async (
   return await transaction.tags?.remove(tag)
 }
 
-export const hasTag = (transaction, tag) => {
-  return getTagsRelationshipByTransaction(transaction)?.some(
-    transactionTag => transactionTag._id === tag._id
+export const hasTags = (transaction, tags) => {
+  return getTagsRelationshipByTransaction(transaction)?.some(transactionTag =>
+    tags.some(tag => transactionTag._id === tag._id)
   )
 }
 
-export const removeTransaction = async (tag, transaction) => {
-  return await tag.transactions?.remove(transaction)
+export const removeTransaction = async (client, transaction, tags) => {
+  if (hasTags(transaction, tags)) {
+    const { data: newTransactionRev } = await transaction.tags.remove(tags)
+    return await client.destroy(newTransactionRev)
+  } else {
+    return await client.destroy(transaction)
+  }
+}
+
+export const getTransactionsRelationshipByTag = tag => tag.transactions?.data
+
+export const hasTransactions = (tag, transactions) => {
+  return getTransactionsRelationshipByTag(tag)?.some(tagTransaction =>
+    transactions.some(transaction => tagTransaction._id === transaction._id)
+  )
+}
+
+export const removeTag = async (client, tag, transactions) => {
+  if (hasTransactions(tag, transactions)) {
+    const { data: newTagRev } = await tag.transactions.remove(transactions)
+    return await client.destroy(newTagRev)
+  } else {
+    return await client.destroy(tag)
+  }
 }
 
 export const getCountOfTagsByTransaction = transaction => {

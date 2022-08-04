@@ -13,8 +13,8 @@ import Button from 'cozy-ui/transpiled/react/Button'
 import flag from 'cozy-flags'
 
 import {
-  getTagsRelationshipByTransaction,
-  removeTag
+  removeTransaction,
+  getTagsRelationshipByTransaction
 } from 'ducks/transactions/helpers'
 import useDocuments from 'components/useDocuments'
 import { TAGS_DOCTYPE } from 'doctypes'
@@ -45,11 +45,11 @@ const DeleteTransactionRow = ({ transaction }) => {
     try {
       setDeleting(true)
       if (flag('banks.tags.enabled')) {
-        const { data: lastTransactionRev } = await removeTag(
+        await removeTransaction(
+          client,
           transaction,
           transactionTagsWithTransactions
         )
-        await client.destroy(lastTransactionRev)
       } else {
         await client.destroy(transaction)
       }
