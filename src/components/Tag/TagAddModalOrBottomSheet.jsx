@@ -9,9 +9,9 @@ import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'
 import TagAddNewTagModal from 'components/Tag/TagAddNewTagModal'
 import {
-  addTag,
-  removeTag,
-  getTransactionTags,
+  addTagRelationshipToTransaction,
+  removeTagRelationshipFromTransaction,
+  getTagsRelationshipByTransaction,
   getTransactionTagsIds
 } from 'ducks/transactions/helpers'
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
@@ -55,21 +55,21 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   useEffect(() => {
     if (isSaving) {
       const tagsToRemove = makeTagsToRemove({
-        transactionTags: getTransactionTags(transaction),
+        transactionTags: getTagsRelationshipByTransaction(transaction),
         selectedTagIds,
         allTags: tags
       })
       const tagsToAdd = makeTagsToAdd({
-        transactionTags: getTransactionTags(transaction),
+        transactionTags: getTagsRelationshipByTransaction(transaction),
         selectedTagIds,
         allTags: tags
       })
 
       if (tagsToRemove.length > 0) {
-        removeTag(transaction, tagsToRemove)
+        removeTagRelationshipFromTransaction(transaction, tagsToRemove)
       }
       if (tagsToAdd.length > 0) {
-        addTag(transaction, tagsToAdd)
+        addTagRelationshipToTransaction(transaction, tagsToAdd)
       }
 
       onClose()
