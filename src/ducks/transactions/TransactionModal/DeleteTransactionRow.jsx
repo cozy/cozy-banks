@@ -12,7 +12,10 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Button'
 import flag from 'cozy-flags'
 
-import { getTransactionTags, removeTag } from 'ducks/transactions/helpers'
+import {
+  getTagsRelationshipByTransaction,
+  removeTag
+} from 'ducks/transactions/helpers'
 import useDocuments from 'components/useDocuments'
 import { TAGS_DOCTYPE } from 'doctypes'
 
@@ -22,7 +25,9 @@ const DeleteTransactionRow = ({ transaction }) => {
   const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const transactionTagsIds = getTransactionTags(transaction).map(t => t._id)
+  const transactionTagsIds = getTagsRelationshipByTransaction(transaction).map(
+    t => t._id
+  )
   const transactionTagsWithTransactions = useDocuments(
     TAGS_DOCTYPE,
     transactionTagsIds

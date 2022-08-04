@@ -9,7 +9,10 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 import useDocument from 'components/useDocument'
-import { addTag, getCountOfTagsByTransaction } from 'ducks/transactions/helpers'
+import {
+  addTagRelationshipToTransaction,
+  getCountOfTagsByTransaction
+} from 'ducks/transactions/helpers'
 import { useEffect } from 'react'
 
 const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
@@ -45,7 +48,7 @@ const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
 
   useEffect(() => {
     if (tagSaved) {
-      addTag(transaction, tagFromDoc)
+      addTagRelationshipToTransaction(transaction, tagFromDoc)
       setTagSaved(null)
       onClose()
     }
