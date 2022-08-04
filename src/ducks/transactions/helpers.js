@@ -323,25 +323,31 @@ export const computeTransactionsByDateAndApplicationDate = ({
 
 export const getTransactionTags = transaction => transaction.tags?.data
 
-export const getTransactionTagsIds = transaction =>
-  transaction.tags?.data.map(tag => tag._id)
+export const getTransactionTagsIds = transaction => {
+  return transaction.tags?.data.map(tag => tag._id)
+}
 
-export const hasAtLeastFiveTags = transaction =>
-  getTransactionTags(transaction)?.length >= 5
+export const hasAtLeastFiveTags = transaction => {
+  return getTransactionTags(transaction)?.length >= 5
+}
 
-export const addTag = async (transaction, tag) =>
-  await transaction.tags?.add(tag)
+export const addTag = async (transaction, tag) => {
+  return await transaction.tags?.add(tag)
+}
 
-export const removeTag = async (transaction, tag) =>
-  await transaction.tags?.remove(tag)
+export const removeTag = async (transaction, tag) => {
+  return await transaction.tags?.remove(tag)
+}
 
-export const hasTag = (transaction, tag) =>
-  getTransactionTags(transaction)?.some(
+export const hasTag = (transaction, tag) => {
+  return getTransactionTags(transaction)?.some(
     transactionTag => transactionTag._id === tag._id
   )
+}
 
-export const removeTransaction = async (tag, transaction) =>
-  await tag.transactions?.remove(transaction)
+export const removeTransaction = async (tag, transaction) => {
+  return await tag.transactions?.remove(transaction)
+}
 
 export const getCountOfTagsByTransaction = transaction => {
   return transaction.tags?.count || 0
