@@ -65,6 +65,7 @@
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
+* Add a spinner in OAuth popup/InAppBrowser after OAuth redirection
 
 ## 🐛 Bug Fixes
 
@@ -90,6 +91,9 @@
   * Breaking changes are not supposed to affect cozy-banks
 * Invalidate temporary token cache when there is a change of BI user
 * OauthWindowInAppBrowser re-render
+* Harvest 9.25.0:
+  * Remove an BI webview reconnection step
+  * Remove an unused request to BI api to be faster
 
 
 
