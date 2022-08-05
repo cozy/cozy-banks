@@ -20,6 +20,7 @@ const TagBottomSheet = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
+  onConfirm,
   title,
   disabled
 }) => {
@@ -48,7 +49,7 @@ const TagBottomSheet = ({
         <div className="u-p-1">
           <Button
             fullWidth
-            onClick={onClose}
+            onClick={onConfirm}
             label={t('General.valid')}
             disabled={disabled}
           />

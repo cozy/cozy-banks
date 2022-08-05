@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react'
+import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -7,18 +8,12 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
-import useDocument from 'components/useDocument'
-import { addTag, getCountOfTagsByTransaction } from 'ducks/transactions/helpers'
-import { useEffect } from 'react'
 
-const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
+const TagAddNewTagModal = ({ onClick, onClose }) => {
   const client = useClient()
   const { t } = useI18n()
   const [label, setLabel] = useState('')
-  const [tagSaved, setTagSaved] = useState(null)
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
-
-  const tagFromDoc = useDocument(TAGS_DOCTYPE, tagSaved?._id || ' ')
 
   const handleChange = ev => {
     setLabel(ev.target.value)
@@ -32,21 +27,9 @@ const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
       label
     })
 
-    if (
-      getCountOfTagsByTransaction(transaction) < 5 &&
-      selectedTagIds.length < 5
-    ) {
-      setTagSaved(tag)
-    } else onClose()
+    if (onClick) onClick(tag)
+    onClose()
   }
-
-  useEffect(() => {
-    if (tagSaved) {
-      addTag(transaction, tagFromDoc)
-      setTagSaved(null)
-      onClose()
-    }
-  }, [transaction, tagFromDoc, tagSaved, onClose])
 
   return (
     <ConfirmDialog
@@ -85,6 +68,11 @@ const TagAddNewTagModal = ({ transaction, selectedTagIds, onClose }) => {
       }
     />
   )
+}
+
+TagAddNewTagModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onClick: PropTypes.func
 }
 
 export default TagAddNewTagModal

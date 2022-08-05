@@ -951,7 +951,6 @@
     "add-tag": "Add a tag",
     "add-new-tag": "Add a new tag",
     "filter-tag": "Filter by tags",
-    "new-tag": "New tag",
     "tag-name": "Name of the tag",
     "transactions": "%{smart_count} tagged transaction |||| %{smart_count} tagged transactions",
     "search-tag": "Search for a tag",
@@ -961,6 +960,7 @@
     "sortCountDesc": "Most used first",
     "sortDateAsc": "Least common first",
     "sortDateDesc": "Most common first",
+    "addingTagToTransaction": "Adding the tag |||| Adding tags",
     "renameModal": {
       "title": "Rename",
       "label": "Name of the tag",
