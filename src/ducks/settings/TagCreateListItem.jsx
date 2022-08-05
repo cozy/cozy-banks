@@ -28,11 +28,9 @@ const TagCreateListItem = ({ setIsCreateModalOpened }) => {
       className={!isMobile ? styles.desktopListItem : null}
     >
       <ListItemIcon>
-        <Icon icon={PlusIcon} color="var(--primaryColor)" />
+        <Icon icon={PlusIcon} />
       </ListItemIcon>
-      <ListItemText style={{ color: 'var(--primaryColor)' }}>
-        {t('Tag.add-tag')}
-      </ListItemText>
+      <ListItemText>{t('Tag.add-tag')}</ListItemText>
     </ListItem>
   )
 }
