@@ -961,6 +961,7 @@
     "sortCountDesc": "Most used first",
     "sortDateAsc": "Least common first",
     "sortDateDesc": "Most common first",
+    "addingTagToTransaction": "Adding the tag |||| Adding tags",
     "renameModal": {
       "title": "Rename",
       "label": "Name of the tag",
