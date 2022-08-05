@@ -86,9 +86,8 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
       />
       {showAddNewTagModal && (
         <TagAddNewTagModal
-          transaction={transaction}
           onClose={toggleAddNewTagModal}
-          selectedTagIds={selectedTagIds}
+          onClick={handleClick}
         />
       )}
     </>
