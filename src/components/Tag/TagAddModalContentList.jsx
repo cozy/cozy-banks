@@ -40,7 +40,7 @@ const TagAddModalContentList = ({
             <ListItemIcon>
               <Icon icon={PlusIcon} />
             </ListItemIcon>
-            <ListItemText primary={t('Tag.new-tag')} />
+            <ListItemText primary={t('Tag.add-new-tag')} />
           </ListItem>
         )}
         <Divider component="li" />

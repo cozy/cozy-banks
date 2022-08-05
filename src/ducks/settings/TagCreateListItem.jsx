@@ -30,7 +30,7 @@ const TagCreateListItem = ({ setIsCreateModalOpened }) => {
       <ListItemIcon>
         <Icon icon={PlusIcon} />
       </ListItemIcon>
-      <ListItemText>{t('Tag.add-tag')}</ListItemText>
+      <ListItemText>{t('Tag.add-new-tag')}</ListItemText>
     </ListItem>
   )
 }
