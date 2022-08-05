@@ -963,6 +963,7 @@
     "sortCountDesc": "Les plus utilisés en premier",
     "sortDateAsc": "Les moins fréquents en premier",
     "sortDateDesc": "Les plus fréquents en premier",
+    "addingTagToTransaction": "Ajout du tag |||| Ajout des tags",
     "renameModal": {
       "title": "Renommer",
       "label": "Nom du tag",

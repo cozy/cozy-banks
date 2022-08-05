@@ -15,7 +15,8 @@ const TagAddModalContentList = ({
   tags,
   toggleAddNewTagModal,
   selectedTagIds,
-  onClick
+  onClick,
+  isSaving
 }) => {
   const { t } = useI18n()
 
@@ -29,14 +30,13 @@ const TagAddModalContentList = ({
               checked={selectedTagIds.some(id => id === tag._id)}
               onClick={onClick}
               disabled={toggleAddNewTagModal && selectedTagIds.length >= 5}
+              isSaving={isSaving}
             />
-            {index < tags.length - 1 && (
-              <Divider component="li" variant="inset" />
-            )}
+            <Divider component="li" variant="inset" />
           </Fragment>
         ))}
         {toggleAddNewTagModal && (
-          <ListItem button onClick={toggleAddNewTagModal}>
+          <ListItem button onClick={toggleAddNewTagModal} disabled={isSaving}>
             <ListItemIcon>
               <Icon icon={PlusIcon} />
             </ListItemIcon>
