@@ -42,7 +42,6 @@ const TagAddModalContentList = ({
           <ListItemText primary={t('Tag.add-new-tag')} />
         </ListItem>
       )}
-      <Divider component="li" />
     </List>
   )
 }
