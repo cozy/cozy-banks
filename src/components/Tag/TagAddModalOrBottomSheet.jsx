@@ -64,9 +64,8 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
       if (tagsToAdd.length > 0) {
         await addTagRelationshipToTransaction(transaction, tagsToAdd)
       }
-
       onClose()
-    }
+    } else onClose()
   }
 
   const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
