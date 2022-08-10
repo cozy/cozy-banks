@@ -9,8 +9,19 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import Overlay from 'cozy-ui/transpiled/react/Overlay'
 import Button from 'cozy-ui/transpiled/react/Buttons'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import CrossMediumIcon from 'cozy-ui/transpiled/react/Icons/CrossMedium'
 
 import TagAddModalContent from 'components/Tag/TagAddModalContent'
+
+const styles = {
+  crossButton: {
+    position: 'absolute',
+    top: '0.5rem',
+    right: '0.25rem'
+  }
+}
 
 const TagBottomSheet = ({
   tags,
@@ -22,7 +33,8 @@ const TagBottomSheet = ({
   onClose,
   onConfirm,
   title,
-  disabled
+  disabled,
+  withCloseBtn
 }) => {
   const { t } = useI18n()
 
@@ -36,6 +48,15 @@ const TagBottomSheet = ({
   return (
     <BottomSheet backdrop onClose={onClose} settings={{ mediumHeightRatio: 1 }}>
       <BottomSheetItem disableGutters disableElevation>
+        {withCloseBtn && (
+          <IconButton
+            size="medium"
+            onClick={onClose}
+            style={styles.crossButton}
+          >
+            <Icon icon={CrossMediumIcon} size={12} />
+          </IconButton>
+        )}
         <Typography variant="h6" align="center" paragraph>
           {title}
         </Typography>
@@ -67,6 +88,10 @@ const TagBottomSheet = ({
       </BottomSheetItem>
     </BottomSheet>
   )
+}
+
+TagBottomSheet.defaultProps = {
+  withCloseBtn: false
 }
 
 export default TagBottomSheet
