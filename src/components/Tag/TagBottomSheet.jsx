@@ -34,18 +34,28 @@ const TagBottomSheet = ({
     )
 
   return (
-    <BottomSheet backdrop onClose={onClose}>
+    <BottomSheet backdrop onClose={onClose} settings={{ mediumHeightRatio: 1 }}>
       <BottomSheetItem disableGutters disableElevation>
         <Typography variant="h6" align="center" paragraph>
           {title}
         </Typography>
         <Divider />
-        <TagAddModalContent
-          toggleAddNewTagModal={toggleAddNewTagModal}
-          selectedTagIds={selectedTagIds}
-          tags={tags}
-          onClick={onClick}
-        />
+        <div
+          style={{
+            maxHeight: '20rem',
+            overflowY: 'auto',
+            margin: '0.5rem 0'
+          }}
+          onTouchStart={e => e.stopPropagation()}
+        >
+          <TagAddModalContent
+            toggleAddNewTagModal={toggleAddNewTagModal}
+            selectedTagIds={selectedTagIds}
+            tags={tags}
+            onClick={onClick}
+          />
+        </div>
+        <Divider />
         <div className="u-p-1">
           <Button
             fullWidth
