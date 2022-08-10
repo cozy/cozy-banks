@@ -966,11 +966,17 @@
     "sortDateAsc": "Least common first",
     "sortDateDesc": "Most common first",
     "addingTagToTransaction": "Adding the tag |||| Adding tags",
+    "addModal": {
+      "actions": {
+        "cancel": "Cancel",
+        "submit": "Add"
+      }
+    },
     "renameModal": {
       "title": "Rename",
       "label": "Name of the tag",
       "actions": {
-        "cancel": "Annuler",
+        "cancel": "Cancel",
         "submit": "Rename"
       }
     },

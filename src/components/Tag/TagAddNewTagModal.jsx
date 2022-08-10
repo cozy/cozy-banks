@@ -54,12 +54,12 @@ const TagAddNewTagModal = ({ onClick, onClose }) => {
           <Button
             fullWidth
             variant="secondary"
-            label={t('Confirmation.cancel')}
+            label={t('Tag.addModal.actions.cancel')}
             onClick={onClose}
           />
           <Button
             fullWidth
-            label={t('Confirmation.ok')}
+            label={t('Tag.addModal.actions.submit')}
             busy={isBusy}
             disabled={label.length === 0}
             onClick={handleClick}
