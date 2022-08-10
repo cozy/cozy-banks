@@ -9,7 +9,7 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 
-const TagAddNewTagModal = ({ onClick, onClose }) => {
+const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
   const [label, setLabel] = useState('')
@@ -41,7 +41,7 @@ const TagAddNewTagModal = ({ onClick, onClose }) => {
           <TextField
             fullWidth
             margin="normal"
-            label={t('Tag.tag-name')}
+            {...(withLabel && { label: t('Tag.tag-name') })}
             variant="outlined"
             inputProps={{ maxLength: 30 }}
             autoFocus
@@ -70,9 +70,14 @@ const TagAddNewTagModal = ({ onClick, onClose }) => {
   )
 }
 
+TagAddNewTagModal.defaultProps = {
+  withLabel: true
+}
+
 TagAddNewTagModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  withLabel: PropTypes.bool
 }
 
 export default TagAddNewTagModal
