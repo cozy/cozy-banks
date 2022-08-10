@@ -32,6 +32,7 @@ import TransactionGreaterRules from './TransactionGreaterRules'
 import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
+import CategoryTagsSettings from 'ducks/settings/CategoryTags/CategoryTagsSettings'
 
 const toggleToTrackEvents = {
   'community.localModelOverride': 'categorie_automatique'
@@ -146,6 +147,7 @@ export class Configuration extends React.Component {
             />
           </SubSection>
           <CategoryAlertSettingsPane />
+          {flag('banks.tags.enabled') && <CategoryTagsSettings />}
           <SubSection
             title={t('Notifications.delayed-debit.settingTitle')}
             description={t('Notifications.delayed-debit.settingDescription')}
