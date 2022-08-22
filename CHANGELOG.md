@@ -44,6 +44,15 @@
   * 9.18.0 :
     * Add error message display in OAuthForm component ([f29b3c4](https://github.com/cozy/cozy-libs/commit/f29b3c4d8357b3f58b37dfe1a50233ceddd42ff7))
     * Handle user dismiss in Oauth window ([a6dcba8](https://github.com/cozy/cozy-libs/commit/a6dcba86de227d9c5a3271554b31598e3611ebf9))
+  * 9.22.2 :
+    * feat: Allow disabled banks to be clickable
+  * 9.23.2 :
+    * Add BI aggregator releationship to BI accounts
+  * 9.25.0 :
+    * Now OAuth popup/inAppBrowser wait for login success to hide
+  * 9.26.1 :
+    * Use BI account creation webview to handle account synchronization
+    * RefreshContracts now updates contracts in realtime
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
