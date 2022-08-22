@@ -27,6 +27,9 @@
     * Add BI aggregator releationship to BI accounts
   * 9.25.0 :
     * Now OAuth popup/inAppBrowser wait for login success to hide
+  * 9.26.1 :
+    * Use BI account creation webview to handle account synchronization
+    * RefreshContracts now updates contracts in realtime
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
