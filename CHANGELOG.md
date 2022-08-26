@@ -1,5 +1,7 @@
 # 1.46.0
 
+## ✨ Features
+* Optimization of the Mango query to get first / last date for an account 
 # 1.45.0
 
 ## ✨ Features
