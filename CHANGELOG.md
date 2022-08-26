@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+# 1.46.0
+
+## ✨ Features
+* Optimization of the Mango query to get first / last date for an account 
 # 1.45.0
 
 ## ✨ Features
@@ -7,7 +13,7 @@
 * Add a modal to filter by Tags on the analysis page
 * Upgrade cozy-ui from 69.3.0 to 70.6.1
 * Add a page for managing a given tag
-
+* Optimization of the Mango query to get first / last date for an account 
 ## 🐛 Bug Fixes
 
 * Fix recurrence service that was triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2429)
