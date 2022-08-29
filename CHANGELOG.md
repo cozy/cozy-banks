@@ -67,7 +67,8 @@
 * Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
 * Do not allways show the same bank in BI webview
 * Do fail the connector for banks with multiple bank ids
-* Update cozy-client to 32.2.6 :
+* Update cozy-client to 32.2.7 :
+  * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
 
