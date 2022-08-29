@@ -72,7 +72,6 @@
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
 
-
 ## 🔧 Tech
 
 * Extract import of AccountModalContent in HarvestAccountModal to be able to override it easily
