@@ -113,7 +113,6 @@
 * Update cozy-client to 32.2.6
 
 
-
 ## 🔧 Tech
 
 * Extract import of AccountModalContent in HarvestAccountModal to be able to override it easily
