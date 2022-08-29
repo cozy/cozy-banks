@@ -94,6 +94,7 @@
 * Harvest 9.25.0:
   * Remove an BI webview reconnection step
   * Remove an unused request to BI api to be faster
+* Display the resulting account in the Settings screen after an account creation (with realtime)
 
 
 
