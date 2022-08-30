@@ -16,7 +16,7 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
   const handleChange = ev => {
-    setLabel(ev.target.value)
+    setLabel(ev.target.value.trim())
   }
 
   const handleClick = async () => {
