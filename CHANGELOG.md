@@ -4,6 +4,10 @@
 
 ## ✨ Features
 * Optimization of the Mango query to get first / last date for an account 
+
+## 🐛 Bug Fixes
+* Revert cozy-script to deduplicate CSS files
+  
 # 1.45.0
 
 ## ✨ Features
