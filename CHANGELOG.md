@@ -6,8 +6,6 @@
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
-  
-
 # 1.45.0
 
 ## ✨ Features
