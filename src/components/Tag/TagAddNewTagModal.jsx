@@ -37,17 +37,18 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
       onClose={onClose}
       title={t('Tag.add-new-tag')}
       content={
-        <>
-          <TextField
-            fullWidth
-            margin="normal"
-            {...(withLabel && { label: t('Tag.tag-name') })}
-            variant="outlined"
-            inputProps={{ maxLength: 30 }}
-            autoFocus
-            onChange={handleChange}
-          ></TextField>
-        </>
+        <TextField
+          fullWidth
+          margin="normal"
+          {...(withLabel && { label: t('Tag.tag-name') })}
+          variant="outlined"
+          inputProps={{
+            maxLength: 30,
+            'data-testid': 'TagAddNewTagModal-TextField'
+          }}
+          autoFocus
+          onChange={handleChange}
+        />
       }
       actions={
         <>
@@ -63,6 +64,7 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
             busy={isBusy}
             disabled={label.length === 0}
             onClick={handleClick}
+            data-testid="TagAddNewTagModal-Button-submit"
           />
         </>
       }
