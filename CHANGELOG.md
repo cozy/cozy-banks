@@ -54,9 +54,9 @@
 * Harvest 9.25.0:
   * Remove an BI webview reconnection step
   * Remove an unused request to BI api to be faster
+* 9.26.6 :
+  * Better handling of duplicate accounts : locale + realtime in bank accounts
 * Display the resulting account in the Settings screen after an account creation (with realtime)
-
-
 
 ## 🔧 Tech
 
