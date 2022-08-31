@@ -1,12 +1,13 @@
 # 1.46.0
 
 ## ✨ Features
-* Optimization of the Mango query to get first / last date for an account 
+
+* Optimization of the Mango query to get first / last date for an account
 * No more 404 call to manifest.json
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
-  
+
 # 1.45.0
 
 ## ✨ Features
@@ -14,9 +15,10 @@
 * Add tags on transactions
 * Add a tab in the settings to list all the tags
 * Add a modal to filter by Tags on the analysis page
-* Upgrade cozy-ui from 69.3.0 to 70.6.1
+* Upgrade cozy-ui from 69.3.0 to 73.2.3
 * Add a page for managing a given tag
-* Optimization of the Mango query to get first / last date for an account 
+* Optimization of the Mango query to get first / last date for an account
+
 ## 🐛 Bug Fixes
 
 * Fix recurrence service that was triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2429)
