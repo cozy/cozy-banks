@@ -1,12 +1,12 @@
 # 1.46.0
 
 ## ✨ Features
-* Optimization of the Mango query to get first / last date for an account 
+* Optimization of the Mango query to get first / last date for an account
 * No more 404 call to manifest.json
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
-  
+
 # 1.45.0
 
 ## ✨ Features
@@ -78,6 +78,14 @@
   * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Invalidate temporary token cache when there is a change of BI user
+* OauthWindowInAppBrowser re-render
+* Harvest 9.25.0:
+  * Remove an BI webview reconnection step
+  * Remove an unused request to BI api to be faster
+* 9.26.6 :
+  * Better handling of duplicate accounts : locale + realtime in bank accounts
+* Display the resulting account in the Settings screen after an account creation (with realtime)
 
 ## 🔧 Tech
 
