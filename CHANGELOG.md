@@ -2,6 +2,7 @@
 
 ## ✨ Features
 * Optimization of the Mango query to get first / last date for an account 
+* No more 404 call to manifest.json
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
