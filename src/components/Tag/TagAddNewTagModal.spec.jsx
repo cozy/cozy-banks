@@ -31,8 +31,25 @@ describe('TagAddNewTagModal', () => {
     const submitButton = getByTestId('TagAddNewTagModal-Button-submit')
 
     fireEvent.change(newTagInput, { target: { value: '   ' } })
-    fireEvent.click(submitButton)
+    expect(submitButton).toHaveProperty('disabled', true)
+    expect(newTagInput).toHaveProperty('value', '')
 
+    fireEvent.click(submitButton)
+    expect(mockSave).toBeCalledTimes(0)
+  })
+
+  it('should not set value if start with a space', () => {
+    const mockSave = jest.fn()
+    const { getByTestId } = setup({ mockSave })
+
+    const newTagInput = getByTestId('TagAddNewTagModal-TextField')
+    const submitButton = getByTestId('TagAddNewTagModal-Button-submit')
+
+    fireEvent.change(newTagInput, { target: { value: ' abc' } })
+    expect(submitButton).toHaveProperty('disabled', true)
+    expect(newTagInput).toHaveProperty('value', '')
+
+    fireEvent.click(submitButton)
     expect(mockSave).toBeCalledTimes(0)
   })
 
@@ -44,21 +61,24 @@ describe('TagAddNewTagModal', () => {
     const submitButton = getByTestId('TagAddNewTagModal-Button-submit')
 
     fireEvent.change(newTagInput, { target: { value: '' } })
-    fireEvent.click(submitButton)
+    expect(submitButton).toHaveProperty('disabled', true)
+    expect(newTagInput).toHaveProperty('value', '')
 
+    fireEvent.click(submitButton)
     expect(mockSave).toBeCalledTimes(0)
   })
 
-  it('should trim spaces before saving them', () => {
+  it('should remove spaces after label before saving them', () => {
     const mockSave = jest.fn()
     const { getByTestId } = setup({ mockSave })
 
     const newTagInput = getByTestId('TagAddNewTagModal-TextField')
     const submitButton = getByTestId('TagAddNewTagModal-Button-submit')
 
-    fireEvent.change(newTagInput, { target: { value: '    text value    ' } })
-    fireEvent.click(submitButton)
+    fireEvent.change(newTagInput, { target: { value: 'text value    ' } })
+    expect(newTagInput).toHaveProperty('value', 'text value    ')
 
+    fireEvent.click(submitButton)
     expect(mockSave).toBeCalledWith({
       _type: 'io.cozy.tags',
       label: 'text value'

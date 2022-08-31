@@ -9,6 +9,8 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 
+const labelMaxLength = 30
+
 const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
@@ -16,7 +18,10 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
   const handleChange = ev => {
-    setLabel(ev.target.value.trim())
+    const currentValue = ev.target.value
+    if (currentValue.match(/^\S.*/)) {
+      setLabel(currentValue.substring(0, labelMaxLength))
+    } else setLabel('')
   }
 
   const handleClick = async () => {
@@ -24,7 +29,7 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
 
     const { data: tag } = await client.save({
       _type: TAGS_DOCTYPE,
-      label
+      label: label.trim()
     })
 
     if (onClick) onClick(tag)
@@ -39,11 +44,12 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
       content={
         <TextField
           fullWidth
+          value={label}
           margin="normal"
           {...(withLabel && { label: t('Tag.tag-name') })}
           variant="outlined"
           inputProps={{
-            maxLength: 30,
+            maxLength: labelMaxLength,
             'data-testid': 'TagAddNewTagModal-TextField'
           }}
           autoFocus
