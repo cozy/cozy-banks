@@ -41,21 +41,23 @@ describe('Banks Context', () => {
       { slug: 'caissedepargne1' },
       { slug: 'boursorama83' }
     ])
-    client.plugins = {}
-    client.plugins.realtime = {
-      subscribe: (eventName, doctype, handleRealtime) => {
-        // There are 3 subscribers (created, updated, deleted)
-        // To simulate handle realtime we check if there are
-        // at least the first event and we call handleRealtime callbacks
-        if (eventName === 'created') {
-          for (const konn of konnectors) {
-            handleRealtime(
-              createKonnectorMsg(RUNNING, konn.konnector, konn.account)
-            )
+
+    client.plugins = {
+      realtime: {
+        subscribe: (eventName, doctype, handleRealtime) => {
+          // There are 4 subscribers (created, updated, deleted, notified)
+          // To simulate handle realtime we check if there are
+          // at least the first event and we call handleRealtime callbacks
+          if (eventName === 'created') {
+            for (const konn of konnectors) {
+              handleRealtime(
+                createKonnectorMsg(RUNNING, konn.konnector, konn.account)
+              )
+            }
           }
-        }
-      },
-      unsubscribe: () => {}
+        },
+        unsubscribe: () => {}
+      }
     }
 
     const children = (

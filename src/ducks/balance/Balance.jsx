@@ -255,9 +255,9 @@ class Balance extends PureComponent {
       checkedAccounts.length === accounts.length
         ? undefined
         : {
-          nbCheckedAccounts: checkedAccounts.length,
-          nbAccounts: accounts.length
-        }
+            nbCheckedAccounts: checkedAccounts.length,
+            nbAccounts: accounts.length
+          }
 
     return (
       <Fragment>
@@ -304,8 +304,9 @@ const addTransactions = Component => {
     const transactions = useFullyLoadedQuery(conn.query, conn)
     return <Component {...props} transactions={transactions} />
   }
-  Wrapped.displayName = `withTransactions(${Component.displayName || Component.name
-    })`
+  Wrapped.displayName = `withTransactions(${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 
