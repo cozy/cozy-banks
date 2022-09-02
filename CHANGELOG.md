@@ -15,7 +15,7 @@
 * Add tags on transactions
 * Add a tab in the settings to list all the tags
 * Add a modal to filter by Tags on the analysis page
-* Upgrade cozy-ui from 69.3.0 to 74.0.0
+* Upgrade cozy-ui from 69.3.0 to 74.3.0
 * Add a page for managing a given tag
 * Optimization of the Mango query to get first / last date for an account
 
