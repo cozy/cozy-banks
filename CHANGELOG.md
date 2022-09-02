@@ -6,7 +6,6 @@
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
-  
 # 1.45.0
 
 ## ✨ Features
@@ -14,8 +13,11 @@
 * Add tags on transactions
 * Add a tab in the settings to list all the tags
 * Add a modal to filter by Tags on the analysis page
-* Upgrade cozy-ui from 69.3.0 to 70.2.4
+* Upgrade cozy-ui from 69.3.0 to 70.6.1
 * Add a page for managing a given tag
+* Optimization of the Mango query to get first / last date for an account 
+* Add a page for managing a given tag
+
 
 ## 🐛 Bug Fixes
 
@@ -23,6 +25,12 @@
 * Fix typo in French translation [[PR]](https://github.com/cozy/cozy-banks/pull/2430)
 * Transactions actions style on mobile
 * Notifications based on transactions changes will only be sent once, even if the transaction is modified after the first trigger [[PR]](https://github.com/cozy/cozy-banks/pull/2437)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector
+* Update cozy-harvest-lib
+  * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+
 
 ## 🔧 Tech
 
@@ -41,6 +49,7 @@
   * 9.12.0 : Do not show Popup when intentsApi parameter is given [[PR]](https://github.com/cozy/cozy-libs/pull/1683)
   * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
   * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
+  * 9.14.1 : Change RedirectToAccountFormButton label & size [[PR]](https://github.com/cozy/cozy-libs/pull/1688)
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
   * 9.16.0 :
     * Allow EditAccountModal to have intentsApi ([43c5910](https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e))
@@ -64,6 +73,8 @@
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
+* Add a spinner in OAuth popup/InAppBrowser after OAuth redirection
+ 
 
 ## 🐛 Bug Fixes
 
@@ -78,6 +89,27 @@
   * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Update cozy-harvest-lib
+  * 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
+  * 9.12.3 : Do not double encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1687)
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+* Do not allways show the same bank in BI webview
+* Do fail the connector for banks with multiple bank ids
+* Update cozy-client to 32.2.6 :
+  * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
+  * Breaking changes are not supposed to affect cozy-banks
+* Invalidate temporary token cache when there is a change of BI user
+* OauthWindowInAppBrowser re-render
+* 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
+* Harvest 9.25.0:
+  * Remove an BI webview reconnection step
+  * Remove an unused request to BI api to be faster
+* 9.26.6 :
+  * Better handling of duplicate accounts : locale + realtime in bank accounts
+* Display the resulting account in the Settings screen after an account creation (with realtime)
+* Update cozy-harvest-lib 9.14.1
+* Update cozy-client to 32.2.6
+
 
 ## 🔧 Tech
 
