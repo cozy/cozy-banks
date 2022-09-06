@@ -1,7 +1,6 @@
 node-preset: &node # Used internally to share configuration, ignored by travis.
   language: node_js
   node_js:
-    - "12"
     - "16"
   cache:
     directories:
@@ -11,12 +10,6 @@ stages:
   - build
 jobs:
   include:
-    - name: Unit tests node 12
-      stage: test
-      <<: *node
-      node_js:
-        - 12
-      script: yarn lint && yarn test --runInBand && yarn check-locales && yarn check-fixtures
     - name: Unit tests node 16
       stage: test
       <<: *node
