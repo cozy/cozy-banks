@@ -11,6 +11,7 @@
   * 9.12.0 : Do not show Popup when intentsApi parameter is given [[PR]](https://github.com/cozy/cozy-libs/pull/1683)
   * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
   * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
+  * 9.14.1 : Change RedirectToAccountFormButton label & size [[PR]](https://github.com/cozy/cozy-libs/pull/1688)
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
   * 9.16.0 :
     * Allow EditAccountModal to have intentsApi ([43c5910](https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e))
@@ -49,14 +50,27 @@
   * Lodash.merge is not creating a new object  [PR](https://github.com/cozy/cozy-client/pull/1201)
   * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
   * Breaking changes are not supposed to affect cozy-banks
+* Update cozy-harvest-lib
+  * 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
+  * 9.12.3 : Do not double encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1687)
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
+* Do not allways show the same bank in BI webview
+* Do fail the connector for banks with multiple bank ids
+* Update cozy-client to 32.2.6 :
+  * fix temporary token cache when beginning with an empty cache [PR](https://github.com/cozy/cozy-client/pull/1198)
+  * Breaking changes are not supposed to affect cozy-banks
 * Invalidate temporary token cache when there is a change of BI user
 * OauthWindowInAppBrowser re-render
+* 9.12.2 : Do not pre encode oauth url [PR](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [PR](https://github.com/cozy/cozy-libs/pull/1686)
 * Harvest 9.25.0:
   * Remove an BI webview reconnection step
   * Remove an unused request to BI api to be faster
 * 9.26.6 :
   * Better handling of duplicate accounts : locale + realtime in bank accounts
 * Display the resulting account in the Settings screen after an account creation (with realtime)
+* Harvest: Hide BIContractActivationWindow behind the bi webview flag
+* Update cozy-client to 32.2.6
+
 
 ## 🔧 Tech
 
