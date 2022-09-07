@@ -1,13 +1,3 @@
-# 1.46.0
-
-## ✨ Features
-
-* Optimization of the Mango query to get first / last date for an account
-* No more 404 call to manifest.json
-
-## 🐛 Bug Fixes
-* Revert cozy-script to deduplicate CSS files
-
 # 1.45.0
 
 ## ✨ Features
@@ -18,6 +8,9 @@
 * Upgrade cozy-ui from 69.3.0 to 74.0.0
 * Add a page for managing a given tag
 * Optimization of the Mango query to get first / last date for an account
+* Add a page for managing a given tag
+* Harvest: Hide BIContractActivationWindow behind the bi webview flag
+
 
 ## 🐛 Bug Fixes
 
@@ -25,6 +18,11 @@
 * Fix typo in French translation [[PR]](https://github.com/cozy/cozy-banks/pull/2430)
 * Transactions actions style on mobile
 * Notifications based on transactions changes will only be sent once, even if the transaction is modified after the first trigger [[PR]](https://github.com/cozy/cozy-banks/pull/2437)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector
+* Update cozy-harvest-lib
+  * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
+* Update trigger without fetch policy in AccountModal, while reconnecting a konnector [[PR]](https://github.com/cozy/cozy-banks/pull/2404)
+* Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop [[PR]](https://github.com/cozy/cozy-banks/pull/2423)
 
 ## 🔧 Tech
 
@@ -43,6 +41,7 @@
   * 9.12.0 : Do not show Popup when intentsApi parameter is given [[PR]](https://github.com/cozy/cozy-libs/pull/1683)
   * 9.12.2 : Do not pre encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1685) and Do not show popup when intentsApi is given [[PR]](https://github.com/cozy/cozy-libs/pull/1686)
   * 9.12.3 : Do not double encode oauth url [[PR]](https://github.com/cozy/cozy-libs/pull/1687)
+  * 9.14.1 : Change RedirectToAccountFormButton label & size [[PR]](https://github.com/cozy/cozy-libs/pull/1688)
   * 9.15.1 : Update trigger while status changed [[PR]](https://github.com/cozy/cozy-libs/pull/1697)
   * 9.16.0 :
     * Allow EditAccountModal to have intentsApi ([43c5910](https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e))
@@ -53,10 +52,20 @@
   * 9.18.0 :
     * Add error message display in OAuthForm component ([f29b3c4](https://github.com/cozy/cozy-libs/commit/f29b3c4d8357b3f58b37dfe1a50233ceddd42ff7))
     * Handle user dismiss in Oauth window ([a6dcba8](https://github.com/cozy/cozy-libs/commit/a6dcba86de227d9c5a3271554b31598e3611ebf9))
+  * 9.22.2 :
+    * feat: Allow disabled banks to be clickable
+  * 9.23.2 :
+    * Add BI aggregator releationship to BI accounts
+  * 9.25.0 :
+    * Now OAuth popup/inAppBrowser wait for login success to hide
+  * 9.26.1 :
+    * Use BI account creation webview to handle account synchronization
+    * RefreshContracts now updates contracts in realtime
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
 * Add intentsApi prop to HarvestBankAccountSettings
+* Add a spinner in OAuth popup/InAppBrowser after OAuth redirection
 
 ## 🐛 Bug Fixes
 
