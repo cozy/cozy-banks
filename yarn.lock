@@ -5199,7 +5199,7 @@ cozy-client-js@^0.19.0:
     pouchdb-browser "7.0.0"
     pouchdb-find "7.0.0"
 
-cozy-client@6.64.5, cozy-client@^6.58.0:
+cozy-client@6.64.5:
   version "6.64.5"
   resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.64.5.tgz#33302c3190387ad42928189ae916f5afb28c3a84"
   integrity sha512-DnlNaYNTeTAuIAGeKggQbGW/a9CUl19Ec9IdUzBlzkeylAkBvdfbyIg6BTzXePdae0o+bGh0LV9VAJ5yX4C2YA==
@@ -5288,6 +5288,22 @@ cozy-client@^32.2.7:
     server-destroy "^1.0.1"
     sift "^6.0.0"
     url-search-params-polyfill "^8.0.0"
+
+cozy-client@^6.58.0:
+  version "6.66.0"
+  resolved "https://registry.yarnpkg.com/cozy-client/-/cozy-client-6.66.0.tgz#a7e277fc4b893e85275e60b445307cb30cc332ad"
+  integrity sha512-x//RAptC5zyt93tPd43I6SukepMWZFj9b11VpXCxxH+0aWLryQwlNRrrElkIcoze2Cn0XlmUg2DDoyvUuB2SwQ==
+  dependencies:
+    cozy-device-helper "^1.7.3"
+    cozy-stack-client "^6.66.0"
+    lodash "^4.17.13"
+    microee "^0.0.6"
+    prop-types "^15.6.2"
+    react-redux "^5.0.7"
+    redux "^3.7.2"
+    redux-thunk "^2.3.0"
+    sift "^6.0.0"
+    url-search-params-polyfill "^7.0.0"
 
 cozy-device-helper@^1.10.0, cozy-device-helper@^1.10.3, cozy-device-helper@^1.12.0, cozy-device-helper@^1.7.3, cozy-device-helper@^1.7.5:
   version "1.12.0"
@@ -5382,10 +5398,10 @@ cozy-flags@^2.8.7:
   dependencies:
     microee "^0.0.6"
 
-cozy-harvest-lib@^9.26.6:
-  version "9.26.6"
-  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.26.6.tgz#7fca707bb51fe82f8e82e3edbc915481da366cbe"
-  integrity sha512-zy087g04BiyLO6IBrQFDNsma2kR19A2oKHre6drE6kyRQ2ctHMjSSOXArV5jumykAdy1SP3/mSryG42/WA9hog==
+cozy-harvest-lib@^9.26.10:
+  version "9.26.10"
+  resolved "https://registry.yarnpkg.com/cozy-harvest-lib/-/cozy-harvest-lib-9.26.10.tgz#4fd4427d3d7abf8f2706bf8ddb3e60dfee0733ff"
+  integrity sha512-+8uN7Ht+pthgsXVm4FZ3qzVEonYZcoEUdV69zMK4gZnPSVmOFTY60aCAIlmvuGQvIQkWl9yuQI8yxhbu3c1M9Q==
   dependencies:
     "@cozy/minilog" "^1.0.0"
     "@sentry/browser" "^6.0.1"
@@ -5692,7 +5708,7 @@ cozy-stack-client@^32.2.5:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-stack-client@^6.64.3:
+cozy-stack-client@^6.64.3, cozy-stack-client@^6.66.0:
   version "6.66.0"
   resolved "https://registry.yarnpkg.com/cozy-stack-client/-/cozy-stack-client-6.66.0.tgz#ba217c2d615dd31a9f40ae131644c68c4108b101"
   integrity sha512-NPdoDplH43nLBlTXVXYCOutRkh3Q+Dib92BGU8F3PanCMjCBXiRUni6I7EhcumwJkXeJVm7qul72X4LYKlOzgA==
