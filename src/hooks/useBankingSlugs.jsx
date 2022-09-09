@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useClient, Q } from 'cozy-client'
+import CozyClient, { useClient, Q } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 
 const useBankingSlugs = () => {
@@ -19,7 +19,10 @@ const useBankingSlugs = () => {
             }
           })
           .indexFields(['categories'])
-      )
+        , {
+          as: 'io.cozy.konnectors/categories_banking',
+          fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000)
+        })
       const result = bankingKonnectors?.map(konnector => konnector.slug)
       setBankingSlugs(result)
       setIsFetchingBankSlugs(false)
