@@ -24,8 +24,10 @@ const onOperationOrBillCreate = async (client, options) => {
   log('info', `COZY_CREDENTIALS: ${process.env.COZY_CREDENTIALS}`)
   log('info', `COZY_URL: ${process.env.COZY_URL}`)
   log('info', `COZY_JOB_ID: ${process.env.COZY_JOB_ID}`)
-  log('info', 'Fetching settings...')
+
+  log('info', '⌛ Fetching settings...')
   let setting = await fetchSettings(client)
+  log('info', '✅ Settings fetched')
 
   setFlagsFromSettings(setting)
 
@@ -34,26 +36,26 @@ const onOperationOrBillCreate = async (client, options) => {
   // These transactions may be updated by the matching algorithm, and thus
   // may be missed by `TransactionGreater` because their `_rev` don't start with `1`
   const notifLastSeq = setting.notifications.lastSeq
-  log('info', 'Fetching transaction changes...')
-
+  log('info', '⌛ Fetching transaction changes...')
   const notifChanges = await fetchChangesOrAll(
     client,
     TRANSACTION_DOCTYPE,
     notifLastSeq
   )
+  log('info', '✅ Transaction changes fetched')
 
   if (options.billsMatching !== false) {
     await doBillsMatching(client, setting, options.billsMatching)
     setting = await updateSettings(client, setting)
   } else {
-    log('info', 'Skip bills matching')
+    log('info', '➡️ Skip bills matching')
   }
 
   if (options.transactionsMatching !== false) {
     await doTransactionsMatching(client, setting, options.transactionsMatching)
     setting = await updateSettings(client, setting)
   } else {
-    log('info', 'Skip transactions matching')
+    log('info', '➡️ Skip transactions matching')
   }
 
   // Select which notifications should be be sent

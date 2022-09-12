@@ -26,7 +26,7 @@ export const doBillsMatching = async (client, setting, options = {}) => {
     options.lastSeq || setting.billsMatching.billsLastSeq || '0'
 
   try {
-    log('info', 'Fetching bills changes...')
+    log('info', '⌛ Fetching bills changes...')
     const billsChanges = await fetchChangesOrAll(
       client,
       BILLS_DOCTYPE,
@@ -48,18 +48,18 @@ export const doBillsMatching = async (client, setting, options = {}) => {
       logResult(result)
     }
   } catch (e) {
-    log('error', `[matching service] ${e}`)
+    log('error', `❗ [matching service] ${e}`)
   }
 }
 
 export const doTransactionsMatching = async (client, setting, options = {}) => {
   assert(setting, 'No setting passed')
-  log('info', 'Do transaction matching...')
+  log('info', '⌛ Do transaction matching...')
   const transactionsLastSeq =
     options.lastSeq || get(setting, 'billsMatching.transactionsLastSeq') || '0'
 
   try {
-    log('info', 'Fetching transactions changes...')
+    log('info', '⌛ Fetching transactions changes...')
     const transactionsChanges = await fetchChangesOrAll(
       client,
       TRANSACTION_DOCTYPE,
@@ -84,13 +84,13 @@ export const doTransactionsMatching = async (client, setting, options = {}) => {
       logResult(result)
     }
   } catch (e) {
-    log('error', `[matching service] ${e}`)
+    log('error', `❗ [matching service] ${e}`)
   }
 }
 
 export const doSendNotifications = async (setting, notifChanges) => {
   assert(setting, 'No setting passed')
-  log('info', 'Do send notifications...')
+  log('info', '⌛ Do send notifications...')
   try {
     const transactionsToNotify = notifChanges.documents
     await sendNotifications(setting, transactionsToNotify)
@@ -102,35 +102,35 @@ export const doSendNotifications = async (setting, notifChanges) => {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e)
-    log('warn', 'Error while sending notifications : ' + e)
+    log('warn', '❗ Error while sending notifications : ' + e)
   }
 }
 
 export const doAppSuggestions = async setting => {
   assert(setting, 'No setting passed')
-  log('info', 'Do apps suggestions...')
+  log('info', '⌛ Do apps suggestions...')
   try {
     await findAppSuggestions(setting)
   } catch (e) {
-    log('warn', 'Error while finding app suggestions: ' + e)
+    log('warn', '❗ Error while finding app suggestions: ' + e)
   }
 }
 
 export const updateSettings = async (client, settings) => {
-  log('info', 'Updating settings...')
+  log('info', '⌛ Updating settings...')
   const { data: newSettings } = await client.save(settings)
-  log('info', 'Settings updated')
+  log('info', '✅ Settings updated')
   return newSettings
 }
 
 export const launchBudgetAlertService = async client => {
-  log('info', 'Launching budget alert service...')
+  log('info', '⌛ Launching budget alert service...')
   const jobs = client.collection('io.cozy.jobs')
   await jobs.create('service', {
     name: 'budgetAlerts',
     slug: flag('banking.banking-app-slug') || 'banks'
   })
-  log('info', 'Budget alert service launched')
+  log('info', '✅ Budget alert service launched')
 }
 
 export const setFlagsFromSettings = settings => {
