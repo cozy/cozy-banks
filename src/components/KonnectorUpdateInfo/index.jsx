@@ -40,20 +40,30 @@ const outdatedKonnectorsConn = {
 const KonnectorUpdateInfo = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const [url] = useRedirectionURL(APP_DOCTYPE, redirectionOptions)
   const outdatedKonnectors = useFullyLoadedQuery(
     outdatedKonnectorsConn.query,
     outdatedKonnectorsConn
   )
 
-  if (!url || isQueryLoading(outdatedKonnectors)) {
+  const bankingKonnectors = outdatedKonnectors.data
+    ? outdatedKonnectors.data.filter(konnectors.hasCategory('banking'))
+    : []
+
+  const [url] = useRedirectionURL(
+    APP_DOCTYPE,
+    redirectionOptions,
+    !isQueryLoading(outdatedKonnectors) && bankingKonnectors.length !== 0
+  )
+
+  if (isQueryLoading(outdatedKonnectors)) {
     return null
   }
 
-  const bankingKonnectors = outdatedKonnectors.data.filter(
-    konnectors.hasCategory('banking')
-  )
   if (bankingKonnectors.length === 0) {
+    return null
+  }
+
+  if (!url) {
     return null
   }
 

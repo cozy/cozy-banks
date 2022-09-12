@@ -5,7 +5,11 @@ import pickBy from 'lodash/pickBy'
 /**
  * Custom hook to get a URL to another app / konnector
  */
-const useRedirectionURL = (doctype, { type, category, pendingUpdate }) => {
+const useRedirectionURL = (
+  doctype,
+  { type, category, pendingUpdate },
+  enabled = true
+) => {
   const client = useClient()
   const [redirectionURL, setRedirectionURL] = useState()
   const updateRedirectionURL = useCallback(async () => {
@@ -24,8 +28,10 @@ const useRedirectionURL = (doctype, { type, category, pendingUpdate }) => {
   }, [client.intents, type, category, pendingUpdate])
 
   useEffect(() => {
-    updateRedirectionURL()
-  }, [updateRedirectionURL])
+    if (enabled) {
+      updateRedirectionURL()
+    }
+  }, [updateRedirectionURL, enabled])
 
   return [redirectionURL, updateRedirectionURL]
 }
