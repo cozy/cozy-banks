@@ -5,6 +5,7 @@
 * Optimization of the Mango query to get first / last date for an account
 * No more 404 call to manifest.json
 * Add new event and page loggers for tags
+* Add a new switch to toggle hiding amounts in mobile notifications
 
 ## 🐛 Bug Fixes
 * Revert cozy-script to deduplicate CSS files
