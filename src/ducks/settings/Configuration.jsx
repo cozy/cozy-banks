@@ -201,13 +201,19 @@ export class Configuration extends React.Component {
             </SubSection>
           )}
         </Section>
-        <Section
-          title={t('AdvancedFeaturesSettings.title')}
-          description={t(
-            'AdvancedFeaturesSettings.automatic-categorization.title'
-          )}
-        >
-          <SubSection>
+        <Section title={t('AdvancedFeaturesSettings.title')}>
+          {__TARGET__ === 'mobile' ? <PinSettings /> : null}
+          <SubSection title={t('Settings.security.title')}>
+            <ToggleRow
+              description={t('Settings.security.amount-blur.description')}
+              onToggle={this.handleToggleAmountBlur}
+              enabled={Boolean(flag('amount-blur'))}
+              name="amountBlur"
+            />
+          </SubSection>
+          <SubSection
+            title={t('AdvancedFeaturesSettings.automatic-categorization.title')}
+          >
             <ToggleRow
               description={t(
                 'AdvancedFeaturesSettings.automatic-categorization.local-model-override.description'
@@ -215,18 +221,6 @@ export class Configuration extends React.Component {
               onToggle={this.onToggleLocalModelOverride}
               enabled={settings.community.localModelOverride.enabled}
               name="localModelOverride"
-            />
-          </SubSection>
-        </Section>
-
-        <Section title={t('Settings.security.title')}>
-          {__TARGET__ === 'mobile' ? <PinSettings /> : null}
-          <SubSection title={t('Settings.security.amount-blur.title')}>
-            <ToggleRow
-              description={t('Settings.security.amount-blur.description')}
-              onToggle={this.handleToggleAmountBlur}
-              enabled={Boolean(flag('amount-blur'))}
-              name="amountBlur"
             />
           </SubSection>
         </Section>

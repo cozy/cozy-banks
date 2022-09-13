@@ -581,7 +581,6 @@
     "security": {
       "title": "Privacy",
       "amount-blur": {
-        "title": "Hide amounts",
         "description": "Hide amounts in the app"
       }
     },
