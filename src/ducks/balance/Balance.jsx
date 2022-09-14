@@ -5,6 +5,7 @@ import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
 import get from 'lodash/get'
 import compose from 'lodash/flowRight'
+import isEqual from 'lodash/isEqual'
 
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
@@ -121,9 +122,14 @@ class Balance extends PureComponent {
     const allGroups = getAllGroups(props)
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
-
+    // prevent rerender if the content is the same
+    if (!isEqual(state.panels, newPanelsState)) {
+      return {
+        panels: newPanelsState
+      }
+    }
     return {
-      panels: newPanelsState
+      panels: state.panels
     }
   }
 
