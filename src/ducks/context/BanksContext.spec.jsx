@@ -4,10 +4,8 @@ import JobsProvider from '../context/JobsContext'
 import BanksProvider, { BanksContext } from '../context/BanksContext'
 import { render, act } from '@testing-library/react'
 import CozyClient, { useClient, Q } from 'cozy-client'
-import CozyRealtime from 'cozy-realtime'
 
 jest.mock('cozy-client')
-jest.mock('cozy-realtime')
 
 export const createKonnectorMsg = (state, konnector, account) => ({
   worker: 'konnector',
@@ -40,23 +38,22 @@ describe('Banks Context', () => {
       { slug: 'caissedepargne1' },
       { slug: 'boursorama83' }
     ])
-    CozyRealtime.mockImplementation(() => {
-      return {
-        subscribe: (eventName, doctype, handleRealtime) => {
-          // There are 3 subscribers (created, updated, deleted)
-          // To simulate handle realtime we check if there are
-          // at least the first event and we call handleRealtime callbacks
-          if (eventName === 'created') {
-            for (const konn of konnectors) {
-              handleRealtime(
-                createKonnectorMsg(RUNNING, konn.konnector, konn.account)
-              )
-            }
+    client.plugins = {}
+    client.plugins.realtime = {
+      subscribe: (eventName, doctype, handleRealtime) => {
+        // There are 3 subscribers (created, updated, deleted)
+        // To simulate handle realtime we check if there are
+        // at least the first event and we call handleRealtime callbacks
+        if (eventName === 'created') {
+          for (const konn of konnectors) {
+            handleRealtime(
+              createKonnectorMsg(RUNNING, konn.konnector, konn.account)
+            )
           }
-        },
-        unsubscribe: () => {}
-      }
-    })
+        }
+      },
+      unsubscribe: () => {}
+    }
 
     const children = (
       <BanksContext.Consumer>
