@@ -7,6 +7,7 @@ import CozyClient, {
 } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
 import format from 'date-fns/format'
+import flag from 'cozy-flags'
 
 // eslint-disable-next-line no-unused-vars
 import { Connection } from './types'
@@ -158,6 +159,14 @@ export class HasManyTransactions extends HasMany {
   }
 }
 
+const addTag = flag('banks.tags.enabled')
+  ? {
+      tags: {
+        type: HasManyTags,
+        doctype: TAGS_DOCTYPE
+      }
+    }
+  : {}
 export const schema = {
   transactions: {
     doctype: TRANSACTION_DOCTYPE,
@@ -179,10 +188,7 @@ export const schema = {
         type: HasManyReimbursements,
         doctype: BILLS_DOCTYPE
       },
-      tags: {
-        type: HasManyTags,
-        doctype: TAGS_DOCTYPE
-      }
+      ...addTag
     }
   },
   bills: {
