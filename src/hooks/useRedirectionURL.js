@@ -1,7 +1,7 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useContext, useCallback, useEffect } from 'react'
 import { useClient } from 'cozy-client'
 import pickBy from 'lodash/pickBy'
-
+import { StoreURLContext } from 'ducks/store/StoreContext'
 /**
  * Custom hook to get a URL to another app / konnector
  */
@@ -11,14 +11,15 @@ const useRedirectionURL = (
   enabled = true
 ) => {
   const client = useClient()
-  const [redirectionURL, setRedirectionURL] = useState()
+  const { url, setUrl } = useContext(StoreURLContext)
+
   const updateRedirectionURL = useCallback(async () => {
     try {
-      const url = await client.intents.getRedirectionURL(
+      const urlFetched = await client.intents.getRedirectionURL(
         'io.cozy.apps',
         pickBy({ type, category, pendingUpdate }, Boolean)
       )
-      setRedirectionURL(url)
+      setUrl(urlFetched)
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn(
@@ -29,11 +30,13 @@ const useRedirectionURL = (
 
   useEffect(() => {
     if (enabled) {
-      updateRedirectionURL()
+      if (!url) {
+        updateRedirectionURL()
+      }
     }
   }, [updateRedirectionURL, enabled])
 
-  return [redirectionURL, updateRedirectionURL]
+  return [url, updateRedirectionURL]
 }
 
 export default useRedirectionURL
