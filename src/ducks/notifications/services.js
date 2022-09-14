@@ -3,6 +3,7 @@ import CozyClient, { Q } from 'cozy-client'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n/translation'
 
 import BalanceLower from 'ducks/notifications/BalanceLower'
+import BalanceGreater from 'ducks/notifications/BalanceGreater'
 import TransactionGreater from 'ducks/notifications/TransactionGreater'
 import HealthBillLinked from 'ducks/notifications/HealthBillLinked'
 import LateHealthReimbursement from 'ducks/notifications/LateHealthReimbursement'
@@ -22,6 +23,7 @@ const t = translation.t.bind(translation)
 
 const notificationClasses = [
   BalanceLower,
+  BalanceGreater,
   TransactionGreater,
   HealthBillLinked,
   LateHealthReimbursement,
