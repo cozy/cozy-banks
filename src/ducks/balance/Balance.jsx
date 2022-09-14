@@ -20,7 +20,6 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import flag from 'cozy-flags'
-import CozyRealtime from 'cozy-realtime'
 
 import {
   groupsConn,
@@ -208,7 +207,7 @@ class Balance extends PureComponent {
       return
     }
     const client = this.props.client
-    this.realtime = new CozyRealtime({ client })
+    this.realtime = client.plugins.realtime
   }
 
   startRealtime() {
