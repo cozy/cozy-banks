@@ -59,7 +59,12 @@ class BalanceLower extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
-    log('info', `value of lowerBalance: ${this.rules.map(x => x.value)}`)
+    log(
+      'info',
+      `[🔔 notifications] value of BalanceLower: ${this.rules.map(
+        x => x.value
+      )}`
+    )
   }
 
   filterForRule(rule, account) {
@@ -107,11 +112,14 @@ class BalanceLower extends NotificationView {
   async buildData() {
     const { accounts, matchingRules } = await this.fetchData()
     if (accounts.length === 0) {
-      log('info', 'BalanceLower: no matched accounts')
+      log('info', '[🔔 notifications] BalanceLower: no matched accounts')
       return
     }
 
-    log('info', `BalanceLower: ${accounts.length} accountsFiltered`)
+    log(
+      'info',
+      `[🔔 notifications] BalanceLower: ${accounts.length} accountsFiltered`
+    )
 
     return {
       matchingRules,

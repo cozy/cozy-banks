@@ -81,7 +81,10 @@ const getValidClassRules = (Klass, config) => {
 const isNotificationKlassEnabledFromConfig = config => Klass => {
   const rules = getValidClassRules(Klass, config)
   let enabled = rules && rules.some(rule => rule.enabled)
-  log('info', `${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`)
+  log(
+    'info',
+    `[🔔 notifications] ${Klass.settingKey} is ${enabled ? '' : 'not'} enabled`
+  )
   return enabled
 }
 
@@ -133,10 +136,12 @@ export const sendNotifications = async (config, transactions) => {
   const client = CozyClient.fromEnv(process.env)
   const accounts = await fetchTransactionAccounts(transactions)
   const groups = await fetchGroups(client)
+
   log(
     'info',
-    `${transactions.length} new transactions on ${accounts.length} accounts.`
+    `[🔔 notifications] ${transactions.length} new transactions on ${accounts.length} accounts.`
   )
+
   for (const Klass of enabledNotificationClasses) {
     await sendNotificationForClass(Klass, {
       client,
