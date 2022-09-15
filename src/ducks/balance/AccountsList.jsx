@@ -24,7 +24,7 @@ const getSortedAccounts = (group, accounts) => {
   }
 }
 
-export const AccountsList = props => {
+const AccountsList = props => {
   const { group, switches, onSwitchChange, initialVisibleAccounts } = props
   const client = useClient()
   const router = useRouter()
@@ -97,4 +97,7 @@ AccountsList.propTypes = {
   onSwitchChange: PropTypes.func
 }
 
-export default AccountsList
+const MemoizedAccountsList = React.memo(props => {
+  return <AccountsList {...props} />
+})
+export default MemoizedAccountsList
