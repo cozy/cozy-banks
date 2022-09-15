@@ -280,11 +280,11 @@ describe('transaction greater', () => {
       const opEdf = operations.find(o => o._id === 'edf')
       const opSalaire = operations.find(o => o._id === 'salaireseptembre')
 
-      const transactionEdf = formatTransaction(opEdf)
+      const transactionEdf = formatTransaction(opEdf, false)
       expect(transactionEdf.length).toBeLessThanOrEqual(MAX_CHAR_BY_LINE)
       expect(transactionEdf).toEqual('Edf Particuliers : 77,50€')
 
-      const transactionSalaire = formatTransaction(opSalaire)
+      const transactionSalaire = formatTransaction(opSalaire, false)
       expect(transactionSalaire.length).toBe(MAX_CHAR_BY_LINE)
       expect(transactionSalaire).toEqual(
         'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€'

@@ -13,9 +13,11 @@ const SEPARATOR = ' : '
 
 const capitalizeEachWords = str => str.split(' ').map(capitalize).join(' ')
 
-export const formatTransaction = transaction => {
+export const formatTransaction = (transaction, censoring) => {
   const { amount, currency } = transaction
-  const amountFormat = `${formatAmount(amount)}${getCurrencySymbol(currency)}`
+  const amountFormat = `${formatAmount(amount, censoring)}${getCurrencySymbol(
+    currency
+  )}`
   const REMAINS_LENGTH =
     MAX_CHAR_BY_LINE - SEPARATOR.length - amountFormat.length
   const labelCapitalize = capitalizeEachWords(transaction.label)
