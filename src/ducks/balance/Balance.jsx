@@ -3,7 +3,6 @@
 import debounce from 'lodash/debounce'
 import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
-import get from 'lodash/get'
 import compose from 'lodash/flowRight'
 import isEqual from 'lodash/isEqual'
 
@@ -24,7 +23,6 @@ import flag from 'cozy-flags'
 import {
   groupsConn,
   settingsConn,
-  cronKonnectorTriggersConn,
   accountsConn,
   ACCOUNT_DOCTYPE,
   GROUP_DOCTYPE,
@@ -38,8 +36,7 @@ import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
 import BalanceHeader from 'ducks/balance/BalanceHeader'
-import NoAccount from 'ducks/balance/NoAccount'
-import AccountsImporting from 'ducks/balance/AccountsImporting'
+import EmptyAccount from 'ducks/balance/EmptyAccount'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
@@ -52,7 +49,6 @@ import { trackPage } from 'ducks/tracking/browser'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
 import Delayed from 'components/Delayed'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
-import withBankingSlugs from 'hoc/withBankingSlugs'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -253,7 +249,6 @@ class Balance extends PureComponent {
       }
     })
     this.props.transactions.fetch()
-    this.props.triggers.fetch()
   }
 
   handleResume() {
@@ -349,9 +344,7 @@ class Balance extends PureComponent {
       )
     }
 
-    const { triggers: triggersCollection } = this.props
     const accounts = this.getAllAccounts()
-    const triggers = triggersCollection.data
 
     const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
 
@@ -360,42 +353,7 @@ class Balance extends PureComponent {
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
-      let konnectorInfos = triggers
-        .map(x => x.attributes)
-        .filter(this.props.isBankTrigger)
-        .map(t => ({
-          konnector: get(t, 'message.konnector'),
-          account: get(t, 'message.account'),
-          status: get(t, 'current_state.status')
-        }))
-
-      if (flag('banks.balance.account-loading')) {
-        // eslint-disable-next-line no-console
-        console.log('konnectorInfos', konnectorInfos)
-
-        if (konnectorInfos.length === 0) {
-          konnectorInfos = [
-            {
-              konnector: 'creditcooperatif148',
-              status: 'done'
-            },
-            {
-              konnector: 'labanquepostale44',
-              account: 'fakeId',
-              status: 'errored'
-            }
-          ]
-        }
-      }
-
-      const hasKonnectorRunning = konnectorInfos.some(
-        k => k.status === 'running'
-      )
-      if (hasKonnectorRunning) {
-        return <AccountsImporting konnectorInfos={konnectorInfos} />
-      }
-
-      return <NoAccount />
+      return <EmptyAccount />
     }
 
     const groups = getAllGroups(this.props)
@@ -405,9 +363,9 @@ class Balance extends PureComponent {
       checkedAccounts.length === accounts.length
         ? undefined
         : {
-            nbCheckedAccounts: checkedAccounts.length,
-            nbAccounts: accounts.length
-          }
+          nbCheckedAccounts: checkedAccounts.length,
+          nbAccounts: accounts.length
+        }
 
     return (
       <Fragment>
@@ -454,9 +412,8 @@ const addTransactions = Component => {
     const transactions = useFullyLoadedQuery(conn.query, conn)
     return <Component {...props} transactions={transactions} />
   }
-  Wrapped.displayName = `withTransactions(${
-    Component.displayName || Component.name
-  })`
+  Wrapped.displayName = `withTransactions(${Component.displayName || Component.name
+    })`
   return Wrapped
 }
 
@@ -466,8 +423,7 @@ export default compose(
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,
-    settings: settingsConn,
-    triggers: cronKonnectorTriggersConn
+    settings: settingsConn
   }),
   connect(
     createStructuredSelector({
@@ -476,6 +432,5 @@ export default compose(
     })
   ),
   withClient,
-  addTransactions,
-  withBankingSlugs
+  addTransactions
 )(Balance)
