@@ -24,10 +24,6 @@ import {
   groupsConn,
   settingsConn,
   accountsConn,
-  ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE,
   makeBalanceTransactionsConn
 } from 'doctypes'
 
@@ -55,13 +51,6 @@ const syncPouchImmediately = async client => {
   const pouchManager = pouchLink.pouches
   await pouchManager.syncImmediately()
 }
-
-const REALTIME_DOCTYPES = [
-  ACCOUNT_DOCTYPE,
-  TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE,
-  GROUP_DOCTYPE
-]
 
 const isLoading = props => {
   const {
@@ -100,10 +89,6 @@ class Balance extends PureComponent {
 
     this.handleResume = this.handleResume.bind(this)
     this.updateQueries = this.updateQueries.bind(this)
-    this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
-      leading: false,
-      trailing: true
-    })
     this.realtime = null
   }
 
@@ -198,48 +183,6 @@ class Balance extends PureComponent {
     })
   }
 
-  ensureRealtime() {
-    if (this.realtime) {
-      return
-    }
-    const client = this.props.client
-    this.realtime = client.plugins.realtime
-  }
-
-  startRealtime() {
-    if (this.realtimeStarted) {
-      return
-    }
-    this.ensureRealtime()
-    for (const doctype of REALTIME_DOCTYPES) {
-      this.realtime.subscribe('created', doctype, this.handleRealtime)
-      this.realtime.subscribe('updated', doctype, this.handleRealtime)
-      this.realtime.subscribe('deleted', doctype, this.handleRealtime)
-    }
-    this.realtimeStarted = true
-  }
-
-  stopRealtime() {
-    if (!this.realtimeStarted || !this.realtime) {
-      return
-    }
-    for (const doctype of REALTIME_DOCTYPES) {
-      this.realtime.unsubscribe('created', doctype, this.handleRealtime)
-      this.realtime.unsubscribe('updated', doctype, this.handleRealtime)
-      this.realtime.unsubscribe('deleted', doctype, this.handleRealtime)
-    }
-    this.realtimeStarted = false
-  }
-
-  async handleRealtime() {
-    const { client } = this.props
-    if (__TARGET__ === 'mobile') {
-      syncPouchImmediately(client)
-    }
-    // TODO discriminate on the ev received to only fetch what is important
-    this.updateQueries()
-  }
-
   updateQueries() {
     // eslint-disable-next-line
     this.props.accounts.fetch().then(resp => {
@@ -253,6 +196,10 @@ class Balance extends PureComponent {
 
   handleResume() {
     this.updateQueries()
+    if (__TARGET__ === 'mobile') {
+      const { client } = this.props
+      syncPouchImmediately(client)
+    }
   }
 
   startResumeListeners() {
@@ -275,62 +222,7 @@ class Balance extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.stopRealtime()
-    this.stopRealtimeFallback()
     this.stopResumeListeners()
-  }
-
-  componentDidUpdate() {
-    this.ensureListenersProperlyConfigured()
-  }
-
-  ensureListenersProperlyConfigured() {
-    try {
-      this._ensureListenersProperlyConfigured()
-    } catch (e) {
-      /* eslint-disable no-console */
-      console.error(e)
-      console.warn(
-        'Balance: Could not correctly configure realtime, see error above.'
-      )
-      /* eslint-enable no-console */
-    }
-  }
-
-  _ensureListenersProperlyConfigured() {
-    const { accounts: accountsCollection } = this.props
-
-    const collections = [accountsCollection]
-    if (collections.some(isQueryLoading)) {
-      return
-    }
-
-    // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
-    this.startRealtime()
-    this.startRealtimeFallback()
-    this.startResumeListeners()
-  }
-
-  /**
-   * Starts setInterval loop, as a fallback in case realtime does not work.
-   * If already started, does nothing.
-   */
-  startRealtimeFallback() {
-    if (!this.realtimeFallbackInterval && !this.realtimeStarted) {
-      this.realtimeFallbackInterval = setInterval(this.updateQueries, 30 * 1000)
-    }
-  }
-
-  /**
-   * Stops  the realtime fallback loop, and clears the setIntervalId
-   * If not started, does nothing.
-   */
-  stopRealtimeFallback() {
-    if (!this.realtimeFallbackInterval) {
-      return
-    }
-    clearInterval(this.realtimeFallbackInterval)
-    this.realtimeFallbackInterval = null
   }
 
   render() {

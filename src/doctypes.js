@@ -275,7 +275,7 @@ export const accountsConn = {
 export const groupsConn = {
   query: () => Q(GROUP_DOCTYPE),
   as: 'groups',
-  fetchPolicy: older30s
+  fetchPolicy: neverReload
 }
 
 export const cronKonnectorTriggersConn = {
@@ -303,7 +303,7 @@ export const makeBalanceTransactionsConn = () => {
   const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
   return {
     as: 'home/transactions',
-    fetchPolicy: older30s,
+    fetchPolicy: neverReload,
     query: () =>
       Q(TRANSACTION_DOCTYPE)
         .limitBy(1000)
@@ -337,7 +337,7 @@ export const makeBalanceTransactionsConn = () => {
 export const appsConn = {
   query: () => Q(APP_DOCTYPE),
   as: 'apps',
-  fetchPolicy: older30s
+  fetchPolicy: neverReload
 }
 
 export const billsConn = {
