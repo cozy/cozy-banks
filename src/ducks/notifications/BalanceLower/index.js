@@ -155,13 +155,13 @@ class BalanceLower extends NotificationView {
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
-          balance: formatAmount(firstAccount.balance),
+          balance: formatAmount(firstAccount.balance, this.amountCensoring),
           currency: '€',
           label: firstAccount.shortLabel || firstAccount.label
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: formatAmount(firstRule.value),
+          lowerBalance: formatAmount(firstRule.value, this.amountCensoring),
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -174,7 +174,8 @@ class BalanceLower extends NotificationView {
       .map(account => {
         const balance = getAccountBalance(account)
         return `${account.label} ${formatAmountWithSign(
-          balance
+          balance,
+          this.amountCensoring
         )}${getCurrencySymbol(account.currency)}`
       })
       .join('\n')

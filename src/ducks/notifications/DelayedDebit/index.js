@@ -154,7 +154,10 @@ class DelayedDebit extends NotificationView {
   getTitle(templateData) {
     const account = templateData.institutions[0].accounts[0]
     return this.t('Notifications.delayed-debit.notification.title', {
-      balance: formatAmount(getAccountNewBalance(account)),
+      balance: formatAmount(
+        getAccountNewBalance(account),
+        this.amountCensoring
+      ),
       currency: '€',
       label: getAccountLabel(account.checkingsAccount.data)
     })

@@ -151,12 +151,13 @@ class CategoryBudget extends NotificationView {
             alert =>
               `${alert.categoryLabel}: ${formatAmount(
                 alert.currentAmount
-              )}€ > ${formatAmount(alert.maxThreshold)}€`
+              )}€ > ${formatAmount(alert.maxThreshold, this.amountCensoring)}€`
           )
           .join('\n')
-      : `${formatAmount(budgetAlerts[0].currentAmount)}€ > ${formatAmount(
-          budgetAlerts[0].maxThreshold
-        )}€`
+      : `${formatAmount(
+          budgetAlerts[0].currentAmount,
+          this.amountCensoring
+        )}€ > ${formatAmount(budgetAlerts[0].maxThreshold)}€`
   }
 
   getExtraAttributes() {
