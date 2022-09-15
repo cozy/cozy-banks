@@ -579,10 +579,10 @@
       "edit": "Edit personal info"
     },
     "security": {
-      "title": "Security",
+      "title": "Privacy",
       "amount-blur": {
         "title": "Hide amounts",
-        "description": "Navigate the app with hidden amounts"
+        "description": "Hide amounts in the app"
       }
     },
     "rules": {
