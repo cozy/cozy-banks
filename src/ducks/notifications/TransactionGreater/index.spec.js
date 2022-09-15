@@ -210,9 +210,9 @@ describe('transaction greater', () => {
         const title = notification.getTitle(data)
         const pushContent = notification.getPushContent(data)
 
-        const expectPushContent = 'Edf Particuliers : 77,5€'
+        const expectPushContent = 'Edf Particuliers : 77,50€'
 
-        expect(title).toBe('Versement de 77.50€')
+        expect(title).toBe('Versement de 77,50€')
         expect(pushContent.length).toBeLessThanOrEqual(MAX_CHAR_BY_LINE)
         expect(pushContent).toBe(expectPushContent)
       })
@@ -228,7 +228,7 @@ describe('transaction greater', () => {
         const expectPushContent =
           'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€'
 
-        expect(title).toBe('Versement de 1234.56€')
+        expect(title).toBe('Versement de 1234,56€')
         expect(pushContent.length).toBe(MAX_CHAR_BY_LINE)
         expect(pushContent).toBe(expectPushContent)
       })
@@ -282,7 +282,7 @@ describe('transaction greater', () => {
 
       const transactionEdf = formatTransaction(opEdf)
       expect(transactionEdf.length).toBeLessThanOrEqual(MAX_CHAR_BY_LINE)
-      expect(transactionEdf).toEqual('Edf Particuliers : 77,5€')
+      expect(transactionEdf).toEqual('Edf Particuliers : 77,50€')
 
       const transactionSalaire = formatTransaction(opSalaire)
       expect(transactionSalaire.length).toBe(MAX_CHAR_BY_LINE)

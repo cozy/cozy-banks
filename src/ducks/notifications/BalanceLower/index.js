@@ -13,6 +13,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
   getCurrentDate,
   formatAmount,
+  formatAmountWithSign,
   makeAtAttributes
 } from 'ducks/notifications/helpers'
 import template from './template.hbs'
@@ -153,13 +154,13 @@ class BalanceLower extends NotificationView {
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
-          balance: firstAccount.balance,
+          balance: formatAmount(firstAccount.balance),
           currency: '€',
           label: firstAccount.shortLabel || firstAccount.label
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: firstRule.value,
+          lowerBalance: formatAmount(firstRule.value),
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -171,7 +172,7 @@ class BalanceLower extends NotificationView {
     return accounts
       .map(account => {
         const balance = getAccountBalance(account)
-        return `${account.label} ${balance > 0 ? '+' : ''}${formatAmount(
+        return `${account.label} ${formatAmountWithSign(
           balance
         )}${getCurrencySymbol(account.currency)}`
       })

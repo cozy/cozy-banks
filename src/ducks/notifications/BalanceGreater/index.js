@@ -13,6 +13,7 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
   getCurrentDate,
   formatAmount,
+  formatAmountWithSign,
   makeAtAttributes
 } from 'ducks/notifications/helpers'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
@@ -153,13 +154,13 @@ class BalanceGreater extends NotificationView {
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne
       ? {
-          balance: firstAccount.balance,
+          balance: formatAmount(firstAccount.balance),
           currency: '€',
           label: firstAccount.shortLabel || firstAccount.label
         }
       : {
           accountsLength: accounts.length,
-          greaterBalance: firstRule.value,
+          greaterBalance: formatAmount(firstRule.value),
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -171,7 +172,7 @@ class BalanceGreater extends NotificationView {
     return accounts
       .map(account => {
         const balance = getAccountBalance(account)
-        return `${account.label} ${balance > 0 ? '+' : ''}${formatAmount(
+        return `${account.label} ${formatAmountWithSign(
           balance
         )}${getCurrencySymbol(account.currency)}`
       })
