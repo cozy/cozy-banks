@@ -84,6 +84,7 @@ class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
+    this.amountCensoring = config.amountCensoring
   }
 
   /**

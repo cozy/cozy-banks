@@ -61,6 +61,7 @@ class BalanceGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
+    this.amountCensoring = config.amountCensoring
     log(
       'info',
       `[🔔 notifications] value of BalanceGreater: ${this.rules.map(

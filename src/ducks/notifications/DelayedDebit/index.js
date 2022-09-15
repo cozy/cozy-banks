@@ -60,6 +60,7 @@ class DelayedDebit extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
+    this.amountCensoring = config.amountCensoring
   }
 
   makeRuleMatcher(accountsById) {

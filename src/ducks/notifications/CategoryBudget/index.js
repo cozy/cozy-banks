@@ -78,6 +78,7 @@ class CategoryBudget extends NotificationView {
     super(options)
     this.currentDate = options.currentDate
     this.force = options.force
+    this.amountCensoring = options.amountCensoring
   }
 
   shouldSend(templateData) {
