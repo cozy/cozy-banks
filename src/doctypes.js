@@ -264,6 +264,7 @@ export const schema = {
 }
 
 export const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
+export const neverReload = CozyClient.fetchPolicies.olderThan(100000 * 1000)
 
 export const accountsConn = {
   query: () => Q(ACCOUNT_DOCTYPE).include(['owners', 'connection']),
@@ -283,8 +284,10 @@ export const cronKonnectorTriggersConn = {
       worker: 'konnector',
       type: '@cron'
     }),
-  as: 'triggers',
-  fetchPolicy: older30s
+  as: 'io.cozy.triggers/konnector_cron',
+  fetchPolicy: neverReload,
+  hydrated: false,
+  singleDocData: false
 }
 
 export const transactionsConn = {
