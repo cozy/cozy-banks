@@ -4,7 +4,9 @@ import {
   getReimbursementBillIds,
   getScheduleDate,
   prepareTransactions,
-  treatedByFormat
+  treatedByFormat,
+  formatAmount,
+  formatAmountWithSign
 } from './helpers'
 
 describe('isTransactionAmountGreaterThan', () => {
@@ -131,5 +133,43 @@ describe('treatedByFormat', () => {
     expect(treatedByFormat(reimbursements, billsById)).toBe(
       'Vendor 1, Vendor 2'
     )
+  })
+})
+
+describe('formatAmount', () => {
+  it('should format amounts', () => {
+    expect(formatAmount(0)).toBe('0')
+    expect(formatAmount(0.001)).toBe('0')
+    expect(formatAmount(0.999)).toBe('1')
+    expect(formatAmount(123)).toBe('123')
+    expect(formatAmount(123.4)).toBe('123,40')
+    expect(formatAmount(123.45)).toBe('123,45')
+    expect(formatAmount(123.456)).toBe('123,46')
+    expect(formatAmount(-0)).toBe('0')
+    expect(formatAmount(-0.001)).toBe('0')
+    expect(formatAmount(-0.999)).toBe('-1')
+    expect(formatAmount(-123)).toBe('-123')
+    expect(formatAmount(-123.4)).toBe('-123,40')
+    expect(formatAmount(-123.45)).toBe('-123,45')
+    expect(formatAmount(-123.456)).toBe('-123,46')
+  })
+})
+
+describe('formatAmountWithSign', () => {
+  it('should format amounts with sign', () => {
+    expect(formatAmountWithSign(0)).toBe('0')
+    expect(formatAmountWithSign(0.001)).toBe('0')
+    expect(formatAmountWithSign(0.999)).toBe('+1')
+    expect(formatAmountWithSign(123)).toBe('+123')
+    expect(formatAmountWithSign(123.4)).toBe('+123,40')
+    expect(formatAmountWithSign(123.45)).toBe('+123,45')
+    expect(formatAmountWithSign(123.456)).toBe('+123,46')
+    expect(formatAmountWithSign(-0)).toBe('0')
+    expect(formatAmountWithSign(-0.001)).toBe('0')
+    expect(formatAmountWithSign(-0.999)).toBe('-1')
+    expect(formatAmountWithSign(-123)).toBe('-123')
+    expect(formatAmountWithSign(-123.4)).toBe('-123,40')
+    expect(formatAmountWithSign(-123.45)).toBe('-123,45')
+    expect(formatAmountWithSign(-123.456)).toBe('-123,46')
   })
 })
