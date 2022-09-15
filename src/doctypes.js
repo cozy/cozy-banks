@@ -277,7 +277,12 @@ export const groupsConn = {
   as: 'groups',
   fetchPolicy: neverReload
 }
-
+export const outdatedKonnectorsConn = {
+  query: () =>
+    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
+  fetchPolicy: neverReload,
+  as: 'outdatedKonnectors'
+}
 export const cronKonnectorTriggersConn = {
   query: () =>
     Q(TRIGGER_DOCTYPE).where({

@@ -8,9 +8,9 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import OpenWithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 
-import CozyClient, { Q, isQueryLoading } from 'cozy-client'
+import { isQueryLoading } from 'cozy-client'
 
-import { KONNECTOR_DOCTYPE } from 'doctypes'
+import { outdatedKonnectorsConn } from 'doctypes'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 import styles from 'components/KonnectorUpdateInfo/styles.styl'
 import Padded from 'components/Padded'
@@ -28,13 +28,6 @@ const redirectionOptions = {
   type: 'konnector',
   category: 'banking',
   pendingUpdate: true
-}
-
-const outdatedKonnectorsConn = {
-  query: () =>
-    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
-  fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000),
-  as: 'outdatedKonnectors'
 }
 
 const KonnectorUpdateInfo = () => {
