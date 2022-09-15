@@ -4,7 +4,7 @@ import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
 
 import { WebviewIntentProvider } from 'cozy-intent'
-import I18n from 'cozy-ui/transpiled/react/I18n'
+import I18n, { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { CozyProvider } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
@@ -20,7 +20,6 @@ import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 import cozyBar from 'utils/cozyBar'
 
 const jobsProviderOptions = t => ({

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Dialog, { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
 import { DialogCloseButton } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { withClient } from 'cozy-client'
