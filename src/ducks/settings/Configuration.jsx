@@ -49,6 +49,9 @@ export class Configuration extends React.Component {
       showPersonalInfoDialog: false
     }
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
+    this.onToggleAmountCensoringInNotifications = this.onToggle(
+      'notifications.amountCensoring'
+    )
 
     this.onChangeBalanceLower = this.onChangeDoc('notifications.balanceLower')
     this.onChangeBalanceGreater = this.onChangeDoc(
@@ -209,6 +212,14 @@ export class Configuration extends React.Component {
               onToggle={this.handleToggleAmountBlur}
               enabled={Boolean(flag('amount-blur'))}
               name="amountBlur"
+            />
+            <ToggleRow
+              description={t(
+                'Settings.security.amount-in-notifications-blur.description'
+              )}
+              onToggle={this.onToggleAmountCensoringInNotifications}
+              enabled={settings.notifications.amountCensoring.enabled}
+              name="amountInNotificationsBlur"
             />
           </SubSection>
           <SubSection

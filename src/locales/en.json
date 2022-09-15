@@ -582,6 +582,9 @@
       "title": "Privacy",
       "amount-blur": {
         "description": "Hide amounts in the app"
+      },
+      "amount-in-notifications-blur": {
+        "description": "Hide amounts in notifications"
       }
     },
     "rules": {

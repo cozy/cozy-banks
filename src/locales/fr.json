@@ -583,6 +583,9 @@
       "title": "Confidentialité",
       "amount-blur": {
         "description": "Masquer les montants dans l'application"
+      },
+      "amount-in-notifications-blur": {
+        "description": "Masquer les montants dans les notifications"
       }
     },
     "rules": {
