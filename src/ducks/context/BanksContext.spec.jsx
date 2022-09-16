@@ -32,7 +32,10 @@ describe('Banks Context', () => {
       getByIds: jest.fn()
     }))
     client.query.mockResolvedValue({
-      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
+      data: [
+        { slug: 'caissedepargne1', name: 'Caisse Epargne' },
+        { slug: 'boursorama83', name: 'Boursorama' }
+      ]
     })
     client.queryAll.mockResolvedValue([
       { slug: 'caissedepargne1' },
@@ -62,6 +65,7 @@ describe('Banks Context', () => {
             <div key={job.account}>
               <span>{job.konnector}</span>
               <span>{job.account}</span>
+              <span>{job.institutionLabel}</span>
             </div>
           ))
         }}
@@ -80,6 +84,7 @@ describe('Banks Context', () => {
     const { root, client } = setup({ konnectors: KONNECTORS })
     await act(async () => expect(client.queryAll).toHaveBeenCalledTimes(1))
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
+    expect(await root.findByText('Caisse Epargne')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
     expect(await root.findByText('5678')).toBeTruthy()
