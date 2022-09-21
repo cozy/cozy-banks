@@ -115,7 +115,8 @@ export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
             liveBundles.map(bundle => (
               <BundleRow key={bundle._id} bundle={bundle} />
             ))}
-          {typeof deprecatedBundles !== 'undefined' && (
+          {typeof deprecatedBundles !== 'undefined' &&
+            deprecatedBundles.length && (
             <>
               <DeprecatedNotice>
                 {t('Recurrence.deprecated-bundles-help')}
