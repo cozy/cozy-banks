@@ -126,7 +126,7 @@ export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
               <>
                 {!areDeprecatedBundleShown && (
                   <Button
-                    className="u-mh-1 u-mv-half"
+                    className="u-mh-1 u-mv-half u-flex-self-start"
                     variant="text"
                     label={t('Recurrence.show-deprecated-bundles', {
                       number: deprecatedBundles.length
