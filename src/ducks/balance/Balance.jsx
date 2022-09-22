@@ -226,6 +226,7 @@ class Balance extends PureComponent {
   }
 
   render() {
+    const { hasJobsInProgress } = this.props
     if (isLoading(this.props)) {
       return (
         <Fragment>
@@ -241,7 +242,7 @@ class Balance extends PureComponent {
     const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
 
     if (
-      hasNoAccount ||
+      (hasNoAccount && !hasJobsInProgress) ||
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
