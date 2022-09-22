@@ -49,9 +49,12 @@ const DeprecatedNotice = withStyles(theme => ({
     textTransform: 'none',
     justifyContent: 'center',
     fontWeight: 'normal',
+    textIndent: '0',
+    height: 'auto',
+    padding: '.5rem 2rem',
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
-      padding: '1.5rem',
+      padding: '.5rem 1rem',
       top: '6rem', // twice the cozy-bar height
       zIndex: 1 // goes above the category icons
     }
