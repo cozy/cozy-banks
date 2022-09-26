@@ -31,7 +31,7 @@ describe('Banks Context', () => {
       where: jest.fn().mockImplementation(() => ({ indexFields: jest.fn() })),
       getByIds: jest.fn()
     }))
-    client.query.mockResolvedValue({
+    client.fetchQueryAndGetFromState = jest.fn().mockResolvedValue({
       data: [
         { slug: 'caissedepargne1', name: 'Caisse Epargne' },
         { slug: 'boursorama83', name: 'Boursorama' }
