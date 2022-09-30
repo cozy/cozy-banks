@@ -210,6 +210,7 @@
     "react-markdown": "4.2.2",
     "react-redux": "7.2.0",
     "react-router": "3.2.4",
+    "react-router-dom": "6.4.1",
     "react-side-effect": "2.1.0",
     "react-swipeable-views": "0.13.9",
     "redux": "4",

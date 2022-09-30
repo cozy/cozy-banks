@@ -1,7 +1,7 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import AnalysisTabs from 'ducks/analysis/AnalysisTabs'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useLocation } from 'components/RouterContext'
 
 /**
  * Renders its children

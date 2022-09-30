@@ -2,6 +2,7 @@
 
 import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
 
 import { WebviewIntentProvider } from 'cozy-intent'
 import I18n, { initTranslation } from 'cozy-ui/transpiled/react/I18n'
@@ -15,6 +16,7 @@ import {
 
 import flag from 'cozy-flags'
 
+import AppRoute from 'components/AppRoute'
 import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
@@ -53,11 +55,14 @@ const generateClassName = createGenerateClassName({
 })
 
 const AppContainer = ({ store, lang, history, client }) => {
-  const AppRoute = require('components/AppRoute').default
-  const Router =
-    __TARGET__ === 'mobile' || flag('authentication')
-      ? require('ducks/mobile/MobileRouter').default
-      : require('react-router').Router
+  console.info(' ')
+  console.info('history :', history)
+  console.info(' ')
+
+  // const Router =
+  //   __TARGET__ === 'mobile' || flag('authentication')
+  //     ? require('ducks/mobile/MobileRouter').default
+  //     : require('react-router-dom').HashRouter
 
   const dictRequire = lang => require(`locales/${lang}`)
   const { t } = useMemo(() => {
@@ -87,7 +92,9 @@ const AppContainer = ({ store, lang, history, client }) => {
                             <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
                             <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
                             <RealTimeQueries doctype={GROUP_DOCTYPE} />
-                            <Router history={history} routes={AppRoute()} />
+                            <HashRouter>
+                              <AppRoute />
+                            </HashRouter>
                           </MuiCozyTheme>
                         </StoreURLProvider>
                       </SelectionProvider>

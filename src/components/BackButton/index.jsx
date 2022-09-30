@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from 'components/BackButton/style.styl'
-import withBackSwipe from 'utils/backSwipe'
+import cx from 'classnames'
+import { useNavigate, useLocation } from 'react-router-dom'
+
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+
+// import withBackSwipe from 'utils/backSwipe'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
-import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
-import { useRouter } from 'components/RouterContext'
+// import { useRouter } from 'components/RouterContext'
+import styles from 'components/BackButton/style.styl'
 
 export const BackIcon = () => {
   const theme = useCozyTheme()
@@ -56,15 +59,16 @@ export const BarBackButton = ({ onClick }) => {
  * ```
  */
 const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
-  const router = useRouter()
+  const navigate = useNavigate()
+  const location = useLocation()
   const { isMobile } = useBreakpoints()
-  const location = router.getCurrentLocation()
+  // const location = router.getCurrentLocation()
   let toToUse = to
   if (!onClick && !toToUse) {
     toToUse = location.pathname.split('/').slice(0, -1).join('/')
   }
 
-  const handleClick = onClick ? onClick : () => toToUse && router.push(toToUse)
+  const handleClick = onClick ? onClick : () => toToUse && navigate(toToUse)
   return isMobile ? (
     <BarBackButton onClick={handleClick} />
   ) : (
@@ -81,6 +85,8 @@ MobileAwareBackButton.propTypes = {
   router: PropTypes.object
 }
 
-export default withBackSwipe({ getLocation: ownProps => ownProps.to })(
-  MobileAwareBackButton
-)
+export default MobileAwareBackButton
+
+// export default withBackSwipe({ getLocation: ownProps => ownProps.to })(
+//   MobileAwareBackButton
+// )

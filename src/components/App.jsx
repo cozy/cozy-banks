@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react'
-import { withRouter } from 'react-router'
+// import { withRouter } from 'react-router-dom'
 import compose from 'lodash/flowRight'
 import throttle from 'lodash/throttle'
 
@@ -115,6 +115,5 @@ export default compose(
     timeout: flag('pin.debug') ? 10 * 1000 : undefined,
     showTimeout: flag('pin.debug')
   }),
-  queryConnect({ settingsCollection: settingsConn }),
-  withRouter
+  queryConnect({ settingsCollection: settingsConn })
 )(App)

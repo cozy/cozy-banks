@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
-import { useHistory, useLocation } from 'components/RouterContext'
+import { useHistory } from 'components/RouterContext'
 import { BarSearch } from 'components/Bar'
 import BarSearchInput from 'components/BarSearchInput'
 

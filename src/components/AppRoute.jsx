@@ -1,5 +1,7 @@
 import React from 'react'
-import { IndexRoute, Route, Redirect } from 'react-router'
+// import { IndexRoute, Route, Redirect } from 'react-router'
+import { Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom'
+
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
@@ -24,13 +26,32 @@ import { TransferPage } from 'ducks/transfers'
 import { SearchPage } from 'ducks/search'
 import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
-import scrollToTopOnMount from 'components/scrollToTopOnMount'
+import ScrollToTopOnMountWrapper from 'components/scrollToTopOnMount'
 import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 import TagPage from 'ducks/tags/TagPage'
 
+const Toto = () => {
+  return <div className="u-mt-3">toto</div>
+}
+
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
-const AppRoute = () => (
+const AppRoute = () => {
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Balance />
+          </ScrollToTopOnMountWrapper>
+        }
+      />
+    </Routes>
+  )
+}
+
+const AppRoute2 = () => (
   <Route component={UserActionRequired}>
     <Route component={App}>
       {isWebApp() && <Redirect from="/" to="balances" />}
