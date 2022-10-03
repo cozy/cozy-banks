@@ -1,5 +1,7 @@
 import { createMockClient } from 'cozy-client'
-import { storeTriggerStates } from './helpers'
+import MockDate from 'mockdate'
+
+import { storeTriggerStates, isOlderThan, sub } from './helpers'
 
 const triggerStatesWithNotifsInfo = [
   {
@@ -53,5 +55,46 @@ describe('storeTriggerStates', () => {
         }
       }
     })
+  })
+})
+
+describe('sub', () => {
+  it('returns a Date object', () => {
+    expect(
+      sub(Date.now(), { days: 1, hours: 2, minutes: 3, seconds: 4 })
+    ).toBeInstanceOf(Date)
+    expect(
+      sub(new Date(), { days: 1, hours: 2, minutes: 3, seconds: 4 })
+    ).toBeInstanceOf(Date)
+  })
+
+  it('returns the expected past date', () => {
+    const base = Date.parse('28 Sep 2022 11:14:37 GMT')
+
+    const past = sub(base, { days: 1, hours: 2, minutes: 3, seconds: 4 })
+    expect(past.getUTCFullYear()).toBe(2022)
+    expect(past.getUTCMonth()).toBe(8) // Months are 0 indexed
+    expect(past.getUTCDate()).toBe(27)
+    expect(past.getUTCHours()).toBe(9)
+    expect(past.getUTCMinutes()).toBe(11)
+    expect(past.getUTCSeconds()).toBe(33)
+  })
+})
+
+describe('isOlderThan', () => {
+  afterEach(() => {
+    MockDate.reset()
+  })
+
+  it('returns true if given date is older than given time parameters', () => {
+    MockDate.set(Date.parse('28 Sep 2022 11:14:37 GMT'))
+
+    expect(isOlderThan('2022-09-28T11:14:33Z', { seconds: 3 })).toBe(true)
+  })
+
+  it('returns false if given date is not older than given time parameters', () => {
+    MockDate.set(Date.parse('28 Sep 2022 11:14:37 GMT'))
+
+    expect(isOlderThan('2022-09-28T11:14:33Z', { seconds: 4 })).toBe(false)
   })
 })
