@@ -1,6 +1,10 @@
 import memoize from 'lodash/memoize'
 import keyBy from 'lodash/keyBy'
 import get from 'lodash/get'
+import addDays from 'date-fns/add_days'
+import addHours from 'date-fns/add_hours'
+import addMinutes from 'date-fns/add_minutes'
+import addSeconds from 'date-fns/add_seconds'
 import parse from 'date-fns/parse'
 import subDays from 'date-fns/sub_days'
 import subHours from 'date-fns/sub_hours'
@@ -120,6 +124,9 @@ export const fetchRelatedFuturAtTriggers = async (client, id) => {
 
   return data
 }
+
+export const add = (base, { days = 0, hours = 0, minutes = 0, seconds = 0 }) =>
+  addDays(addHours(addMinutes(addSeconds(base, seconds), minutes), hours), days)
 
 export const sub = (base, { days = 0, hours = 0, minutes = 0, seconds = 0 }) =>
   subDays(subHours(subMinutes(subSeconds(base, seconds), minutes), hours), days)

@@ -1,7 +1,7 @@
 import { createMockClient } from 'cozy-client'
 import MockDate from 'mockdate'
 
-import { storeTriggerStates, isOlderThan, sub } from './helpers'
+import { add, storeTriggerStates, isOlderThan, sub } from './helpers'
 
 const triggerStatesWithNotifsInfo = [
   {
@@ -78,6 +78,44 @@ describe('sub', () => {
     expect(past.getUTCHours()).toBe(9)
     expect(past.getUTCMinutes()).toBe(11)
     expect(past.getUTCSeconds()).toBe(33)
+  })
+})
+
+describe('add', () => {
+  it('returns a Date object', () => {
+    expect(
+      add(Date.now(), {
+        days: 1,
+        hours: 2,
+        minutes: 3,
+        seconds: 4
+      })
+    ).toBeInstanceOf(Date)
+    expect(
+      add(new Date(), {
+        days: 1,
+        hours: 2,
+        minutes: 3,
+        seconds: 4
+      })
+    ).toBeInstanceOf(Date)
+  })
+
+  it('returns the expected future date', () => {
+    const base = Date.parse('28 Sep 2022 11:14:37 GMT')
+
+    const future = add(base, {
+      days: 1,
+      hours: 2,
+      minutes: 3,
+      seconds: 4
+    })
+    expect(future.getUTCFullYear()).toBe(2022)
+    expect(future.getUTCMonth()).toBe(8) // Months are 0 indexed
+    expect(future.getUTCDate()).toBe(29)
+    expect(future.getUTCHours()).toBe(13)
+    expect(future.getUTCMinutes()).toBe(17)
+    expect(future.getUTCSeconds()).toBe(41)
   })
 })
 
