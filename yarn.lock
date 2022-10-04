@@ -5131,10 +5131,10 @@ cozy-authentication@2.1.0:
     snarkdown "1.2.2"
     url-polyfill "1.1.7"
 
-cozy-bar@^8.7.5:
-  version "8.7.5"
-  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-8.7.5.tgz#c7be797cbe2578e8a8b8ceebd33c7bff3f092218"
-  integrity sha512-p73V3BKapJn85JRKtXHfkLEai77T7ydYeNZ+g2vfJDpq9zXAy/elq9AOMVFCvoB2M56XGH+obZK0S7qMmW61rQ==
+cozy-bar@8.9.3:
+  version "8.9.3"
+  resolved "https://registry.yarnpkg.com/cozy-bar/-/cozy-bar-8.9.3.tgz#529fccb1c05ef7e10901ae692f0187d5d62d5e1a"
+  integrity sha512-OnujNXAcwOfKgMCq6Dfx+YSB+G3BAynrAImh1dfwzb3A87RWeNsT9v88BZ8j3EHIdbfh2XI7vS3Ouiw02JKRSg==
   dependencies:
     hammerjs "2.0.8"
     lodash.debounce "4.0.8"
