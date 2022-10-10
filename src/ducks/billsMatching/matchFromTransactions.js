@@ -1,18 +1,24 @@
 import min from 'lodash/min'
 import max from 'lodash/max'
-import { format as formatDate, addYears, subYears } from 'date-fns'
+import formatDate from 'date-fns/format'
+import addYears from 'date-fns/addYears'
+import subYears from 'date-fns/subYears'
+import parseISO from 'date-fns/parseISO'
+
 import { Bill } from 'models'
 import Linker from './Linker/Linker'
 
 export default async function matchFromTransactions(transactions) {
-  const transactionsDates = transactions.map(transaction => transaction.date)
+  const transactionsDates = transactions.map(transaction =>
+    parseISO(transaction.date)
+  )
   const dateMin = subYears(min(transactionsDates), 1)
   const dateMax = addYears(max(transactionsDates), 1)
 
   const selector = {
     date: {
-      $gt: formatDate(dateMin, 'YYYY-MM-DD'),
-      $lt: formatDate(dateMax, 'YYYY-MM-DD')
+      $gt: formatDate(dateMin, 'yyyy-MM-dd'),
+      $lt: formatDate(dateMax, 'yyyy-MM-dd')
     }
   }
 

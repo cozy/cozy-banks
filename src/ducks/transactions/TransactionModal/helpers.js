@@ -1,9 +1,9 @@
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
-import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
+import { getParsedTransactionDate } from 'ducks/transactions/helpers'
 
 export const showAlertAfterApplicationDateUpdate = (transaction, t, f) => {
-  const date = getApplicationDate(transaction) || getDate(transaction)
+  const date = getParsedTransactionDate(transaction)
   Alerter.success(
     t('Transactions.infos.applicationDateChangedAlert', {
       applicationDate: f(date, 'MMMM')

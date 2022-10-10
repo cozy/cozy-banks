@@ -5,7 +5,8 @@ import { BankTransaction } from 'cozy-doctypes'
 import flag from 'cozy-flags'
 import chunk from 'lodash/chunk'
 import sortBy from 'lodash/sortBy'
-import { differenceInSeconds } from 'date-fns'
+import differenceInSeconds from 'date-fns/differenceInSeconds'
+
 import { getTracker } from 'ducks/tracking/node'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 

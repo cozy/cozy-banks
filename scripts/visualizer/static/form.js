@@ -1,5 +1,6 @@
-import { format, parse } from 'date-fns'
-import frLocale from 'date-fns/locale/fr'
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
+import { fr as frLocale } from 'date-fns/locale'
 
 const serialize = formData => {
   const res = {}
@@ -10,13 +11,13 @@ const serialize = formData => {
 }
 
 function formatDate(d) {
-  return `<span class='date'>${format(parse(d), 'D MMM YYYY', {
+  return `<span class='date'>${format(parseISO(d), 'd MMM yyyy', {
     locale: frLocale
   })}</span>`
 }
 
 const comp = fn => {
-  return function(a, b) {
+  return function (a, b) {
     const resa = fn(a)
     const resb = fn(b)
     if (resa == resb) {
@@ -108,7 +109,7 @@ const renderText = results => {
   )
 }
 
-const renderResults = function(results) {
+const renderResults = function (results) {
   results = JSON.parse(results)
   const node = document.querySelector('#results')
   node.innerHTML = `${renderText(results)}`

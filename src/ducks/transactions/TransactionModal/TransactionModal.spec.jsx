@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, within } from '@testing-library/react'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { format } from 'date-fns'
+import format from 'date-fns/format'
 
 import AppLike from 'test/AppLike'
 import { createClientWithData } from 'test/client'

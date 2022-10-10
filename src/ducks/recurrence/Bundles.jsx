@@ -1,18 +1,17 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
-import distanceInWords from 'date-fns/distance_in_words'
+import intlFormatDistance from 'date-fns/intlFormatDistance'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { Bd, Img, Media } from 'cozy-ui/transpiled/react/Media'
 import Figure from 'cozy-ui/transpiled/react/Figure'
+
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import Table, { TdSecondary } from 'components/Table'
 import { useHistory } from 'components/RouterContext'
 
-import frLocale from 'date-fns/locale/fr'
-import enLocale from 'date-fns/locale/en'
-import esLocale from 'date-fns/locale/es'
+import { fr as frLocale, en as enLocale, es as esLocale } from 'date-fns/locale'
 
 import styles from './styles.styl'
 import {
@@ -38,8 +37,7 @@ const BundleDistance = ({ bundle }) => {
   const { lang } = useI18n()
   const d = useMemo(
     () =>
-      distanceInWords(Date.now(), bundle.latestDate, {
-        addSuffix: true,
+      intlFormatDistance(Date.now(), bundle.latestDate, {
         locale: dateFnsLocales[lang] || dateFnsLocales.en
       }),
     [bundle, lang]

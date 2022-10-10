@@ -14,7 +14,7 @@ const mockTransactions = [
   {
     _id: 't1',
     amount: 20,
-    date: '2018-09-16T12:00',
+    date: '2018-09-16T12:00:00.000Z',
     manualCategoryId: '400610',
     label: '1',
     account: 'accountId1'
@@ -24,14 +24,14 @@ const mockTransactions = [
   {
     _id: 't2',
     amount: 10,
-    date: '2018-09-17T12:00',
+    date: '2018-09-17T12:00:00.000Z',
     label: '2',
     account: 'accountId2'
   },
   {
     _id: 't3',
     amount: -5,
-    date: '2018-09-18T12:00',
+    date: '2018-09-18T12:00:00.000Z',
     label: '3',
     manualCategoryId: '400610',
     account: 'accountId3',
@@ -55,7 +55,7 @@ const mockTransactions = [
     {
       _id: 't5',
       amount: -30,
-      date: '2018-09-07T12:00',
+      date: '2018-09-07T12:00:00.000Z',
       manualCategoryId: '400610',
       label: '1',
       account: 'accountId1'
@@ -66,7 +66,7 @@ const mockTransactions = [
   {
     _id: 't6',
     amount: -20,
-    date: '2018-09-16T12:00',
+    date: '2018-09-16T12:00:00.000Z',
     manualCategoryId: '400610',
     label: '1',
     account: 'accountId1'

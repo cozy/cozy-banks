@@ -1,9 +1,10 @@
+import add from 'date-fns/add'
+
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
 import {
-  add,
-  getTriggerStates,
-  fetchRelatedFuturAtTriggers
+  fetchRelatedFuturAtTriggers,
+  getTriggerStates
 } from 'targets/services/konnectorAlerts/helpers'
 
 const createTriggerAt = async ({ client, date, konnectorTriggerId }) => {

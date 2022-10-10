@@ -1,17 +1,21 @@
 import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
+import startOfMonth from 'date-fns/startOfMonth'
+import endOfMonth from 'date-fns/endOfMonth'
+import isAfter from 'date-fns/isAfter'
+import subDays from 'date-fns/subDays'
+import subMonths from 'date-fns/subMonths'
+
 import {
   getBalanceHistories,
   sumBalanceHistories,
   balanceHistoryToChartData
 } from 'ducks/balance/helpers'
-import { startOfMonth, endOfMonth, isAfter, subDays, subMonths } from 'date-fns'
 import { getAccounts, getTransactions } from 'selectors'
 import {
   getFilteredTransactions,
   getTransactionsFilteredByAccount,
   getFilteredAccounts
 } from 'ducks/filters'
-
 import { getCategoryId } from 'ducks/transactions/helpers'
 import { createSelector } from 'reselect'
 

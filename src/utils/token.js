@@ -1,4 +1,6 @@
-import { isBefore, subDays, isValid } from 'date-fns'
+import isBefore from 'date-fns/isBefore'
+import subDays from 'date-fns/subDays'
+import isValid from 'date-fns/isValid'
 
 /**
  * This check will be removed when we will be able to inject a cozy-client

@@ -36,7 +36,7 @@ import SearchHeader from 'ducks/search/SearchHeader'
 import searchIllu from 'assets/search-illu.svg'
 
 const emptyResults = []
-const transactionListOptions = { mobileSectionDateFormat: 'ddd D MMMM YYYY' }
+const transactionListOptions = { mobileSectionDateFormat: 'EEE d MMMM yyyy' }
 const emptyButtonStyle = { maxWidth: '80%' }
 
 const SearchPage = () => {

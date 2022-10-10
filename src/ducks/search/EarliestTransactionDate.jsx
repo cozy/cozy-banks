@@ -17,7 +17,11 @@ const EarliestTransactionDate = ({
   if (!transaction) return null
   return (
     <div>
-      {t('Search.since', { date: f(transaction.date, 'D MMM YYYY') })}
+      {t('Search.since', {
+        // XXX: f() is an old version of date-fns/format which does not
+        // understand the new format string.
+        date: f(transaction.date, 'D MMM YYYY')
+      })}
       {transactionCol.hasMore ? (
         <Tooltip title={t('Search.search-older-transactions')}>
           <IconButton

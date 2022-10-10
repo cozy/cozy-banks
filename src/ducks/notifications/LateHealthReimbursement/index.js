@@ -1,7 +1,9 @@
 import uniq from 'lodash/uniq'
 import keyBy from 'lodash/keyBy'
 import logger from 'cozy-logger'
-import { subDays, subMonths, format as formatDate } from 'date-fns'
+import subDays from 'date-fns/subDays'
+import subMonths from 'date-fns/subMonths'
+import formatDate from 'date-fns/format'
 
 import { BankTransaction, BankAccount } from 'cozy-doctypes'
 import { toText } from 'cozy-notifications'
@@ -67,16 +69,18 @@ class LateHealthReimbursement extends NotificationView {
   }
 
   async fetchTransactions() {
-    const DATE_FORMAT = 'YYYY-MM-DD'
+    const DATE_FORMAT = 'yyyy-MM-dd'
     const today = new Date()
-    const lt = formatDate(subDays(today, this.interval), DATE_FORMAT)
-    const gt = formatDate(subMonths(lt, 6), DATE_FORMAT)
+    const lt = subDays(today, this.interval)
+    const gt = subMonths(lt, 6)
+    const $lt = formatDate(lt, DATE_FORMAT)
+    const $gt = formatDate(gt, DATE_FORMAT)
 
-    log('info', `Fetching transactions between ${gt} and ${lt}`)
+    log('info', `Fetching transactions between ${$gt} and ${$lt}`)
     const transactionsInDateRange = await BankTransaction.queryAll({
       date: {
-        $gt: gt,
-        $lt: lt
+        $gt,
+        $lt
       }
     })
     log(

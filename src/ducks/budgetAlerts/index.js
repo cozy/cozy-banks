@@ -1,10 +1,14 @@
 import logger from 'cozy-logger'
+import sumBy from 'lodash/sumBy'
+import startOfMonth from 'date-fns/startOfMonth'
+import endOfMonth from 'date-fns/endOfMonth'
+import addDays from 'date-fns/addDays'
+import format from 'date-fns/format'
+
 import { TRANSACTION_DOCTYPE, ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { getCategoryId } from 'ducks/transactions/helpers'
 import { isParentOf } from 'ducks/categories/categoriesMap'
-import sumBy from 'lodash/sumBy'
 import { fetchCategoryAlerts } from 'ducks/settings/helpers'
-import { startOfMonth, endOfMonth, addDays, format } from 'date-fns'
 
 import { Q } from 'cozy-client'
 
@@ -57,8 +61,8 @@ export const fetchExpensesForAlert = async (
   let currentDate = originalCurrentDate
     ? new Date(originalCurrentDate)
     : new Date()
-  const start = format(startOfMonth(currentDate), 'YYYY-MM')
-  const end = format(addDays(endOfMonth(currentDate), 1), 'YYYY-MM')
+  const start = format(startOfMonth(currentDate), 'yyyy-MM')
+  const end = format(addDays(endOfMonth(currentDate), 1), 'yyyy-MM')
   const selector = {
     date: {
       $lt: end,

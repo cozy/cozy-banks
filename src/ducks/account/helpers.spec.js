@@ -28,7 +28,9 @@ describe('getAccountUpdatedAt', () => {
   })
 
   const jobTrigger = triggersFixtures[1].attributes
-  const account = { cozyMetadata: { updatedAt: new Date(2019, 0, 10) } }
+  const account = {
+    cozyMetadata: { updatedAt: new Date(2019, 0, 10).toISOString() }
+  }
   it('should work when jobTrigger does not exist', () => {
     expect(getAccountUpdatedAt(account, null)).toEqual({
       params: { nbDays: 2 },

@@ -2,7 +2,10 @@ import map from 'lodash/map'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
 import merge from 'lodash/merge'
-import { endOfMonth, subDays, isWithinRange } from 'date-fns'
+import endOfMonth from 'date-fns/endOfMonth'
+import subDays from 'date-fns/subDays'
+import startOfDay from 'date-fns/startOfDay'
+import isWithinInterval from 'date-fns/isWithinInterval'
 
 import { toText } from 'cozy-notifications'
 import logger from 'cozy-logger'
@@ -42,11 +45,9 @@ export const isCreditCardAccount = account =>
 export const isWithinEndOfMonthRange = nbDaysBeforeEndOfMonth => {
   const today = new Date()
   const lastDayOfMonth = endOfMonth(today)
-  // We need to add one to nbDaysBeforeEndOfMonth because `isWithinRange` is
-  // exclusive
-  const limitDate = subDays(lastDayOfMonth, nbDaysBeforeEndOfMonth + 1)
+  const limitDate = startOfDay(subDays(lastDayOfMonth, nbDaysBeforeEndOfMonth))
 
-  return isWithinRange(today, limitDate, lastDayOfMonth)
+  return isWithinInterval(today, { start: limitDate, end: lastDayOfMonth })
 }
 
 const isBalanceGreater = (account1, account2) => {

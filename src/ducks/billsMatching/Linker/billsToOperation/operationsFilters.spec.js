@@ -51,11 +51,11 @@ describe('operations filters', () => {
     }
     const fByDates = filterByDates(rangeDates)
 
-    expect(fByDates({ date: new Date(2018, 0, 15) })).toBeFalsy()
-    expect(fByDates({ date: new Date(2018, 0, 16) })).toBeTruthy()
-    expect(fByDates({ date: new Date(2018, 0, 17) })).toBeTruthy()
-    expect(fByDates({ date: new Date(2018, 0, 18) })).toBeTruthy()
-    expect(fByDates({ date: new Date(2018, 0, 19) })).toBeFalsy()
+    expect(fByDates({ date: new Date(2018, 0, 15).toISOString() })).toBeFalsy()
+    expect(fByDates({ date: new Date(2018, 0, 16).toISOString() })).toBeTruthy()
+    expect(fByDates({ date: new Date(2018, 0, 17).toISOString() })).toBeTruthy()
+    expect(fByDates({ date: new Date(2018, 0, 18).toISOString() })).toBeTruthy()
+    expect(fByDates({ date: new Date(2018, 0, 19).toISOString() })).toBeFalsy()
   })
 
   describe('filtering by amount range', () => {
@@ -171,46 +171,51 @@ describe('operations filters', () => {
         amount: -20,
         label: 'Visite chez le médecin',
         _id: 'o1',
-        date: new Date(2017, 11, 13),
+        date: new Date(2017, 11, 13).toISOString(),
         manualCategoryId: '400610'
       },
       {
         amount: 5,
         label: 'Remboursement CPAM',
         _id: 'o2',
-        date: new Date(2017, 11, 15),
+        date: new Date(2017, 11, 15).toISOString(),
         manualCategoryId: '400610'
       },
       {
         amount: -120,
         label: 'Facture SFR',
         _id: 'o3',
-        date: new Date(2017, 11, 8)
+        date: new Date(2017, 11, 8).toISOString()
       },
       {
         amount: -30,
         label: 'Facture SFR',
         _id: 'o4',
-        date: new Date(2017, 11, 7)
+        date: new Date(2017, 11, 7).toISOString()
       },
       {
         amount: -80,
         label: "Matériel d'escalade",
         _id: 'o5',
-        date: new Date(2017, 11, 7)
+        date: new Date(2017, 11, 7).toISOString()
       },
       {
         amount: -5.5,
         label: 'Burrito',
         _id: 'o6',
-        date: new Date(2017, 11, 5)
+        date: new Date(2017, 11, 5).toISOString()
       },
-      { amount: -2.6, label: 'Salade', _id: 'o7', date: new Date(2017, 11, 6) },
+      {
+        amount: -2.6,
+        label: 'Salade',
+        _id: 'o7',
+        date: new Date(2017, 11, 6).toISOString()
+      },
       {
         amount: 50,
         label: 'Remboursement CPAM',
         _id: 'o8',
-        date: new Date(2017, 11, 15),
+        date: new Date(2017, 11, 15).toISOString(),
         manualCategoryId: '400610',
         reimbursements: [{ amount: 50 }]
       },
@@ -219,7 +224,7 @@ describe('operations filters', () => {
         label: 'Visite chez le dentiste',
         _id: 'o9',
         manualCategoryId: '400610',
-        date: new Date(2017, 11, 16),
+        date: new Date(2017, 11, 16).toISOString(),
         reimbursements: []
       },
       {
@@ -227,7 +232,7 @@ describe('operations filters', () => {
         label: 'Dafalgan',
         _id: 'o10',
         manualCategoryId: '400610',
-        date: new Date(2017, 11, 16),
+        date: new Date(2017, 11, 16).toISOString(),
         reimbursements: []
       },
       {
@@ -235,7 +240,7 @@ describe('operations filters', () => {
         label: 'Remboursement CPAM',
         _id: 'o11',
         manualCategoryId: '400610',
-        date: new Date(2017, 11, 16),
+        date: new Date(2017, 11, 16).toISOString(),
         reimbursements: []
       }
     ]
@@ -253,7 +258,7 @@ describe('operations filters', () => {
         originalAmount: 20,
         type: 'health_costs',
         originalDate: new Date(2017, 11, 13),
-        date: new Date(2017, 11, 15),
+        date: new Date(2017, 11, 15).toISOString(),
         isRefund: true,
         vendor: 'Ameli'
       }
@@ -277,7 +282,7 @@ describe('operations filters', () => {
     describe('not health bill', () => {
       const bill = {
         amount: 30,
-        date: new Date(2017, 11, 8),
+        date: new Date(2017, 11, 8).toISOString(),
         vendor: 'SFR'
       }
 
@@ -299,7 +304,7 @@ describe('operations filters', () => {
       const bill = {
         amount: 50,
         groupAmount: 57.5,
-        date: new Date(2017, 11, 16),
+        date: new Date(2017, 11, 16).toISOString(),
         vendor: 'Ameli',
         type: 'health_costs',
         isRefund: true

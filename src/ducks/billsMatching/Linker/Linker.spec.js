@@ -426,59 +426,59 @@ describe('linker', () => {
       const bills = [
         {
           _id: 'b1',
-          originalDate: new Date(2018, 2, 10),
+          originalDate: new Date(2018, 2, 10).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b2',
-          originalDate: new Date(2018, 2, 10),
+          originalDate: new Date(2018, 2, 10).toISOString(),
           vendor: 'Numéricable',
           type: 'health_costs'
         },
         {
           _id: 'b3',
-          originalDate: new Date(2018, 2, 10),
+          originalDate: new Date(2018, 2, 10).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b4',
-          originalDate: new Date(2018, 2, 15),
+          originalDate: new Date(2018, 2, 15).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b5',
-          originalDate: new Date(2018, 2, 15),
+          originalDate: new Date(2018, 2, 15).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b6',
-          originalDate: new Date(2018, 2, 20),
+          originalDate: new Date(2018, 2, 20).toISOString(),
           vendor: 'Numéricable'
         },
         {
           _id: 'b7',
-          originalDate: new Date(2018, 2, 20),
+          originalDate: new Date(2018, 2, 20).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b8',
-          originalDate: new Date(2018, 2, 20),
+          originalDate: new Date(2018, 2, 20).toISOString(),
           vendor: 'Numéricable'
         },
         {
           _id: 'b9',
-          originalDate: new Date(2018, 2, 20),
+          originalDate: new Date(2018, 2, 20).toISOString(),
           vendor: 'Ameli',
           type: 'health_costs'
         },
         {
           _id: 'b10',
-          originalDate: new Date(2018, 2, 30),
+          originalDate: new Date(2018, 2, 30).toISOString(),
           vendor: 'Numéricable'
         }
       ]

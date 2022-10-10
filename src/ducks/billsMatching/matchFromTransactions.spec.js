@@ -4,9 +4,9 @@ import { Bill } from 'models'
 jest.mock('./Linker/Linker')
 
 const transactions = [
-  { date: '2019-07-01' },
-  { date: '2019-07-20' },
-  { date: '2019-08-21' }
+  { date: '2019-07-01T00:00:00.000Z' },
+  { date: '2019-07-20T00:00:00.000Z' },
+  { date: '2019-08-21T00:00:00.000Z' }
 ]
 
 beforeEach(() => {

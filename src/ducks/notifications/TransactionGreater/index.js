@@ -1,4 +1,4 @@
-import { subDays } from 'date-fns'
+import subDays from 'date-fns/subDays'
 import uniqBy from 'lodash/uniqBy'
 import flatten from 'lodash/flatten'
 import overEvery from 'lodash/overEvery'

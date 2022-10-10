@@ -1,12 +1,13 @@
+import formatDate from 'date-fns/format'
+
 import Linker, {
   DEFAULT_DATE_LOWER_DELTA,
   DEFAULT_DATE_UPPER_DELTA
 } from './Linker/Linker'
-import { format as formatDate } from 'date-fns'
 import { Transaction } from 'models'
 import { getDateRangeFromBill } from './Linker/billsToOperation/helpers'
 
-const DATE_FORMAT = 'YYYY-MM-DD'
+const DATE_FORMAT = 'yyyy-MM-dd'
 
 export default async function matchFromBills(bills) {
   const options = {

@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { transactionsConn } from 'doctypes'
 import sumBy from 'lodash/sumBy'
-
 import { isQueryLoading, hasQueryBeenLoaded, useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import getYear from 'date-fns/getYear'
 
+import { transactionsConn } from 'doctypes'
 import { TransactionList } from 'ducks/transactions/Transactions'
 import styles from 'ducks/reimbursements/Reimbursements.styl'
 import Loading from 'components/Loading'
 import { Section, SectionTitle } from 'components/Section'
 import { useFilters } from 'components/withFilters'
-import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
 import { useBrands } from 'ducks/brandDictionary/withBrands'
 import { getGroupedFilteredExpenses } from './selectors'
@@ -52,6 +51,8 @@ export const DumbReimbursements = ({
   const hasHealthBrands =
     brands.filter(brand => brand.hasTrigger && brand.health).length > 0
 
+  // XXX: f() is an old version of date-fns/format which does not understand the
+  // new format string.
   const formattedPeriod = f(
     parsePeriod(currentPeriod),
     currentPeriod.length === 4 ? 'YYYY' : 'MMMM YYYY'

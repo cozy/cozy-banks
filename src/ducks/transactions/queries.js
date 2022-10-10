@@ -1,7 +1,7 @@
-import startOfMonth from 'date-fns/start_of_month'
-import endOfMonth from 'date-fns/end_of_month'
-import startOfYear from 'date-fns/start_of_year'
-import endOfYear from 'date-fns/end_of_year'
+import startOfMonth from 'date-fns/startOfMonth'
+import endOfMonth from 'date-fns/endOfMonth'
+import startOfYear from 'date-fns/startOfYear'
+import endOfYear from 'date-fns/endOfYear'
 import format from 'date-fns/format'
 import merge from 'lodash/merge'
 
@@ -178,7 +178,7 @@ export const addPeriodToConn = ({
   const startDate = period.length === 7 ? startOfMonth(d) : startOfYear(d)
   const endDate = period.length === 7 ? endOfMonth(d) : endOfYear(d)
   const dateFormat =
-    dateAttribute === APPLICATION_DATE ? 'YYYY-MM-DD' : 'YYYY-MM-DD[T]HH:mm'
+    dateAttribute === APPLICATION_DATE ? 'yyyy-MM-dd' : `yyyy-MM-dd'T'HH:mm`
   const baseQuery = mkBaseQuery()
 
   const query = Q(baseQuery.doctype)
@@ -200,8 +200,8 @@ export const addPeriodToConn = ({
     .limitBy(500)
   const as = `${baseAs}-by-${dateAttribute}-${format(
     startDate,
-    'YYYY-MM'
-  )}-${format(endDate, 'YYYY-MM')}`
+    'yyyy-MM'
+  )}-${format(endDate, 'yyyy-MM')}`
   return {
     query,
     as,

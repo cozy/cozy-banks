@@ -1,5 +1,9 @@
+// XXX: We use `require` instead of `import` in this file to be able to change
+// the name of filter functions. Otherwise they would be read-only.
 const sumBy = require('lodash/sumBy')
-const isWithinRange = require('date-fns/is_within_range')
+const parseISO = require('date-fns/parseISO')
+const isWithinInterval = require('date-fns/isWithinInterval')
+
 const { log } = require('../../utils')
 const { getCategoryId } = require('../../../transactions/helpers')
 
@@ -54,8 +58,8 @@ const filterByBrand = bill => {
 
 const filterByDates = ({ minDate, maxDate }) => {
   const dateFilter = operation => {
-    const operationDate = operation.realisationDate || operation.date
-    return isWithinRange(operationDate, minDate, maxDate)
+    const operationDate = parseISO(operation.realisationDate || operation.date)
+    return isWithinInterval(operationDate, { start: minDate, end: maxDate })
   }
 
   dateFilter.name = 'byDates'

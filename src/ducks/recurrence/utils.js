@@ -2,9 +2,9 @@ import uniqBy from 'lodash/uniqBy'
 import startCase from 'lodash/startCase'
 import min from 'lodash/min'
 import max from 'lodash/max'
-import addDays from 'date-fns/add_days'
-import parse from 'date-fns/parse'
-import differenceInDays from 'date-fns/difference_in_days'
+import addDays from 'date-fns/addDays'
+import parseISO from 'date-fns/parseISO'
+import differenceInDays from 'date-fns/differenceInDays'
 
 import flag from 'cozy-flags'
 
@@ -115,7 +115,7 @@ export const nextDate = recurrence => {
         deltas: { median }
       }
     } = recurrence
-    const latestDate = parse(rawLatestDate)
+    const latestDate = parseISO(rawLatestDate)
     const now = new Date(Date.now())
     const deltaDays = differenceInDays(now, latestDate)
     const n = deltaDays / median
@@ -133,7 +133,7 @@ export const nextDate = recurrence => {
 }
 
 export const isDeprecatedBundle = recurrence => {
-  const latestDate = parse(recurrence.latestDate)
+  const latestDate = parseISO(recurrence.latestDate)
   const now = Date.now()
   return differenceInDays(now, latestDate)
 }

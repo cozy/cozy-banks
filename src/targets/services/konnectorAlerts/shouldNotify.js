@@ -1,4 +1,5 @@
 import get from 'lodash/get'
+import parseISO from 'date-fns/parseISO'
 
 import { Q } from 'cozy-client'
 
@@ -44,7 +45,10 @@ export const shouldNotify = async ({ client, trigger, previousStates }) => {
   // minutes, with a maximum of 15 minutes, so we prevent notifications to be
   // sent if we're past that delay.
   if (
-    isOlderThan(trigger.current_state.last_failure, { days: 7, minutes: 15 })
+    isOlderThan(parseISO(trigger.current_state.last_failure), {
+      days: 7,
+      minutes: 15
+    })
   ) {
     return { ok: false, reason: 'last-failure-too-old' }
   }

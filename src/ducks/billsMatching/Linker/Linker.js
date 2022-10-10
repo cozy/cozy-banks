@@ -14,6 +14,7 @@ const omit = require('lodash/omit')
 const max = require('lodash/max')
 const geco = require('geco')
 const format = require('date-fns/format')
+const parseISO = require('date-fns/parseISO')
 const { getBillDate, log } = require('../utils')
 const { getTracker } = require('ducks/tracking/node')
 const { Transaction, Bill } = require('models')
@@ -558,7 +559,7 @@ class Linker {
   groupBills(bills) {
     const billsToGroup = bills.filter(bill => this.billCanBeGrouped(bill))
     const groups = groupBy(billsToGroup, bill => {
-      return [format(getBillDate(bill), 'YYYY-MM-DD'), bill.vendor]
+      return [format(parseISO(getBillDate(bill)), 'yyyy-MM-dd'), bill.vendor]
     })
 
     return Object.values(groups)

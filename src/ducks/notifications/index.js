@@ -3,7 +3,8 @@
  */
 
 import Handlebars from 'handlebars'
-import { parse, format } from 'date-fns'
+import parse from 'date-fns/parse'
+import format from 'date-fns/format'
 
 import { getCategoryId } from 'ducks/transactions/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
@@ -53,12 +54,12 @@ ${Math.abs(amount)} €
     let fmtToUse = fmt
     if (ctxToUse === undefined) {
       ctxToUse = fmt
-      fmtToUse = 'DD/MM/YYYY'
+      fmtToUse = 'dd/MM/yyyy'
     }
     if (date.getDay) {
       return format(date, fmtToUse)
     } else {
-      const parsed = parse(date.substr(0, 10), 'YYYY-MM-DD')
+      const parsed = parse(date.substr(0, 10), 'yyyy-MM-dd', new Date())
       return format(parsed, fmtToUse)
     }
   },

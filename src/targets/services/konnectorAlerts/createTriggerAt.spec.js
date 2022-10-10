@@ -1,7 +1,8 @@
 import { createMockClient } from 'cozy-client'
+import sub from 'date-fns/sub'
 
 import { createScheduledTrigger, containerForTesting } from './createTriggerAt'
-import { fetchRelatedFuturAtTriggers, getTriggerStates, sub } from './helpers'
+import { fetchRelatedFuturAtTriggers, getTriggerStates } from './helpers'
 
 jest.mock('./helpers', () => ({
   ...jest.requireActual('./helpers'),
@@ -56,7 +57,11 @@ describe('createTriggerAt', () => {
       getTriggerStates.mockResolvedValue({
         trigger01Id: {
           shouldNotify: { ok: true },
-          last_failure: sub(Date.now(), { hours: 23, minutes: 59, seconds: 59 })
+          last_failure: sub(Date.now(), {
+            hours: 23,
+            minutes: 59,
+            seconds: 59
+          })
         }
       })
       fetchRelatedFuturAtTriggers.mockResolvedValue([])

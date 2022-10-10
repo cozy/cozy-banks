@@ -162,40 +162,40 @@ describe('getterHelper', () => {
   })
 
   describe('sortedOperations', () => {
-    const bill = { date: new Date(2017, 0, 17), amount: 10 }
+    const bill = { date: new Date(2017, 0, 17).toISOString(), amount: 10 }
 
     test('op.date === bill.date && op.amount === bill.amount', () => {
       const operations = [
-        { id: 1, date: new Date(2017, 0, 16), amount: -10 },
-        { id: 3, date: new Date(2017, 0, 17), amount: -10 },
-        { id: 2, date: new Date(2017, 0, 17), amount: -11 }
+        { id: 1, date: new Date(2017, 0, 16).toISOString(), amount: -10 },
+        { id: 3, date: new Date(2017, 0, 17).toISOString(), amount: -10 },
+        { id: 2, date: new Date(2017, 0, 17).toISOString(), amount: -11 }
       ]
       expect(sortedOperations(bill, operations)[0]).toEqual(operations[1])
     })
 
     test('op.date === bill.date, so only amount is important', () => {
       const operations = [
-        { id: 1, date: new Date(2017, 0, 17), amount: -8 },
-        { id: 2, date: new Date(2017, 0, 17), amount: -9 },
-        { id: 3, date: new Date(2017, 0, 17), amount: -12 }
+        { id: 1, date: new Date(2017, 0, 17).toISOString(), amount: -8 },
+        { id: 2, date: new Date(2017, 0, 17).toISOString(), amount: -9 },
+        { id: 3, date: new Date(2017, 0, 17).toISOString(), amount: -12 }
       ]
       expect(sortedOperations(bill, operations)[0]).toEqual(operations[1])
     })
 
     test('op.amount === bill.amount, so only date is important', () => {
       const operations = [
-        { id: 1, date: new Date(2017, 0, 15), amount: -10 },
-        { id: 2, date: new Date(2017, 0, 18), amount: -10 },
-        { id: 3, date: new Date(2017, 0, 19), amount: -10 }
+        { id: 1, date: new Date(2017, 0, 15).toISOString(), amount: -10 },
+        { id: 2, date: new Date(2017, 0, 18).toISOString(), amount: -10 },
+        { id: 3, date: new Date(2017, 0, 19).toISOString(), amount: -10 }
       ]
       expect(sortedOperations(bill, operations)[0]).toEqual(operations[1])
     })
 
     test('amount & date are different', () => {
       const operations = [
-        { id: 1, date: new Date(2017, 0, 16), amount: -12 },
-        { id: 2, date: new Date(2017, 0, 18), amount: -11 },
-        { id: 3, date: new Date(2017, 0, 19), amount: -13 }
+        { id: 1, date: new Date(2017, 0, 16).toISOString(), amount: -12 },
+        { id: 2, date: new Date(2017, 0, 18).toISOString(), amount: -11 },
+        { id: 3, date: new Date(2017, 0, 19).toISOString(), amount: -13 }
       ]
       expect(sortedOperations(bill, operations)[0]).toEqual(operations[1])
     })
