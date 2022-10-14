@@ -1,3 +1,9 @@
+# 1.46.1
+
+## ✨ Features
+
+## 🐛 Bug Fixes
+
 # 1.46.0
 
 ## ✨ Features
