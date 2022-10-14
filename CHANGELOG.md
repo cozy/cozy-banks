@@ -2,7 +2,11 @@
 
 ## ✨ Features
 
-## 🐛 Bug Fixes
+* Don't notify users about very old konnector run failures (i.e. older than 7 days and 15 minutes which is the maximum delay between the last failure and the scheduled 7 days reminder).
+
+### 🐛 Bug Fixes
+
+* Prevent scheduling `konnectorAlerts` triggers in the past which would be executed right away by `cozy-stack` ending up sending multiple notifications to the user about the failed konnector run.
 
 # 1.46.0
 
