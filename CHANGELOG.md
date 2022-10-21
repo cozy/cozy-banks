@@ -1,4 +1,22 @@
+# 1.48.0
+
 # 1.47.0
+
+## ✨ Features
+
+* Add wait job
+* New OAuthWrapperCompProps in TriggerManager
+* Preserve selected tags when navigating in categories
+* Don't notify users about very old konnector run failures (i.e. older than 7 days and 15 minutes which is the maximum delay between the last failure and the scheduled 7 days reminder).
+* Remove flag for Tags feature
+
+## 🐛 Bug Fixes
+
+* Add and remove tags at the same time on a transaction
+* Fix blank block within the flagship app for the cozy-bar
+* Prevent scheduling `konnectorAlerts` triggers in the past which would be executed right away by `cozy-stack` ending up sending multiple notifications to the user about the failed konnector run.
+* Include virtual accounts in the account total count in balance details
+* Log event only when hiding incomes and not when unhiding them
 
 # 1.46.0
 
