@@ -5,7 +5,7 @@ import CozyClient, {
   Q,
   HasMany
 } from 'cozy-client'
-import subYears from 'date-fns/sub_years'
+import subYears from 'date-fns/subYears'
 import format from 'date-fns/format'
 
 // eslint-disable-next-line no-unused-vars
@@ -299,7 +299,7 @@ export const transactionsConn = {
 }
 
 export const makeBalanceTransactionsConn = () => {
-  const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
+  const fromDate = format(subYears(new Date(), 1), 'yyyy-MM-dd')
   return {
     as: 'home/transactions',
     fetchPolicy: neverReload,

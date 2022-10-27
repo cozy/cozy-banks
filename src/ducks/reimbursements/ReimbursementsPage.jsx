@@ -1,23 +1,22 @@
 import React, { useMemo } from 'react'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import cx from 'classnames'
+import { GROUP_DOCTYPE } from 'doctypes'
+import subMonths from 'date-fns/subMonths'
+import format from 'date-fns/format'
+import endOfDay from 'date-fns/endOfDay'
+import differenceInCalendarMonths from 'date-fns/differenceInCalendarMonths'
+
 import Header from 'components/Header'
 import Padded from 'components/Padded'
 import { PageTitle } from 'components/Title'
-import cx from 'classnames'
 import BackButton from 'components/BackButton'
 import { ConnectedSelectDates } from 'components/SelectDates'
 import Reimbursements from 'ducks/reimbursements/Reimbursements'
 import styles from 'ducks/reimbursements/ReimbursementsPage.styl'
 import useFilteringDoc from 'ducks/filters/useFilteringDoc'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
-import { GROUP_DOCTYPE } from 'doctypes'
-import {
-  subMonths,
-  format,
-  endOfDay,
-  differenceInCalendarMonths
-} from 'date-fns'
 
 const getTitleTranslationKey = doc => {
   const base = 'Reimbursements.title'
@@ -49,7 +48,7 @@ const getDefaultOptions = () => {
   const now = endOfDay(new Date())
 
   for (let i = 0; i < differenceInCalendarMonths(now, start2016); i++) {
-    const month = format(subMonths(now, i), 'YYYY-MM')
+    const month = format(subMonths(now, i), 'yyyy-MM')
     options.push({
       yearMonth: month
     })

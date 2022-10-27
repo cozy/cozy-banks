@@ -3,15 +3,14 @@ import uniq from 'lodash/uniq'
 import sumBy from 'lodash/sumBy'
 import groupBy from 'lodash/groupBy'
 import flatten from 'lodash/flatten'
-import {
-  min as getEarliestDate,
-  isAfter as isDateAfter,
-  isEqual as isDateEqual,
-  subDays,
-  parse as parseDate,
-  format as formatDate,
-  isValid as isDateValid
-} from 'date-fns'
+import getEarliestDate from 'date-fns/min'
+import isDateAfter from 'date-fns/isAfter'
+import isDateEqual from 'date-fns/isEqual'
+import subDays from 'date-fns/subDays'
+import parseISO from 'date-fns/parseISO'
+import formatDate from 'date-fns/format'
+import isDateValid from 'date-fns/isValid'
+
 import { getAccountBalance } from 'ducks/account/helpers'
 import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
 
@@ -21,23 +20,23 @@ import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
  * @param {Object[]} transactions - The transactions of the account
  * @param {Date} to - The date to which you want the history
  * @param {Date} from - The date from you want the history
- * @returns {Object} The balance history indexed by dates (YYYY-MM-DD)
+ * @returns {Object} The balance history indexed by dates (yyyy-MM-dd)
  */
 export const getBalanceHistory = (account, transactions, to, from) => {
   let clonedFrom = from
-  const DATE_FORMAT = 'YYYY-MM-DD'
+  const DATE_FORMAT = 'yyyy-MM-dd'
 
   const transactionsByDate = groupBy(transactions, t =>
     formatDate(
       // do not take .realisationDate as we are interested in the debit date
-      t.date,
+      parseISO(t.date),
       DATE_FORMAT
     )
   )
 
   if (!clonedFrom) {
     const earliestTransactionDate = getEarliestDate(
-      ...Object.keys(transactionsByDate)
+      Object.keys(transactionsByDate).map(parseISO)
     )
     clonedFrom = isDateValid(earliestTransactionDate)
       ? earliestTransactionDate
@@ -147,7 +146,7 @@ export const balanceHistoryToChartData = history => {
   const dates = getAllDates([history]).sort()
 
   const data = dates.map(date => ({
-    x: parseDate(date),
+    x: parseISO(date),
     y: history[date]
   }))
 

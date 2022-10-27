@@ -1,8 +1,8 @@
 import { createMockClient } from 'cozy-client'
 import MockDate from 'mockdate'
+import sub from 'date-fns/sub'
 
 import { shouldNotify } from './shouldNotify'
-import { sub } from './helpers'
 
 describe('shouldNotify', () => {
   const setup = ({ last_failure } = {}) => {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { format as formatDate, subYears, isAfter } from 'date-fns'
+import formatDate from 'date-fns/format'
+import subYears from 'date-fns/subYears'
+import isAfter from 'date-fns/isAfter'
 import memoize from 'lodash/memoize'
 import max from 'lodash/max'
 import groupBy from 'lodash/groupBy'
@@ -97,7 +99,7 @@ class History extends Component {
 
     const data = this.getChartData()
     const nbTicks = uniq(
-      Object.keys(groupBy(data, i => formatDate(i.x, 'YYYY-MM')))
+      Object.keys(groupBy(data, i => formatDate(i.x, 'yyyy-MM')))
     ).length
 
     const intervalBetweenMonths = isMobile ? 52 : 89

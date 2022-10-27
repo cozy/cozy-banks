@@ -35,6 +35,8 @@ const groupByDate = transactions => {
 }
 
 export const TransactionsListContext = createContext({
+  // XXX: f() is an old version of date-fns/format which does not understand the
+  // new format string.
   mobileSectionDateFormat: 'dddd D MMMM'
 })
 

@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect'
-import addDays from 'date-fns/add_days'
-import isAfter from 'date-fns/is_after'
-import parse from 'date-fns/parse'
-import differenceInDays from 'date-fns/difference_in_days'
+import addDays from 'date-fns/addDays'
+import isAfter from 'date-fns/isAfter'
+import parseISO from 'date-fns/parseISO'
+import differenceInDays from 'date-fns/differenceInDays'
 import get from 'lodash/get'
 import orderBy from 'lodash/orderBy'
 
@@ -29,7 +29,7 @@ export const isDeprecatedBundle = recurrence => {
     return true
   }
   const now = Date.now()
-  const latestDate = parse(recurrence.latestDate)
+  const latestDate = parseISO(recurrence.latestDate)
   const deltaToNow = differenceInDays(now, latestDate)
   return deltaToNow >= RECURRENCE_MAX_AGE_FOR_PLANNING
 }

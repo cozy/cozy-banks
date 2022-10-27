@@ -3,10 +3,11 @@ import findLast from 'lodash/findLast'
 import get from 'lodash/get'
 import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
+import differenceInDays from 'date-fns/differenceInDays'
+import parse from 'date-fns/parse'
 
 import flag from 'cozy-flags'
 
-import { differenceInDays, parse as parseDate } from 'date-fns'
 import {
   isHealthExpense,
   isProfessionalExpense
@@ -40,6 +41,12 @@ const titleRx = /(?:^|\s)\S/g
 const titleCase = label =>
   label.toLowerCase().replace(titleRx, a => a.toUpperCase())
 
+const isSameMonth = (dateStr, otherDateStr) => {
+  return (
+    dateStr && otherDateStr && dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
+  )
+}
+
 export const getLabel = transaction => cleanLabel(titleCase(transaction.label))
 
 export const getAccountType = transaction => {
@@ -63,6 +70,22 @@ export const getDate = transaction => {
     throw new Error(`Cannot get date on transaction ${transaction.label}`)
   }
   return date.slice(0, 10)
+}
+
+export const getApplicationDate = transaction => {
+  if (isSameMonth(transaction.applicationDate, transaction.date)) {
+    return null
+  }
+  return transaction.applicationDate
+}
+
+export const getParsedTransactionDate = transaction => {
+  const applicationDate = getApplicationDate(transaction)
+  const transactionDate = getDate(transaction)
+  const parsedDate = applicationDate
+    ? parse(applicationDate, 'yyyy-MM', new Date())
+    : parse(transactionDate, 'yyyy-MM-dd', new Date())
+  return parsedDate
 }
 
 /**
@@ -212,7 +235,7 @@ export const isReimbursementLate = (transaction, lateLimitInDays) => {
     return false
   }
 
-  const transactionDate = parseDate(getDate(transaction))
+  const transactionDate = parse(getDate(transaction), 'yyyy-MM-dd', new Date())
   const today = new Date()
 
   return differenceInDays(today, transactionDate) > lateLimitInDays
@@ -269,19 +292,6 @@ export const updateTransactionRecurrence = async (
   }
 
   return data
-}
-
-const isSameMonth = (dateStr, otherDateStr) => {
-  return (
-    dateStr && otherDateStr && dateStr.slice(0, 7) == otherDateStr.slice(0, 7)
-  )
-}
-
-export const getApplicationDate = transaction => {
-  if (isSameMonth(transaction.applicationDate, transaction.date)) {
-    return null
-  }
-  return transaction.applicationDate
 }
 
 export const updateApplicationDate = async (

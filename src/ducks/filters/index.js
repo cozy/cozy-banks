@@ -1,7 +1,16 @@
 import { combineReducers } from 'redux'
 import { createSelector } from 'reselect'
-import { parse, format, isWithinRange } from 'date-fns'
+import find from 'lodash/find'
+import keyBy from 'lodash/keyBy'
+import last from 'lodash/last'
+import sortBy from 'lodash/sortBy'
+import parse from 'date-fns/parse'
+import parseISO from 'date-fns/parseISO'
+import formatISO from 'date-fns/formatISO'
+import isWithinInterval from 'date-fns/isWithinInterval'
+import { dehydrate } from 'cozy-client'
 import logger from 'cozy-logger'
+
 import {
   getTransactions,
   getAllGroups,
@@ -10,12 +19,7 @@ import {
   getAccountsById
 } from 'selectors'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
-import find from 'lodash/find'
-import keyBy from 'lodash/keyBy'
-import last from 'lodash/last'
-import sortBy from 'lodash/sortBy'
 import { DESTROY_ACCOUNT } from 'actions/accounts'
-import { dehydrate } from 'cozy-client'
 import { getApplicationDate, getDisplayDate } from 'ducks/transactions/helpers'
 import { isHealthExpense } from 'ducks/categories/helpers'
 
@@ -25,13 +29,14 @@ const log = logger.namespace('filters')
 const FILTER_BY_PERIOD = 'FILTER_BY_PERIOD'
 const FILTER_BY_DOC = 'FILTER_BY_DOC'
 const RESET_FILTER_BY_DOC = 'RESET_FILTER_BY_DOC'
-const FILTER_YEAR_MONTH_FORMAT = 'YYYY-MM'
-const FILTER_YEAR_FORMAT = 'YYYY'
+const FILTER_YEAR_MONTH_FORMAT = 'yyyy-MM'
+const FILTER_YEAR_FORMAT = 'yyyy'
 
 export const parsePeriod = filter => {
   return parse(
     filter,
-    filter.length === 4 ? FILTER_YEAR_FORMAT : FILTER_YEAR_MONTH_FORMAT
+    filter.length === 4 ? FILTER_YEAR_FORMAT : FILTER_YEAR_MONTH_FORMAT,
+    new Date()
   )
 }
 
@@ -61,7 +66,10 @@ export const filterByPeriod = (transactions, period, dateGetter) => {
     }
   } else if (period.length === 2 && isDate(period[0]) && isDate(period[1])) {
     pred = date => {
-      return isWithinRange(parse(date), period[0], period[1])
+      return isWithinInterval(parseISO(date), {
+        start: period[0],
+        end: period[1]
+      })
     }
   } else {
     throw new Error('Invalid period: ' + JSON.stringify(period))
@@ -239,7 +247,7 @@ export const addFilterForMostRecentTransactions =
   }
 
 // reducers
-const getDefaultMonth = () => monthFormat(format(new Date()))
+const getDefaultMonth = () => monthFormat(formatISO(new Date()))
 const period = (state = getDefaultMonth(), action) => {
   switch (action.type) {
     case FILTER_BY_PERIOD:

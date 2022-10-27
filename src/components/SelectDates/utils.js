@@ -1,6 +1,6 @@
-import startOfMonth from 'date-fns/start_of_month'
-import addMonths from 'date-fns/add_months'
-import isSameDay from 'date-fns/is_same_day'
+import startOfMonth from 'date-fns/startOfMonth'
+import addMonths from 'date-fns/addMonths'
+import isSameDay from 'date-fns/isSameDay'
 
 const rangedSome = (arr, predicate, start, end) => {
   const realStart = Math.max(start, 0)

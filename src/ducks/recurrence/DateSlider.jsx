@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import addDays from 'date-fns/add_days'
+import addDays from 'date-fns/addDays'
 
 import { ONE_DAY } from 'ducks/recurrence/constants'
 

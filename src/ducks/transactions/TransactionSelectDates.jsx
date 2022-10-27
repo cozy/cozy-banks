@@ -1,18 +1,15 @@
 import React, { useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-
-import SelectDates, { monthRange } from 'components/SelectDates'
 import last from 'lodash/last'
 import uniq from 'lodash/uniq'
-import {
-  subMonths,
-  format,
-  parse,
-  differenceInCalendarMonths,
-  isAfter
-} from 'date-fns'
-import { getDate } from 'ducks/transactions/helpers'
+import subMonths from 'date-fns/subMonths'
+import format from 'date-fns/format'
+import parse from 'date-fns/parse'
+import differenceInCalendarMonths from 'date-fns/differenceInCalendarMonths'
+import isAfter from 'date-fns/isAfter'
 
+import SelectDates, { monthRange } from 'components/SelectDates'
+import { getDate } from 'ducks/transactions/helpers'
 import useTransactionExtent from 'hooks/useTransactionExtent'
 
 const rangeMonth = (startDate, endDate) => {
@@ -32,13 +29,13 @@ export const getOptions = transactions => {
 
   const mAvailableMonths = new Set(availableMonths)
 
-  const start = parse(availableMonths[0], 'YYYY-MM')
-  const lastMonth = parse(last(availableMonths), 'YYYY-MM')
+  const start = parse(availableMonths[0], 'yyyy-MM', new Date())
+  const lastMonth = parse(last(availableMonths), 'yyyy-MM', new Date())
   const today = new Date()
   const end = isAfter(lastMonth, today) ? lastMonth : today
 
   return rangeMonth(start, end).map(month => {
-    const fmted = format(month, 'YYYY-MM')
+    const fmted = format(month, 'yyyy-MM')
     return {
       yearMonth: fmted,
       disabled: !mAvailableMonths.has(fmted)
@@ -73,7 +70,7 @@ const TransactionSelectDates = ({ onExtentLoad, ...props }) => {
     const { date: latestDate } = latestTransaction
     const range = monthRange(new Date(earliestDate), new Date(latestDate))
       .map(date => ({
-        yearMonth: format(date, 'YYYY-MM'),
+        yearMonth: format(date, 'yyyy-MM'),
         disabled: false
       }))
       .reverse()

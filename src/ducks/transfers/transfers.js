@@ -50,7 +50,7 @@ export const prepareJobAccount = async (client, konnSlug, auth) => {
  * @param  {String} options.senderAccount - io.cozy.bank.accounts id
  * @param  {String} options.password - Password of the bank account
  * @param  {String} options.label - Label of the operation
- * @param  {String} options.executionDate - Date of the operation in DD/MM/YYYY
+ * @param  {String} options.executionDate - Date of the operation in dd/MM/yyyy
  * @return {Promise}
  */
 export const createJob = async (

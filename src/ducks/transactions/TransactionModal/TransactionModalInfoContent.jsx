@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import parse from 'date-fns/parse'
 
-import { TRANSACTION_DOCTYPE } from 'doctypes'
 import flag from 'cozy-flags'
 import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -13,6 +13,7 @@ import RestoreIcon from 'cozy-ui/transpiled/react/Icons/Restore'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 import ListItemArrow from 'components/ListItemArrow'
 import iconCalendar from 'components/IconCalendar'
 import useDocument from 'components/useDocument'
@@ -26,7 +27,8 @@ import {
   getCategoryId,
   updateApplicationDate,
   getDate,
-  getApplicationDate
+  getApplicationDate,
+  getParsedTransactionDate
 } from 'ducks/transactions/helpers'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
@@ -135,7 +137,12 @@ const TransactionModalInfoContent = props => {
               },
               {
                 label: t('Transactions.infos.date'),
-                value: f(getDate(transaction), 'dddd D MMMM')
+                // XXX: f() is an old version of date-fns/format which does not understand the
+                // new format string.
+                value: f(
+                  parse(getDate(transaction), 'yyyy-MM-dd', new Date()),
+                  'dddd D MMMM'
+                )
               }
             ].filter(x => x.value)}
           />
@@ -170,10 +177,9 @@ const TransactionModalInfoContent = props => {
         </ListItemIcon>
         <ListItemText>
           {t('Transactions.infos.assignedToPeriod', {
-            date: f(
-              getApplicationDate(transaction) || getDate(transaction),
-              'MMM YYYY'
-            )
+            // XXX: f() is an old version of date-fns/format which does not
+            // understand the new format string.
+            date: f(getParsedTransactionDate(transaction), 'MMM YYYY')
           })}
         </ListItemText>
         {shouldShowRestoreApplicationDateIcon && (

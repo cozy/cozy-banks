@@ -1,7 +1,7 @@
 const demoFixtures = require('../demo.json')
 const last = require('lodash/last')
-const differenceInDays = require('date-fns/difference_in_days')
-const addDays = require('date-fns/add_days')
+const differenceInDays = require('date-fns/differenceInDays')
+const addDays = require('date-fns/addDays')
 
 const getMostRecentDate = dates => {
   const sorted = dates.sort()

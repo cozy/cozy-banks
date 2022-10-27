@@ -8,7 +8,8 @@ import findLast from 'lodash/findLast'
 import find from 'lodash/find'
 import uniqBy from 'lodash/uniqBy'
 
-import { format, parse } from 'date-fns'
+import format from 'date-fns/format'
+import parse from 'date-fns/parse'
 
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
@@ -147,8 +148,8 @@ class SelectDates extends PureComponent {
     // create options
     const { f, options } = this.props
     return options.map(option => {
-      const date = parse(option.yearMonth, 'YYYY-MM')
-      const year = format(date, 'YYYY')
+      const date = parse(option.yearMonth, 'yyyy-MM', new Date())
+      const year = format(date, 'yyyy')
       return {
         value: option.yearMonth,
         year,

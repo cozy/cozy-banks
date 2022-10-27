@@ -7,7 +7,8 @@ import {
   balanceHistoryToChartData,
   getPanelsState
 } from './helpers'
-import { format as formatDate, parse as parseDate } from 'date-fns'
+import formatDate from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
 
 describe('filterTransactionsByAccount', () => {
   describe('With included relationship', () => {
@@ -56,7 +57,7 @@ describe('getBalanceHistory', () => {
     const account = { _id: 'test', balance: 8000 }
     const transactions = []
     const to = new Date()
-    const date = formatDate(to, 'YYYY-MM-DD')
+    const date = formatDate(to, 'yyyy-MM-dd')
     const history = getBalanceHistory(account, transactions, to)
 
     expect(Object.keys(history)).toEqual([date])
@@ -66,8 +67,8 @@ describe('getBalanceHistory', () => {
   it('should return the same balance for all dates if there is no transaction and from is specified', () => {
     const account = { _id: 'test', balance: 8000 }
     const transactions = []
-    const to = parseDate('2018-06-26')
-    const from = parseDate('2018-06-24')
+    const to = parseISO('2018-06-26')
+    const from = parseISO('2018-06-24')
     const history = getBalanceHistory(account, transactions, to, from)
 
     expect(history).toEqual({
@@ -91,7 +92,7 @@ describe('getBalanceHistory', () => {
         amount: -15
       }
     ]
-    const to = parseDate('2018-06-27')
+    const to = parseISO('2018-06-27')
     const history = getBalanceHistory(account, transactions, to)
 
     expect(history).toEqual({
@@ -112,8 +113,8 @@ describe('getBalanceHistory', () => {
       { date: '2018-06-23T00:00:00Z', amount: -300 },
       { date: '2018-06-22T00:00:00Z', amount: -15 }
     ]
-    const to = parseDate('2018-06-26')
-    const from = parseDate('2018-06-24')
+    const to = parseISO('2018-06-26')
+    const from = parseISO('2018-06-24')
     const history = getBalanceHistory(account, transactions, to, from)
 
     expect(history).toEqual({
@@ -165,8 +166,8 @@ describe('getBalanceHistories', () => {
       getBalanceHistories(
         [],
         [],
-        parseDate('2019-01-02'),
-        parseDate('2019-01-01')
+        parseISO('2019-01-02'),
+        parseISO('2019-01-01')
       )
     ).toEqual({
       __no_accounts__: {
@@ -184,7 +185,7 @@ describe('getBalanceHistories', () => {
     ]
 
     const transactions = []
-    const to = parseDate('2018-06-26')
+    const to = parseISO('2018-06-26')
     const histories = getBalanceHistories(accounts, transactions, to)
 
     expect(Object.keys(histories)).toEqual(['acc1', 'acc2', 'acc3'])
@@ -199,8 +200,8 @@ describe('getBalanceHistories', () => {
 
     const transactions = []
 
-    const to = parseDate('2018-06-26')
-    const from = parseDate('2018-06-24')
+    const to = parseISO('2018-06-26')
+    const from = parseISO('2018-06-24')
 
     const histories = getBalanceHistories(accounts, transactions, to, from)
 
@@ -234,8 +235,8 @@ describe('getBalanceHistories', () => {
       { account: 'acc2', amount: 1000, date: '2018-11-20' }
     ]
 
-    const to = parseDate('2018-11-22')
-    const from = parseDate('2018-11-20')
+    const to = parseISO('2018-11-22')
+    const from = parseISO('2018-11-20')
 
     const histories = getBalanceHistories(accounts, transactions, to, from)
 
@@ -258,7 +259,7 @@ describe('balanceHistoryToChartData', () => {
     const history = { '2018-11-22': 1000, '2018-11-21': 500, '2018-11-20': 600 }
     const expected = ['2018-11-20', '2018-11-21', '2018-11-22']
     const chartData = balanceHistoryToChartData(history)
-    const dates = chartData.map(item => formatDate(item.x, 'YYYY-MM-DD'))
+    const dates = chartData.map(item => formatDate(item.x, 'yyyy-MM-dd'))
 
     expect(dates).toEqual(expected)
   })

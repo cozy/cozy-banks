@@ -13,7 +13,7 @@ import {
 import { fetchHydratedBundles, saveHydratedBundles } from 'ducks/recurrence/api'
 import { getLabel } from 'ducks/recurrence/utils'
 import tree from 'ducks/categories/tree'
-import addDays from 'date-fns/add_days'
+import addDays from 'date-fns/addDays'
 
 export const NB_DAYS_LOOKBACK = 100
 

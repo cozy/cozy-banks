@@ -1,15 +1,15 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import fixtures from 'test/fixtures'
-import addMonths from 'date-fns/add_months'
-import isBefore from 'date-fns/is_before'
-import isEqual from 'date-fns/is_equal'
+import addMonths from 'date-fns/addMonths'
+import isBefore from 'date-fns/isBefore'
+import isEqual from 'date-fns/isEqual'
 import format from 'date-fns/format'
 import includes from 'lodash/includes'
 import MockDate from 'mockdate'
+import { createMockClient } from 'cozy-client'
 
 import TransactionSelectDates, { getOptions } from './TransactionSelectDates'
-import { createMockClient } from 'cozy-client'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
 import { findSelectDatesInput } from 'test/selectDates'
@@ -24,7 +24,7 @@ const transactions = fixtures['io.cozy.bank.operations']
 const enabledMonth = ['2018-06', '2018-01', '2017-08', '2017-07', '2017-06']
 
 const generateOption = date => {
-  const month = format(date, 'YYYY-MM')
+  const month = format(date, 'yyyy-MM')
   return {
     disabled: !includes(enabledMonth, month),
     yearMonth: month
@@ -58,7 +58,7 @@ describe('options from select dates', () => {
 
     const transactionInFuture = {
       _id: 'inthefuture',
-      date: format(addMonths(new Date(), 1), 'YYYY-MM-DD')
+      date: format(addMonths(new Date(), 1), 'yyyy-MM-dd')
     }
 
     enabledMonth.unshift(transactionInFuture.date.slice(0, 7))

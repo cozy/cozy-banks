@@ -8,6 +8,10 @@ import compose from 'lodash/flowRight'
 import overEvery from 'lodash/overEvery'
 import sumBy from 'lodash/sumBy'
 import get from 'lodash/get'
+import differenceInCalendarDays from 'date-fns/differenceInCalendarDays'
+import isAfter from 'date-fns/isAfter'
+import subMonths from 'date-fns/subMonths'
+import parseISO from 'date-fns/parseISO'
 
 import { models } from 'cozy-client'
 import {
@@ -21,7 +25,6 @@ import {
   isProfessionalExpense,
   getCategoryIdFromName
 } from 'ducks/categories/helpers'
-import { differenceInCalendarDays, isAfter, subMonths } from 'date-fns'
 import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
 
 const {
@@ -130,7 +133,7 @@ export const getAccountUpdatedAt = (account, jobTrigger) => {
   const updatedAtTrigger = triggerStates.getLastSuccess(jobTrigger)
   const updateDate = updatedAtTrigger || updatedAtAccount
   const updateDistance = updateDate
-    ? differenceInCalendarDays(today, updateDate)
+    ? differenceInCalendarDays(today, parseISO(updateDate))
     : null
 
   const updateDistanceInWords = distanceInWords(updateDistance)
@@ -160,7 +163,7 @@ const buildReimbursementsVirtualAccount = specs => transactions => {
   const combinedFilter = overEvery(
     [
       specs.filter,
-      compose(isWithin6Months(), getDate),
+      compose(isWithin6Months(), parseISO, getDate),
       hasPendingReimbursement
     ].filter(Boolean)
   )
