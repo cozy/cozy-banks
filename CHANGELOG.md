@@ -31,6 +31,9 @@
   * 9.26.1 :
     * Use BI account creation webview to handle account synchronization
     * RefreshContracts now updates contracts in realtime
+  * 9.29.0 :
+    * Use BI manage webview
+    * Close Harvest dialog if the BI connection is removed from the BI manage webview
 * Disable account line in import group panel to prevent accessing an account not yet ready
 * Change wording for toast message when importing data from a bank is completed
 * Remove icon on ReconnectTriggerButton
