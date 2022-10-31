@@ -53,7 +53,7 @@ const filteringDocPropType = PropTypes.oneOfType([
 
 const getFilteringDocLabel = (filteringDoc, t) => {
   if (filteringDoc._type === ACCOUNT_DOCTYPE) {
-    return getAccountLabel(filteringDoc)
+    return getAccountLabel(filteringDoc, t)
   } else if (filteringDoc._type === GROUP_DOCTYPE) {
     return getGroupLabel(filteringDoc, t)
   }
@@ -156,8 +156,8 @@ const AccountSwitchMenu = ({
   }, [groups, t])
 
   const sortedAccounts = useMemo(() => {
-    return sortBy(accounts, ['institutionLabel', getAccountLabel])
-  }, [accounts])
+    return sortBy(accounts, ['institutionLabel', a => getAccountLabel(a, t)])
+  }, [accounts, t])
 
   return (
     <CozyTheme theme="normal">
@@ -231,7 +231,7 @@ const AccountSwitchMenu = ({
               <AccountIcon account={account} />
             </ListItemIcon>
             <AccountListItemText
-              primary={account.shortLabel || account.label}
+              primary={getAccountLabel(account, t)}
               secondary={getAccountInstitutionLabel(account)}
             />
             <ListItemSecondaryAction>
