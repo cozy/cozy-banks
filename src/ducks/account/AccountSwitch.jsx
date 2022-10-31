@@ -134,6 +134,7 @@ const AccountSwitchListItem = props => {
 const AccountSwitchMenu = ({
   accounts,
   groups,
+  virtualGroups,
   filteringDoc,
   filterByDoc,
   resetFilterByDoc
@@ -152,8 +153,10 @@ const AccountSwitchMenu = ({
   )
 
   const sortedGroups = useMemo(() => {
-    return sortBy(groups, g => getGroupLabel(g, t))
-  }, [groups, t])
+    return sortBy([...groups, ...virtualGroups], g =>
+      getGroupLabel(g, t).toLowerCase()
+    )
+  }, [groups, virtualGroups, t])
 
   const sortedAccounts = useMemo(() => {
     return sortBy(accounts, ['institutionLabel', a => getAccountLabel(a, t)])
@@ -335,17 +338,8 @@ const AccountSwitch = props => {
     handleClose()
   }, [dispatch, handleClose])
 
-  const accounts = accountsCollection.data
-
-  const orderedGroups = useMemo(() => {
-    const groups = [...(groupsCollection.data || []), ...virtualGroups].map(
-      group => ({
-        ...group,
-        label: getGroupLabel(group, t)
-      })
-    )
-    return sortBy(groups, x => x.label.toLowerCase())
-  }, [groupsCollection.data, t, virtualGroups])
+  const accounts = accountsCollection.data || []
+  const groups = groupsCollection.data || []
 
   const selectProps = selectPropsBySize[size]
   const select = (
@@ -379,7 +373,8 @@ const AccountSwitch = props => {
                 filterByDoc={handleFilterByDoc}
                 resetFilterByDoc={handleResetFilterByDoc}
                 close={handleClose}
-                groups={orderedGroups}
+                groups={groups}
+                virtualGroups={virtualGroups}
                 accounts={accounts}
               />
             }
