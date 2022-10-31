@@ -46,7 +46,7 @@ const Owners = React.memo(function Owners(props) {
   )
 })
 
-const AccountRowIcon = ({ account }) => {
+export const AccountRowIcon = ({ account }) => {
   return isReimbursementsAccount(account) ? (
     <ReimbursementsIcon account={account} />
   ) : (

@@ -18,9 +18,9 @@ import Radio from 'cozy-ui/transpiled/react/Radios'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 
+import { AccountRowIcon } from 'ducks/balance/AccountRow'
 import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
 import { BarCenter } from 'components/Bar'
 
@@ -40,7 +40,7 @@ import {
 } from 'doctypes'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
-import { getVirtualGroups } from 'selectors'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 import {
   getAccountInstitutionLabel,
   getAccountLabel
@@ -133,6 +133,7 @@ const AccountSwitchListItem = props => {
 
 const AccountSwitchMenu = ({
   accounts,
+  virtualAccounts,
   groups,
   virtualGroups,
   filteringDoc,
@@ -159,8 +160,11 @@ const AccountSwitchMenu = ({
   }, [groups, virtualGroups, t])
 
   const sortedAccounts = useMemo(() => {
-    return sortBy(accounts, ['institutionLabel', a => getAccountLabel(a, t)])
-  }, [accounts, t])
+    return sortBy(
+      [...accounts, ...virtualAccounts],
+      ['institutionLabel', a => getAccountLabel(a, t).toLowerCase()]
+    )
+  }, [accounts, virtualAccounts, t])
 
   return (
     <CozyTheme theme="normal">
@@ -231,7 +235,7 @@ const AccountSwitchMenu = ({
             selected={filteringDoc && account._id === filteringDoc._id}
           >
             <ListItemIcon>
-              <AccountIcon account={account} />
+              <AccountRowIcon account={account} />
             </ListItemIcon>
             <AccountListItemText
               primary={getAccountLabel(account, t)}
@@ -305,6 +309,7 @@ const AccountSwitch = props => {
   const { isMobile } = useBreakpoints()
   const filteringDoc = useSelector(getFilteringDoc)
   const filteredAccounts = useSelector(getFilteredAccounts)
+  const virtualAccounts = useSelector(getVirtualAccounts)
   const virtualGroups = useSelector(getVirtualGroups)
 
   const handleToggle = useCallback(
@@ -376,6 +381,7 @@ const AccountSwitch = props => {
                 groups={groups}
                 virtualGroups={virtualGroups}
                 accounts={accounts}
+                virtualAccounts={virtualAccounts}
               />
             }
           />
