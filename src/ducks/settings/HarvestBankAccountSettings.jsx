@@ -43,7 +43,7 @@ const fetchPolicy = CozyClient.fetchPolicies.olderThan(30 * 1000)
  * Data fetching component that fetches data necessary to render Harvest
  * components related to a particular connection.
  */
-const HarvestLoader = ({ connectionId, children }) => {
+const HarvestLoader = ({ connectionId, onDismiss, children }) => {
   return (
     <Query
       query={() => Q(COZY_ACCOUNT_DOCTYPE).getById(connectionId)}
@@ -54,6 +54,7 @@ const HarvestLoader = ({ connectionId, children }) => {
         const { data: account, fetchStatus, lastUpdate } = accountCol
         // Can happen for a short while when the account is deleted
         if (!account) {
+          if (!isQueryLoading(accountCol)) onDismiss()
           return null
         }
         if (isQueryLoading(accountCol) && !lastUpdate) {
@@ -180,7 +181,10 @@ const HarvestBankAccountSettings = ({
                 connectionId => (
                   <Dialog {...dialogProps} onClose={onDismiss}>
                     <DialogCloseButton onClick={onDismiss} />
-                    <HarvestLoader connectionId={connectionId}>
+                    <HarvestLoader
+                      connectionId={connectionId}
+                      onDismiss={onDismiss}
+                    >
                       {({ triggers, konnector, accountsAndTriggers }) => {
                         return (
                           <HarvestAccountModal
