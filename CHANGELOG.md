@@ -1,5 +1,21 @@
 # 1.48.0
 
+### ✨ Features
+
+* Add the virtual reimbursement accounts to the account switch
+* Add the account switch to the reimbursement page
+* Do not display success or error toast for webhooks other than CONNECTION_SYNCED
+
+### 🐛 Bug Fixes
+
+* Wrong locale on BI connection removal https://github.com/cozy/cozy-libs/commit/ed2f352467da5f36ef1753de5578f156bb2a1ffb
+* Update cozy accounts when removed from cozy-stack after BI connection removal from BI webview
+* Reverts "Include virtual accounts in the account total count in balance details"
+* Exclude virtual accounts from the account count in balance details
+* Do not show any account when none is selected in balance details
+* Always show the action column since tags are always enabled
+* Handles accounts created after bi webhooks on contract synchronization
+
 # 1.47.0
 
 ## ✨ Features
