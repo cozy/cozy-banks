@@ -15,6 +15,7 @@
 * Do not show any account when none is selected in balance details
 * Always show the action column since tags are always enabled
 * Handles accounts created after bi webhooks on contract synchronization
+* Fix notifications issues on the b2c app
 
 # 1.47.0
 
