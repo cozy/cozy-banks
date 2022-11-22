@@ -12606,11 +12606,6 @@ math-sign-x@^3.0.0:
     is-nan-x "^1.0.1"
     to-number-x "^2.0.0"
 
-matomo-tracker@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/matomo-tracker/-/matomo-tracker-2.2.1.tgz#bd61c32e8b9e8b4825e9dc9dc784cb598ef2169c"
-  integrity sha512-l81WwBbZX09WGhh4yMOmknO8vFJVWtI6hDFrowoqQIoINrKKn11RVfJYVpLHEdA/EUbXcqLsRRNCKeLAag7Q6w==
-
 max-safe-integer@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/max-safe-integer/-/max-safe-integer-1.0.1.tgz#f38060be2c563d8c02e6d48af39122fd83b6f410"
