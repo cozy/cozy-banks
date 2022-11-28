@@ -4,6 +4,7 @@ import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
 
 import { WebviewIntentProvider } from 'cozy-intent'
+import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import I18n, { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { CozyProvider, RealTimeQueries } from 'cozy-client'
@@ -24,6 +25,7 @@ import cozyBar from 'utils/cozyBar'
 import {
   TRIGGER_DOCTYPE,
   ACCOUNT_DOCTYPE,
+  COZY_ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
   GROUP_DOCTYPE
 } from 'doctypes'
@@ -82,13 +84,16 @@ const AppContainer = ({ store, lang, history, client }) => {
                     <BanksProvider client={client}>
                       <SelectionProvider>
                         <StoreURLProvider>
-                          <MuiCozyTheme>
-                            <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
-                            <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
-                            <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
-                            <RealTimeQueries doctype={GROUP_DOCTYPE} />
-                            <Router history={history} routes={AppRoute()} />
-                          </MuiCozyTheme>
+                          <CozyConfirmDialogProvider>
+                            <MuiCozyTheme>
+                              <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
+                              <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
+                              <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
+                              <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
+                              <RealTimeQueries doctype={GROUP_DOCTYPE} />
+                              <Router history={history} routes={AppRoute()} />
+                            </MuiCozyTheme>
+                          </CozyConfirmDialogProvider>
                         </StoreURLProvider>
                       </SelectionProvider>
                     </BanksProvider>
