@@ -17,6 +17,7 @@ import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
+import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -82,6 +83,7 @@ const AppContainer = ({ store, lang, history, client }) => {
                     <BanksProvider client={client}>
                       <SelectionProvider>
                         <StoreURLProvider>
+                          <CozyConfirmDialogProvider>
                           <MuiCozyTheme>
                             <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
                             <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
@@ -89,6 +91,7 @@ const AppContainer = ({ store, lang, history, client }) => {
                             <RealTimeQueries doctype={GROUP_DOCTYPE} />
                             <Router history={history} routes={AppRoute()} />
                           </MuiCozyTheme>
+                          </CozyConfirmDialogProvider>
                         </StoreURLProvider>
                       </SelectionProvider>
                     </BanksProvider>
