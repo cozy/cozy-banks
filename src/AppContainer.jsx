@@ -25,6 +25,7 @@ import cozyBar from 'utils/cozyBar'
 import {
   TRIGGER_DOCTYPE,
   ACCOUNT_DOCTYPE,
+  COZY_ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
   GROUP_DOCTYPE
 } from 'doctypes'
@@ -84,13 +85,14 @@ const AppContainer = ({ store, lang, history, client }) => {
                       <SelectionProvider>
                         <StoreURLProvider>
                           <CozyConfirmDialogProvider>
-                          <MuiCozyTheme>
-                            <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
-                            <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
-                            <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
-                            <RealTimeQueries doctype={GROUP_DOCTYPE} />
-                            <Router history={history} routes={AppRoute()} />
-                          </MuiCozyTheme>
+                            <MuiCozyTheme>
+                              <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
+                              <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
+                              <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
+                              <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
+                              <RealTimeQueries doctype={GROUP_DOCTYPE} />
+                              <Router history={history} routes={AppRoute()} />
+                            </MuiCozyTheme>
                           </CozyConfirmDialogProvider>
                         </StoreURLProvider>
                       </SelectionProvider>
