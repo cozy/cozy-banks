@@ -199,7 +199,7 @@ class LateHealthReimbursement extends NotificationView {
       'info',
       `Marking ${this.toNotify.length} transactions as already notified:`
     )
-    await BankTransaction.updateAll(this.toNotify)
+    await this.client.saveAll(this.toNotify)
   }
 }
 
