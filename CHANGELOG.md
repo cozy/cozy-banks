@@ -1,3 +1,18 @@
+# 1.42.1
+
+### ✨ Features
+
+* Don't notify users about very old konnector run failures (i.e. older than 7 days and 15 minutes which is the maximum delay between the last failure and the scheduled 7 days reminder). (#2516)
+
+### 🐛 Bug Fixes
+
+* Prevent scheduling `konnectorAlerts` triggers in the past which would be executed right away by `cozy-stack` ending up sending multiple notifications to the user about the failed konnector run. (#2516)
+* Prevent service call loops by only updating transactions for which we've updated the associated recurrence. (#2429)
+
+### 🔧 Tech
+
+* Run recurrence service only if flag is set (#2451)
+
 # 1.42.0
 
 ## ✨ Features
