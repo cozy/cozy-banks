@@ -106,6 +106,97 @@ describe('Jobs Context', () => {
     expect(root.queryByText('5678')).toBeNull()
   })
 
+  it('should not display job in progress for an account deletion job', () => {
+    const { root, client } = setup()
+
+    act(() => {
+      client.plugins.realtime.emitRealtimeEvent('created', 'io.cozy.jobs', {
+        worker: 'konnector',
+        state: 'running',
+        message: {
+          konnector: 'caissedepargne1',
+          account: '1234',
+          account_deleted: true
+        }
+      })
+    })
+
+    expect(root.queryByText('caissedepargne1')).toBeNull()
+    expect(root.queryByText('1234')).toBeNull()
+    expect(root.queryByText('boursorama83')).toBeNull()
+    expect(root.queryByText('5678')).toBeNull()
+  })
+
+  it('should call onSuccess when a CONNECTION_SYNCED webhook job is finished', async () => {
+    const { root, client } = setup()
+
+    act(() => {
+      client.plugins.realtime.emitRealtimeEvent('created', 'io.cozy.jobs', {
+        worker: 'konnector',
+        state: 'running',
+        message: {
+          konnector: 'caissedepargne1',
+          account: '1234',
+          bi_webhook: true,
+          event: 'CONNECTION_SYNCED'
+        }
+      })
+    })
+
+    expect(await root.findByText('caissedepargne1')).toBeTruthy()
+    expect(await root.findByText('1234')).toBeTruthy()
+
+    act(() => {
+      client.plugins.realtime.emitRealtimeEvent('created', 'io.cozy.jobs', {
+        worker: 'konnector',
+        state: 'done',
+        message: {
+          konnector: 'caissedepargne1',
+          account: '1234',
+          bi_webhook: true,
+          event: 'CONNECTION_SYNCED'
+        }
+      })
+    })
+
+    expect(await root.queryByText('caissedepargne1')).toBeNull()
+    expect(await root.queryByText('1234')).toBeNull()
+
+    expect(onSuccess).toHaveBeenCalled()
+  })
+
+  it('should not call onSuccess when an account deletion jobs is finished', async () => {
+    const { root, client } = setup()
+
+    act(() => {
+      client.plugins.realtime.emitRealtimeEvent('created', 'io.cozy.jobs', {
+        worker: 'konnector',
+        state: 'running',
+        message: {
+          konnector: 'caissedepargne1',
+          account: '1234',
+          account_deleted: true
+        }
+      })
+    })
+
+    expect(await root.queryByText('caissedepargne1')).toBeNull()
+    expect(await root.queryByText('1234')).toBeNull()
+
+    act(() => {
+      client.plugins.realtime.emitRealtimeEvent('created', 'io.cozy.jobs', {
+        worker: 'konnector',
+        state: 'done',
+        message: {
+          konnector: 'caissedepargne1',
+          account: '1234',
+          account_deleted: true
+        }
+      })
+    })
+    expect(onSuccess).not.toHaveBeenCalled()
+  })
+
   it('should display wait job in progress', async () => {
     const { root, client } = setup()
 
