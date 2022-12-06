@@ -8,11 +8,9 @@ import CozyClient from 'cozy-client'
 const onSuccess = jest.fn()
 
 function CozyRealtimeMock() {
-  this.subscribe = jest
-    .fn()
-    .mockImplementation((eventType, doctype, fn) => {
-      this.on(eventType + doctype, fn)
-    })
+  this.subscribe = jest.fn().mockImplementation((eventType, doctype, fn) => {
+    this.on(eventType + doctype, fn)
+  })
   this.unsubscribe = jest.fn().mockImplementation(() => {
     this.removeAllListeners()
   })
@@ -231,7 +229,7 @@ describe('Jobs Context', () => {
         state: 'running',
         message: {
           konnector: 'caissedepargne1',
-          account: '1234',
+          account: '1234'
         }
       })
     })
