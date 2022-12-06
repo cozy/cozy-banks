@@ -79,7 +79,8 @@ const JobsProvider = ({ children, client, options = {} }) => {
     if (
       worker === 'konnector' &&
       hasAccount &&
-      (!isBiWebhook || isConnectionSynced) && !isAccountDeleted
+      (!isBiWebhook || isConnectionSynced) &&
+      !isAccountDeleted
     ) {
       if ((state === 'running' || state === 'done') && !exist) {
         waitJobQueue.removeWaitJob({ slug: msg.konnector })
