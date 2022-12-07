@@ -103,7 +103,14 @@ export const sendTriggerNotifications = async client => {
     })
 
     const notification = buildNotification(client, { konnectorAlerts })
-    await sendNotification(client, notification)
+    if (flag('banks.konnector-alerts.notification.disable')) {
+      logger(
+        'info',
+        'Abort sending notification because of flag "banks.konnector-alerts.notification.disable"'
+      )
+    } else {
+      await sendNotification(client, notification)
+    }
   }
 
   await storeTriggerStates(
