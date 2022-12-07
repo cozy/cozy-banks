@@ -143,8 +143,8 @@ class KonnectorAlertNotification extends NotificationView {
     })
   }
 
-  onSuccess() {
-    logger('warn', 'Notification sent')
+  async onSuccess() {
+    logger('warn', 'KonnectorAlerts notification successfully sent')
   }
 }
 
