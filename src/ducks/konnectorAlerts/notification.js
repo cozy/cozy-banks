@@ -142,6 +142,10 @@ class KonnectorAlertNotification extends NotificationView {
       }
     })
   }
+
+  onSuccess() {
+    logger('info', 'Notification sent')
+  }
 }
 
 KonnectorAlertNotification.template = template
