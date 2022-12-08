@@ -1,5 +1,51 @@
 # 1.48.0
 
+# 1.47.1
+
+## ✨ Features
+
+* Upgrade cozy-harvest-lib to 9.32.3 :
+  * Use OAuthService in KonnectorAccountTabs
+  * Use OAuthService in OAuthForm
+  * Update wording for Bank disconnect dialog close button
+  * Add independent confirm dialog
+  * Use independant OAuth window
+  * Better locale for delete BI connection confirmation button
+  * Follow current trigger jobs even after the first load
+  * Only update cozy-client store when refreshing contracts
+  * Do not unsubscribe all realtime events
+  * Prevent createTemporaryToken to updateCache twice at the same time
+* upgrade cozy-realtime to 4.2.9 to get the sendNotification method
+* Upgrade cozy-bar from 8.9.3 to 8.9.4
+* Add konnector slug in fake trigger passed to onLoginSuccess
+* Add realtime update of cozy accounts
+* Add the virtual reimbursement accounts to the account switch
+* Add the account switch to the reimbursement page
+* Do not display success or error toast for webhooks other than CONNECTION_SYNCED
+
+
+## 🐛 Bug Fixes
+
+* Do not display an error icon for all accounts with the same slug
+* Ignore account delete and account disabled jobs for import success message
+* Remove import in progress in the end of the connector job
+* Use `CozyClient.saveAll()` instead of `Document.updateAll()` from deprecated `cozy-doctypes` to avoid CouchDB errors with attributes starting with an underscore (#2547)
+* Swap providers to make some Harvest dialogs match the theme
+* Handles accounts created after bi webhooks on contract synchronization
+* Fix notifications issues on the b2c app
+* Don't register the flag plugin twice
+* Wrong locale on BI connection removal https://github.com/cozy/cozy-libs/commit/ed2f352467da5f36ef1753de5578f156bb2a1ffb
+* Update cozy accounts when removed from cozy-stack after BI connection removal from BI webview
+* Reverts "Include virtual accounts in the account total count in balance details"
+* Exclude virtual accounts from the account count in balance details
+* Do not show any account when none is selected in balance details
+* Always show the action column since tags are always enabled
+* Handles accounts created after bi webhooks on contract synchronization
+
+## 🔧 Tech
+
+* Add more logs around LateHealthReimbursement onSuccess method
+
 # 1.47.0
 
 ## ✨ Features
