@@ -1,5 +1,6 @@
 /* global __TARGET__ */
 import React, { Component } from 'react'
+import { Outlet } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import tosIcon from 'assets/icons/icon-tos.svg'
@@ -117,7 +118,7 @@ class UserActionRequired extends Component {
 
   render() {
     const { warnings } = this.state
-    if (warnings.length === 0) return this.props.children
+    if (warnings.length === 0) return <Outlet />
     const tosUpdated = warnings.find(w => w.code === 'tos-updated')
     if (__TARGET__ === 'mobile' && tosUpdated) {
       return (
@@ -129,7 +130,7 @@ class UserActionRequired extends Component {
       )
     }
 
-    return this.props.children
+    return <Outlet />
   }
 }
 

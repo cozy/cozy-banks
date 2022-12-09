@@ -1,5 +1,6 @@
 import React, { useMemo, useEffect } from 'react'
 import { withRouter } from 'react-router'
+import { Outlet } from 'react-router-dom'
 import compose from 'lodash/flowRight'
 import throttle from 'lodash/throttle'
 
@@ -93,7 +94,9 @@ const App = props => {
 
           <Main>
             <Content className={styles.Main}>
-              <ErrorBoundary>{props.children}</ErrorBoundary>
+              <ErrorBoundary>
+                <Outlet />
+              </ErrorBoundary>
             </Content>
           </Main>
 
