@@ -283,6 +283,9 @@
       "description": "Used to link tags to bank operations",
       "type": "io.cozy.tags",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
+    }, 
+    "files": {
+      "type": "io.cozy.files"
     }
   }
 }
