@@ -1,4 +1,11 @@
+# 1.49.0
+
 # 1.48.0
+
+##  🔧 Tech
+  Use warn log instead of info for konnectorAlerts service
+##  🐛 Bug Fixes
+  KonnectorAlerts notification onSuccess is async
 
 # 1.47.1
 
