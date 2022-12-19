@@ -1,4 +1,14 @@
+# 1.50.0
+
 # 1.49.0
+
+### ✨ Features
+
+* upgrade cozy-bar and cozy-intent to 8.11/2.7
+
+### 🐛 Bug Fixes
+
+* update icon-banks svg file
 
 # 1.48.0
 
