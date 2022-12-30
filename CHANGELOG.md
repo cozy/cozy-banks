@@ -1,21 +1,40 @@
+# 1.51.0
+
 # 1.50.0
+
+## ✨ Features
+
+* Upgrade cozy-ui from 75.4.0 to 79.0.0
+* Upgrade cozy-client from 33.2.0 to 34.5.0
+* Upgrade cozy-stack-client from 33.2.0 to 34.1.5
+* Upgrade cozy-pouch-link from 33.2.0 to 34.5.0
+* Upgrade cozy-device-helper from 2.1.0 to 2.6.0
+* Upgrade cozy-harvest-lib from 9.32.4 to 10.0.0
+
+## 🐛 Bug Fixes
+
+* Exclude virtual accounts from the counter on the balance page
+* Localize account and group labels in notification settings
 
 # 1.49.0
 
-### ✨ Features
+## ✨ Features
 
 * upgrade cozy-bar and cozy-intent to 8.11/2.7
 
-### 🐛 Bug Fixes
+## 🐛 Bug Fixes
 
 * update icon-banks svg file
 
 # 1.48.0
 
 ##  🔧 Tech
-  Use warn log instead of info for konnectorAlerts service
+
+* Use warn log instead of info for konnectorAlerts service
+
 ##  🐛 Bug Fixes
-  KonnectorAlerts notification onSuccess is async
+
+* KonnectorAlerts notification onSuccess is async
 
 # 1.47.1
 
