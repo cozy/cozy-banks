@@ -15,7 +15,7 @@ const TagAdd = ({ transaction, disabled }) => {
       <TagAddChip disabled={disabled} onClick={handleClick} />
       {showModalOrBottomSheet && (
         <TagAddModalOrBottomSheet
-          transaction={transaction}
+          transactions={[transaction]}
           onClose={() => setShowModalOrBottomSheet(false)}
         />
       )}
