@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import UISelectionBar from 'cozy-ui/transpiled/react/SelectionBar'
@@ -8,6 +8,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 import { useSelectionBarActions } from 'ducks/selection/helpers'
 import { useTransactionCategoryModal } from 'ducks/transactions/TransactionRow'
+import TagAddModalOrBottomSheet from 'components/Tag/TagAddModalOrBottomSheet'
 
 const SelectionBar = ({ transactions }) => {
   const { isSelectionModeActive, selected, emptyAndDeactivateSelection } =
@@ -39,9 +40,12 @@ const SelectionBar = ({ transactions }) => {
       onError
     })
 
+  const [showTransactionTagModal, setShowTransactionTagModal] = useState(false)
+
   const actions = useSelectionBarActions({
     items: transactions,
-    showTransactionCategoryModal
+    showTransactionCategoryModal,
+    showTransactionTagModal: () => setShowTransactionTagModal(true)
   })
 
   return (
@@ -54,6 +58,12 @@ const SelectionBar = ({ transactions }) => {
         />
       )}
       {transactionCategoryModal}
+      {showTransactionTagModal && (
+        <TagAddModalOrBottomSheet
+          transactions={selected}
+          onClose={() => setShowTransactionTagModal(false)}
+        />
+      )}
     </>
   )
 }

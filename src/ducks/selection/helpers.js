@@ -3,12 +3,14 @@ import { useCallback, useMemo } from 'react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
 import SelectAllIcon from 'cozy-ui/transpiled/react/Icons/SelectAll'
+import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 
 export const useSelectionBarActions = ({
   items,
-  showTransactionCategoryModal
+  showTransactionCategoryModal,
+  showTransactionTagModal
 }) => {
   const { isDesktop } = useBreakpoints()
   const { emptySelection, emptyAndDeactivateSelection, fillSelectionWith } =
@@ -30,6 +32,11 @@ export const useSelectionBarActions = ({
         displayCondition: selected => selected.length > 0,
         icon: GraphCircleIcon
       },
+      tag: {
+        action: () => showTransactionTagModal(),
+        displayCondition: selected => selected.length > 0,
+        icon: TagIcon
+      },
       selectAll: {
         action: () => fillSelection(),
         displayCondition: selected => selected.length !== items.length,
@@ -46,6 +53,7 @@ export const useSelectionBarActions = ({
       fillSelection,
       items.length,
       showTransactionCategoryModal,
+      showTransactionTagModal,
       unSelectAllAction
     ]
   )
