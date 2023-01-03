@@ -25,7 +25,6 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   const [selectedTagIds, setSelectedTagIds] = useState(() =>
     getTransactionTagsIds(transaction)
   )
-  const [hasTagsBeenModified, setHasTagsBeenModified] = useState(false)
 
   useTrackPage('mon_compte:depense:ajout-label-saisie')
 
@@ -44,33 +43,30 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     } else if (selectedTagIds.length < 5) {
       setSelectedTagIds(prev => [...prev, tag._id])
     }
-    setHasTagsBeenModified(true)
   }
 
   const handleConfirm = async () => {
     trackPage('mon_compte:depense:ajout-label-confirmation')
-    if (hasTagsBeenModified) {
-      setIsSaving(true)
-      const tagsToRemove = makeTagsToRemove({
-        transactionTags: getTagsRelationshipByTransaction(transaction),
-        selectedTagIds,
-        allTags: tags
-      })
-      const tagsToAdd = makeTagsToAdd({
-        transactionTags: getTagsRelationshipByTransaction(transaction),
-        selectedTagIds,
-        allTags: tags
-      })
+    setIsSaving(true)
+    const tagsToRemove = makeTagsToRemove({
+      transactionTags: getTagsRelationshipByTransaction(transaction),
+      selectedTagIds,
+      allTags: tags
+    })
+    const tagsToAdd = makeTagsToAdd({
+      transactionTags: getTagsRelationshipByTransaction(transaction),
+      selectedTagIds,
+      allTags: tags
+    })
 
-      await updateTagRelationshipFromTransaction({
-        client,
-        transaction,
-        tagsToRemove,
-        tagsToAdd
-      })
+    await updateTagRelationshipFromTransaction({
+      client,
+      transaction,
+      tagsToRemove,
+      tagsToAdd
+    })
 
-      onClose()
-    } else onClose()
+    onClose()
   }
 
   const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
