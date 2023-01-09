@@ -66,18 +66,14 @@ const AppRoute = () => (
             element={<SetFilterAndRedirect />}
           />
         </Route>
-        <Route path="categories">
-          <Route
-            path="*"
-            element={<Navigate to="../../analysis/categories" replace />}
-          />
-        </Route>
-        <Route path="recurrence">
-          <Route
-            path="*"
-            element={<Navigate to="../../analysis/recurrence" replace />}
-          />
-        </Route>
+        <Route
+          path="categories/*"
+          element={<Navigate to="../analysis/categories" replace />}
+        ></Route>
+        <Route
+          path="recurrence/*"
+          element={<Navigate to="../analysis/recurrence" replace />}
+        ></Route>
         <Route
           path="analysis"
           element={
@@ -96,7 +92,7 @@ const AppRoute = () => (
               }
             />
             <Route
-              path=":categoryName/:subcategoryName"
+              path=":categoryName"
               element={
                 <ScrollToTopOnMountWrapper>
                   <CategoriesPage />
@@ -104,7 +100,7 @@ const AppRoute = () => (
               }
             />
             <Route
-              path=":categoryName"
+              path=":categoryName/:subcategoryName"
               element={
                 <ScrollToTopOnMountWrapper>
                   <CategoriesPage />
@@ -133,6 +129,19 @@ const AppRoute = () => (
         </Route>
         <Route path="settings">
           <Route
+            element={
+              <ScrollToTopOnMountWrapper>
+                <Settings />
+              </ScrollToTopOnMountWrapper>
+            }
+          >
+            <Route index element={<Configuration />} />
+            <Route path="accounts" element={<AccountsSettings />} />
+            <Route path="groups" element={<GroupsSettings />} />
+            <Route path="tags" element={<TagsSettings />} />
+            <Route path="configuration" element={<Configuration />} />
+          </Route>
+          <Route
             path="groups/new"
             element={
               <ScrollToTopOnMountWrapper>
@@ -152,19 +161,6 @@ const AppRoute = () => (
             path="accounts/:accountId"
             element={<Navigate to="../accounts" replace />}
           />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Settings />
-              </ScrollToTopOnMountWrapper>
-            }
-          >
-            <Route index element={<Configuration />} />
-            <Route path="accounts" element={<AccountsSettings />} />
-            <Route path="groups" element={<GroupsSettings />} />
-            <Route path="tags" element={<TagsSettings />} />
-            <Route path="configuration" element={<Configuration />} />
-          </Route>
         </Route>
         <Route
           path="tag/:tagId"
