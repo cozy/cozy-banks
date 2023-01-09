@@ -47,9 +47,6 @@
       "path": "recurrence.js"
     },
     {
-      "path": "stats.js"
-    },
-    {
       "path": "vendors.bundle.js"
     },
     {
