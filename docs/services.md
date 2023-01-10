@@ -7,7 +7,6 @@ Banks application.
 - [Services](#services)
   * [Categorization](#categorization)
   * [onOperationOrBillCreate](#onoperationorbillcreate)
-  * [Account stats](#account-stats)
   * [Automatic groups](#automatic-groups)
   * [Budget alerts](#budget-alerts)
   * [Recurrences](#recurrences)
@@ -70,12 +69,6 @@ It is bound to the `io.cozy.bills` creation only. The creation of
 service. See [the next
 section](#i-am-writing-a-banking-konnector-what-should-i-do) for more precise
 informations about that.
-
-### Account stats
-
-slug: `stats`
-
-Computes statistics (see [the documentation](https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankaccountsstats) for more informations) on bank accounts and save the results in `io.cozy.bank.accounts.stats` doctype.
 
 ### Automatic groups
 
