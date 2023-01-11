@@ -56,8 +56,7 @@ const TosUpdatedModal = ({ newTosLink, onAccept, onRefuse }) => {
 class UserActionRequired extends Component {
   static contextTypes = {
     store: PropTypes.object.isRequired,
-    client: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired
+    client: PropTypes.object.isRequired
   }
 
   state = {
