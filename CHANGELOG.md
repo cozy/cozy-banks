@@ -1,3 +1,19 @@
+# 1.52.0
+
+## ✨ Features
+
+* The stats service is no longer useful, we can remove it from the manifest and delete the deprecated code
+* Update React Router to v6
+* Update cozy-authentication from 2.1.0 to 2.12.1
+
+# 🐛 Bug Fixes
+
+* Fix bad display of settings menu
+
+### 🔧 Tech
+
+* Remove cozy-client-js assets
+
 # 1.51.0
 
 # 1.50.0
