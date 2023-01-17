@@ -17,7 +17,7 @@ Banks application.
 
 You can manually create an app token and launch the built service.
 
-```
+```bash
 # Watch services
 $ yarn watch:services:prod
 # If you want to watch only 1 service, you can use the WEBPACK_ENTRYPOINT
