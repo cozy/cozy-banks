@@ -171,6 +171,11 @@ class LateHealthReimbursement extends NotificationView {
 
   async buildData() {
     const { transactions, accounts } = await this.fetchData()
+
+    if (transactions.length === 0) {
+      return
+    }
+
     const accountsById = keyBy(accounts, '_id')
     const transactionsByAccounts = prepareTransactions(transactions)
 
