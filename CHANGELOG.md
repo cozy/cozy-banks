@@ -1,4 +1,31 @@
+# 1.53.0
+
+## ✨ Features
+
+# 🐛 Bug Fixes
+
+### 🔧 Tech
+
 # 1.52.0
+
+### ✨ Features
+
+* Update cozy-bar from 8.11.2 to 8.14.0
+
+### 🐛 Bug Fixes
+
+* When a connector needs to be updated, it no longer impacts the add bank connector buttons
+* The recurrence service should not modify transactions already associated with a recurrence
+* Use absolute links for analysis tabs
+* Right arrow on advanced filter in category page was not clickable
+
+### 🔧 Tech
+
+* Clarified recurrence service functions and variables names
+* Add better log for services
+* More specific log for doTransactionsMatching and doBillsMatching in onOperationOrBillCreate
+
+# 1.51.0
 
 ## ✨ Features
 
@@ -13,8 +40,6 @@
 ### 🔧 Tech
 
 * Remove cozy-client-js assets
-
-# 1.51.0
 
 # 1.50.0
 
