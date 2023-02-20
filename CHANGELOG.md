@@ -24,6 +24,7 @@
 * Clarified recurrence service functions and variables names
 * Add better log for services
 * More specific log for doTransactionsMatching and doBillsMatching in onOperationOrBillCreate
+* Improved performance of transactions filtering in the recurrence service
 
 # 1.51.0
 
