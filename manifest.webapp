@@ -103,6 +103,12 @@
       "file": "konnectorAlerts.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
       "debounce": "60s"
+    },
+    "export": {
+      "type": "node",
+      "file": "export.js",
+      "comment": "This service must be called programmatically from Banks.",
+      "debounce": "5m"
     }
   },
   "notifications": {
