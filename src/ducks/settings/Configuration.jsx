@@ -33,6 +33,7 @@ import TransactionGreaterRules from './TransactionGreaterRules'
 import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
+import { launchExportJob } from 'ducks/export/helpers'
 
 const toggleToTrackEvents = {
   'community.localModelOverride': 'categorie_automatique'
@@ -48,6 +49,7 @@ export class Configuration extends React.Component {
       showPersonalInfoDialog: false
     }
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
+    this.handleClickExport = this.handleClickExport.bind(this)
     this.onToggleAmountCensoringInNotifications = this.onToggle(
       'notifications.amountCensoring'
     )
@@ -116,6 +118,11 @@ export class Configuration extends React.Component {
     trackEvent({
       name: `masquer_elements-${checked ? 'on' : 'off'}`
     })
+  }
+
+  handleClickExport() {
+    launchExportJob(this.props.client)
+    this.props.navigate('export')
   }
 
   render() {
@@ -245,7 +252,7 @@ export class Configuration extends React.Component {
                   label={t('AdvancedFeaturesSettings.my-data.export-csv')}
                   className="u-mt-half"
                   variant="secondary"
-                  onClick={() => this.props.navigate('export')}
+                  onClick={this.handleClickExport}
                 />
                 <Button
                   label={t('AdvancedFeaturesSettings.my-data.import-csv')}
