@@ -33,6 +33,7 @@ import Export from 'ducks/settings/Export'
 const AppRoute = () => (
   <Routes>
     <Route element={<UserActionRequired />}>
+      {AppRoute.renderExtraRoutesWithoutLayout()}
       <Route path="/" element={<App />}>
         {isWebApp() && (
           <Route index element={<Navigate to="balances" replace />} />
@@ -219,5 +220,6 @@ const AppRoute = () => (
 
 // Ability to overrides easily
 AppRoute.renderExtraRoutes = () => null
+AppRoute.renderExtraRoutesWithoutLayout = () => null
 
 export default AppRoute
