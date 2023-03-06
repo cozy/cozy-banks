@@ -1,22 +1,22 @@
 /* global __TARGET__ */
 
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import set from 'lodash/set'
+import compose from 'lodash/flowRight'
+
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-
 import {
   queryConnect,
   withClient,
   isQueryLoading,
   hasQueryBeenLoaded
 } from 'cozy-client'
-import { settingsConn } from 'doctypes'
-import set from 'lodash/set'
-import compose from 'lodash/flowRight'
-import Loading from 'components/Loading'
-
 import flag from 'cozy-flags'
 
+import { settingsConn } from 'doctypes'
+import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
@@ -245,7 +245,7 @@ export class Configuration extends React.Component {
                   label={t('AdvancedFeaturesSettings.my-data.export-csv')}
                   className="u-mt-half"
                   variant="secondary"
-                  onClick={undefined}
+                  onClick={() => this.props.navigate('export')}
                 />
                 <Button
                   label={t('AdvancedFeaturesSettings.my-data.import-csv')}
@@ -281,7 +281,7 @@ export class Configuration extends React.Component {
   }
 }
 
-export default compose(
+const ConfigurationWrapped = compose(
   withClient,
   queryConnect({
     settingsCollection: settingsConn
@@ -290,3 +290,11 @@ export default compose(
   flag.connect,
   translate()
 )(Configuration)
+
+const ConfigurationFunctional = props => {
+  const navigate = useNavigate()
+
+  return <ConfigurationWrapped {...props} navigate={navigate} />
+}
+
+export default ConfigurationFunctional
