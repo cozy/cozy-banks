@@ -282,7 +282,7 @@
     "files": {
       "description": "Used by the export feature to store the exported data",
       "type": "io.cozy.files",
-      "verbs": ["POST"]
+      "verbs": ["POST", "PUT", "GET"]
     }
   }
 }
