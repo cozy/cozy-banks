@@ -1,11 +1,3 @@
-# 1.54.0
-
-## ✨ Features
-
-## 🐛 Bug Fixes
-
-## 🔧 Tech
-
 # 1.53.0
 
 ## ✨ Features
