@@ -1,9 +1,9 @@
 {
-  "name": "Espace personnel MAIF",
-  "version": "1.34.0",
-  "name_prefix": "",
-  "slug": "app",
-  "registry_namespace": "maif",
+  "name": "Banks",
+  "version": "1.54.0",
+  "name_prefix": "Cozy",
+  "slug": "banks",
+  "registry_namespace": "banks",
   "icon": "icon-banks.svg",
   "description": "The banking application for Cozy",
   "category": "cozy",
@@ -78,12 +78,6 @@
       "file": "categorization.js",
       "comment": "This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."
     },
-    "stats": {
-      "type": "node",
-      "file": "stats.js",
-      "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
-      "debounce": "1m"
-    },
     "recurrence": {
       "type": "node",
       "file": "recurrence.js",
@@ -112,11 +106,25 @@
       "file": "konnectorAlerts.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
       "debounce": "60s"
+    },
+    "export": {
+      "type": "node",
+      "file": "export.js",
+      "comment": "This service must be called programmatically from Banks.",
+      "debounce": "5m"
     }
   },
   "notifications": {
     "balance-lower": {
       "description": "Alert the user when his account balance is lower than a certain value",
+      "collapsible": true,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "balance-greater": {
+      "description": "Alert the user when his account balance is greater than a certain value",
       "collapsible": true,
       "stateful": false,
       "multiple": false,
@@ -193,16 +201,6 @@
         "DELETE"
       ]
     },
-    "bank.accounts.stats": {
-      "description": "Used to aggregate stats about bank accounts",
-      "type": "io.cozy.bank.accounts.stats",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
-    },
     "bank.operations": {
       "description": "Used to manage your bank operations",
       "type": "io.cozy.bank.operations",
@@ -254,27 +252,28 @@
       ]
     },
     "apps": {
-      "description": "Required to retrieve links to Documents app",
+      "description": "Required by the cozy-bar to display the icons of the apps",
       "type": "io.cozy.apps",
       "verbs": [
-        "GET",
-        "POST",
-        "PUT"
+        "GET"
       ]
     },
     "triggers": {
-      "description": "Required to run the konnectors and get statuses",
-      "type": "io.cozy.triggers",
-      "verbs": [
-        "GET",
-        "POST"
-      ]
+      "description": "Used to configure bank accounts",
+      "type": "io.cozy.triggers"
     },
     "settings": {
       "description": "Required by the cozy-bar to display Claudy and know which applications are coming soon",
       "type": "io.cozy.settings",
       "verbs": [
         "GET"
+      ]
+    },
+    "errorsreporting": {
+      "description": "Allow to report unexpected errors to the support team",
+      "type": "cc.cozycloud.errors",
+      "verbs": [
+        "POST"
       ]
     },
     "reporting": {
@@ -292,13 +291,10 @@
       ]
     },
     "konnectors": {
-      "description": "Required to install and display konnectors",
+      "description": "Required to know if a konnector is waiting for a manual update",
       "type": "io.cozy.konnectors",
       "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
+        "GET"
       ]
     },
     "apps.suggestions": {
@@ -311,33 +307,21 @@
       ]
     },
     "jobs": {
-      "description": "Required to run the konnectors",
-      "type": "io.cozy.jobs",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT"
-      ]
+      "description": "Used in services to start other services",
+      "type": "io.cozy.jobs"
     },
     "accounts": {
-      "description": "Required to manage accounts associated to konnectors",
-      "type": "io.cozy.accounts",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "description": "Used to create a temporary account for transfers and to configure accounts",
+      "type": "io.cozy.accounts"
     },
     "contacts": {
-      "description": "Required to access contacts",
+      "description": "Used to link accounts to contacts",
       "type": "io.cozy.contacts",
       "verbs": [
         "GET",
         "PUT",
         "POST"
-      ],
-      "selector": "me"
+      ]
     },
     "identities": {
       "description": "Used to update the document storing information entered before a transfer",
@@ -348,9 +332,9 @@
         "POST"
       ]
     },
-    "terms": {
-      "description": "Required to install update terms",
-      "type": "io.cozy.terms",
+    "tags": {
+      "description": "Used to link tags to bank operations",
+      "type": "io.cozy.tags",
       "verbs": [
         "GET",
         "POST",
@@ -359,34 +343,12 @@
       ]
     },
     "files": {
-      "description": "Required to access folders",
+      "description": "Used by the export feature to store the exported data",
       "type": "io.cozy.files",
       "verbs": [
-        "GET",
         "POST",
         "PUT",
-        "PATCH",
-        "DELETE"
-      ]
-    },
-    "permissions": {
-      "description": "Required to run the konnectors",
-      "type": "io.cozy.permissions",
-      "verbs": [
-        "GET",
-        "POST",
-        "PATCH"
-      ]
-    },
-    "create-a-zip-archive": {
-      "description": "Required to create a zip archive inside the cozy",
-      "type": "io.cozy.jobs",
-      "verbs": [
-        "POST"
-      ],
-      "selector": "worker",
-      "values": [
-        "zip"
+        "GET"
       ]
     }
   }
