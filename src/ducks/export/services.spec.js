@@ -343,7 +343,7 @@ describe('transactionsToCSV', () => {
       'EUR',
       'credit card',
       'yes',
-      '2021-12-31T12:00:00.000Z',
+      '2021-12-31',
       undefined,
       undefined,
       undefined,

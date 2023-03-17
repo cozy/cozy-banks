@@ -118,7 +118,7 @@ export const transactionsToCSV = function* (transactions) {
       transaction.currency,
       transaction.type,
       transaction.isComing ? 'yes' : 'no',
-      transaction.valueDate,
+      dateStr(transaction.valueDate),
       transaction.reimbursementStatus
     ]
 
