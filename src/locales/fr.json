@@ -629,6 +629,7 @@
     },
     "import": {
       "alerter": {
+        "done": "L'import s'est déroulé avec succès",
         "failed": "Une erreur est survenue lors de l'import de vos données.\nMerci de réessayer"
       },
       "title": {
