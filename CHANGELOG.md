@@ -2,9 +2,22 @@
 
 ## ✨ Features
 
+* Export your bank's data in `csv` format via the `Settings` page
+* Import bank data from Cozy bank export file (`csv` format) via the `Settings` page
+* Rework `renderExtraRoutesWithoutLayout` AppRoute method
+* Allow grouping bank accounts by institution labels in Settings
+
 ## 🐛 Bug Fixes
 
+* The service `onOperationOrBillCreate` was failing with a `CozyStackClient.collection() called without a doctype` error.
+* Bank accounts imported via the import service are grouped by their institution label in the `Settings > Accounts` tab
+
 ## 🔧 Tech
+
+* Remove direct dependency to `cozy-stack-client`
+* Bump `cozy-stack-client` from 35.3.1 to 35.6.0
+* Bump `cozy-pouch-link` from 35.3.1 to 35.6.0
+* Services launched via the CLI use a `CozyClient` instance with `appMetadata`
 
 # 1.52.0
 
