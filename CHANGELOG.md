@@ -1,10 +1,21 @@
-# 1.54.0
+# 1.55.0
 
 ## ✨ Features
 
 ## 🐛 Bug Fixes
 
 ## 🔧 Tech
+
+# 1.54.0
+
+## 🐛 Bug Fixes
+
+* Import accounts with a normalized number
+* Prevent fallback on sub-optimal index for in-progress jobs query.
+
+## 🔧 Tech
+
+* Notifications are compatible with the new Cozy app
 
 # 1.53.0
 
