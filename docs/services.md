@@ -122,6 +122,16 @@ The service also determines if a delayed notification schedule at D+3 and D+7 is
 
 ℹ️  This service can be run via CLI via `yarn service konnectorAlerts`
 
+### Import
+
+slug: `import`
+
+Allows you to import bank data into Cozy, from the Cozy bank export file (.csv format)
+This service is launched manually once the import of the file has been successful on the cozy.
+It also saves the number of imported transactions in the doctype `io.cozy.bank.settings` (`lastImportSuccess.savedTransactionsCount`)
+
+ℹ️  This service can be run via CLI via `yarn service import`
+
 ## I am writing a banking konnector, what should I do?
 
 If you want to benefit from all the features of these services, the most
