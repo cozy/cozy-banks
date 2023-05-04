@@ -1,10 +1,24 @@
+# 1.56.0
+
 # 1.55.0
 
-## ✨ Features
+### ✨ Features
 
-## 🐛 Bug Fixes
+* Update cozy-bar to get fixed cloud icon position
+* Save imported transactions count
+* Update Success modal to specify number of successfully imported operations
+* Add `balancesNotifications` to `io.cozy.bank.settings`
+* Add current balance for each account in `io.cozy.bank.settings` when `onOperationOrBillCreate` service run.
 
-## 🔧 Tech
+### 🐛 Bug Fixes
+
+* French wording for import success title
+* Email notification for balance greater wasn't using the right title
+* Reduction of the number of BalanceLower & BalanceGreater notifications
+
+### 🔧 Tech
+
+* Add import service documentation
 
 # 1.54.0
 
