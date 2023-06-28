@@ -1,4 +1,16 @@
+# 1.57.0
+
 # 1.56.0
+
+### ✨ Features
+
+* Hide KonnectorChip by flag for health category
+* Hide BillChip by flag for health category
+* Remove native link and icon from manifest
+
+### 🔧 Tech
+
+* Remove logs with unnecessary or sensitive data
 
 # 1.55.0
 
