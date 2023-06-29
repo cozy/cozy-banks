@@ -1,6 +1,6 @@
 {
   "name": "Banks",
-  "version": "1.38.0",
+  "version": "1.57.0",
   "name_prefix": "Cozy",
   "slug": "banks",
   "registry_namespace": "banks",
@@ -38,16 +38,6 @@
     "screenshots/fr/screenshot4.png",
     "screenshots/fr/screenshot5.png"
   ],
-  "platforms": [
-    {
-      "type": "ios",
-      "url": "https://itunes.apple.com/us/app/cozy-banks/id1349814380"
-    },
-    {
-      "type": "android",
-      "url": "https://play.google.com/store/apps/details?id=io.cozy.banks.mobile"
-    }
-  ],
   "editor": "Cozy",
   "tags": [
     "bank",
@@ -78,12 +68,6 @@
       "file": "categorization.js",
       "comment": "This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."
     },
-    "stats": {
-      "type": "node",
-      "file": "stats.js",
-      "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
-      "debounce": "1m"
-    },
     "recurrence": {
       "type": "node",
       "file": "recurrence.js",
@@ -112,11 +96,29 @@
       "file": "konnectorAlerts.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
       "debounce": "60s"
+    },
+    "export": {
+      "type": "node",
+      "file": "export.js",
+      "comment": "This service must be called programmatically from Banks."
+    },
+    "import": {
+      "type": "node",
+      "file": "import.js",
+      "comment": "This service must be called programmatically from Banks."
     }
   },
   "notifications": {
     "balance-lower": {
       "description": "Alert the user when his account balance is lower than a certain value",
+      "collapsible": true,
+      "stateful": false,
+      "multiple": false,
+      "default_priority": "normal",
+      "templates": {}
+    },
+    "balance-greater": {
+      "description": "Alert the user when his account balance is greater than a certain value",
       "collapsible": true,
       "stateful": false,
       "multiple": false,
@@ -193,16 +195,6 @@
         "DELETE"
       ]
     },
-    "bank.accounts.stats": {
-      "description": "Used to aggregate stats about bank accounts",
-      "type": "io.cozy.bank.accounts.stats",
-      "verbs": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
-    },
     "bank.operations": {
       "description": "Used to manage your bank operations",
       "type": "io.cozy.bank.operations",
@@ -271,6 +263,13 @@
         "GET"
       ]
     },
+    "errorsreporting": {
+      "description": "Allow to report unexpected errors to the support team",
+      "type": "cc.cozycloud.errors",
+      "verbs": [
+        "POST"
+      ]
+    },
     "reporting": {
       "description": "Allow to report unexpected errors to the support team",
       "type": "cc.cozycloud.sentry",
@@ -325,6 +324,25 @@
         "GET",
         "PUT",
         "POST"
+      ]
+    },
+    "tags": {
+      "description": "Used to link tags to bank operations",
+      "type": "io.cozy.tags",
+      "verbs": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    "files": {
+      "description": "Used by the export feature to store the exported data",
+      "type": "io.cozy.files",
+      "verbs": [
+        "POST",
+        "PUT",
+        "GET"
       ]
     }
   }
