@@ -19,6 +19,7 @@ import match from 'ducks/transactions/actions/KonnectorAction/match'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { findMatchingBrandWithoutTrigger } from 'ducks/brandDictionary/selectors'
 import { connect } from 'react-redux'
+import { useDisableEnforceFocusModal } from 'ducks/context/DisableEnforceFocusModalContext'
 
 const name = 'konnector'
 const transactionDialogListItemStyle = { color: palette.dodgerBlue }
@@ -50,6 +51,7 @@ const TransactionRow = ({ brand, onClick }) => {
 
 const Component = ({ fetchTriggers, isModalItem, brand }) => {
   const { t } = useI18n()
+  const { setDisableEnforceFocus } = useDisableEnforceFocusModal()
 
   const [showInformativeDialogState, setShowInformativeDialogState] =
     useState(false)
@@ -69,9 +71,11 @@ const Component = ({ fetchTriggers, isModalItem, brand }) => {
   }
   const hideIntentModal = ev => {
     ev?.preventDefault()
+    setDisableEnforceFocus?.(false)
     setShowIntentModalState(false)
   }
   const onInformativeDialogConfirm = () => {
+    setDisableEnforceFocus?.(true)
     hideInformativeDialog()
     showIntentModal()
   }
