@@ -33,7 +33,7 @@ import {
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
 import { JOBS_DOCTYPE } from './doctypes'
-import { DisableEnforceFocusModalProvider } from 'ducks/transactions/TransactionModal/TransactionModal'
+import { DisableEnforceFocusModalProvider } from 'ducks/context/DisableEnforceFocusModalContext'
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
   onError: () => Alerter.error(t('JobsContext.alerter-errored'))
