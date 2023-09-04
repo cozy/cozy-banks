@@ -1,4 +1,15 @@
+# 1.58.0
+
 # 1.57.0
+
+### ✨ Features
+
+* Upgrade cozy-scripts from 6.3.0 to 8.1.1
+
+### 🐛 Bug Fixes
+
+* Transaction modale closed by itself on some mobile devices
+* Fields in Intent modals must be clickable
 
 # 1.56.0
 
@@ -7,6 +18,10 @@
 * Hide KonnectorChip by flag for health category
 * Hide BillChip by flag for health category
 * Remove native link and icon from manifest
+
+### 🐛 Bug Fixes
+
+* Transaction modale closed by itself on some mobile devices
 
 ### 🔧 Tech
 
