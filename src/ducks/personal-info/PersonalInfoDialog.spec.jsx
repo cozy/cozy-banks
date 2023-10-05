@@ -7,7 +7,7 @@ import PersonalInfoDialog, {
   PersonalInfoDialog as DumbPersonalInfoDialog
 } from './PersonalInfoDialog'
 
-jest.mock('cozy-harvest-lib/dist/services/budget-insight')
+jest.mock('cozy-harvest-lib/dist/policies/budget-insight')
 
 jest.mock('hooks/useBankingSlugs', () => {
   return jest.fn().mockImplementation(() => {
@@ -19,7 +19,7 @@ jest.mock('hooks/useBankingSlugs', () => {
   })
 })
 
-import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
+import { updateUserConfig } from 'cozy-harvest-lib/dist/policies/budget-insight'
 
 const mockIdentities = [
   {

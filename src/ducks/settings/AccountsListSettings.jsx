@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCozyDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import groupBy from 'lodash/groupBy'
 import get from 'lodash/get'
@@ -8,6 +9,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import { models, useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
+import DialogContext from 'cozy-harvest-lib/dist/components/DialogContext'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 import { Unpadded } from 'components/Padded'
 import LegalMention from 'ducks/legal/LegalMention'
@@ -111,6 +113,11 @@ const AccountsListSettings = ({
 
   const hasError = connection => konnInError.includes(connection?._id)
 
+  const dialogContext = useCozyDialog({
+    open: true,
+    size: 'medium',
+    onClose: () => setEditionModalOptions(null)
+  })
   return (
     <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>
       {/* Bank accounts still connected to io.cozy.accounts */}
@@ -145,23 +152,24 @@ const AccountsListSettings = ({
           )
         })}
       </List>
-      {editionModalOptions ? (
-        editionModalOptions.connection ? (
-          <HarvestBankAccountSettings
-            connectionId={editionModalOptions.connection._id}
-            onDismiss={() => setEditionModalOptions(null)}
-          />
-        ) : (
-          <DisconnectedAccountModal
-            onClose={() => setEditionModalOptions(null)}
-            accounts={accounts.filter(
-              acc =>
-                getConnectionIdFromAccount(acc) ===
-                editionModalOptions.connectionId
-            )}
-          />
-        )
-      ) : null}
+      <DialogContext.Provider value={dialogContext}>
+        {editionModalOptions ? (
+          editionModalOptions.connection ? (
+            <HarvestBankAccountSettings
+              connectionId={editionModalOptions.connection._id}
+            />
+          ) : (
+            <DisconnectedAccountModal
+              onClose={() => setEditionModalOptions(null)}
+              accounts={accounts.filter(
+                acc =>
+                  getConnectionIdFromAccount(acc) ===
+                  editionModalOptions.connectionId
+              )}
+            />
+          )
+        ) : null}
+      </DialogContext.Provider>
     </Unpadded>
   )
 }

@@ -2,11 +2,6 @@ import React, { useMemo } from 'react'
 import CozyClient, { isQueryLoading, Q, Query } from 'cozy-client'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Dialog from 'cozy-ui/transpiled/react/Dialog'
-import {
-  useCozyDialog,
-  DialogCloseButton
-} from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import { VaultUnlockProvider, VaultUnlockPlaceholder } from 'cozy-keys-lib'
@@ -163,11 +158,6 @@ const HarvestBankAccountSettings = ({
   onDismiss,
   intentsApi
 }) => {
-  const { dialogProps } = useCozyDialog({
-    open: true,
-    size: 'medium'
-  })
-
   return (
     <HarvestVaultProvider>
       <VaultUnlockProvider>
@@ -178,25 +168,22 @@ const HarvestBankAccountSettings = ({
               [
                 '/accounts/:connectionId',
                 connectionId => (
-                  <Dialog {...dialogProps} onClose={onDismiss}>
-                    <DialogCloseButton onClick={onDismiss} />
-                    <HarvestLoader connectionId={connectionId}>
-                      {({ triggers, konnector, accountsAndTriggers }) => {
-                        return (
-                          <HarvestAccountModal
-                            accountId={connectionId}
-                            triggers={triggers}
-                            intentsApi={intentsApi}
-                            konnector={konnector}
-                            accountsAndTriggers={accountsAndTriggers}
-                            onDismiss={() => {
-                              onDismiss()
-                            }}
-                          />
-                        )
-                      }}
-                    </HarvestLoader>
-                  </Dialog>
+                  <HarvestLoader connectionId={connectionId}>
+                    {({ triggers, konnector, accountsAndTriggers }) => {
+                      return (
+                        <HarvestAccountModal
+                          accountId={connectionId}
+                          triggers={triggers}
+                          intentsApi={intentsApi}
+                          konnector={konnector}
+                          accountsAndTriggers={accountsAndTriggers}
+                          onDismiss={() => {
+                            onDismiss()
+                          }}
+                        />
+                      )
+                    }}
+                  </HarvestLoader>
                 )
               ],
               ['/accounts', () => null],

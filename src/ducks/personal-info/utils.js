@@ -8,7 +8,7 @@ import {
   KONNECTOR_DOCTYPE,
   IDENTITIES_DOCTYPE
 } from 'doctypes'
-import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
+import { updateUserConfig } from 'cozy-harvest-lib/dist/policies/budget-insight'
 
 export const defaultIdentityIdentifier = 'regulatory-info'
 
