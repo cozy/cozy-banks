@@ -94,7 +94,7 @@ export const findAppSuggestions = async setting => {
 
   log('info', 'Get not installed brands')
   const installedSlugs = triggers.map(getKonnector)
-  const brands = getNotInstalledBrands(installedSlugs)
+  const brands = await getNotInstalledBrands(installedSlugs)
 
   log('info', `${brands.length} not installed brands`)
 

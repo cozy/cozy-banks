@@ -94,11 +94,11 @@ const sortedOperations = (bill, operations) => {
   return sortBy(operations, buildSortFunction(bill))
 }
 
-const getBillRegexp = bill => {
+const getBillRegexp = async bill => {
   let regexpStr = bill.matchingCriterias && bill.matchingCriterias.labelRegex
 
   if (!regexpStr && bill.vendor) {
-    const [brand] = getBrands(
+    const [brand] = await getBrands(
       brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
     )
     regexpStr = brand ? brand.regexp : `\\b${bill.vendor}\\b`

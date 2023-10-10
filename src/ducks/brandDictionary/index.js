@@ -1,3 +1,4 @@
+import localforage from 'localforage'
 import find from 'lodash/find'
 import some from 'lodash/some'
 import includes from 'lodash/includes'
@@ -15,8 +16,10 @@ export const getJSONBrands = () => {
   return brands
 }
 
-export const getBrands = filterFct =>
-  filterFct ? brands.filter(filterFct) : brands
+export const getBrands = async filterFct => {
+  const { brands } = (await localforage.getItem('brands')) || []
+  return filterFct ? brands.filter(filterFct) : brands
+}
 
 export const isMatchingBrand = (brand, label) => getRegexp(brand).test(label)
 
@@ -28,23 +31,24 @@ export const matchBrands = (brands, label) => {
   return some(brands, brand => isMatchingBrand(brand, label))
 }
 
-export const getBrandsWithInstallationInfo = installedSlugs => {
-  const brands = getBrands().map(brand => ({
+export const getBrandsWithInstallationInfo = async installedSlugs => {
+  const brands = await getBrands()
+  const brandsWithInfo = brands.map(brand => ({
     ...brand,
     isInstalled: installedSlugs.includes(brand.konnectorSlug)
   }))
 
-  return brands
+  return brandsWithInfo
 }
 
-export const getInstalledBrands = installedSlugs => {
-  const brands = getBrandsWithInstallationInfo(installedSlugs)
+export const getInstalledBrands = async installedSlugs => {
+  const brands = await getBrandsWithInstallationInfo(installedSlugs)
 
   return brands.filter(brand => brand.isInstalled)
 }
 
-export const getNotInstalledBrands = installedSlugs => {
-  const brands = getBrandsWithInstallationInfo(installedSlugs)
+export const getNotInstalledBrands = async installedSlugs => {
+  const brands = await getBrandsWithInstallationInfo(installedSlugs)
 
   return brands.filter(brand => !brand.isInstalled)
 }
