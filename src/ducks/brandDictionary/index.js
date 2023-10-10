@@ -21,7 +21,9 @@ export const getBrands = async filterFct => {
   return filterFct ? brands.filter(filterFct) : brands
 }
 
-export const isMatchingBrand = (brand, label) => getRegexp(brand).test(label)
+export const isMatchingBrand = (brand, label) => {
+  return brand.regexp ? getRegexp(brand).test(label) : false
+}
 
 export const findMatchingBrand = (brands, label) => {
   return find(brands, brand => isMatchingBrand(brand, label))
