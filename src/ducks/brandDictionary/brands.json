@@ -78,6 +78,11 @@
     "konnectorSlug": "bitiba"
   },
   {
+    "name": "Blablacar",
+    "regexp": "\\bblablacar\\b",
+    "konnectorSlug": "blablacar"
+  },
+  {
     "name": "Booking.com",
     "regexp": "\\bbooking.com\\b",
     "konnectorSlug": "bookingdotcom",
@@ -146,6 +151,11 @@
     "konnectorSlug": "directenergie"
   },
   {
+    "name": "EasyJet",
+    "regexp": "\\beasyjet",
+    "konnectorSlug": "easyjet"
+  },
+  {
     "name": "Eau du Grand Lyon",
     "regexp": "\\bsoc eau gd lyon\\b",
     "konnectorSlug": "eaudugrandlyon"
@@ -185,6 +195,11 @@
     "name": "eTicket",
     "regexp": "\\betickets\\b",
     "konnectorSlug": "eticket"
+  },
+  {
+    "name": "Fnac",
+    "regexp": "\\bfnac",
+    "konnectorSlug": "fnac"
   },
   {
     "name": "Free",
@@ -288,6 +303,11 @@
     "name": "Leclerc Drive",
     "regexp": "\\bleclerc\\b",
     "konnectorSlug": "leclercdrive"
+  },
+  {
+    "name": "Lucca",
+    "regexp": "\\blucca\\b",
+    "konnectorSlug": "lucca"
   },
   {
     "name": "Ma lentille",
