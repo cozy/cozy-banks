@@ -62,10 +62,6 @@
     "konnectorSlug": "auchandrive"
   },
   {
-    "name": "Audible",
-    "regexp": "\\baudible\\.[a-z]{1,5}\\b"
-  },
-  {
     "name": "Autolib",
     "regexp": "\\bautolib\\b",
     "konnectorSlug": "autolib",
@@ -364,10 +360,6 @@
     "maintenance": true
   },
   {
-    "name": "OCS",
-    "regexp": "\\bocs\\b"
-  },
-  {
     "name": "Opngo",
     "regexp": "\\bopngo\\b",
     "konnectorSlug": "opngo"
@@ -438,10 +430,6 @@
     "name": "Spartoo",
     "regexp": "\\bspartoo\\b",
     "konnectorSlug": "spartoo"
-  },
-  {
-    "name": "Spotify",
-    "regexp": "\\bspotify\\b"
   },
   {
     "name": "Stickers Discount",
