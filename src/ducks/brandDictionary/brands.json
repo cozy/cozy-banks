@@ -64,8 +64,7 @@
   {
     "name": "Autolib",
     "regexp": "\\bautolib\\b",
-    "konnectorSlug": "autolib",
-    "maintenance": true
+    "konnectorSlug": "autolib"
   },
   {
     "name": "Bipandgo",
@@ -85,8 +84,7 @@
   {
     "name": "Booking.com",
     "regexp": "\\bbooking.com\\b",
-    "konnectorSlug": "bookingdotcom",
-    "maintenance": true
+    "konnectorSlug": "bookingdotcom"
   },
   {
     "name": "Boulanger",
@@ -126,8 +124,7 @@
   {
     "name": "Cultura",
     "regexp": "\\bcultura\\b",
-    "konnectorSlug": "cultura",
-    "maintenance": true
+    "konnectorSlug": "cultura"
   },
   {
     "name": "Darty",
@@ -142,8 +139,7 @@
   {
     "name": "Deliveroo",
     "regexp": "\\bdeliveroo\\b",
-    "konnectorSlug": "deliveroo",
-    "maintenance": true
+    "konnectorSlug": "deliveroo"
   },
   {
     "name": "Direct Energie",
@@ -173,8 +169,7 @@
   {
     "name": "Electricité de Strabourg",
     "regexp": "es energies strasbourg\\b",
-    "konnectorSlug": "electricitestrasbourg",
-    "maintenance": true
+    "konnectorSlug": "electricitestrasbourg"
   },
   {
     "name": "Enercoop",
@@ -230,8 +225,7 @@
   {
     "name": "Glisshop",
     "regexp": "\\bglisshop\\b",
-    "konnectorSlug": "glisshop",
-    "maintenance": true
+    "konnectorSlug": "glisshop"
   },
   {
     "name": "Harmonie",
@@ -285,14 +279,12 @@
         "platform": "ios",
         "href": "https://apps.apple.com/fr/app/m-mutuelle/id582194132"
       }
-    ],
-    "maintenance": true
+    ]
   },
   {
     "name": "LDLC",
     "regexp": "\\bldlc\\b",
-    "konnectorSlug": "ldlc",
-    "maintenance": true
+    "konnectorSlug": "ldlc"
   },
   {
     "name": "Le Monde Diplomatique",
@@ -322,8 +314,7 @@
   {
     "name": "Macif",
     "regexp": "\\bmacif\\b",
-    "konnectorSlug": "macif",
-    "maintenance": true
+    "konnectorSlug": "macif"
   },
   {
     "name": "Malakoff Mederic",
@@ -365,8 +356,7 @@
   {
     "name": "Net-Entreprise (Micro-Entrepreneur)",
     "regexp": "\\bUrssaf\\b",
-    "konnectorSlug": "net-entreprise-micro",
-    "maintenance": true
+    "konnectorSlug": "net-entreprise-micro"
   },
   {
     "name": "Numéricable",
@@ -376,8 +366,7 @@
   {
     "name": "O2",
     "regexp": "^o2\\b",
-    "konnectorSlug": "o2",
-    "maintenance": true
+    "konnectorSlug": "o2"
   },
   {
     "name": "Opngo",
@@ -402,8 +391,7 @@
   {
     "name": "Pole Emploi",
     "regexp": "\\bpole emploi\\b",
-    "konnectorSlug": "poleemploi",
-    "maintenance": true
+    "konnectorSlug": "poleemploi"
   },
   {
     "name": "Probikeshop",
@@ -413,8 +401,7 @@
   {
     "name": "ProductBoard",
     "regexp": "\\bproductboard\\b",
-    "konnectorSlug": "productboard",
-    "maintenance": true
+    "konnectorSlug": "productboard"
   },
   {
     "name": "SAUR",
@@ -509,8 +496,7 @@
   {
     "name": "Zalando",
     "regexp": "\\bzalando\\b",
-    "konnectorSlug": "zalando",
-    "maintenance": true
+    "konnectorSlug": "zalando"
   },
   {
     "name": "ZooPlus",
