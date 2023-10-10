@@ -9,7 +9,7 @@ import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import { AugmentedModalOpener, isAugmentedModalBill } from 'ducks/demo'
-import { getBrands } from 'ducks/brandDictionary'
+import { useBrands } from 'ducks/brandDictionary/useBrands'
 
 const getChipLabel = (t, vendorName) => {
   return vendorName
@@ -39,9 +39,16 @@ const getInvoiceId = bill => {
 const BillChip = props => {
   const { t } = useI18n()
   const { bill, transaction } = props
+  const brands = useBrands()
+  // Bill's vendor can be a slug. We get the brand from our dictionary to be
+  // sure that we show the brand name and not a konnector slug
+  const brand = brands.find(
+    brand =>
+      brand.name === bill.vendor ||
+      (brand.konnectorSlug && brand.konnectorSlug === bill.vendor)
+  )
 
   let invoiceId
-
   try {
     invoiceId = getInvoiceId(bill)[1]
   } catch (err) {
@@ -51,16 +58,7 @@ const BillChip = props => {
   }
 
   const shouldUseAugmentedModal = flag('demo') && isAugmentedModalBill(bill)
-
   const Wrapper = shouldUseAugmentedModal ? AugmentedModalOpener : FileOpener
-
-  // Bill's vendor can be a slug. We get the brand from our dictionary to be
-  // sure that we show the brand name and not a konnector slug
-  const [brand] = getBrands(
-    brand =>
-      brand.name === bill.vendor ||
-      (brand.konnectorSlug && brand.konnectorSlug === bill.vendor)
-  )
   const vendorName = brand && brand.name
 
   if (flag('hide.healthTheme.enabled') && brand.health) {
