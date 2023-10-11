@@ -11,10 +11,6 @@ const getRegexp = brand => {
   return new RegExp(brand.regexp, 'i')
 }
 
-export const getJSONBrands = () => {
-  return brands
-}
-
 export const getBrands = filterFct => {
   const brands = JSON.parse(localStorage.getItem('brands')) || []
   return filterFct ? brands.filter(filterFct) : brands
@@ -84,7 +80,6 @@ const makeBrand = (
 }
 
 export const makeBrands = async client => {
-  const allJSONBrands = getJSONBrands()
   const { data: allRegistryKonnectors } = await client.stackClient.fetchJSON(
     'GET',
     '/registry/?limit=1000&filter[type]=konnector'
@@ -100,7 +95,7 @@ export const makeBrands = async client => {
   const allBrands = allRegistryKonnectors.reduce(
     (allBrands, data) => [
       ...allBrands,
-      makeBrand(data, allJSONBrands, installedKonnectorsSlugs)
+      makeBrand(data, brands, installedKonnectorsSlugs)
     ],
     []
   )
