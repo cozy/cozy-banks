@@ -9,6 +9,8 @@ import {
 } from '.'
 import brands from './brands'
 
+jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
+
 const getFilteredBrands = () => getBrands(brand => brand.name === 'Filtered')
 
 describe('brandDictionary', () => {

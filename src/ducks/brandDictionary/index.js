@@ -15,8 +15,10 @@ export const getJSONBrands = () => {
   return brands
 }
 
-export const getBrands = filterFct =>
-  filterFct ? brands.filter(filterFct) : brands
+export const getBrands = filterFct => {
+  const brands = JSON.parse(localStorage.getItem('brands')) || []
+  return filterFct ? brands.filter(filterFct) : brands
+}
 
 export const isMatchingBrand = (brand, label) => getRegexp(brand).test(label)
 
@@ -29,12 +31,13 @@ export const matchBrands = (brands, label) => {
 }
 
 export const getBrandsWithInstallationInfo = installedSlugs => {
-  const brands = getBrands().map(brand => ({
+  const brands = getBrands()
+  const brandsWithInfo = brands.map(brand => ({
     ...brand,
     isInstalled: installedSlugs.includes(brand.konnectorSlug)
   }))
 
-  return brands
+  return brandsWithInfo
 }
 
 export const getInstalledBrands = installedSlugs => {
@@ -100,7 +103,7 @@ export const makeBrands = async client => {
     []
   )
 
-  localStorage.setItem('brands', { brands: allBrands })
+  localStorage.setItem('brands', JSON.stringify(allBrands))
 }
 
 export default findMatchingBrand
