@@ -3,6 +3,7 @@ import some from 'lodash/some'
 import includes from 'lodash/includes'
 
 import { triggers as triggerModel } from 'cozy-client/dist/models/trigger'
+import { Registry } from 'cozy-client'
 
 import brands from 'ducks/brandDictionary/brands'
 import { cronKonnectorTriggersConn } from 'src/doctypes'
@@ -80,10 +81,15 @@ const makeBrand = (
 }
 
 export const makeBrands = async client => {
-  const { data: allRegistryKonnectors } = await client.stackClient.fetchJSON(
-    'GET',
-    '/registry/?limit=1000&filter[type]=konnector'
-  )
+  const registry = new Registry({
+    client
+  })
+  const allRegistryKonnectors = await registry.fetchApps({
+    limit: 1000,
+    channel: 'stable',
+    type: 'konnector'
+  })
+
   const { data: triggers } = await client.query(
     cronKonnectorTriggersConn.query()
   )

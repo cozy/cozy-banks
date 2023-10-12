@@ -216,10 +216,6 @@
       "type": "io.cozy.apps",
       "verbs": ["GET"]
     },
-    "apps_registry": {
-      "description": "Required to know the status of the konnectors",
-      "type": "io.cozy.apps_registry"
-    },
     "triggers": {
       "description": "Used to configure bank accounts",
       "type": "io.cozy.triggers"
