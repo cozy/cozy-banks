@@ -37,7 +37,7 @@ const makeBrand = (
   }
 }
 
-export const makeBrands = async (client, dispatch) => {
+export const makeBrands = async (client, dispatch, inService) => {
   const registry = new Registry({ client })
   const allRegistryKonnectors = await registry.fetchApps({
     limit: 1000,
@@ -64,6 +64,9 @@ export const makeBrands = async (client, dispatch) => {
     []
   )
 
+  if (inService) {
+    return allBrands
+  }
   return dispatch({ type: FETCH_BRANDS, brands: allBrands })
 }
 

@@ -78,13 +78,15 @@ describe('brandDictionary', () => {
 
   describe('getBrandsWithInstallationInfo', () => {
     it('Should return the list of brands with a isInstalled boolean property', () => {
-      expect(getBrandsWithInstallationInfo(installedSlugs)).toMatchSnapshot()
+      expect(
+        getBrandsWithInstallationInfo(installedSlugs, brands)
+      ).toMatchSnapshot()
     })
   })
 
   describe('getNotInstalledBrands', () => {
     it('Should return the not installed brands', () => {
-      expect(getNotInstalledBrands(installedSlugs)).toMatchSnapshot()
+      expect(getNotInstalledBrands(installedSlugs, brands)).toMatchSnapshot()
     })
   })
 })

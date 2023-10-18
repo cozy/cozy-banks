@@ -123,6 +123,6 @@ describe('findAppSuggestions', () => {
   it('should work with empty data', async () => {
     Document.fetchAll = jest.fn().mockResolvedValue([])
     Document.fetchChanges = jest.fn().mockResolvedValue({ documents: [] })
-    await findAppSuggestions({})
+    await findAppSuggestions({}, brandsJSON)
   })
 })

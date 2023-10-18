@@ -25,8 +25,7 @@ export const matchBrands = (brands, label) => {
   return some(brands, brand => isMatchingBrand(brand, label))
 }
 
-export const getBrandsWithInstallationInfo = installedSlugs => {
-  const brands = getBrands()
+export const getBrandsWithInstallationInfo = (installedSlugs, brands) => {
   const brandsWithInfo = brands.map(brand => ({
     ...brand,
     isInstalled: installedSlugs.includes(brand.konnectorSlug)
@@ -35,10 +34,13 @@ export const getBrandsWithInstallationInfo = installedSlugs => {
   return brandsWithInfo
 }
 
-export const getNotInstalledBrands = installedSlugs => {
-  const brands = getBrandsWithInstallationInfo(installedSlugs)
+export const getNotInstalledBrands = (installedSlugs, brands) => {
+  const brandsWithInstallationInfo = getBrandsWithInstallationInfo(
+    installedSlugs,
+    brands
+  )
 
-  return brands.filter(brand => !brand.isInstalled)
+  return brandsWithInstallationInfo.filter(brand => !brand.isInstalled)
 }
 
 export default findMatchingBrand
