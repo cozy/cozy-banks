@@ -4,7 +4,6 @@ import {
   findMatchingBrand,
   isMatchingBrand,
   getBrandsWithInstallationInfo,
-  getInstalledBrands,
   getNotInstalledBrands
 } from '.'
 import brands from './brands'
@@ -83,13 +82,7 @@ describe('brandDictionary', () => {
     })
   })
 
-  describe('getInstalledBrands', () => {
-    it('Should return the installed brands', () => {
-      expect(getInstalledBrands(installedSlugs)).toMatchSnapshot()
-    })
-  })
-
-  describe('getInstalledBrands', () => {
+  describe('getNotInstalledBrands', () => {
     it('Should return the not installed brands', () => {
       expect(getNotInstalledBrands(installedSlugs)).toMatchSnapshot()
     })

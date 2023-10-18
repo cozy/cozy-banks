@@ -35,12 +35,6 @@ export const getBrandsWithInstallationInfo = installedSlugs => {
   return brandsWithInfo
 }
 
-export const getInstalledBrands = installedSlugs => {
-  const brands = getBrandsWithInstallationInfo(installedSlugs)
-
-  return brands.filter(brand => brand.isInstalled)
-}
-
 export const getNotInstalledBrands = installedSlugs => {
   const brands = getBrandsWithInstallationInfo(installedSlugs)
 
