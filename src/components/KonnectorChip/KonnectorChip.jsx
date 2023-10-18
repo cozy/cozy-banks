@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Chip from 'cozy-ui/transpiled/react/Chip'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 

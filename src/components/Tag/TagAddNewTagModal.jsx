@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import TextField from 'cozy-ui/transpiled/react/MuiCozyTheme/TextField'
+import TextField from "cozy-ui/transpiled/react/TextField"
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 

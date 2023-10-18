@@ -6,7 +6,7 @@ import { within } from '@testing-library/dom'
 
 import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { createMockClient } from 'cozy-client/dist/mock'
 
 import data from 'test/fixtures'
@@ -24,7 +24,7 @@ jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
   BreakpointsProvider: ({ children }) => children
 }))
 
-jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
+jest.mock('cozy-ui/transpiled/react/deprecated/Alerter', () => ({
   success: jest.fn(),
   error: jest.fn()
 }))

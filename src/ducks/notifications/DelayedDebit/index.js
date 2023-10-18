@@ -190,16 +190,14 @@ DelayedDebit.toText = html => {
         if ($node.is(INSTITUTION_SEL)) {
           return '\n ### ' + $node.text() + '\n'
         } else if ($node.is(ACCOUNT_SEL)) {
-          return (
-            '- ' +
-            $node
-              .find('td')
-              .map((i, td) =>
-                $(td).text().replace(/\n/g, '').replace(' €', '€').trim()
-              )
-              .toArray()
-              .join(' ')
-          )
+          return '- ' +
+          $node
+            .find('td')
+            .map((i, td) =>
+              $(td).text().replace(/\n/g, '').replace(' €', '€').trim()
+            )
+            .toArray()
+            .join(' ');
         }
       })
       .join('\n')

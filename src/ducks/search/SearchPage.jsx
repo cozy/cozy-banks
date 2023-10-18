@@ -7,10 +7,10 @@ import Fuse from 'fuse.js/dist/fuse.js'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Empty from 'cozy-ui/transpiled/react/Empty'
-import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
+import NarrowContent from 'cozy-ui/transpiled/react/deprecated/NarrowContent'
 import { useQuery, isQueryLoading } from 'cozy-client'
 
 import { useTrackPage } from 'ducks/tracking/browser'

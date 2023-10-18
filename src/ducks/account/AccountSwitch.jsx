@@ -7,12 +7,12 @@ import cx from 'classnames'
 import { useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
-import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
-import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
+import Button from "cozy-ui/transpiled/react/Button"
+import List from "cozy-ui/transpiled/react/List"
+import ListItem from "cozy-ui/transpiled/react/ListItem"
+import ListItemIcon from "cozy-ui/transpiled/react/ListItemIcon"
+import ListSubheader from "cozy-ui/transpiled/react/ListSubheader"
+import ListItemSecondaryAction from "cozy-ui/transpiled/react/ListItemSecondaryAction"
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Radio from 'cozy-ui/transpiled/react/Radios'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'

@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import PageTitle from 'components/Title/PageTitle'
 import HeaderTitle from 'ducks/balance/HeaderTitle'

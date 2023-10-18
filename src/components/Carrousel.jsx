@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'

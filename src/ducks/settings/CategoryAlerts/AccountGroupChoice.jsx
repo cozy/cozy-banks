@@ -11,7 +11,7 @@ import {
   DialogSections,
   DialogListItem
 } from 'components/DialogSections'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import List from "cozy-ui/transpiled/react/List"
 
 /**
  * Displays Rows to select among either

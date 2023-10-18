@@ -6,7 +6,7 @@ import sumBy from 'lodash/sumBy'
 import { isQueryLoading, hasQueryBeenLoaded, useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Divider from "cozy-ui/transpiled/react/Divider"
 
 import { TransactionList } from 'ducks/transactions/Transactions'
 import styles from 'ducks/reimbursements/Reimbursements.styl'

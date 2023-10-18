@@ -5,7 +5,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import {
   ActionMenuItem,
   ActionMenuRadio
-} from 'cozy-ui/transpiled/react/ActionMenu'
+} from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 
 import { isOngoing } from 'ducks/recurrence/api'
 

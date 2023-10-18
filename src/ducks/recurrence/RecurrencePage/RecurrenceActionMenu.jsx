@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import ActionMenu from 'cozy-ui/transpiled/react/ActionMenu'
+import ActionMenu from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 
 import OngoingActionItem from 'ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem'
 import FinishedActionItem from 'ducks/recurrence/RecurrencePage/ActionItems/FinishedActionItem'
