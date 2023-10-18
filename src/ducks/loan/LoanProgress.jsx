@@ -1,5 +1,5 @@
 import React from 'react'
-import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
+import PercentageBar from 'cozy-ui/transpiled/react/deprecated/PercentageBar'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getReimbursedPercentage,

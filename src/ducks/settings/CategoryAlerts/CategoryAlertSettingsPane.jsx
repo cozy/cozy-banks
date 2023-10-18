@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useClient, useQuery } from 'cozy-client'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { settingsConn } from 'doctypes'

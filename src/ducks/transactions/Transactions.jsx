@@ -11,7 +11,7 @@ import cx from 'classnames'
 
 import { isIOSApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
+import ListSubheader from "cozy-ui/transpiled/react/ListSubheader"
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import { Table } from 'components/Table'

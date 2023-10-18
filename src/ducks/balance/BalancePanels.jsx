@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 
 import Delayed from 'components/Delayed'
 import AddAccountLink from 'ducks/settings/AddAccountLink'

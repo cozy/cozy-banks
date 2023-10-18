@@ -6,7 +6,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import ActionMenu, {
   ActionMenuItem,
   ActionMenuRadio
-} from 'cozy-ui/transpiled/react/ActionMenu'
+} from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 

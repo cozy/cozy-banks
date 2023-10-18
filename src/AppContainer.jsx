@@ -18,7 +18,7 @@ import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import AppRoute from 'components/AppRoute'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import cozyBar from 'utils/cozyBar'
 import {
   TRIGGER_DOCTYPE,

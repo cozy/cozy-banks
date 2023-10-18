@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'

@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import InfoIcon from 'cozy-ui/transpiled/react/Icons/Info'

@@ -5,7 +5,7 @@ import Empty from 'cozy-ui/transpiled/react/Empty'
 import brokenIcon from 'assets/icons/icon-broken.svg'
 import Padded from 'components/Padded'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { Button, ButtonLink } from 'cozy-ui/transpiled/react/Button'
+import { Button, ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import styles from 'components/ErrorBoundary/Error.styl'
 

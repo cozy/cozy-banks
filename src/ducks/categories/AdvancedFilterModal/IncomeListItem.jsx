@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItem from "cozy-ui/transpiled/react/ListItem"
+import ListItemSecondaryAction from "cozy-ui/transpiled/react/ListItemSecondaryAction"
+import ListItemIcon from "cozy-ui/transpiled/react/ListItemIcon"
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
 import EyeClosedIcon from 'cozy-ui/transpiled/react/Icons/EyeClosed'

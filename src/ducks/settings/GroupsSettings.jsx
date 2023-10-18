@@ -4,7 +4,7 @@ import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
+import Button from "cozy-ui/transpiled/react/Button"
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'

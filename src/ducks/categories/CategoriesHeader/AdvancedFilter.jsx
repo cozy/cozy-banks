@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import List from "cozy-ui/transpiled/react/List"
+import ListItem from "cozy-ui/transpiled/react/ListItem"
+import ListItemIcon from "cozy-ui/transpiled/react/ListItemIcon"
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import SettingIcon from 'cozy-ui/transpiled/react/Icons/Setting'

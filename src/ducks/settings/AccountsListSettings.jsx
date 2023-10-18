@@ -6,7 +6,7 @@ import get from 'lodash/get'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import List from "cozy-ui/transpiled/react/List"
 import { models, useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
 import DialogContext from 'cozy-harvest-lib/dist/components/DialogContext'

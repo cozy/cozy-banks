@@ -2,8 +2,8 @@ import React from 'react'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import ListItem from "cozy-ui/transpiled/react/ListItem"
+import ListItemIcon from "cozy-ui/transpiled/react/ListItemIcon"
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import { countTransactions } from 'components/Tag/helpers'
