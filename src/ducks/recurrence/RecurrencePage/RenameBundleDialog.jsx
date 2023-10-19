@@ -5,7 +5,7 @@ import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { getLabel } from 'ducks/recurrence/utils'
 import { renameRecurrenceManually } from 'ducks/recurrence/api'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import ActionMenu from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 
 import OngoingActionItem from 'ducks/recurrence/RecurrencePage/ActionItems/OngoingActionItem'

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import ActionMenu, {
   ActionMenuItem,
   ActionMenuRadio

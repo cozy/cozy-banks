@@ -3,7 +3,7 @@ import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 
 import Bottom from 'components/Bottom'
 import Padded from 'components/Padded'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 const buttonStyle = {
   transition: 'transform 0.5s ease'

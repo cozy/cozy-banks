@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import flag from 'cozy-flags'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'

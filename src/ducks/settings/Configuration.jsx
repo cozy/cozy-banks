@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import set from 'lodash/set'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import {
   queryConnect,

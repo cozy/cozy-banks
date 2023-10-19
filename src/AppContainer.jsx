@@ -4,10 +4,10 @@ import { HashRouter } from 'react-router-dom'
 
 import { WebviewIntentProvider } from 'cozy-intent'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
-import I18n, { initTranslation } from 'cozy-ui/transpiled/react/I18n'
+import I18n, { initTranslation } from 'cozy-ui/transpiled/react/providers/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { CozyProvider, RealTimeQueries } from 'cozy-client'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import {
   StylesProvider,
   createGenerateClassName

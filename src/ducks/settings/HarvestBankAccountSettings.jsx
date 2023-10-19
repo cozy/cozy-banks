@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import CozyClient, { isQueryLoading, Q, Query } from 'cozy-client'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import { VaultUnlockProvider, VaultUnlockPlaceholder } from 'cozy-keys-lib'

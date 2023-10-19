@@ -122,14 +122,14 @@ export const sameLabel = bundle => {
 }
 
 export const categoryShouldBeSet = () =>
-  (function categoryShouldBeSet(bundle) {
+  function categoryShouldBeSet(bundle) {
     return bundle.categoryIds[0] !== '0'
-  })
+  }
 
 export const bundleSizeShouldBeMoreThan = n =>
-  (function bundleSizeShouldBeMoreThan(bundle) {
+  function bundleSizeShouldBeMoreThan(bundle) {
     return bundle.ops.length > n
-  })
+  }
 
 export const amountShouldBeMoreThan = amount => {
   const condition = bundleAmount => Math.abs(bundleAmount) > amount
@@ -137,24 +137,24 @@ export const amountShouldBeMoreThan = amount => {
 }
 
 export const deltaMeanSuperiorTo = n =>
-  (function deltaMeanSuperiorTo(bundle) {
+  function deltaMeanSuperiorTo(bundle) {
     return bundle.stats.deltas.mean > n
-  })
+  }
 
 export const deltaMeanInferiorTo = n =>
-  (function deltaMeanInferiorTo(bundle) {
+  function deltaMeanInferiorTo(bundle) {
     return bundle.stats.deltas.mean < n
-  })
+  }
 
 export const sigmaInferiorTo = n =>
-  (function sigmaInferiorTo(bundle) {
+  function sigmaInferiorTo(bundle) {
     return bundle.stats.deltas.sigma < n
-  })
+  }
 
 export const madInferiorTo = n =>
-  (function madInferiorTo(bundle) {
+  function madInferiorTo(bundle) {
     return bundle.stats.deltas.mad < n
-  })
+  }
 
 export const addStats = bundle => ({
   ...bundle,

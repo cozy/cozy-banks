@@ -3,7 +3,7 @@ import compose from 'lodash/flowRight'
 import omit from 'lodash/omit'
 import merge from 'lodash/merge'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import { withClient } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import Button from 'cozy-ui/transpiled/react/deprecated/Button'
