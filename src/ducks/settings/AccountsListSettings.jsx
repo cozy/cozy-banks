@@ -4,6 +4,7 @@ import { useCozyDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import groupBy from 'lodash/groupBy'
 import get from 'lodash/get'
 
+import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/List'
@@ -40,8 +41,8 @@ const getConnectionIdFromAccount = account => {
   return account.connection && account.connection.raw
     ? account.connection.raw._id
     : wasImportedByBanks(account)
-    ? getAccountInstitutionLabel(account)
-    : utils.getCreatedByApp(account)
+      ? getAccountInstitutionLabel(account)
+      : utils.getCreatedByApp(account)
 }
 
 const AccountsListSettings = ({
@@ -152,24 +153,26 @@ const AccountsListSettings = ({
           )
         })}
       </List>
-      <DialogContext.Provider value={dialogContext}>
-        {editionModalOptions ? (
-          editionModalOptions.connection ? (
-            <HarvestBankAccountSettings
-              connectionId={editionModalOptions.connection._id}
-            />
-          ) : (
-            <DisconnectedAccountModal
-              onClose={() => setEditionModalOptions(null)}
-              accounts={accounts.filter(
-                acc =>
-                  getConnectionIdFromAccount(acc) ===
-                  editionModalOptions.connectionId
-              )}
-            />
-          )
-        ) : null}
-      </DialogContext.Provider>
+      <CozyConfirmDialogProvider>
+        <DialogContext.Provider value={dialogContext}>
+          {editionModalOptions ? (
+            editionModalOptions.connection ? (
+              <HarvestBankAccountSettings
+                connectionId={editionModalOptions.connection._id}
+              />
+            ) : (
+              <DisconnectedAccountModal
+                onClose={() => setEditionModalOptions(null)}
+                accounts={accounts.filter(
+                  acc =>
+                    getConnectionIdFromAccount(acc) ===
+                    editionModalOptions.connectionId
+                )}
+              />
+            )
+          ) : null}
+        </DialogContext.Provider>
+      </CozyConfirmDialogProvider>
     </Unpadded>
   )
 }
