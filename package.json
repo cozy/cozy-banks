@@ -118,7 +118,7 @@
     "chart.js": "2.9.4",
     "classificator": "0.3.3",
     "classnames": "2.2.6",
-    "cozy-bar": "^8.14.1",
+    "cozy-bar": "^10.0.0",
     "cozy-ci": "0.4.1",
     "cozy-client": "^41.8.1",
     "cozy-device-helper": "^2.6.0",
