@@ -19,7 +19,6 @@ import {
   getDefaultIdentitySelector,
   saveIdentity,
   loadIdentities,
-  updateBIUserConfig,
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -146,11 +145,6 @@ export class PersonalInfoDialog extends React.Component {
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
       Alerter.success(t('PersonalInfo.info-saved-successfully'))
-      await updateBIUserConfig({
-        client,
-        identity: updatedIdentity,
-        isBankTrigger
-      })
       trackEvent('sauver')
     } finally {
       this.setState({ saving: false })
