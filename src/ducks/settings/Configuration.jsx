@@ -27,7 +27,6 @@ import BalanceLowerRules from './BalanceLowerRules'
 import BalanceGreaterRules from './BalanceGreaterRules'
 import TransactionGreaterRules from './TransactionGreaterRules'
 
-import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
 import { launchExportJob } from 'ducks/export/helpers'
@@ -259,24 +258,6 @@ export class Configuration extends React.Component {
               </SubSection>
             )}
         </Section>
-
-        {flag('banks.transfers.need-personal-information') ? (
-          <Section title={t('Settings.personal-info.title')}>
-            <Button
-              label={t('Settings.personal-info.edit')}
-              theme="contained"
-              onClick={() => this.setState({ showPersonalInfoDialog: true })}
-            />
-            {this.state.showPersonalInfoDialog ? (
-              <PersonalInfoDialog
-                onSaveSuccessful={() => {
-                  this.setState({ showPersonalInfoDialog: false })
-                }}
-                onClose={() => this.setState({ showPersonalInfoDialog: false })}
-              />
-            ) : null}
-          </Section>
-        ) : null}
 
         {Configuration.renderExtraItems()}
       </>
