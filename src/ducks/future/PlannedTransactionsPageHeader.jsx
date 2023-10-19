@@ -4,8 +4,8 @@ import cx from 'classnames'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import Padded from 'components/Padded'
 import Header from 'components/Header'

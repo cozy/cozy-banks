@@ -7,10 +7,10 @@ import flag from 'cozy-flags'
 import { hasQueryBeenLoaded, isQueryLoading, useQuery } from 'cozy-client'
 import { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
 import Empty from 'cozy-ui/transpiled/react/Empty'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/legacy/Breadcrumbs'
-import ListSubheader from "cozy-ui/transpiled/react/ListSubheader"
+import ListSubheader from 'cozy-ui/transpiled/react/ListSubheader'
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 

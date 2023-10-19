@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { buildTransactionsWithTagsQueryByIds } from 'doctypes'
 import { hasQueryBeenLoaded, isQueryLoading, useQueryAll } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import Loading from 'components/Loading'

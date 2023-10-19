@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Switch from "cozy-ui/transpiled/react/Switch"
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Switch from 'cozy-ui/transpiled/react/Switch'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 
 import { getGroupLabel } from 'ducks/groups/helpers'

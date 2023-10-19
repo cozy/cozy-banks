@@ -12,7 +12,7 @@ import {
   hasQueryBeenLoaded,
   useQuery
 } from 'cozy-client'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
