@@ -267,13 +267,14 @@ export const outdatedKonnectorsConn = {
   fetchPolicy: neverReload,
   as: 'outdatedKonnectors'
 }
-export const cronKonnectorTriggersConn = {
+export const konnectorTriggersConn = {
   query: () =>
     Q(TRIGGER_DOCTYPE).where({
-      worker: 'konnector',
-      type: '@cron'
+      worker: {
+        $in: ['konnector', 'client']
+      }
     }),
-  as: 'io.cozy.triggers/konnector_cron',
+  as: 'io.cozy.triggers/worker_in_konnector_client',
   fetchPolicy: neverReload,
   hydrated: false,
   singleDocData: false
