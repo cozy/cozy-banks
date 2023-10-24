@@ -282,10 +282,12 @@ export const cronKonnectorTriggersConn = {
 export const buildTriggerWithoutCurrentStateQuery = () => ({
   definition: Q(TRIGGER_DOCTYPE)
     .where({ _id: { $gt: null } })
-    .partialIndex({ worker: 'konnector' })
+    .partialIndex({
+      worker: { $in: ['konnector', 'client'] }
+    })
     .indexFields(['_id']),
   options: {
-    as: TRIGGER_DOCTYPE,
+    as: TRIGGER_DOCTYPE + '/worker_konnector_and_client',
     fetchPolicy: neverReload
   }
 })
