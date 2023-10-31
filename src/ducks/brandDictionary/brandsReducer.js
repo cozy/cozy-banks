@@ -36,7 +36,12 @@ const makeBrand = (
   }
 }
 // !TODO remove when CozyClient getKonnector returns also worker === konnector & worker=== client
-export const getKonnectorSlug = trigger => trigger.message.konnector
+export const getKonnectorSlug = trigger => {
+  if (trigger.message && trigger.message.konnector) {
+    return trigger.message.konnector
+  }
+  return false
+}
 
 export const makeBrands = async (client, dispatch, inService) => {
   const registry = new Registry({ client })
