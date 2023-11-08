@@ -1,4 +1,20 @@
+# 1.58.1
+
 # 1.58.0
+
+### ✨ Features
+
+* Use redux store for save all brands
+* Use optimize query for get triggers without jobs
+
+### 🐛 Bug Fixes
+
+* No chips for Konnectors under maintenance
+* In order to display correctly the KonnectorChip and don't propose the installation of a clisk if it's already connected
+
+### 🔧 Tech
+
+* Retrieving connectors via the registry in addition to the JSON file
 
 # 1.57.0
 
