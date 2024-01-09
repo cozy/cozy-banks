@@ -30,11 +30,7 @@ export const doBillsMatching = async (client, setting, options = {}) => {
 
   try {
     log('info', '⌛ Fetching bills changes...')
-    const billsChanges = await fetchChangesOrAll(
-      client,
-      BILLS_DOCTYPE,
-      billsLastSeq
-    )
+    const billsChanges = await fetchChangesOrAll(client, BILLS_DOCTYPE, 0)
     billsChanges.documents = billsChanges.documents.filter(isCreatedDoc)
 
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
