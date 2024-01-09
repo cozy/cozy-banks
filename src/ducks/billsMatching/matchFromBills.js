@@ -8,7 +8,7 @@ import { getDateRangeFromBill } from './Linker/billsToOperation/helpers'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
-export default async function matchFromBills(bills) {
+export default async function matchFromBills(bills, client) {
   const options = {
     dateLowerDelta: DEFAULT_DATE_LOWER_DELTA,
     dateUpperDelta: DEFAULT_DATE_UPPER_DELTA
@@ -38,7 +38,7 @@ export default async function matchFromBills(bills) {
   const transactions = await Transaction.queryAll(selector)
 
   const linker = new Linker()
-  const results = await linker.linkBillsToOperations(bills, transactions)
+  const results = await linker.linkBillsToOperations(bills, transactions, {}, client)
 
   return results
 }

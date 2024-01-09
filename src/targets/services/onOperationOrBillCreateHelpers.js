@@ -47,7 +47,7 @@ export const doBillsMatching = async (client, setting, options = {}) => {
         `[Bills matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`
       )
 
-      const result = await matchFromBills(billsChanges.documents)
+      const result = await matchFromBills(billsChanges.documents, client)
       logResult(result)
     }
   } catch (e) {
@@ -87,7 +87,7 @@ export const doTransactionsMatching = async (client, setting, options = {}) => {
         `[Transactions matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`
       )
 
-      const result = await matchFromTransactions(transactionsChanges.documents)
+      const result = await matchFromTransactions(transactionsChanges.documents, client)
       logResult(result)
     }
   } catch (e) {

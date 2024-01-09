@@ -40,6 +40,8 @@ const onOperationOrBillCreate = async (client, options) => {
     notifLastSeq
   )
   log('info', '✅ Transaction changes fetched')
+  // side effect
+  await makeBrands(client, client.store.dispatch, false)
 
   if (options.billsMatching !== false) {
     await doBillsMatching(client, setting, options.billsMatching)

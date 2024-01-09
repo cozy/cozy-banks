@@ -272,7 +272,8 @@ class Linker {
     const creditOperation = await findCreditOperation(
       bill,
       options,
-      allOperations
+      allOperations,
+      client
     )
 
     const promises = []
@@ -308,9 +309,10 @@ class Linker {
    *
    * @returns {(Object|false)} The io.cozy.bank.operations that matched or false
    */
-  async linkBillToDebitOperation(bill, allOperations, options) {
+  async linkBillToDebitOperation(bill, allOperations, options, client) {
+    console.log('linkBillToDebitOperation', client)
     // eslint-disable-next-line
-    return findDebitOperation(bill, options, allOperations).then(operation => {
+    return findDebitOperation(bill, options, allOperations, client).then(operation => {
       // eslint-disable-next-line
       if (operation) {
         log(
@@ -345,7 +347,7 @@ class Linker {
    * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/
    * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankoperations
    */
-  async linkBillsToOperations(bills, operations, options) {
+  async linkBillsToOperations(bills, operations, options, client) {
     const optionsToUse = this.getOptions(options)
     const result = {}
 
@@ -385,7 +387,8 @@ class Linker {
       const debitOperation = await this.linkBillToDebitOperation(
         bill,
         allOperations,
-        optionsToUse
+        optionsToUse,
+        client
       )
 
       if (debitOperation) {
@@ -397,7 +400,8 @@ class Linker {
           bill,
           debitOperation,
           allOperations,
-          optionsToUse
+          optionsToUse,
+          client
         )
 
         if (creditOperation) {
@@ -406,7 +410,7 @@ class Linker {
       }
     })
 
-    await this.findCombinations(result, optionsToUse, allOperations)
+    await this.findCombinations(result, optionsToUse, allOperations, client)
     await this.commitChanges()
 
     return result
@@ -420,7 +424,7 @@ class Linker {
    * @param {Object} options - see getOptions
    * @param {Object[]} allOperations - An array of io.cozy.bank.operations documents
    */
-  async findCombinations(result, options, allOperations) {
+  async findCombinations(result, options, allOperations, client) {
     log('debug', 'finding combinations')
     let found
 
@@ -452,7 +456,8 @@ class Linker {
         const debitOperation = await findDebitOperation(
           combinedBill,
           options,
-          allOperations
+          allOperations,
+          client
         )
 
         if (debitOperation) {
