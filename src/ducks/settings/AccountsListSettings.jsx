@@ -68,10 +68,7 @@ const AccountsListSettings = ({
     [appsInMaintenance]
   )
 
-  const triggers = useQuery(
-    konnectorTriggersConn.query,
-    konnectorTriggersConn
-  )
+  const triggers = useQuery(konnectorTriggersConn.query, konnectorTriggersConn)
 
   useEffect(() => {
     const errors =
