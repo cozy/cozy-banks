@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import set from 'lodash/set'
@@ -18,7 +16,6 @@ import flag from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
 
 import DelayedDebitAlertRules from 'ducks/settings/DelayedDebitAlertRules'
@@ -210,7 +207,6 @@ export class Configuration extends React.Component {
           )}
         </Section>
         <Section title={t('AdvancedFeaturesSettings.title')}>
-          {__TARGET__ === 'mobile' ? <PinSettings /> : null}
           <SubSection title={t('Settings.security.title')}>
             <ToggleRow
               description={t('Settings.security.amount-blur.description')}

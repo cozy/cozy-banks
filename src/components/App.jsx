@@ -16,7 +16,6 @@ import { settingsConn } from 'doctypes'
 import Nav from 'ducks/commons/Nav'
 import SelectedTagsProvider from 'ducks/context/SelectedTagsContext'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { pinGuarded } from 'ducks/pin'
 import ErrorBoundary from 'components/ErrorBoundary'
 import ReactHint from 'components/ReactHint'
 import AppSearchBar from 'components/AppSearchBar'
@@ -109,10 +108,4 @@ App.defaultProps = {
   showBottomNav: true
 }
 
-export default compose(
-  pinGuarded({
-    timeout: flag('pin.debug') ? 10 * 1000 : undefined,
-    showTimeout: flag('pin.debug')
-  }),
-  queryConnect({ settingsCollection: settingsConn })
-)(App)
+export default compose(queryConnect({ settingsCollection: settingsConn }))(App)
