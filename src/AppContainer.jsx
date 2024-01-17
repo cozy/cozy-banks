@@ -1,7 +1,6 @@
-/* global __TARGET__ */
-
 import React, { useEffect, useMemo } from 'react'
 import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
 
 import { WebviewIntentProvider } from 'cozy-intent'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
@@ -13,8 +12,6 @@ import {
   StylesProvider,
   createGenerateClassName
 } from '@material-ui/core/styles'
-
-import flag from 'cozy-flags'
 
 import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
@@ -61,11 +58,6 @@ const generateClassName = createGenerateClassName({
 })
 
 const AppContainer = ({ store, lang, client }) => {
-  const Router =
-    __TARGET__ === 'mobile' || flag('authentication')
-      ? require('ducks/mobile/MobileRouter').default
-      : require('react-router-dom').HashRouter
-
   const dictRequire = lang => require(`locales/${lang}`)
   const { t } = useMemo(() => {
     return initT(lang, dictRequire)
@@ -107,9 +99,9 @@ const AppContainer = ({ store, lang, client }) => {
                                 <RealTimeQueries doctype={GROUP_DOCTYPE} />
                                 <RealTimeQueries doctype={FILES_DOCTYPE} />
                                 <RealTimeQueries doctype={JOBS_DOCTYPE} />
-                                <Router>
+                                <HashRouter>
                                   <AppRoute />
-                                </Router>
+                                </HashRouter>
                               </CozyConfirmDialogProvider>
                             </MuiCozyTheme>
                           </StoreURLProvider>
