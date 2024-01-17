@@ -41,10 +41,6 @@ import { getLanguageFromDOM } from 'utils/lang'
 import './logger'
 import parseCozyData from 'utils/cozyData'
 
-if (__TARGET__ === 'mobile') {
-  require('styles/mobile.styl')
-}
-
 let store, client, lang, root
 
 const initRender = () => {
