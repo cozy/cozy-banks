@@ -6,7 +6,6 @@ import cx from 'classnames'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
-import { isMobileApp } from 'cozy-device-helper'
 import {
   queryConnect,
   isQueryLoading,
@@ -174,7 +173,6 @@ class TransactionsPage extends Component {
         transactions={transactions.data}
         canFetchMore={transactions.hasMore}
         filteringOnAccount={isFilteringOnAccount}
-        manualLoadMore={isMobileApp()}
         onReachBottom={this.handleFetchMoreBecomeVisible}
       />
     )

@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { isMobileApp } from 'cozy-device-helper'
 import { buildTransactionsWithTagsQueryByIds } from 'doctypes'
 import { hasQueryBeenLoaded, isQueryLoading, useQueryAll } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -50,7 +49,6 @@ const TagDialogContent = ({
           transactions={response.data}
           canFetchMore={response.hasMore}
           filteringOnAccount={false}
-          manualLoadMore={isMobileApp()}
         />
       </div>
     )
