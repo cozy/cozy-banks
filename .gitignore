@@ -28,24 +28,6 @@ desktop.ini
 .flooignore
 
 
-# Mobile
-**/mobile/hooks
-**/mobile/platforms
-**/mobile/plugins
-**/mobile/ul_web_hooks
-**/mobile/www/*
-**/mobile/keys
-**/mobile/package.json
-
-
-# fastlane
-**/mobile/fastlane/README.md
-**/mobile/fastlane/report.xml
-**/mobile/fastlane/Error*.png
-**/mobile/fastlane/Preview.html
-**/mobile/Preview.html
-
-
 # Default
 # /!\ KEEP THIS SECTION THE LAST ONE
 !.gitkeep

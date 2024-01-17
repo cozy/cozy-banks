@@ -18,7 +18,6 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testPathIgnorePatterns: [
     'node_modules',
-    'src/targets/mobile/',
     JEST_PROJECT === 'e2e' ? null : '.*\\.e2e\\.spec\\.js'
   ].filter(Boolean),
   testMatch: [
