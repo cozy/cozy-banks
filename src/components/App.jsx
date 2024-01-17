@@ -15,7 +15,6 @@ import { useTheme } from 'cozy-ui/transpiled/react/styles'
 import { settingsConn } from 'doctypes'
 import Nav from 'ducks/commons/Nav'
 import SelectedTagsProvider from 'ducks/context/SelectedTagsContext'
-import { Warnings } from 'ducks/warnings'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { pinGuarded } from 'ducks/pin'
 import ErrorBoundary from 'components/ErrorBoundary'
@@ -99,8 +98,6 @@ const App = props => {
 
         {/* Outside every other component to bypass overflow:hidden */}
         <ReactHint />
-
-        <Warnings />
         <Alerter />
       </Layout>
       {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
