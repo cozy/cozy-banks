@@ -33,7 +33,6 @@ import {
 import 'utils/flag'
 import { checkToRefreshToken } from 'utils/token'
 import { makeItShine } from 'utils/display.debug'
-import PinPlugin from 'ducks/pin/plugin'
 import cozyBar from 'utils/cozyBar'
 
 import { getLanguageFromDOM } from 'utils/lang'
@@ -67,7 +66,6 @@ const setupApp = async persistedState => {
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)
   client.registerPlugin(CleanupStoreClientPlugin, { store })
-  client.registerPlugin(PinPlugin)
   client.registerPlugin(flag.plugin)
   client.registerPlugin(StartupChecksPlugin, {
     launchTriggers: [
