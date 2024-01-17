@@ -8,24 +8,10 @@
 - [Fixtures](#fixtures)
 - [Doctypes](#doctypes)
 - [Continuous build](#continuous-build)
-- [Develop on mobile](#develop-on-mobile)
-  - [Get a working Android environment](#get-a-working-android-environment)
-    - [Linux](#linux)
-    - [macOS](#macos)
-  - [Build and run the mobile app](#build-and-run-the-mobile-app)
-  - [Hot reload on mobile app](#hot-reload-on-mobile-app)
 - [Release](#release)
   - [Start a release branch](#start-a-release-branch)
   - [Workflow](#workflow)
-  - [Mobile apps version codes](#mobile-apps-version-codes)
   - [Publish manually on the Cozy registry](#publish-manually-on-the-cozy-registry)
-  - [Publish to mobile stores](#publish-to-mobile-stores)
-    - [Pre-requisites](#pre-requisites)
-    - [Fastlane](#fastlane)
-    - [iOS](#ios)
-      - [Signing](#signing)
-      - [iOS build](#ios-build)
-    - [Android](#android)
 - [Notifications](#notifications)
   - [How to develop on templates](#how-to-develop-on-templates)
     - [Under the covers](#under-the-covers)
@@ -113,92 +99,6 @@ If you want to inject other data or remove some data, you can use [`ACH`](https:
 
 The application is built automatically and published on [Cozy Registry](https://apps-registry.cozycloud.cc/banks/registry) by [Travis](https://travis-ci.org/cozy/cozy-banks).
 
-## Develop on mobile
-
-### Get a working Android environment
-
-#### Linux
-
-To be able to build the app for Android, you can follow [this
-guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in
-French for now, don't hesitate to open a pull
-request).
-
-#### macOS
-
-On macOS you can use adoptOpenJDK to have a working Java environment.
-
-See https://github.com/AdoptOpenJDK/homebrew-openjdk
-
-```
-brew cask install adoptopenjdk8
-# Check the adopt open JDK page to see how to install the shell function "jdk"
-jdk 8 # Cordova supports JDK version 1.8 (same as version 8 it seems)
-brew install gradle
-```
-
-### Run the mobile app with hot reload
-
-First you need to export your local host IP address (whether to use a real device or an emulator):
-
-```bash
-$ export DEV_HOST=[YOUR_LOCAL_IP_ADDRESS]
-```
-
-For Android 9+ device only, add some specifiations in `src/targets/mobile/config.xml` inside `<platform name="android">` after `<config-file parent="/manifest/application" target="app/src/main/AndroidManifest.xml"></config-file>`.
-
-⚠️ Be careful to not commit this modification, and to not build a release with it. It's for developing purpose only. Here the specifications:
-
-```xml
-<edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
-  <application android:usesCleartextTraffic="true" />
-</edit-config>
-```
-
-Now you can watch with hot reload:
-
-```bash
-$ yarn start:mobile
-```
-
-And start the application (plateform could be `ios` or `android`) on an emulator:
-
-```bash
-$ yarn [plateform]:run:emulator
-```
-
-Or on a real device:
-
-```bash
-$ yarn [plateform]:run
-```
-
-
-⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
-the filepath without the [hash] otherwise you will not hit the right JS file.
-
-⚠️ You need to have the final `/` at the end of the PUBLIC_PATH, otherwise some CSS resources like fonts will not load
-
-For more information about installing prerequisites (installing Android Studio, Cordova etc.), you can follow [this guide](https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4) (in French for now, don't hesitate to open a pull request).
-
-
-### Build the mobile app
-
-You can one-shot build the app and launch it on a device/emulator
-
-```bash
-$ yarn build:mobile
-```
-
-Then you can run the app on the desired platform:
-
-```bash
-# Run on a real device
-$ yarn [plateform]:run
-# Run on an emulator
-$ yarn [plateform]:run:emulator
-```
-
 ## Release
 
 A release consists in publishing the app on all platforms: web (via the [Cozy
@@ -225,28 +125,11 @@ When a release branch is created, features are frozen and the branch should only
 
 To create beta versions, you have to do two things:
 
-* Bump the different version codes in `src/targets/mobile/config.xml` file (see below for more details`android-versionCode`, `ios-CFBundleVersion`, `version` and `AppendUserAgent`)
 * Commit it and create a tag with the `X.Y.Z-beta.M` scheme (for example `1.5.0-beta.1`) and push them
 
 The web app beta version will be automatically built and published on the cozy
 registry. An APK for Android will also be automatically created. For iOS, you
 have to build the app and upload it on Testflight.
-
-### Mobile apps version codes
-
-In the `src/targets/mobile/config.xml` file, you have to update multiple version codes:
-
-* `version`: the generic version code
-* `ios-CFBundleVersion`: the version code specific to iOS
-* `android-versionCode`: the version code specific to Android
-* `AppendUserAgent`: a version code that is appended to the user agent string so we can know which version is related to messages in error logs
-
-Each version code is not built in the same way:
-
-* `version` is the same as `version` in the `package.json`
-* `ios-CFBundleVersion` is the same as `version`, but with a fourth number representing the beta version number (for example `1.5.0.1` for `1.5.0-beta.1`)
-* For `android-versionCode`, follow the following formula: `beta + patch*100 + minor * 10000 + major * 1000000`. For example, `1.5.1-beta.1` gives us `1050101`
-* `AppendUserAgent` is the same as `version`
 
 ### Publish manually on the Cozy registry
 
@@ -259,123 +142,6 @@ export REGISTRY_TOKEN=`pass registry/spaces/banks/banks.token`
 After, you can use [cozy-app-publish](https://github.com/cozy/cozy-app-publish) to push the app to the registry.
 
 More information : https://github.com/cozy/cozy-stack/blob/master/docs/registry-publish.md
-
-### Publish to mobile stores
-
-#### Pre-requisites
-
-- Install cordova globally (necessary for the fastlane cordova plugin)
-
-```
-yarn global add cordova@<same version as in package.json>
-```
-
-- Generate icons
-
-```
-yarn mobile:icon
-```
-
-On iOS, if the given splashscreens are not to the resolution of the device, iOS
-falls back to compatibility mode and adds blacks bars to the top/bottom of the
-screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
-shape.
-
-To fix this, we use a single splashscreen file and set XCode for it to use
-Cordova's launch screen functionality.
-
-`CozyBanks > Resources > Images.xcassets > LaunchStoryBoard > App icons and Launch images > LaunchScreenFile "CDVLaunchScreen"`
-
-- Install Ruby, Bundler and project dependencies
-
-See [Ruby installation page](https://www.ruby-lang.org/fr/documentation/installation/) to get the installation method for your system.
-
-Install Bundler :
-
-```
-gem install bundler
-```
-
-Then install the project dependencies :
-
-```
-cd <path_to_project_root>/src/targets/mobile
-bundler
-```
-
-- Manage iOS native libraries
-
-```
-sudo gem install cocoapods
-pod setup
-yarn ios:install_pods # Install pods according to the Podfile.lock
-```
-
-You must also have the `keys/` folder available from the internal password store.
-
-#### Fastlane
-
-Fastlane is used to manage automatically the deployment process. Its configuration is localed in`src/targets/mobile/fastlane/Fastfile`.
-
-#### iOS
-
-##### Signing
-
-⚠️ You need to have your device registered to iTunes Connect. If you have trouble deploying your app on your device, check that the Build settings in XCode are correct :
-
-While developing, in XCode, in the "Signing" section :
-
-* Check "Manage automatically"
-* Team "Cozy Cloud"
-* Signing certificate : use a personal certificate belonging to the Cozy team (can be created when you have no matching certificate in the menu > Add an account).
-
-The certificate with its password is stored in the shared password store.
-
-- `cozy-banks/xcode-signing-certificate-password` : the password
-- `cozy-banks/xcode-signing-certificate-password.p12` : the certificate
-
-
-##### iOS build
-
-To push an iOS build on Testflight, use the following command :
-
-```
-yarn build:mobile
-cd src/targets/mobile
-cordova prepare ios
-open platforms/ios/Cozy\ Banks.xcworkspace/
-# Then in XCode you can first do an archive
-# 1. Select Cozy Banks > Any iOS Device (arm64) as generic device
-# 2. Menu Product > Archive
-# 3. Distribute app
-# After the application has been distributed, it is available for
-# Testflight testers and @flo can then manually put the testflight
-# app in production
-```
-
-To fully publish the app, go to iTunes Connect using the credentials in the password store and "submit for review".
-
-When publishing a new version, you have to change the build number.
-
-You can do it in the `config.xml` file by changing the "ios-CFBundleVersion" widget attribute. If you do it in config.xml
-you can commit it and push it so that other contributors know at
-which version we are.
-
-You can also do it manually in XCode by selecting the "Cozy Banks"
-project on the left navbar and then in the "General" tab change
-the build number in the "Build" input (in general you just have
-to increment the 4th part of the build number). It's not recommended
-as other contributors may not know at which build number we are
-if the change is not commited. It can be handy while developing
-when you do not want to commit/push too often.
-
-
-#### Android
-
-Anytime a beta is tagged, Travis produces an APK in the Android stage.
-In the logs is displayed a URL for the APK that has been built.
-This APK can then be tested and then pushed and published in the Play
-Developer Console.
 
 ## Notifications
 
@@ -570,7 +336,6 @@ cozyClient.links[0].stopReplication()
 ## Important credentials
 
 All important credentials are stored in Cozy internal [password store](pass).
-To import it execute `./scripts/import_mobile_keys`
 
 [pass]: https://www.passwordstore.org/
 [ACH]: https://github.com/cozy/ACH
