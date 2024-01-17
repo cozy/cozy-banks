@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 // Uncomment to activate why-did-you-render
 // https://github.com/welldone-software/why-did-you-render
 // import './wdyr'
@@ -20,7 +18,6 @@ import FastClick from 'fastclick'
 
 import { setupLocale as setupD3Locale } from 'utils/d3'
 import { isIOSApp } from 'cozy-device-helper'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import flag from 'cozy-flags'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
@@ -31,7 +28,6 @@ import {
   StartupChecksPlugin
 } from 'ducks/client'
 import 'utils/flag'
-import { checkToRefreshToken } from 'utils/token'
 import { makeItShine } from 'utils/display.debug'
 import cozyBar from 'utils/cozyBar'
 
@@ -105,28 +101,18 @@ const setupApp = async persistedState => {
 
   persistState(store)
 
-  if (__TARGET__ !== 'mobile') {
-    const {
-      app: { icon, name },
-      locale
-    } = parseCozyData(root)
-    !flag('authentication') &&
-      cozyBar.init({
-        appName: name,
-        cozyClient: client,
-        iconPath: icon,
-        lang: locale,
-        replaceTitleOnMobile: true
-      })
-  } else {
-    const onStartOrResume = checkToRefreshToken(client, store, () => {
-      if (flag('debug')) {
-        Alerter.info('Token refreshed')
-      }
+  const {
+    app: { icon, name },
+    locale
+  } = parseCozyData(root)
+  !flag('authentication') &&
+    cozyBar.init({
+      appName: name,
+      cozyClient: client,
+      iconPath: icon,
+      lang: locale,
+      replaceTitleOnMobile: true
     })
-    document.addEventListener('deviceready', onStartOrResume)
-    document.addEventListener('resume', onStartOrResume)
-  }
 
   initRender()
 }
