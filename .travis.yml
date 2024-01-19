@@ -1,41 +1,13 @@
-node-preset: &node # Used internally to share configuration, ignored by travis.
-  language: node_js
-  node_js:
-    - "16"
-  cache:
-    directories:
-      - node_modules
-stages:
-  - test
-  - build
-jobs:
-  include:
-    - name: Unit tests node 16
-      stage: test
-      <<: *node
-      node_js:
-        - 16
-      script: yarn lint && yarn test --runInBand && yarn check-locales && yarn check-fixtures
-    - name: Web build
-      stage: build
-      <<: *node
-      script:
-      - yarn build
-      - yarn bundlemon
-      before_deploy: ./scripts/ci/add_ssh_key.sh
-      deploy:
-        - provider: script
-          repo: cozy/cozy-banks
-          skip-cleanup: true
-          script: yarn cozyPublish && yarn uploadStaticFiles
-          on:
-            branch: master
-        - provider: script
-          repo: cozy/cozy-banks
-          skip-cleanup: true
-          script: yarn cozyPublish && yarn uploadStaticFiles
-          on:
-            tags: true
+language: node_js
+node_js: 16
+dist: jammy
+cache:
+  npm: false
+branches:
+  only:
+    - master
+     # detect also tag like x.y.z or x.y.z-beta.n as travis consider them to be branches
+    - /^\d+\.\d+\.\d+(\-beta.\d+)?$/
 env:
   global:
     - MATTERMOST_CHANNEL='{"dev":"gangsters","beta":"gangsters,publication","stable":"gangsters,publication"}'
@@ -52,3 +24,37 @@ env:
     - secure: "MkxSVyjNwHPfuCA4kdrTeBRbmDV2j4wcvD7416ykZYSh2ixHnSFxDyi5cabCW2Rzz4+JDh2GUBL/mIJr5PvqKHRRV5Ehtu/fN8b53PjmcuREBzK3JMsuWtT0PMqfM633l0YAFhqLkoyDsRzpKofbw9LMQumapSOcHnODONoTgPfr0RixP7yaGkARB4ythdiCfbSK6BceS1q+XXfi2/aZh915l9Edjhs5T/3tJt8ufr8JuBV3dILk/3G7tgku6YI7SDNum6u6FVny+o23e+vzfkgDPDXVPECplAWaAt8VzasDafyVR1C4jFm+QY0D5QOnhcUmFZ04P1ng3690AI67QVgk+UUO3kpiFlKO4LhkKNf6z+gnGmYI87yz0VywcNrMwwiZC7f/yJee7mtF2YGndiO8NCISCORe3fi/gh19SOB4je8+g/CVWYU6tz7D5Ci5UKBMglnPP1o/TsO2J7VEbs9HqwfsBxghLo988KDeqtIaXCLY3Buro29jGgbYLcT9h7qG/Q3F1b4Z5Dga4FzPUQ4D11yXbv1pip1UNTwTWzyyY5YemIr0M7c4Z6JrndrrNact/iIUOW3rBoXVuWnltHfmVyXIfognBDGiB4YUHDdhSZd4etIQxID9cbEfdsL2xycrpH2bdqX9ePYK+DahBmx+qUESVpcMvW4cTYJygIY="
     # ENCRYPTED_IV
     - secure: "iz1NO2t2ZSEpc7CMz2CtMNXyFa4FTLRZu9wPlnx1IwXHTworqJ8ENSAv4kDHOFYWXubHb52c2c3dMMLLZtHxRpTtnHRvEDCHzLdc6RP5wnoOLogtfSzD140g94+iPEaXfg6hJ/Wv1nE+iBTtfDTpRMy8e/i+InU4af3FcwqMJW1oroslgd9ubZV+KUuv4nHZNOxTW67lLUQ2iRI3b7Ewjo/zkhMgCGLz4lnSO6KnspgKQ6VUA+UeV+Xx28Y5mDpH2ouhfajji6xUHptoB9AG2WZf6GfpOOMB5gxSnGNf6BiVal/TyG0unMiUy6dij+6XYnSpmG6EWna7nR35M4PD7pIwiOzcvwVwvZ4j5GnXIoIOA12Wd9vP8iPmji509slgsut00qFbgU4Uxii8ElGuDdChGzdVXuSYUBLtX7ldMcYKLMckyn/wBnWndQrDNv5jDROms+8YxNIFbm4kRM3ynt1xMFtm2v43Cj/VQ+ZwFV0cr3Y6y4QoThBrnuFXHIXJfe8HsuYZaGPpa9Jf1SDRNut7ClmvGm5+Yf+gkG1Csm82perZ1SQBtyBdtEPF71zQ1ktWYduQrG6jLb4On5zcGZ+CmPdjOopNatq6AatpFYpuZkVyhTbyn626fRIOCgbyDkgSS6yBweUB5eq8EW7Fdu8jqB0fR5+WKISe7m6dpTg="
+stages:
+  - prebuild
+  - build
+include:
+  - name: "Quality checks"
+    stage: "prebuild"
+    script: yarn lint && yarn check-locales && yarn check-fixtures
+  - name: "Unit tests node 16"
+    stage: "prebuild"
+    node_js: 16
+    script: yarn test --runInBand
+  - name: "Unit tests node 20"
+    stage: "prebuild"
+    node_js: 20
+    script: yarn test --runInBand
+  - name: "Build app"
+    stage: "build"
+    script:
+      - yarn build
+      - yarn bundlemon
+    before_deploy: ./scripts/ci/add_ssh_key.sh
+    deploy:
+      - &deploy
+        provider: script
+        repo: cozy/cozy-banks
+        skip-cleanup: true
+        script: yarn cozyPublish && yarn uploadStaticFiles
+        on:
+          # deploy the build on a build branch and publish to the Cozy registry
+          branch: master
+      - <<: *deploy
+        on:
+          # publish stable or beta versions using Github Releases (git tag)
+          tags: true
