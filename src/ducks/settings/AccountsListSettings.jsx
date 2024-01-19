@@ -41,8 +41,8 @@ const getConnectionIdFromAccount = account => {
   return account.connection && account.connection.raw
     ? account.connection.raw._id
     : wasImportedByBanks(account)
-      ? getAccountInstitutionLabel(account)
-      : utils.getCreatedByApp(account)
+    ? getAccountInstitutionLabel(account)
+    : utils.getCreatedByApp(account)
 }
 
 const AccountsListSettings = ({
