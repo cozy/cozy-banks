@@ -121,7 +121,7 @@ export class PersonalInfoDialog extends React.Component {
    * Validates form and saves identity
    */
   async handleSave(ev) {
-    const { client, onSaveSuccessful, t, isBankTrigger } = this.props
+    const { client, onSaveSuccessful, t } = this.props
     const { formData, identity } = this.state
     ev && ev.preventDefault()
 
