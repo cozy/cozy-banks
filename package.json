@@ -2,14 +2,11 @@
   "name": "cozy-banks",
   "main": "src/main.jsx",
   "scripts": {
-    "analyze": "COZY_SCRIPTS_ANALYZER=true yarn build",
-    "build": "npm run build:browser && npm run build:services",
-    "build:browser": "NODE_ENV=${NODE_ENV:-browser:production} npm run commons:build",
+    "build": "yarn cs build --barV7 false --cozyClientJs",
+    "start": "yarn cs start --barV7 false --cozyClientJs",
+    "watch": "yarn cs watch --barV7 false --cozyClientJs",
+    "analyze": "yarn build --analyzer",
     "check-locales": "yarn cs check-locales",
-    "clean:browser": "rm -rf build/*",
-    "commons:build": "webpack --config webpack.config.js --bail",
-    "commons:watch": "webpack --config webpack.config.js --watch --progress",
-    "commons:start": "HOT_RELOAD=1 webpack-dev-server --progress --config webpack.config.js --inline --hot",
     "deploy": "yarn cs deploy",
     "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost --space banks",
     "uploadStaticFiles": "babel-node ./scripts/upload-static-files.js",
@@ -28,11 +25,6 @@
     "check-fixtures": "node scripts/check-fixtures.js",
     "find-circular-dependencies": "madge -b src/ --webpack-config webpack.config.js -c --extensions js,jsx src/targets/browser/index.jsx",
     "posttest": "yarn find-circular-dependencies",
-    "start": "npm run start:browser",
-    "start:browser": "NODE_ENV=browser:development npm run commons:start",
-    "build:services": "NODE_ENV=${NODE_ENV:-services:production} npm run commons:build",
-    "watch:services": "NODE_ENV=services:development npm run commons:build -- --watch",
-    "watch:services:prod": "NODE_ENV=services:production npm run commons:build -- --watch",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "styleguide:deploy": "git-directory-deploy --directory ./docs/build/styleguide --branch master --repo docs",
@@ -185,7 +177,8 @@
     "reselect": "4.1.5",
     "timezone": "1.0.22",
     "velocity-animate": "1.5.2",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "3.0.0",
+    "react-hot-loader": "^4.13.1"
   },
   "commitlint": {
     "extends": [

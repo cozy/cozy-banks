@@ -4,8 +4,8 @@
 
 import 'utils/react-exposer'
 import 'whatwg-fetch'
-import 'styles/main'
 
+import 'src/styles/main.styl'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
 
