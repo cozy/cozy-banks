@@ -14,39 +14,15 @@
   <% } else { %>
   <link rel="stylesheet" type="text/css" href="//{{.Domain}}/assets/fonts/fonts.css">
   <% } %>
-  <script type='text/javascript'>
-    /**
-     * Adds error handling for errors occuring before React has done its first render (or if the first
-     * render fails). Displays a red error telling the user to contact the support. The original error
-     * is displayed with the stacktrace in a pre so that the user can easily copy/paste it.
-     *
-     */
-    var message = 'Nous sommes désolés, l\'application n\'a pas pu être chargée, merci de contacter notre support (contact@cozycloud.cc) en leur communiquant l\'erreur ci-dessous. Merci.'
-    var handleError = function (e) {
-      const div = document.createElement('div')
-      div.innerHTML = message + '\n'
-
-      var errorNode = document.createElement('pre')
-      errorNode.innerHTML = e.toString() + '\n' + e.stack
-      errorNode.style.whiteSpace = 'pre-wrap'
-      div.style.background = 'crimson'
-      div.style.fontFamily = 'sans-serif'
-      div.style.color = 'white'
-      div.style.padding = '1rem'
-      div.appendChild(errorNode)
-      setTimeout(function () {
-        var appNode = document.querySelector('[role="application"]')
-        if (!appNode || appNode.firstChild) {
-          // Bail out if application already has started
-          return
-        }
-        document.body.appendChild(div)
-      }, 100)
-    }
-    window.onerror = handleError
-  </script>
+  <% _.forEach(htmlWebpackPlugin.files.css, function(file) { %>
+  <link rel="stylesheet" href="<%- file %>" />
+  <% }); %>
 </head>
 <body>
-<div role="application" data-cozy="{{.CozyData}}"></div>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div role="application" data-cozy="{{.CozyData}}"></div>
 </body>
+<% _.forEach(htmlWebpackPlugin.files.js, function(file) { %>
+<script src="<%- file %>"></script>
+<% }); %>
 </html>
