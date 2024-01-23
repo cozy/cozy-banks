@@ -27,34 +27,35 @@ env:
 stages:
   - prebuild
   - build
-include:
-  - name: "Quality checks"
-    stage: "prebuild"
-    script: yarn lint && yarn check-locales && yarn check-fixtures
-  - name: "Unit tests node 16"
-    stage: "prebuild"
-    node_js: 16
-    script: yarn test --runInBand
-  - name: "Unit tests node 20"
-    stage: "prebuild"
-    node_js: 20
-    script: yarn test --runInBand
-  - name: "Build app"
-    stage: "build"
-    script:
-      - yarn build
-      - yarn bundlemon
-    before_deploy: ./scripts/ci/add_ssh_key.sh
-    deploy:
-      - &deploy
-        provider: script
-        repo: cozy/cozy-banks
-        skip-cleanup: true
-        script: yarn cozyPublish && yarn uploadStaticFiles
-        on:
-          # deploy the build on a build branch and publish to the Cozy registry
-          branch: master
-      - <<: *deploy
-        on:
-          # publish stable or beta versions using Github Releases (git tag)
-          tags: true
+jobs:
+  include:
+    - name: "Quality checks"
+      stage: "prebuild"
+      script: yarn lint && yarn check-locales && yarn check-fixtures
+    - name: "Unit tests node 16"
+      stage: "prebuild"
+      node_js: 16
+      script: yarn test --runInBand
+    - name: "Unit tests node 20"
+      stage: "prebuild"
+      node_js: 20
+      script: yarn test --runInBand
+    - name: "Build app"
+      stage: "build"
+      script:
+        - yarn build
+        - yarn bundlemon
+      before_deploy: ./scripts/ci/add_ssh_key.sh
+      deploy:
+        - &deploy
+          provider: script
+          repo: cozy/cozy-banks
+          skip-cleanup: true
+          script: yarn cozyPublish && yarn uploadStaticFiles
+          on:
+            # deploy the build on a build branch and publish to the Cozy registry
+            branch: master
+        - <<: *deploy
+          on:
+            # publish stable or beta versions using Github Releases (git tag)
+            tags: true
