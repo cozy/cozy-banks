@@ -33,7 +33,7 @@ import cozyBar from 'utils/cozyBar'
 
 import { getLanguageFromDOM } from 'utils/lang'
 
-import './logger'
+import '../../logger'
 import parseCozyData from 'utils/cozyData'
 
 let store, client, lang, root
@@ -46,7 +46,7 @@ const initRender = () => {
     )
     return
   }
-  const AppContainer = require('./AppContainer').default
+  const AppContainer = require('../../AppContainer').default
   root = render(
     <AppContainer store={store} client={client} lang={lang} />,
     document.querySelector('[role=application]', root)
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 if (module.hot) {
-  module.hot.accept('./AppContainer', () =>
+  module.hot.accept('../../AppContainer', () =>
     requestAnimationFrame(() => {
       makeItShine(document.body)
       initRender()
