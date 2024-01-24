@@ -14,13 +14,25 @@
       "path": "screenshots/**/*.png"
     },
     {
-      "path": "autogroups.js"
+      "path": "services/autogroups/banks.js"
     },
     {
-      "path": "budgetAlerts.js"
+      "path": "services/budgetAlerts/banks.js"
     },
     {
-      "path": "categorization.js"
+      "path": "services/categorization/banks.js"
+    },
+    {
+      "path": "services/konnectorAlerts/banks.js"
+    },
+    {
+      "path": "services/linkMyselfToAccounts/banks.js"
+    },
+    {
+      "path": "services/onOperationOrBillCreate/banks.js"
+    },
+    {
+      "path": "services/recurrence/banks.js"
     },
     {
       "path": "cozy-bar.bundle.js"
@@ -29,22 +41,10 @@
       "path": "index.html"
     },
     {
-      "path": "konnectorAlerts.js"
-    },
-    {
-      "path": "linkMyselfToAccounts.js"
-    },
-    {
       "path": "main.bundle.js"
     },
     {
       "path": "main-banks.<hash>.min.css"
-    },
-    {
-      "path": "onOperationOrBillCreate.js"
-    },
-    {
-      "path": "recurrence.js"
     },
     {
       "path": "vendors.bundle.js"
@@ -60,6 +60,20 @@
     },
     {
       "path": "*.jpg"
+    }
+  ],
+  "groups": [
+    {
+      "path": "app/**"
+    },
+    {
+      "path": "services/**"
+    },
+    {
+      "path": "vendors/**"
+    },
+    {
+      "path": "img/**"
     }
   ],
   "reportOutput": ["github"]
