@@ -1,5 +1,6 @@
 {
   "name": "cozy-banks",
+  "version": "1.59.1",
   "main": "src/main.jsx",
   "scripts": {
     "analyze": "COZY_SCRIPTS_ANALYZER=true yarn build",
