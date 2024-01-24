@@ -8709,10 +8709,10 @@ cozy-stack-client@^6.66.0:
     mime "^2.4.0"
     qs "^6.7.0"
 
-cozy-ui@^93.5.0:
-  version "93.5.0"
-  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-93.5.0.tgz#95d7dca51145d2d6524b04794a807f72c0e7c583"
-  integrity sha512-riauEzwyUU9QpKjewUjko9cGOyIqMmUksa3gBYwIZ41GbcMvL91wQ8/EqQ76412dAzKD+ouOTQBbnyBsN8uD0w==
+cozy-ui@^101.2.0:
+  version "101.2.0"
+  resolved "https://registry.yarnpkg.com/cozy-ui/-/cozy-ui-101.2.0.tgz#42d15aaa28aeecb63b0eee8bdba4fb770168316c"
+  integrity sha512-J0R7gOfK13KOfjerHEWiEzwOizquPWKjnz3PnR9CsyYbEkWO03cqjJ/EFvXXhLmQKdXeD0fJgXfjSyVr1k2dbQ==
   dependencies:
     "@babel/runtime" "^7.3.4"
     "@material-ui/core" "4.12.3"
