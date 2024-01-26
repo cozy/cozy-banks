@@ -11,6 +11,7 @@ import { useTracker } from 'ducks/tracking/browser'
 import HarvestAccountModal from 'ducks/settings/HarvestAccountModal'
 import HarvestSwitch from 'ducks/settings/HarvestSwitch'
 import { HarvestLoader } from 'ducks/settings/HarvestLoader'
+import HarvestModal from './HarvestModal'
 
 const makeTrackerForHarvest = tracker => {
   const trackPage = harvestPageName => {
@@ -46,56 +47,58 @@ const HarvestBankAccountSettings = ({
     <HarvestVaultProvider>
       <VaultUnlockProvider>
         <HarvestTrackingProvider>
-          <HarvestSwitch
-            initialFragment={`/accounts/${connectionId}`}
-            routes={[
-              [
-                '/accounts/:connectionId',
-                connectionId => (
-                  <HarvestLoader connectionId={connectionId}>
-                    {({ triggers, konnector, accountsAndTriggers }) => {
-                      return (
-                        <HarvestAccountModal
-                          accountId={connectionId}
-                          triggers={triggers}
-                          intentsApi={intentsApi}
-                          konnector={konnector}
-                          accountsAndTriggers={accountsAndTriggers}
-                          onDismiss={() => {
-                            onDismiss()
-                          }}
-                          Component={ConfigurationTab}
-                        />
-                      )
-                    }}
-                  </HarvestLoader>
-                )
-              ],
-              ['/accounts', () => null],
-              [
-                '/accounts/:connectionId/edit?reconnect',
-                connectionId => (
-                  // TODO Avoid passing reconnect in props,
-                  // prefer to use location instead.
-                  <EditModal
-                    connectionId={connectionId}
-                    reconnect={true}
-                    intentsApi={intentsApi}
-                  />
-                )
-              ],
-              [
-                '/accounts/:connectionId/edit',
-                connectionId => (
-                  <EditModal
-                    connectionId={connectionId}
-                    reconnect={false}
-                    intentsApi={intentsApi}
-                  />
-                )
-              ]
-            ]}
-          />
+          <HarvestModal>
+            <HarvestSwitch
+              initialFragment={`/accounts/${connectionId}`}
+              routes={[
+                [
+                  '/accounts/:connectionId',
+                  connectionId => (
+                    <HarvestLoader connectionId={connectionId}>
+                      {({ triggers, konnector, accountsAndTriggers }) => {
+                        return (
+                          <HarvestAccountModal
+                            accountId={connectionId}
+                            triggers={triggers}
+                            intentsApi={intentsApi}
+                            konnector={konnector}
+                            accountsAndTriggers={accountsAndTriggers}
+                            onDismiss={() => {
+                              onDismiss()
+                            }}
+                            Component={ConfigurationTab}
+                          />
+                        )
+                      }}
+                    </HarvestLoader>
+                  )
+                ],
+                ['/accounts', () => null],
+                [
+                  '/accounts/:connectionId/edit?reconnect',
+                  connectionId => (
+                    // TODO Avoid passing reconnect in props,
+                    // prefer to use location instead.
+                    <EditModal
+                      connectionId={connectionId}
+                      reconnect={true}
+                      intentsApi={intentsApi}
+                    />
+                  )
+                ],
+                [
+                  '/accounts/:connectionId/edit',
+                  connectionId => (
+                    <EditModal
+                      connectionId={connectionId}
+                      reconnect={false}
+                      intentsApi={intentsApi}
+                    />
+                  )
+                ]
+              ]}
+            />
+          </HarvestModal>
         </HarvestTrackingProvider>
         <VaultUnlockPlaceholder />
       </VaultUnlockProvider>
