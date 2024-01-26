@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 
 import { VaultUnlockProvider, VaultUnlockPlaceholder } from 'cozy-keys-lib'
 import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
+import ConfigurationTab from 'cozy-harvest-lib/dist/components/KonnectorConfiguration/ConfigurationTab'
 import HarvestVaultProvider from 'cozy-harvest-lib/dist/components/HarvestVaultProvider'
 
 import { TrackingContext as HarvestTrackingContext } from 'cozy-harvest-lib/dist/components/hoc/tracking'
@@ -63,6 +64,7 @@ const HarvestBankAccountSettings = ({
                           onDismiss={() => {
                             onDismiss()
                           }}
+                          Component={ConfigurationTab}
                         />
                       )
                     }}
