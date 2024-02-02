@@ -2,9 +2,9 @@
   "name": "cozy-banks",
   "main": "src/main.jsx",
   "scripts": {
-    "build": "yarn cs build --barV7 false --cozyClientJs",
-    "start": "yarn cs start --barV7 false --cozyClientJs",
-    "watch": "yarn cs watch --barV7 false --cozyClientJs",
+    "build": "yarn cs build --barV7 false",
+    "start": "yarn cs start --barV7 false",
+    "watch": "yarn cs watch --barV7 false",
     "analyze": "yarn build --analyzer",
     "check-locales": "yarn cs check-locales",
     "deploy": "yarn cs deploy",
