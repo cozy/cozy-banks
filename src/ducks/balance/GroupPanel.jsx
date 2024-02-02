@@ -7,20 +7,17 @@ import { useNavigate } from 'react-router-dom'
 import AccordionSummary from 'cozy-ui/transpiled/react/AccordionSummary'
 import AccordionDetails from 'cozy-ui/transpiled/react/AccordionDetails'
 import Box from 'cozy-ui/transpiled/react/Box'
-
-import { useClient } from 'cozy-client'
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Accordion from 'cozy-ui/transpiled/react/Accordion'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
-import Button, { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Switch from 'cozy-ui/transpiled/react/Switch'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+
 import AccountsList from 'ducks/balance/AccountsList'
 import { useFilters } from 'components/withFilters'
-import Stack from 'cozy-ui/transpiled/react/Stack'
-
+import { GroupEmpty } from 'ducks/balance/GroupEmpty'
 import {
   getGroupBalance,
   isReimbursementsVirtualGroup
@@ -29,8 +26,6 @@ import styles from 'ducks/balance/GroupPanel.styl'
 import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
 import { getSettings } from 'ducks/settings/selectors'
 import { getNotificationFromSettings } from 'ducks/settings/helpers'
-
-import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const GroupPanelSummary = withStyles(theme => ({
   root: {},
@@ -103,8 +98,6 @@ const GroupPanel = props => {
     initialVisibleAccounts
   } = props
   const navigate = useNavigate()
-  const client = useClient()
-  const [deleting, setDeleting] = useState(false)
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
@@ -142,15 +135,6 @@ const GroupPanel = props => {
     },
     [onChange, group, setOptimisticExpanded]
   )
-
-  const handleDelete = useCallback(async () => {
-    setDeleting(true)
-    try {
-      await client.destroy(group)
-    } catch (e) {
-      setDeleting(false)
-    }
-  }, [client, group])
 
   const groupAccounts = group.accounts.data.filter(Boolean)
   const nbAccounts = groupAccounts.length
@@ -231,30 +215,7 @@ const GroupPanel = props => {
               initialVisibleAccounts={initialVisibleAccounts}
             />
           ) : (
-            <Stack className="u-m-1">
-              <Typography variant="body1">
-                {t('Balance.no-accounts-in-group.description')}
-              </Typography>
-
-              <Media>
-                <Bd>
-                  <ButtonLink
-                    className="u-ml-0"
-                    href={`#/settings/groups/${group._id}`}
-                  >
-                    {t('Balance.no-accounts-in-group.button')}
-                  </ButtonLink>
-                </Bd>
-                <Img>
-                  <Button
-                    theme="text"
-                    busy={deleting}
-                    label={t('Groups.delete')}
-                    onClick={handleDelete}
-                  />
-                </Img>
-              </Media>
-            </Stack>
+            <GroupEmpty group={group} />
           )}
         </div>
       </AccordionDetails>
