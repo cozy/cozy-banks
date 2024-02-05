@@ -14,10 +14,13 @@ import styles from 'ducks/balance/BalancePanels.styl'
 
 const GROUP_PANEL_RENDER_DELAY = 150
 
-const BalancePanels = props => {
-  const { groups, panelsState, onSwitchChange, onPanelChange, withBalance } =
-    props
-
+const BalancePanels = ({
+  groups,
+  panelsState,
+  onSwitchChange,
+  onPanelChange,
+  withBalance
+}) => {
   const { t } = useI18n()
   const navigate = useNavigate()
 
