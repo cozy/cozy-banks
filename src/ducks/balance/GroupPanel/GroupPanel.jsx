@@ -98,6 +98,4 @@ GroupPanel.defaultProps = {
   withBalance: true
 }
 
-const MemoizedGroupPanel = React.memo(GroupPanel)
-
-export { MemoizedGroupPanel as GroupPanel }
+export { GroupPanel }
