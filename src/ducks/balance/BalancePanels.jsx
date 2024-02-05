@@ -8,7 +8,7 @@ import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 
 import Delayed from 'components/Delayed'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
-import GroupPanel from 'ducks/balance/GroupPanel'
+import { GroupPanel } from 'ducks/balance/GroupPanel/GroupPanel'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
 

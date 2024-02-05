@@ -18,14 +18,9 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import AccountsList from 'ducks/balance/AccountsList'
 import { useFilters } from 'components/withFilters'
 import { GroupEmpty } from 'ducks/balance/GroupEmpty'
-import {
-  getGroupBalance,
-  isReimbursementsVirtualGroup
-} from 'ducks/groups/helpers'
-import styles from 'ducks/balance/GroupPanel.styl'
-import { getLateHealthExpenses } from 'ducks/reimbursements/selectors'
-import { getSettings } from 'ducks/settings/selectors'
-import { getNotificationFromSettings } from 'ducks/settings/helpers'
+import { getGroupBalance } from 'ducks/groups/helpers'
+import { getGroupPanelSummaryClasses } from 'ducks/balance/GroupPanel/helpers'
+import styles from 'ducks/balance/GroupPanel/GroupPanel.styl'
 
 const GroupPanelSummary = withStyles(theme => ({
   root: {},
@@ -51,30 +46,6 @@ const GroupPanelSummary = withStyles(theme => ({
   }
 }))(AccordionSummary)
 
-export const getGroupPanelSummaryClasses = (group, state) => {
-  if (!isReimbursementsVirtualGroup(group)) {
-    return
-  }
-
-  const lateHealthExpenses = getLateHealthExpenses(state)
-  const hasLateHealthExpenses = lateHealthExpenses.length > 0
-  const settings = getSettings(state)
-  const lateHealthExpensesNotification = getNotificationFromSettings(
-    settings,
-    'lateHealthReimbursement'
-  )
-
-  if (
-    hasLateHealthExpenses &&
-    lateHealthExpensesNotification &&
-    lateHealthExpensesNotification.enabled
-  ) {
-    return {
-      root: styles['GroupPanelSummary--lateHealthReimbursements']
-    }
-  }
-}
-
 const NoTransition = props => {
   const { in: open, children } = props
   if (open) {
@@ -84,19 +55,18 @@ const NoTransition = props => {
   }
 }
 
-const GroupPanel = props => {
-  const {
-    group,
-    groupLabel,
-    onChange,
-    expanded: expandedProp,
-    switches,
-    onSwitchChange,
-    checked,
-    withBalance,
-    className,
-    initialVisibleAccounts
-  } = props
+const GroupPanel = ({
+  group,
+  groupLabel,
+  onChange,
+  expanded: expandedProp,
+  switches,
+  onSwitchChange,
+  checked,
+  withBalance,
+  className,
+  initialVisibleAccounts
+}) => {
   const navigate = useNavigate()
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
   const { t } = useI18n()
@@ -239,4 +209,6 @@ GroupPanel.defaultProps = {
   withBalance: true
 }
 
-export default React.memo(GroupPanel)
+const MemoizedGroupPanel = React.memo(GroupPanel)
+
+export { MemoizedGroupPanel as GroupPanel }

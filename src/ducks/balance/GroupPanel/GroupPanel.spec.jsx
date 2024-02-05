@@ -17,7 +17,8 @@ import AppLike from 'test/AppLike'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
 
-import GroupPanel, { getGroupPanelSummaryClasses } from './GroupPanel'
+import { GroupPanel } from './GroupPanel'
+import { getGroupPanelSummaryClasses } from './helpers'
 
 jest.mock('components/AccountIcon', () => () => null)
 jest.mock('selectors/getClient')
