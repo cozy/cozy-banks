@@ -12,7 +12,7 @@ const BrowserConfigurationModal = ({ slug, ...rest }) => {
       doctype="io.cozy.apps"
       mobileFullscreen
       {...rest}
-      options={{ slug }}
+      options={{ slug, pageToDisplay: 'details' }}
       create={client.intents.create}
     />
   )
