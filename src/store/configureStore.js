@@ -1,5 +1,6 @@
 /* global __DEVELOPMENT__ */
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux'
+import * as Sentry from '@sentry/react'
 
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
@@ -29,6 +30,15 @@ const configureStore = (cozyClient, persistedState) => {
     middlewares.push(loggerMiddleware)
   }
 
+  const sentryReduxEnhancer = Sentry.createReduxEnhancer({
+    actionTransformer: ({ type, queryId }) => ({
+      type,
+      queryId
+    }),
+    stateTransformer: () => null,
+    attachReduxState: false
+  })
+
   const store = createStore(
     combineReducers({
       brands,
@@ -36,7 +46,10 @@ const configureStore = (cozyClient, persistedState) => {
       cozy: cozyClient.reducer()
     }),
     persistedState,
-    composeEnhancers(applyMiddleware.apply(null, middlewares))
+    composeEnhancers(
+      applyMiddleware.apply(null, middlewares),
+      sentryReduxEnhancer
+    )
   )
 
   return store
