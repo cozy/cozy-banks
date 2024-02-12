@@ -9,7 +9,6 @@ import {
   getTracker,
   createTrackerMiddleware
 } from 'cozy-ui/transpiled/react/helpers/tracker'
-import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
 import filters from 'ducks/filters'
 import brands from 'ducks/brandDictionary/brandsReducer'
@@ -28,9 +27,6 @@ const configureStore = (cozyClient, persistedState) => {
     // must be the last middleware in chain https://git.io/vHQpt
     const loggerMiddleware = createLogger()
     middlewares.push(loggerMiddleware)
-  }
-  if (isSentryEnabled()) {
-    middlewares.push(getSentryMiddleware(cozyClient))
   }
 
   const store = createStore(
