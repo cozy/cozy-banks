@@ -42,7 +42,7 @@ import cozyBar from 'utils/cozyBar'
 import { getLanguageFromDOM } from 'utils/lang'
 import manifest from '../../../manifest.webapp'
 
-import '../../logger'
+import 'lib/logger'
 import parseCozyData from 'utils/cozyData'
 
 let store, client, lang, root
