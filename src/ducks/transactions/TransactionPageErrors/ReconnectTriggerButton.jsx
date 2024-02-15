@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import DialogContext from 'cozy-harvest-lib/dist/components/DialogContext'
+import { useCozyDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 
@@ -15,8 +17,15 @@ const ReconnectTriggerButton = ({ trigger, label }) => {
   }, [trigger])
   const { isMobile } = useBreakpoints()
 
+  const dialogContext = useCozyDialog({
+    size: 'l',
+    open: true,
+    onClose: () => setHarvestConnectionId(null),
+    disableTitleAutoPadding: true
+  })
+
   return (
-    <>
+    <DialogContext.Provider value={dialogContext}>
       <ButtonLink
         theme="secondary"
         extension={isMobile ? 'full' : 'narrow'}
@@ -30,7 +39,7 @@ const ReconnectTriggerButton = ({ trigger, label }) => {
           onDismiss={() => setHarvestConnectionId(null)}
         />
       ) : null}
-    </>
+    </DialogContext.Provider>
   )
 }
 
