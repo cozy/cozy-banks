@@ -40,7 +40,12 @@ const titleRx = /(?:^|\s)\S/g
 const titleCase = label =>
   label.toLowerCase().replace(titleRx, a => a.toUpperCase())
 
-export const getLabel = transaction => cleanLabel(titleCase(transaction.label))
+export const hasEditedLabel = transaction => Boolean(transaction.manualLabel)
+
+export const getLabel = (transaction, ignoreManual = false) =>
+  ignoreManual || !hasEditedLabel(transaction)
+    ? cleanLabel(titleCase(transaction.label))
+    : transaction.manualLabel
 
 export const getAccountType = transaction => {
   return get(transaction, 'account.data.type')
@@ -247,6 +252,18 @@ export const setTransactionCategory = (transaction, category) => {
     manualCategoryId: category.id
   }
   return newTransaction
+}
+
+export const setTransactionLabel = (transaction, label) => {
+  return {
+    ...transaction,
+    manualLabel: label
+  }
+}
+
+export const isTransactionEditable = transaction => {
+  // Virtual transactions, like those generated from recurrences, cannot be edited
+  return Boolean(transaction?._id)
 }
 
 export const updateTransactionRecurrence = async (

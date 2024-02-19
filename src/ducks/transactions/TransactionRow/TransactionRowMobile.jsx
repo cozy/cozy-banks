@@ -19,7 +19,9 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import {
   getCategoryId,
   getLabel,
-  getApplicationDate
+  getApplicationDate,
+  hasEditedLabel,
+  isTransactionEditable
 } from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
@@ -29,6 +31,7 @@ import {
 } from 'ducks/transactions/TransactionRow'
 import ApplicationDateCaption from 'ducks/transactions/TransactionRow/ApplicationDateCaption'
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
+import LabelField from 'ducks/transactions/TransactionRow/LabelField'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 import TransactionOpener from 'ducks/transactions/TransactionRow/TransactionOpener'
@@ -75,6 +78,8 @@ const TransactionRowMobile = ({
   const applicationDate = getApplicationDate(transaction)
   const recurrence = transaction.recurrence ? transaction.recurrence.data : null
 
+  const canEditTransaction = isTransactionEditable(transaction)
+
   return (
     <>
       <TransactionOpener
@@ -89,7 +94,7 @@ const TransactionRowMobile = ({
           className={cx({
             [styles['TransactionRow--selected']]: isSelected
           })}
-          button={!!transaction._id}
+          button={canEditTransaction}
         >
           <Media className="u-w-100">
             <RowCheckbox isSelected={isSelected} />
@@ -107,9 +112,18 @@ const TransactionRowMobile = ({
                 </Img>
                 <Bd className="u-mr-half">
                   <ListItemText disableTypography>
-                    <Typography className="u-ellipsis" variant="body1">
-                      {getLabel(transaction)}
-                    </Typography>
+                    {canEditTransaction ? (
+                      <LabelField transaction={transaction} />
+                    ) : (
+                      <Typography className="u-ellipsis" variant="body1">
+                        {getLabel(transaction)}
+                      </Typography>
+                    )}
+                    {hasEditedLabel(transaction) ? (
+                      <Typography variant="caption" color="textSecondary">
+                        {getLabel(transaction, true)}
+                      </Typography>
+                    ) : null}
                     {!filteringOnAccount && (
                       <AccountCaption account={account} />
                     )}

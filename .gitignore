@@ -10,6 +10,8 @@ yarn-error.log
 
 # Build
 build/
+db/
+storage/
 
 
 # OS generated files
@@ -26,6 +28,7 @@ desktop.ini
 # Editors / IDEs
 .floo
 .flooignore
+.vscode
 
 
 # Default

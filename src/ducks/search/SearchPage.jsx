@@ -61,7 +61,7 @@ const SearchPage = () => {
 
   const fuse = useMemo(() => {
     const fuse = new Fuse(transactions || [], {
-      keys: ['label'],
+      keys: ['label', 'manualLabel'],
       ignoreLocation: true,
       includeScore: true,
       includeMatches: true,

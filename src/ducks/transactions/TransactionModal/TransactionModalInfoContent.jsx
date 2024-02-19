@@ -24,14 +24,17 @@ import {
 } from 'ducks/account/helpers'
 import {
   getCategoryId,
-  updateApplicationDate,
   getDate,
-  getApplicationDate
+  getApplicationDate,
+  getLabel,
+  hasEditedLabel,
+  updateApplicationDate
 } from 'ducks/transactions/helpers'
 import TransactionActions from 'ducks/transactions/TransactionActions'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import { showAlertAfterApplicationDateUpdate } from 'ducks/transactions/TransactionModal/helpers'
+import SearchForTransactionIcon from 'ducks/transactions/TransactionModal/SearchForTransactionIcon'
 import TransactionLabel from 'ducks/transactions/TransactionModal/TransactionLabel'
 import TransactionInfos from 'ducks/transactions/TransactionModal/TransactionInfos'
 import RecurrenceRow from 'ducks/transactions/TransactionModal/RecurrenceRow'
@@ -120,6 +123,20 @@ const TransactionModalInfoContent = props => {
           <TransactionLabel transaction={transaction} />
           <TransactionInfos
             infos={[
+              {
+                label: t('Transactions.infos.originalBankLabel'),
+                value: hasEditedLabel(transaction) ? (
+                  <>
+                    {getLabel(transaction, true)}{' '}
+                    <SearchForTransactionIcon
+                      transaction={transaction}
+                      ignoreManual
+                    />
+                  </>
+                ) : (
+                  false
+                )
+              },
               {
                 label: t('Transactions.infos.account'),
                 value: getAccountLabel(account, t)

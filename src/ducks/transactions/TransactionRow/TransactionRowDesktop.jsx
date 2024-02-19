@@ -17,7 +17,9 @@ import CategoryIcon from 'ducks/categories/CategoryIcon'
 import {
   getCategoryId,
   getLabel,
-  getApplicationDate
+  getApplicationDate,
+  hasEditedLabel,
+  isTransactionEditable
 } from 'ducks/transactions/helpers'
 import styles from 'ducks/transactions/Transactions.styl'
 import { getCurrencySymbol } from 'utils/currencySymbol'
@@ -28,6 +30,7 @@ import {
 } from 'ducks/transactions/TransactionRow'
 import ApplicationDateCaption from 'ducks/transactions/TransactionRow/ApplicationDateCaption'
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
+import LabelField from 'ducks/transactions/TransactionRow/LabelField'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import TagChips from 'components/Tag/TagChips'
@@ -106,8 +109,7 @@ const TransactionRowDesktop = ({
     [isSelectionModeActive, showTransactionModal, toggleSelection, transaction]
   )
 
-  // Virtual transactions, like those generated from recurrences, cannot be edited
-  const canEditTransaction = transaction._id
+  const canEditTransaction = isTransactionEditable(transaction)
 
   return (
     <>
@@ -158,7 +160,18 @@ const TransactionRowDesktop = ({
             </Img>
             <Bd className="u-pl-1">
               <ListItemText className="u-pv-half" disableTypography>
-                <Typography variant="body1">{getLabel(transaction)}</Typography>
+                {canEditTransaction ? (
+                  <LabelField transaction={transaction} />
+                ) : (
+                  <Typography variant="body1">
+                    {getLabel(transaction)}
+                  </Typography>
+                )}
+                {hasEditedLabel(transaction) ? (
+                  <Typography variant="caption" color="textSecondary">
+                    {getLabel(transaction, true)}
+                  </Typography>
+                ) : null}
                 {!filteringOnAccount && <AccountCaption account={account} />}
                 {applicationDate && (
                   <ApplicationDateCaption transaction={transaction} />
