@@ -26,3 +26,13 @@ export const buildKonnectorBySlug = (slug, enabled = Boolean(slug)) => ({
     enabled
   }
 })
+
+export const buildAccountById = (id) => ({
+  definition: () => Q('io.cozy.accounts').getById(id),
+  options: {
+    as: `io.cozy.accounts/${id}`,
+    singleDocData: true,
+    fetchPolicy: defaultFetchPolicy,
+    enabled: Boolean(id)
+  }
+})
