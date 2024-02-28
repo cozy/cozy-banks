@@ -2,7 +2,7 @@
   "name": "Banks",
   "version": "1.61.0",
   "name_prefix": "Cozy",
-  "slug": "app",
+  "slug": "banks",
   "registry_namespace": "banks",
   "icon": "icon-banks.svg",
   "description": "The banking application for Cozy",
