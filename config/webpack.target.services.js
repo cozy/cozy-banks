@@ -48,7 +48,9 @@ module.exports = {
     exprContextRegExp: /$^/,
     exprContextCritical: false
   },
-
+  optimization: {
+    minimize: false
+  },
   resolve: {
     alias: {
       // We are building with target: node as webpack options. This causes webpack
