@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -49,7 +50,16 @@ module.exports = {
     exprContextCritical: false
   },
   optimization: {
-    minimize: false
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          mangle: {
+            keep_fnames: true
+          }
+        }
+      })
+    ]
   },
   resolve: {
     alias: {
